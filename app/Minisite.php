@@ -11,7 +11,7 @@ class Minisite extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'neighborhood_id'];
+    protected $fillable = ['title', 'neighborhood_id', 'visibility'];
     
     public function neighborhood()
     {
