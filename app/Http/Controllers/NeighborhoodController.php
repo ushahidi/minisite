@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Invite;
+use App\User;
 use App\Neighborhood;
+use App\Minisite;
+
 use Illuminate\Support\Facades\Validator;
 
 
@@ -66,12 +69,11 @@ class NeighborhoodController extends Controller
         ]);
         
         $neighborhood->save();
-        $user = User::update(Auth::user()->id, ['neighborhood_id' => $neighborhood->id]);
+        $user = User::findOrFail(Auth::user()->id)->update(['neighborhood_id' => $neighborhood->id]);
         $minisite = Minisite::create([
-            [
-                'title' => $neighborhood->name, 
-                'neighborhood_id' => $neighborhood->id
-            ]
+            'title' => $neighborhood->name, 
+            'neighborhood_id' => $neighborhood->id,
+            'visibility' => 'public'
         ])->save();
         return view('neighborhood.show', ['neighborhood' => $neighborhood]);
     }

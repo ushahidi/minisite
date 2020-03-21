@@ -72,10 +72,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ];
-        if (isset($data['invitation_token']) && !$invite->claimed){
-            $userData['neighborhood_id'] = Invite::where('token', $data['invitation_token'])->first()->neighborhood_id;
-        } else {
+        if (isset($invite) && $invite->claimed){
             return abort(403);
+        } else if (isset($invite)){
+            $userData['neighborhood_id'] = Invite::where('token', $data['invitation_token'])->first()->neighborhood_id;
         }
         Invite::where('token', $data['invitation_token'])->update(['claimed' => Carbon::now()]);
         return User::create($userData);
