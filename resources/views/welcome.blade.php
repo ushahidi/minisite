@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <a href="{{ url('/create') }}">Create your neighborhood</a>
+                    <a href="{{ route('neighborhoodCreate') }}">Create your neighborhood</a>
                 </div>
             </div>
         </div>
