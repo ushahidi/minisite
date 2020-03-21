@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/neighborhood/{neighborhoodId}/invite', 'InviteController@generate')->name('inviteMember');
     
     Route::post('/neighborhood', 'NeighborhoodController@store')->name('neighborhoodStore');
+    Route::get('/neighborhood', 'NeighborhoodController@show')->name('neighborhoodShow');    
     Route::get('/neighborhood/{id}', 'NeighborhoodController@show')->name('neighborhoodShow');    
 });
 
