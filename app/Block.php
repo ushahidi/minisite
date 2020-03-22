@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Block extends Model
 {    
+    
+    // protected $casts = [
+    //     'content' => 'array'
+    // ];
     /**
     * The attributes that are mass assignable.
     *
     * @var array
     */
-    protected $fillable = ['minisite_id', 'name', 'description', 'type', 'visibility', 'position', 'enabled'];
+    protected $fillable = ['minisite_id', 'name', 'description', 'type', 'visibility', 'position', 'enabled', 'content'];
 
-    public function neighborhood()
+
+    public function minisite()
     {
-        return $this->belongsTo('App\Minisite', 'block_id');
+        return $this->belongsTo('App\Minisite', 'minisite_id');
     }
 }

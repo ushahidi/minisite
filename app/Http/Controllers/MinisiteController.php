@@ -2,71 +2,96 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use App\Invite;
 use App\Minisite;
-use App\Block;
-use App\Neighborhood;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Http\Request;
 
 class MinisiteController extends Controller
 {
-
     /**
-     * Show the neighborhood for the given user.
-     *
-     * @param  int  $id
-     * @return View
+     * The only minisite public view
      */
-    protected function show($id = null)
-    {
-        if (!$id) {
-            $neighborhood = Auth::user()->neighborhood;
-            $id = $neighborhood->id;
-        }
-        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($id)]);
+    public function public(){
+        return view('minisite.public', ['minisite' => $minisite]);
     }
-    
     /**
-     * Create a new user instance after a valid registration.
+     * Display a listing of the resource.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @return \Illuminate\Http\Response
      */
-    protected function store(Request $request)
+    public function index()
     {
-        
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'max:255'],
-        ]);
-        $neighborhood = Neighborhood::create([
-            'name' => $validatedData['name'],
-            'city' => $validatedData['city'],
-            'state' => $validatedData['state'],
-            'country' => $validatedData['country'],
-            'captain_id' => Auth::user()->id
-        ]);
-        
-        $neighborhood->save();
-        $user = User::update(Auth::user()->id, ['neighborhood_id' => $neighborhood->id]);
-        return view('neighborhood.show', ['neighborhood' => $neighborhood]);
+        //
     }
 
-    public function joinFromInvite($token) {
-        $invite = Invite::where('token', $token)->first();
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
-        if ($invite->claimed) {
-            return abort(403, "The invitation link is invalid or has expired.");
-        }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Minisite  $minisite
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Minisite $minisite)
+    {
+        return view('minisite.show', ['minisite' => $minisite]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Minisite  $minisite
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Minisite $minisite)
+    {
+        return view('minisite.edit', ['minisite' => $minisite]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Minisite  $minisite
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Minisite $minisite)
+    {
+        $data = $request->input();
+        $minisite->update(['visibility' => $data['visibility'], 'title' => $data['title']]);
+        
         return redirect()->route(
-            'register'
-        )->with( ['token' => $token]);
+            'neighborhoodShow',
+            ['id' => $minisite->neighborhood->id] )->with( ['id' => $minisite->neighborhood->id]
+        );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Minisite  $minisite
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Minisite $minisite)
+    {
+        //
     }
 }
