@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="background-color:aliceblue; padding: 10px; margin-bottom:10px; margin-top:10px;" class="full">
     <div class="form-group row">
          <label for="type" class="col-md-4 col-form-label text-md-right">Type</label>
         <div class="col-md-6">
@@ -11,12 +11,9 @@
             </select>
         </div>
     </div>
-    <label for="content" class="col-md-4 col-form-label text-md-right">Fields</label>
-    <div class="form-group row">
+    <div class="form-group row" v-for="blockField in fields" :key="blockField.id" >
+        <label class="col-md-4 col-form-label text-md-right" v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{blockField.name}}</label >
         <div class="col-md-6">
-            <div v-for="blockField in fields" :key="blockField.id" >
-                <label v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{blockField.name}}</label >
-
                 <input 
                     v-if="blockField.block_type === selectedBlockType && blockField.html_element_type=='text' && blockField.html_element==='input'"
                     type="text"
@@ -28,7 +25,6 @@
                     class="form-control"
                     required autofocus
                 ></textarea>
-            </div>
         </div>
     </div>
 </div>

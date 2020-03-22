@@ -1940,10 +1940,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -37334,119 +37330,127 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "type" }
-        },
-        [_vm._v("Type")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
+  return _c(
+    "div",
+    {
+      staticClass: "full",
+      staticStyle: {
+        "background-color": "aliceblue",
+        padding: "10px",
+        "margin-bottom": "10px",
+        "margin-top": "10px"
+      }
+    },
+    [
+      _c("div", { staticClass: "form-group row" }, [
         _c(
-          "select",
+          "label",
           {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedBlockType,
-                expression: "selectedBlockType"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { name: "type", id: "type", required: "", autofocus: "" },
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedBlockType = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  return _vm.onBlockSelect($event)
-                }
-              ]
-            }
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "type" }
           },
-          [
-            _c("option", { attrs: { value: "" } }, [
-              _vm._v("--Please choose a block type--")
-            ]),
-            _vm._v(" "),
-            _vm._l(_vm.types, function(blockType) {
-              return _c(
-                "option",
-                { key: blockType.id, domProps: { value: blockType.id } },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(blockType.id) +
-                      "\n                "
-                  )
+          [_vm._v("Type")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedBlockType,
+                  expression: "selectedBlockType"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "type", id: "type", required: "", autofocus: "" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedBlockType = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.onBlockSelect($event)
+                  }
                 ]
-              )
-            })
-          ],
-          2
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "label",
-      {
-        staticClass: "col-md-4 col-form-label text-md-right",
-        attrs: { for: "content" }
-      },
-      [_vm._v("Fields")]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-6" },
-        _vm._l(_vm.fields, function(blockField) {
-          return _c("div", { key: blockField.id }, [
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("--Please choose a block type--")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.types, function(blockType) {
+                return _c(
+                  "option",
+                  { key: blockType.id, domProps: { value: blockType.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(blockType.id) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.fields, function(blockField) {
+        return _c(
+          "div",
+          { key: blockField.id, staticClass: "form-group row" },
+          [
             blockField.block_type === _vm.selectedBlockType
-              ? _c("label", { attrs: { for: blockField.name } }, [
-                  _vm._v(_vm._s(blockField.name))
-                ])
+              ? _c(
+                  "label",
+                  {
+                    staticClass: "col-md-4 col-form-label text-md-right",
+                    attrs: { for: blockField.name }
+                  },
+                  [_vm._v(_vm._s(blockField.name))]
+                )
               : _vm._e(),
             _vm._v(" "),
-            blockField.block_type === _vm.selectedBlockType &&
-            blockField.html_element_type == "text" &&
-            blockField.html_element === "input"
-              ? _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", required: "", autofocus: "" }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            blockField.block_type === _vm.selectedBlockType &&
-            blockField.html_element == "textarea"
-              ? _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { required: "", autofocus: "" }
-                })
-              : _vm._e()
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+            _c("div", { staticClass: "col-md-6" }, [
+              blockField.block_type === _vm.selectedBlockType &&
+              blockField.html_element_type == "text" &&
+              blockField.html_element === "input"
+                ? _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", required: "", autofocus: "" }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              blockField.block_type === _vm.selectedBlockType &&
+              blockField.html_element == "textarea"
+                ? _c("textarea", {
+                    staticClass: "form-control",
+                    attrs: { required: "", autofocus: "" }
+                  })
+                : _vm._e()
+            ])
+          ]
+        )
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
