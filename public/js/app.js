@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -37418,52 +37420,26 @@ var render = function() {
         _vm._l(_vm.fields, function(blockField) {
           return _c("div", { key: blockField.id }, [
             blockField.block_type === _vm.selectedBlockType
-              ? _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedFieldTypes,
-                      expression: "selectedFieldTypes"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "checkbox", required: "", autofocus: "" },
-                  domProps: {
-                    value: blockField.id,
-                    checked: Array.isArray(_vm.selectedFieldTypes)
-                      ? _vm._i(_vm.selectedFieldTypes, blockField.id) > -1
-                      : _vm.selectedFieldTypes
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.selectedFieldTypes,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = blockField.id,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            (_vm.selectedFieldTypes = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.selectedFieldTypes = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
-                        }
-                      } else {
-                        _vm.selectedFieldTypes = $$c
-                      }
-                    }
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            blockField.block_type === _vm.selectedBlockType
               ? _c("label", { attrs: { for: blockField.name } }, [
                   _vm._v(_vm._s(blockField.name))
                 ])
+              : _vm._e(),
+            _vm._v(" "),
+            blockField.block_type === _vm.selectedBlockType &&
+            blockField.html_element_type == "text" &&
+            blockField.html_element === "input"
+              ? _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "text", required: "", autofocus: "" }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            blockField.block_type === _vm.selectedBlockType &&
+            blockField.html_element == "textarea"
+              ? _c("textarea", {
+                  staticClass: "form-control",
+                  attrs: { required: "", autofocus: "" }
+                })
               : _vm._e()
           ])
         }),

@@ -14,23 +14,31 @@ class BlockTypeFieldsSeeder extends Seeder
         BlockTypeFields::create([
             'block_type' => 'Page header',
             'name' => 'Title',
-            'validator' => 'required'
+            'validator' => 'required',
+            'html_element' => 'input',
+            'html_element_type' => 'text'
         ])->save();
         BlockTypeFields::create([
             'block_type' => 'Page header',
             'name' => 'Description',
-            'validator' => ''
+            'validator' => ''        
+            'html_element' => 'textarea',
+            'html_element_type' => null
         ])->save();
         
         BlockTypeFields::create([
             'block_type' => 'Pinned item',
             'name' => 'Text',
-            'validator' => 'required'
+            'validator' => 'required',        
+            'html_element' => 'input',
+            'html_element_type' => 'text'
         ])->save();
         BlockTypeFields::create([
             'block_type' => 'Ushahidi Platform Map',
             'name' => 'Url',
-            'validator' => 'required'
+            'validator' => 'required',            
+            'html_element' => 'input',
+            'html_element_type' => 'text'
         ])->save();
     }
 }
