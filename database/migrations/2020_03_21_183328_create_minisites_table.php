@@ -19,6 +19,7 @@ class CreateMinisitesTable extends Migration
             $table->foreign('neighborhood_id')->references('id')->on('neighborhoods')->onDelete('cascade');
             $table->string('title');
             $table->string('visibility');//who can see this
+            $table->string('slug');
             $table->timestamps();
         });
     }

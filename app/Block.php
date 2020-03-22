@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Block extends Model
 {    
     
-    // protected $casts = [
-    //     'content' => 'array'
-    // ];
+    protected $casts = [
+        'content' => 'object'
+    ];
     /**
     * The attributes that are mass assignable.
     *

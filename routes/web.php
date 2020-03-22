@@ -18,9 +18,10 @@ Route::get('/', function () {
 });
 Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->name('joinFromInvite');
 
-Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/minisite/{minisite}', 'MinisiteController@public')->name('minisitePublic');
+Auth::routes();
+Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/neighborhood/create', 'NeighborhoodController@create')->name('neighborhoodCreate');
@@ -31,7 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // minisites
     Route::get('/minisite/{minisite}/edit', 'MinisiteController@edit')->name('minisiteEdit');
-    Route::get('/minisite/{minisite}', 'MinisiteController@show')->name('minisiteShow');
     Route::put('/minisite/{minisite}', 'MinisiteController@update')->name('minisiteUpdate');
 
     // blocks
