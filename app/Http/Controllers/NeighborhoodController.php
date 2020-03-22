@@ -38,11 +38,8 @@ class NeighborhoodController extends Controller
      */
     protected function show($id = null)
     {
-        if (!$id) {
-            $neighborhood = Auth::user()->neighborhood;
-            $id = $neighborhood->id;
-        }
-        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($id)]);
+        $neighborhood = Auth::user()->neighborhood;
+        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($neighborhood->id)]);
     }
     
     /**

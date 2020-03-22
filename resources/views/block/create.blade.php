@@ -45,36 +45,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
-                            
-                            <div class="col-md-6">
-                                <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required autofocus>
-                                    <option value="">--Please choose a block type--</option>
-                                     @foreach ($types as $type)
-                                        <option value="{{$type}}">{{$type}}</option>
-                                    @endforeach
-                                </select>
-                                @error('type')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
+                        <block-types :types='@json($types)' :fields='@json($fields)'></block-types>
 
-                            <div class="col-md-6">
-                                <input id="description" type="text" class="form-control @error('content') is-invalid @enderror" name="content" required autofocus>
-
-                                @error('content')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="visibility" class="col-md-4 col-form-label text-md-right">{{ __('Visibility') }}</label>
                             
@@ -129,5 +101,7 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
+</div>                
+
+
+@endsection 

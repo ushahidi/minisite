@@ -53,6 +53,7 @@
                     </div>
                 </div>
             @endforeach
+            @if ($neighborhood->minisite)
                 <div class="card">
                     <div class="card-header">Your neighborhood site</div>
                     <div class="card-body">
@@ -69,6 +70,7 @@
 
                     </div>
                 </div>
+            @endif
         </div>
         
     </div>

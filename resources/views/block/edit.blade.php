@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{$errors}}
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Add a block to your site') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('blockStore') }}">
+                    <form method="POST" action="{{ route('blockStore', ['minisite'=>$minisite, 'block' => $block]) }}">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -42,7 +42,7 @@
                                 <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required autofocus>
                                     <option value="">--Please choose a block type--</option>
                                     @foreach ($types as $type)
-                                        @if ($block->type === $type)
+                                        @if ($block->type->id === $type->id)
                                             <option value="{{$type}}" selected='selected'>{{$type}}</option>
                                         @else
                                             <option value="{{$type}}">{{$type}}</option>
@@ -56,6 +56,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="description" type="text" class="form-control @error('content') is-invalid @enderror" value=""name="content" required autofocus>
+
+                                @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                                                
                         <div class="form-group row">
                             <label for="visibility" class="col-md-4 col-form-label text-md-right">{{ __('Visibility') }}</label>
                             
@@ -97,8 +110,11 @@
                             <label for="enabled[]" class="col-md-4 col-form-label text-md-right">{{ __('Enabled') }}</label>
 
                             <div class="col-md-6">
-                                <input id="enabled" type="checkbox" class="form-control @error('enabled') is-invalid @enderror" name="enabled[]" required autofocus>
-
+                                @if($block->enabled)
+                                    <input id="enabled" type="checkbox" class="form-control @error('enabled') is-invalid @enderror" name="enabled[]" required autofocus checked>
+                                @else
+                                    <input id="enabled" type="checkbox" class="form-control @error('enabled') is-invalid @enderror" name="enabled[]" required autofocus>
+                                @endif
                                 @error('enabled')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
