@@ -5,6 +5,8 @@ use App\Minisite;
 
 use App\Block;
 use Illuminate\Http\Request;
+use App\BlockType;
+use App\BlockTypeFields;
 
 class BlockController extends Controller
 {
@@ -29,7 +31,8 @@ class BlockController extends Controller
             [
                 'minisite' => $minisite,
                 'content' => '{}',
-                'types' => ['header', 'pinned', 'ushahidi']
+                'types' => BlockType::get(),
+                'fields' => BlockTypeFields::get()
             ]
         );
     }
@@ -74,9 +77,15 @@ class BlockController extends Controller
      * @param  \App\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function edit(Block $block)
+    public function edit(Minisite $minisite, Block $block)
     {
-        //
+        return view('block.edit', 
+            [
+                'minisite' => $minisite,
+                'block'    => $block,
+                'types' => BlockType::get()
+            ]
+        );
     }
 
     /**
@@ -88,7 +97,19 @@ class BlockController extends Controller
      */
     public function update(Request $request, Block $block)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['string', 'max:255'],
+            'type' => ['required', 'string', 'max:255'],
+            'visibility' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'integer'],
+            'content' => ['required', 'json'],
+        ]);
+        $enabled = $request->input('enabled');
+        $validatedData['enabled'] = is_array($enabled) && array_pop($enabled) === 'on' ? true : false;
+        
+        $block->update($validatedData);
+        return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
     }
 
     /**

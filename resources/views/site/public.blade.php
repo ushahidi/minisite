@@ -9,7 +9,7 @@
             {{$block->content->text}}
         @endsection
     @endif
-    @if ($block->type === 'pinned')
+    @if ($block->type->name === 'Pinned item')
         @section('pinned')
             <div class="card">
                 @if(isset($block->content->text))

@@ -69,6 +69,9 @@
                         {{ $block->description }}
                     </div>
                 </div>
+                <div class="card-footer">
+                    <a href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">Edit this block.</a>
+                </div>
             </div>
         @endforeach
     </div>
