@@ -27,4 +27,9 @@ class Neighborhood extends Model
         return $this->belongsTo('App\User', 'captain_id');
     }
 
+    public function minisite()
+    {
+        return $this->hasOne('App\Minisite');
+    }
+
 }

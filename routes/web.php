@@ -20,15 +20,25 @@ Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->na
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/minisite/{minisite}', 'MinisiteController@public')->name('minisitePublic');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/neighborhood/create', 'NeighborhoodController@create')->name('neighborhoodCreate');
-    
     Route::post('/neighborhood/{neighborhoodId}/invite', 'InviteController@generate')->name('inviteMember');
-    
     Route::post('/neighborhood', 'NeighborhoodController@store')->name('neighborhoodStore');
     Route::get('/neighborhood', 'NeighborhoodController@show')->name('neighborhoodShow');    
     Route::get('/neighborhood/{id}', 'NeighborhoodController@show')->name('neighborhoodShow');    
+
+    // minisites
+    Route::get('/minisite/{minisite}/edit', 'MinisiteController@edit')->name('minisiteEdit');
+    Route::get('/minisite/{minisite}', 'MinisiteController@show')->name('minisiteShow');
+    Route::put('/minisite/{minisite}', 'MinisiteController@update')->name('minisiteUpdate');
+
+    // blocks
+    Route::get('/minisite/{minisite}/block/create', 'BlockController@create')->name('blockCreate');
+    Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
+
+
 });
+
 

@@ -18,10 +18,15 @@ class CreateBlocksTable extends Migration
             $table->bigInteger('minisite_id')->unsigned()->nullable();
             $table->foreign('minisite_id')->references('id')->on('minisites')->onDelete('cascade');
             $table->string('name');
+            /**
+             * block's content for now it's just a json, we'll go migrate to a better
+             * architecture in a few days when we discover more
+            **/
+            $table->json('content');
             $table->string('description')->nullable();
             $table->string('type');//the type of block, like " header " or " news" 
             $table->string('visibility');//who can see this
-            $table->string('position');
+            $table->integer('position');
             $table->boolean('enabled');
             $table->timestamps();
         });
