@@ -26,6 +26,8 @@ class CreateNeighborhoodForUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('neighborhood_for_user');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('neighborhood_id');
+        });
     }
 }
