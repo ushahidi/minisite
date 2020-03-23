@@ -37,4 +37,9 @@ class HomeController extends Controller
     {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
+
+    public function welcome() {
+        $user = Auth::user();
+        return view('home', ['neighborhood' => $user->neighborhood()]);
+    }
 }

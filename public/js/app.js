@@ -2032,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.errors = {};
       axios.post('/minisite/peninsula/block', this.fields).then(function (response) {
-        alert('Message sent!');
+        alert('Block created.');
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};

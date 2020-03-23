@@ -27,7 +27,11 @@
                     @endisset
                     @empty($neighborhood->id)
                     <div class="alert alert-success" role="alert">
+                    @if(!$neighborhood)
                         <a href="{{ url('/neighborhood/create') }}">Create your neighborhood</a>
+                    @else
+                        <a href="{{ url('/neighborhood') }}">Go to your neighborhood</a>
+                    @endif
                     </div>
                     @endempty
                 </div>
