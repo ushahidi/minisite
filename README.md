@@ -10,4 +10,6 @@
 - run `vagrant ssh` and you should be in the virtual machine. Check that the dir ~/code has what you would expect (this code!)
 - run `cp .env.example .env`
 - run `php artisan migrate`
+- run `php artisan db:seed`
+
 - you should be able to access `minisite.homestead.test` in your machine's browser
