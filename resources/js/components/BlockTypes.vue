@@ -121,10 +121,10 @@
             submit() {
                 this.errors = {};
                 axios.post('/minisite/peninsula/block', this.fields).then(response => {
-                    alert('Message sent!');
+                    alert('Block created.');
                 }).catch(error => {
                     if (error.response.status === 422) {
-                    this.errors = error.response.data.errors || {};
+                        this.errors = error.response.data.errors || {};
                     }
                 });
             },
