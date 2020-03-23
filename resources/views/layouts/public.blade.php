@@ -78,9 +78,11 @@
 
                 @yield('pinned')
 
+
             </div>
         </div>
         <main class="py-4">
+            @yield('map')
             @yield('content')
         </main>
     </div>
