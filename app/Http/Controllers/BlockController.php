@@ -38,6 +38,11 @@ class BlockController extends Controller
     }
 
     /**
+     * #parameters: array:7 [
+      "blockFields" => array:1 [
+        3 => "aaaa"
+      ]
+    ]
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,11 +56,11 @@ class BlockController extends Controller
             'type' => ['required', 'string', 'max:255'],
             'visibility' => ['required', 'string', 'max:255'],
             'position' => ['required', 'integer'],
-            'content' => ['required', 'json'],
+            "enabled" => ['required']
         ]);
-        $enabled = $request->input('enabled');
-        $validatedData['enabled'] = is_array($enabled) && array_pop($enabled) === 'on' ? true : false;
-        $block = Block::create(array_merge(['minisite_id' => $minisite->id], $validatedData));
+        $contentFields = json_encode($request->input('blockFields'));
+        
+        $block = Block::create(array_merge(['minisite_id' => $minisite->id, 'content' => $contentFields], $validatedData));
         $block->save();
         return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
     }
