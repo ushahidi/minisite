@@ -73,7 +73,9 @@
         </nav>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <p class="lead">@yield('header')</p>
+                <p class="display-4">@yield('header')</p>
+                <p class="lead">@yield('header-desc')</p>
+
                 @yield('pinned')
 
             </div>

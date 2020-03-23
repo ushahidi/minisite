@@ -4,22 +4,25 @@
 @endsection
 {{-- retrieve only enabled blocks and pre-filter by authorization --}}
 @foreach ($minisite->blocks as $block)
-    @if ($block->type === 'header' && isset($block->content->text))
+    @if ($block->type === 'Page header' && isset($block->content->Title))
         @section('header')
-            {{$block->content->text}}
+            {{$block->content->Title}}
+        @endsection
+        @section('header-desc')
+            {{$block->content->Description}}
         @endsection
     @endif
-    @if ($block->type->name === 'Pinned item')
+    @if ($block->type === 'Pinned item')
         @section('pinned')
             <div class="card">
-                @if(isset($block->content->text))
+                @if(isset($block->content->Text))
                 <div class="card-header">
-                    {{$block->content->text}}
+                    {{$block->content->Text}}
                 </div>
                 @endif
                 <div class="card-body">
-                    @if (isset($block->content->info))
-                        <img src="{{$block->content->info}}"/>
+                    @if (isset($block->content->Info))
+                        {{$block->content->Info}}
                     @endif
                 </div>
             </div>
