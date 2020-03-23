@@ -39,6 +39,9 @@ class NeighborhoodController extends Controller
     protected function show($id = null)
     {
         $neighborhood = Auth::user()->neighborhood;
+        if (!$neighborhood) {
+            abort(404, 'You don\'t belong to any neighborhood yet');
+        }
         return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($neighborhood->id)]);
     }
     

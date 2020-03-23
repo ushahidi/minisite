@@ -38,11 +38,6 @@ class BlockController extends Controller
     }
 
     /**
-     * #parameters: array:7 [
-      "blockFields" => array:1 [
-        3 => "aaaa"
-      ]
-    ]
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
