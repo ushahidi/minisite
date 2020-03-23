@@ -38,7 +38,7 @@ class MinisiteController extends Controller
         $minisite->update([
             'visibility' => $data['visibility'],
             'title' => $data['title'],
-        );
+        ]);
     
         return redirect()->route(
             'neighborhoodShow',

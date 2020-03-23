@@ -34,6 +34,13 @@ class BlockTypeFieldsSeeder extends Seeder
             'html_element_type' => 'text'
         ])->save();
         BlockTypeFields::create([
+            'block_type' => 'Pinned item',
+            'name' => 'Info',
+            'validator' => '',        
+            'html_element' => 'textarea',
+            'html_element_type' => null
+        ])->save();
+        BlockTypeFields::create([
             'block_type' => 'Ushahidi Platform Map',
             'name' => 'Url',
             'validator' => 'required',            

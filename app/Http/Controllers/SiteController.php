@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
+use App\BlockTypeFields;
 use App\Minisite;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -16,6 +16,16 @@ class SiteController extends Controller
     public function public(Minisite $minisite){
         if (!$this->canSeeMinisite($minisite)) {
             abort(403, 'The site is not available.');
+        }
+        foreach($minisite->blocks as &$block) {
+            $content = json_decode($block->content);
+            $mapped = [];
+            
+            foreach ($content as $field_key => $field_value) {
+                $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
+                $mapped[$fieldDefinition->name] = $field_value;
+            }
+            $block->content = $mapped;
         }
         return view('site.public', ['minisite' => $minisite]);
     }
