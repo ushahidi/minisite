@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('home', ['neighborhood' => $user->neighborhood()]);
+        return view('home', ['neighborhood' => $user->neighborhood]);
     }
     
     /**
@@ -36,5 +36,10 @@ class HomeController extends Controller
     public function show($id)
     {
         return view('user.profile', ['user' => User::findOrFail($id)]);
+    }
+
+    public function welcome() {
+        $user = Auth::user();
+        return view('home', ['neighborhood' => $user->neighborhood]);
     }
 }

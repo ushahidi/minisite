@@ -81,7 +81,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <a href="{{ url('/create') }}">Create your neighborhood</a>
+                    @if(!$neighborhood)
+                        <a href="{{ url('/neighborhood/create') }}">Create your neighborhood</a>
+                    @else
+                        <a href="{{ url('/neighborhood') }}">Go to your neighborhood</a>
+                    @endif
                 </div>
             </div>
         </div>

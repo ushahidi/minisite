@@ -25,9 +25,15 @@
                         </div>
                     </div>
                     @endisset
-                    @empty($neighborhood->id)
                     <div class="alert alert-success" role="alert">
+                    @isset($neighborhood)
+                        <a href="{{ url('/neighborhood') }}">Go to your neighborhood</a>
+                    @endisset
+
+                    @empty($neighborhood)
                         <a href="{{ url('/neighborhood/create') }}">Create your neighborhood</a>
+                    @endempty
+                    @empty($neighborhood->id)
                     </div>
                     @endempty
                 </div>

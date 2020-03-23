@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Invite;
+use App\User;
 use App\Neighborhood;
+use App\Minisite;
+
 use Illuminate\Support\Facades\Validator;
 
 
@@ -33,9 +36,13 @@ class NeighborhoodController extends Controller
      * @param  int  $id
      * @return View
      */
-    protected function show($id)
+    protected function show($id = null)
     {
-        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($id)]);
+        $neighborhood = Auth::user()->neighborhood;
+        if (!$neighborhood) {
+            abort(404, 'You don\'t belong to any neighborhood yet');
+        }
+        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($neighborhood->id)]);
     }
     
     /**
@@ -62,11 +69,21 @@ class NeighborhoodController extends Controller
         ]);
         
         $neighborhood->save();
-        $user = User::update(Auth::user()->id, ['neighborhood_id' => $neighborhood->id]);
+        $user = User::findOrFail(Auth::user()->id)->update(['neighborhood_id' => $neighborhood->id]);
+        $minisite = Minisite::create([
+            'title' => $neighborhood->name, 
+            'neighborhood_id' => $neighborhood->id,
+            'visibility' => 'public'
+        ])->save();
         return view('neighborhood.show', ['neighborhood' => $neighborhood]);
     }
 
     public function joinFromInvite($token) {
+        $invite = Invite::where('token', $token)->first();
+
+        if ($invite->claimed) {
+            return abort(403, "The invitation link is invalid or has expired.");
+        }
         return redirect()->route(
             'register'
         )->with( ['token' => $token]);

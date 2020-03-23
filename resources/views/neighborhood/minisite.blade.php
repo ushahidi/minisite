@@ -45,7 +45,7 @@
         <div class="row justify-content-center">
             @foreach ($neighborhood->neighbors as $neighbor )
                 <div class="card">
-                    <div class="card-header">Your neighbors</div>
+                    <div class="card-header">Your neighborhood</div>
                     <div class="card-body">
                         <div class="form-group row">
                             {{ $neighbor->name }}
@@ -53,26 +53,7 @@
                     </div>
                 </div>
             @endforeach
-            @if ($neighborhood->minisite)
-                <div class="card">
-                    <div class="card-header">Your neighborhood site</div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <span>Title: </span> {{ $neighborhood->minisite->title }}
-                        </div>
-                        <div class="form-group row">
-                            <span>Visibility: </span> {{ $neighborhood->minisite->visibility }}
-                        </div>
-                        <div class="form-group row">
-                            <span>The minisite is&nbsp;</span> {{ $neighborhood->minisite->enabled ? 'enabled' : ' not enabled' }}
-                        </div>                    
-                        <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">Edit your neighborhood site.</a></div>
-
-                    </div>
-                </div>
-            @endif
         </div>
-        
     </div>
 </div>
 @endsection
