@@ -1908,25 +1908,12 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2009,15 +1996,15 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Component mounted.');
   },
-  props: ['blockTypes', 'blockFields'],
+  props: ['blockTypes', 'blockFields', 'minisiteSlug', 'method', 'block'],
   data: function data() {
     return {
-      fields: {
+      fields: _objectSpread({
         type: '',
-        blockFields: {}
-      },
+        blockFields: this.block ? JSON.parse(this.block.content) : {}
+      }, this.block),
       errors: {},
-      selectedBlockType: '',
+      selectedBlockType: this.block ? this.block.type : '',
       selectedFieldTypes: []
     };
   },
@@ -2026,13 +2013,33 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedFieldTypes = [];
       this.fields.blockFields = {};
       this.fields.type = event.target.value;
+      /**
+       * Since I wasn't sure if I wanted a block name and desc for potential needs in the future
+       * for now we autofill those based on blockType.
+       */
+
+      this.fields.name = event.target.value;
+      this.fields.description = this.blockTypes.find(function (blockType) {
+        return blockType.id === event.target.value;
+      }).description;
     },
     submit: function submit() {
       var _this = this;
 
       this.errors = {};
-      axios.post('/minisite/peninsula/block', this.fields).then(function (response) {
-        alert('Block created.');
+      var submit = axios.post;
+      var success = 'Block created';
+      var url = '/minisite/' + this.minisiteSlug + '/block';
+
+      if (this.method === 'PUT') {
+        submit = axios.put;
+        url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
+        success = 'Block updated';
+      }
+
+      submit(url, this.fields).then(function (response) {
+        // @TODO: add flash/ok message in the minisite view to send back the feedback
+        window.location = '/neighborhood';
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
@@ -37425,104 +37432,6 @@ var render = function() {
       }
     },
     [
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "name" }
-          },
-          [_vm._v(" Name ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.name,
-                expression: "fields.name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "name",
-              type: "text",
-              name: "name",
-              required: "",
-              autofocus: ""
-            },
-            domProps: { value: _vm.fields.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.fields, "name", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.name
-            ? _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong", [_vm._v(_vm._s(_vm.errors.name[0]))])]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "description" }
-          },
-          [_vm._v(" Description")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.description,
-                expression: "fields.description"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "description",
-              type: "text",
-              name: "description",
-              required: "",
-              autofocus: ""
-            },
-            domProps: { value: _vm.fields.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.fields, "description", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.description
-            ? _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong", [_vm._v(_vm._s(_vm.errors.description[0]))])]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -37593,7 +37502,13 @@ var render = function() {
                   _vm._l(_vm.blockTypes, function(blockType) {
                     return _c(
                       "option",
-                      { key: blockType.id, domProps: { value: blockType.id } },
+                      {
+                        key: blockType.id,
+                        domProps: {
+                          selected: blockType.id === _vm.fields.type,
+                          value: blockType.id
+                        }
+                      },
                       [
                         _vm._v(
                           "\n                    " +
@@ -37748,11 +37663,23 @@ var render = function() {
                 _vm._v("--Please choose a visibility level--")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "neighbors" } }, [
-                _vm._v("neighbors")
-              ]),
+              _c(
+                "option",
+                {
+                  attrs: { value: "neighbors" },
+                  domProps: { selected: "neighbors" === _vm.block.visibility }
+                },
+                [_vm._v("neighbors")]
+              ),
               _vm._v(" "),
-              _c("option", { attrs: { value: "public" } }, [_vm._v("public")])
+              _c(
+                "option",
+                {
+                  attrs: { value: "public" },
+                  domProps: { selected: "public" === _vm.block.visibility }
+                },
+                [_vm._v("public")]
+              )
             ]
           ),
           _vm._v(" "),
