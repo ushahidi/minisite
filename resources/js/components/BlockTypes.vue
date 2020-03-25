@@ -1,32 +1,13 @@
 <template>
 <form @submit.prevent="submit">
-<div class="form-group row">
-    <label for="name" class="col-md-4 col-form-label text-md-right"> Name </label>
 
-    <div class="col-md-6">
-        <input id="name" v-model="fields.name" type="text" class="form-control" name="name" required autofocus>
-        <span v-if="errors && errors.name" class="invalid-feedback" role="alert">
-            <strong>{{ errors.name[0] }}</strong>
-        </span>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="description" class="col-md-4 col-form-label text-md-right"> Description</label>
-
-    <div class="col-md-6">
-        <input id="description" v-model="fields.description" type="text" class="form-control" name="description" required autofocus>
-        <span v-if="errors && errors.description" class="invalid-feedback" role="alert">
-            <strong>{{ errors.description[0] }}</strong>
-        </span>
-    </div>
-</div>
 <div style="background-color:aliceblue; padding: 10px; margin-bottom:10px; margin-top:10px;" class="full">
     <div class="form-group row">
         <label for="type" class="col-md-4 col-form-label text-md-right">Type</label>
         <div class="col-md-6">
             <select @change="onBlockSelect($event)" name="type" id="type" class="form-control" v-model="selectedBlockType" required autofocus>
                 <option value="">--Please choose a block type--</option>                
-                <option v-for="blockType in blockTypes" :key="blockType.id" :value="blockType.id">
+                <option :selected="blockType.id === fields.type" v-for="blockType in blockTypes" :key="blockType.id" :value="blockType.id">
                     {{blockType.id}}
                 </option> 
             </select>
@@ -57,8 +38,8 @@
     <div class="col-md-6">
         <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
             <option value="">--Please choose a visibility level--</option>
-            <option value="neighbors">neighbors</option>
-            <option value="public">public</option>
+            <option :selected="'neighbors' === block.visibility" value="neighbors">neighbors</option>
+            <option :selected="'public'=== block.visibility" value="public">public</option>
         </select>
         <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
             <strong>{{ errors.visibility[0] }}</strong>
@@ -100,15 +81,16 @@
         mounted() {
             console.log('Component mounted.')
         },
-        props: ['blockTypes','blockFields'],
-        data: () => {
+        props: ['blockTypes','blockFields', 'minisiteSlug', 'method', 'block'],
+        data: function () {
             return {
                 fields: {
                     type: '',
-                    blockFields: {}
+                    blockFields: this.block ? JSON.parse(this.block.content) : {},
+                    ...this.block 
                 },
                 errors: {},
-                selectedBlockType: '',
+                selectedBlockType: this.block ? this.block.type : '',
                 selectedFieldTypes: []
             }
         },
@@ -117,11 +99,27 @@
                 this.selectedFieldTypes = [];
                 this.fields.blockFields = {};
                 this.fields.type = event.target.value;
+                /**
+                 * Since I wasn't sure if I wanted a block name and desc for potential needs in the future
+                 * for now we autofill those based on blockType.
+                 */
+                this.fields.name = event.target.value;
+                this.fields.description = this.blockTypes.find((blockType) => blockType.id === event.target.value).description;
+
             },
             submit() {
                 this.errors = {};
-                axios.post('/minisite/peninsula/block', this.fields).then(response => {
-                    alert('Block created.');
+                let submit = axios.post;
+                let success = 'Block created';
+                let url = '/minisite/' + this.minisiteSlug + '/block';
+                if (this.method === 'PUT') {
+                    submit = axios.put;
+                    url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
+                    success = 'Block updated';
+                }
+                submit(url, this.fields).then(response => {
+                    // @TODO: add flash/ok message in the minisite view to send back the feedback
+                    window.location	= '/neighborhood'
                 }).catch(error => {
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};

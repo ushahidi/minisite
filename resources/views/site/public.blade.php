@@ -28,6 +28,7 @@
             </div>
         @endsection
     @endif
+    
     @if($block->type === 'Ushahidi Platform Map')
         @section('map')
             @if(isset($block->content->Url))
@@ -38,6 +39,15 @@
         @endsection
     @endif
 
+    @if($block->type === 'Youtube video')
+        @section('video')
+            @if(isset($block->content->Url))
+            <div class="embed-responsive embed-responsive-21by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{$block->content->Url}}"></iframe>
+            </div>
+            @endif
+        @endsection
+    @endif
 @endforeach
 @section('content')
 <div class="container">

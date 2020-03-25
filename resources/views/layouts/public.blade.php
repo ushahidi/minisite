@@ -77,6 +77,7 @@
                 <p class="lead">@yield('header-desc')</p>
 
                 @yield('pinned')
+                @yield('video')
 
 
             </div>

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/minisite/{minisite}/block/create', 'BlockController@create')->name('blockCreate');
     Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
     Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
+    Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
 
     Route::get('/block_type/{block_type}/fields', 'BlockTypeController@fields')->name('getBlockFields');
 
