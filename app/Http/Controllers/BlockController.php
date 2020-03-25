@@ -7,7 +7,7 @@ use App\Block;
 use Illuminate\Http\Request;
 use App\BlockType;
 use App\BlockTypeFields;
-
+use Illuminate\Validation\Validator;
 class BlockController extends Controller
 {
     /**
@@ -82,8 +82,11 @@ class BlockController extends Controller
         return view('block.edit', 
             [
                 'minisite' => $minisite,
-                'block'    => $block,
-                'types' => BlockType::get()
+                'block' => $block,
+                'content' => '{}',
+                'types' => BlockType::get(),
+                'fields' => BlockTypeFields::get(),
+                'blockFields' => json_encode($block)
             ]
         );
     }
@@ -95,21 +98,39 @@ class BlockController extends Controller
      * @param  \App\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Block $block)
+    public function update(Request $request, $minisiteSlug, $blockId)
     {
-        $validatedData = $request->validate([
+
+        $block = Block::findOrFail($blockId);
+        $minisite = Minisite::where(['slug' => $minisiteSlug])->first();
+        $contentFields = json_encode($request->input('blockFields'));
+        $inputs = array_merge($request->input(), ['content' => $contentFields]);
+        $validator = \Validator::make($inputs, [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'type' => ['required', 'string', 'max:255'],
             'visibility' => ['required', 'string', 'max:255'],
             'position' => ['required', 'integer'],
             'content' => ['required', 'json'],
+            'enabled' => ['required']
         ]);
-        $enabled = $request->input('enabled');
-        $validatedData['enabled'] = is_array($enabled) && array_pop($enabled) === 'on' ? true : false;
+
+        if ($validator->fails()) {    
+            return response()->json($validator->messages(), 422);
+        }
+
+        if ($block->update($inputs)) {
+            return response()->json([
+                'success' => [
+                    'neighborhoodId' => $minisite->neighborhood->id,
+                    'block' => $block
+                ]
+            ]);
+        } else {
+            return response()->json(['error' => 'An unexpected error occured. Please try again later.'], 500);
+        }
+
         
-        $block->update($validatedData);
-        return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
     }
 
     /**

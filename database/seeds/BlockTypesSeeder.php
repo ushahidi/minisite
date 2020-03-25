@@ -23,5 +23,10 @@ class BlockTypeSeeder extends Seeder
             'id' => 'Ushahidi Platform Map',
             'description' => 'Add a Ushahidi Platform Map '
         ])->save();
+        
+        BlockType::create([
+            'id' => 'Youtube video',
+            'description' => 'A video '
+        ])->save();
     }
 }
