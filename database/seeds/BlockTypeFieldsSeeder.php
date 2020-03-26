@@ -21,7 +21,7 @@ class BlockTypeFieldsSeeder extends Seeder
         BlockTypeFields::create([
             'block_type' => 'Page header',
             'name' => 'Description',
-            'validator' => ''        
+            'validator' => '',        
             'html_element' => 'textarea',
             'html_element_type' => null
         ])->save();

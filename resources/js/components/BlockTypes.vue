@@ -34,12 +34,12 @@
 </div>
 <div class="form-group row">
     <label for="visibility" class="col-md-4 col-form-label text-md-right"> Visibility </label>
-    
+
     <div class="col-md-6">
         <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
             <option value="">--Please choose a visibility level--</option>
-            <option :selected="'neighbors' === block.visibility" value="neighbors">neighbors</option>
-            <option :selected="'public'=== block.visibility" value="public">public</option>
+            <option :selected="block && 'neighbors' === block.visibility" value="neighbors">neighbors</option>
+            <option :selected="block && 'public'=== block.visibility" value="public">public</option>
         </select>
         <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
             <strong>{{ errors.visibility[0] }}</strong>

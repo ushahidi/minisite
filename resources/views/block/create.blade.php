@@ -16,8 +16,8 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">{{ __('Add a block to your site') }}</div>
-            <div class="card-body">
-                <block-types :method='POST' :block-types='@json($types)' :block-fields='@json($fields)' :minisite-slug='@json($minisite->slug)'></block-types>
+            <div class="card-body">    
+                <block-types :method='"POST"' :block-types='@json($types)' :block-fields='@json($fields)' :minisite-slug='@json($minisite->slug)'></block-types>
             </div>
         </div>
     </div>

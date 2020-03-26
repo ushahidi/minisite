@@ -21,6 +21,8 @@ class CreateBlockTypeFieldsTable extends Migration
             $table->string('name'); //ie: 'description', 'url'
             $table->string('validator'); //the name of a validator, or a validation rule string
             $table->string('html_element');
+            $table->string('html_element_type')->nullable();
+
             $table->timestamps();
         });
     }
