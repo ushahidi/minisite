@@ -37667,7 +37667,9 @@ var render = function() {
                 "option",
                 {
                   attrs: { value: "neighbors" },
-                  domProps: { selected: "neighbors" === _vm.block.visibility }
+                  domProps: {
+                    selected: _vm.block && "neighbors" === _vm.block.visibility
+                  }
                 },
                 [_vm._v("neighbors")]
               ),
@@ -37676,7 +37678,9 @@ var render = function() {
                 "option",
                 {
                   attrs: { value: "public" },
-                  domProps: { selected: "public" === _vm.block.visibility }
+                  domProps: {
+                    selected: _vm.block && "public" === _vm.block.visibility
+                  }
                 },
                 [_vm._v("public")]
               )

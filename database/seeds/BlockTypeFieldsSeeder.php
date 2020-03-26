@@ -48,7 +48,7 @@ class BlockTypeFieldsSeeder extends Seeder
             'html_element_type' => 'text'
         ])->save();
         BlockTypeFields::create([
-            'block_type' => 'Youtube video',
+            'block_type' => 'Featured Youtube Video',
             'name' => 'Url',
             'validator' => 'required',            
             'html_element' => 'input',

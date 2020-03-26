@@ -25,7 +25,7 @@ class BlockTypeSeeder extends Seeder
         ])->save();
         
         BlockType::create([
-            'id' => 'Youtube video',
+            'id' => 'Featured Youtube Video',
             'description' => 'A video '
         ])->save();
     }

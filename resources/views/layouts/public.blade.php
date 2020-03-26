@@ -75,15 +75,12 @@
             <div class="container">
                 <p class="display-4">@yield('header')</p>
                 <p class="lead">@yield('header-desc')</p>
-
                 @yield('pinned')
-                @yield('video')
-
-
+                @yield('featuredYoutubeVideo')
             </div>
         </div>
         <main class="py-4">
-            @yield('map')
+            @yield('ushahidiPlatformMap')
             @yield('content')
         </main>
     </div>

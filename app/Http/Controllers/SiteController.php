@@ -20,13 +20,13 @@ class SiteController extends Controller
         foreach($minisite->blocks as &$block) {
             $content = json_decode($block->content);
             $mapped = [];
-            if ($block->type === 'Youtube Video') {
+            if ($block->type === 'Featured Youtube Video') {
                 
             }
             foreach ($content as $field_key => $field_value) {
                 $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
                 //@todo when less asleep: make into a transformer setup of sorts
-                if ($block->type === 'Youtube video' && $fieldDefinition->name === 'Url') {
+                if ($block->type === 'Featured Youtube Video' && $fieldDefinition->name === 'Url') {
                     preg_match('/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/', $field_value, $youtubeId);
                     // @todo: do this in the youtube video creation to validate that it's in fact a youtube url? 
                     $field_value = isset($youtubeId[1]) ? $youtubeId[1] : $field_value;
