@@ -1,4 +1,4 @@
-@if ($block->type === 'Pinned item')
+@if (isset($block) && $block->type === 'Pinned item')
     @section('pinned')
     <div class="card">
         @if(isset($block->content->Text))
