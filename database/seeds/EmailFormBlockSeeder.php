@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\BlockTypeFields;
 use App\BlockType;
-class EmailFormBlock extends Seeder
+class EmailFormBlockSeeder extends Seeder
 {
     /**
      * Run the database seeds.

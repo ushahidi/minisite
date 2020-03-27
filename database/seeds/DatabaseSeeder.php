@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(BlockTypeSeeder::class);
         $this->call(BlockTypeFieldsSeeder::class);
-        $this->call(WhatsappGroupBlock::class);
-        $this->call(EmailFormBlock::class);
+        $this->call(WhatsappGroupBlockSeeder::class);
+        $this->call(EmailFormBlockSeeder::class);
     }
 }

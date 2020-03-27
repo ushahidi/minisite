@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\BlockTypeFields;
 use App\BlockType;
-class WhatsappGroupBlock extends Seeder
+class WhatsappGroupBlockSeeder extends Seeder
 {
     /**
      * Run the database seeds.
