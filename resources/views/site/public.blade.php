@@ -9,9 +9,10 @@
     <x-featured-youtube-video :block='$block'></x-featured-youtube-video>    
     <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
     <x-whatsapp-group :block='$block'></x-whatsapp-group>
+    <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
 @endforeach
-@section('content')
 
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-sm">

@@ -48,6 +48,7 @@ hostname: minisite
 
 # Adding new block components
 - Add a new seeder for the new block. Example with WhatsappGroupBlock: `php artisan make:seeder WhatsappGroupBlock` 
+- Add it to `database\seeds\DatabaseSeeder.php`
 - To create the block details and fields, follow the example in the database\seeds\WhatsappGroupBlock.php file
 - run the seeder. Example: `php artisan db:seed --class="WhatsappGroupBlock"`
 - Add a component for the block. Example `php artisan make:component WhatsAppGroup`

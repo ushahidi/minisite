@@ -19,7 +19,7 @@ Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->na
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
-
+Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/neighborhood/create', 'NeighborhoodController@create')->name('neighborhoodCreate');
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
 
     Route::get('/block_type/{block_type}/fields', 'BlockTypeController@fields')->name('getBlockFields');
-
+    
 });
 
 

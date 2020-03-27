@@ -71,6 +71,9 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            @yield('feedback')
+        </div>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <p class="display-4">@yield('header')</p>
@@ -83,6 +86,7 @@
         <main class="py-4">
             @yield('ushahidiPlatformMap')
             @yield('content')
+            @yield('emailForm')
         </main>
     </div>
 </body>
