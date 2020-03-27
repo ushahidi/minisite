@@ -77,6 +77,7 @@
                 <p class="lead">@yield('header-desc')</p>
                 @yield('pinned')
                 @yield('featuredYoutubeVideo')
+                @yield('whatsappGroup')
             </div>
         </div>
         <main class="py-4">

@@ -7,7 +7,8 @@
     <x-page-header :block='$block'></x-page-header>
     <x-pinned-information :block='$block'></x-pinned-information>
     <x-featured-youtube-video :block='$block'></x-featured-youtube-video>    
-    <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map> 
+    <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
+    <x-whatsapp-group :block='$block'></x-whatsapp-group>
 @endforeach
 @section('content')
 
@@ -32,8 +33,5 @@
         </div>
     </div>
 </div>
-
-    
-
 @endsection
 
