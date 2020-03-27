@@ -6,6 +6,38 @@
 - run ` composer install --ignore-platform-reqs` this will install dependencies, most importantly, it will get homestead installed
 - add to your /etc/hosts (in your machine, not in the vagrantbox)
      - `192.168.10.10    minisite.homestead.test`
+- create your Homestead.yaml file (replace the code path and remove brackets, those are just for the example here)
+
+```
+ip: 192.168.10.10
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: {path of the code in your host machine}
+        to: /home/vagrant/code
+sites:
+    -
+        map: homestead.test
+        to: /home/vagrant/code/public
+databases:
+    - homestead
+    - minisite
+features:
+    -
+        mariadb: false
+    -
+        ohmyzsh: false
+    -
+        webdriver: false
+name: minisite
+hostname: minisite
+```
+
 - run `vagrant up` in the root directory
 - run `vagrant ssh` and you should be in the virtual machine. Check that the dir ~/code has what you would expect (this code!)
 - run `cp .env.example .env`
