@@ -79,7 +79,7 @@ class SiteController extends Controller
         }
         $user = Auth::user();
         $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $minisite->neighborhood_id;
-        if ($minisite->visibility === 'neighbor' && $isNeighbor === true) {
+        if ($minisite->visibility === 'neighbors' && $isNeighbor === true) {
             return true;
         }
         return false;
@@ -91,7 +91,7 @@ class SiteController extends Controller
         }
         $user = Auth::user();
         $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $block->neighborhood_id;
-        if ($block->visibility === 'neighbor' && $isNeighbor === true) {
+        if ($block->visibility === 'neighbors' && $isNeighbor === true) {
             return true;
         }
         return false;
