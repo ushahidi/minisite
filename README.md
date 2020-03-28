@@ -43,7 +43,6 @@ hostname: minisite
 - run `cp .env.example .env`
 - run `php artisan migrate`
 - run `php artisan db:seed`
-
 - you should be able to access `minisite.homestead.test` in your machine's browser
 
 # Adding new block components
@@ -73,3 +72,10 @@ hostname: minisite
      ``````
 - At this point you should be able to add this block in the minisite block administration panel.
 - You will need to edit the component view  in resources\views\components\whats-app-group.blade.php according to your needs. Check out other components to see examples of how to do this.
+
+# Quick how-tos...
+
+- I get an error that a class cannot be found, but I am sure the correct path and namespace 
+    - Run  `composer dump-autoload;` to update path maps 
+- I want to start over with my database
+    - composer dump-autoload; php artisan db:wipe; php artisan migrate; php artisan db:seed; 

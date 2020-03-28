@@ -8,7 +8,7 @@
     <x-pinned-information :block='$block'></x-pinned-information>
     <x-featured-youtube-video :block='$block'></x-featured-youtube-video>    
     <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
-    <x-whatsapp-group :block='$block'></x-whatsapp-group>
+    <x-whats-app-group :block='$block'></x-whats-app-group>
     <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
 @endforeach
 
