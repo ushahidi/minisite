@@ -64,7 +64,7 @@
                             <span>Visibility: </span> {{ $neighborhood->minisite->visibility }}
                         </div>
                         <div class="form-group row">
-                            <span>The minisite is&nbsp;</span> {{ $neighborhood->minisite->enabled ? 'enabled' : ' not enabled' }}
+                            <span>The minisite is visible to: &nbsp;</span> {{ $neighborhood->minisite->visibility }}
                         </div>                    
                         <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">Edit your neighborhood site.</a></div>
 
