@@ -4,13 +4,18 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        <form action="{{ route('search') }}" method="POST">
+            @csrf
+            <input type="text" name="query" />
+            <input type="submit" class="btn btn-sm btn-primary" value="Search" />
+        </form>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-                <form action="{{ route('search') }}" method="POST">
-                    @csrf
-                    <input type="text" name="query" />
-                    <input type="submit" class="btn btn-sm btn-primary" value="Search" />
-                </form>
+                
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,8 +23,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @if ($neighborhood)
+                        You are logged in!
+                    @endif
                     @if(Session::get('token') !== null)
                     <div class="card">
                         <div class="card-header">You have a pending invite. Join now</div>

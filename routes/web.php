@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@welcome');
 Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->name('joinFromInvite');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
 Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
 Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
 Route::post('/search', 'NeighborhoodController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function () {
-
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/neighborhood/create', 'NeighborhoodController@create')->name('neighborhoodCreate');
     Route::post('/neighborhood/{neighborhoodId}/invite', 'InviteController@generate')->name('inviteMember');
     Route::post('/neighborhood', 'NeighborhoodController@store')->name('neighborhoodStore');
@@ -40,8 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
     Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
 
-    Route::get('/block_type/{block_type}/fields', 'BlockTypeController@fields')->name('getBlockFields');
-    
 });
 
 
+Auth::routes();

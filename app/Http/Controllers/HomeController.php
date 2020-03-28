@@ -13,7 +13,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -40,6 +39,6 @@ class HomeController extends Controller
 
     public function welcome() {
         $user = Auth::user();
-        return view('home', ['neighborhood' => $user->neighborhood]);
+        return view('home', ['neighborhood' => $user ? $user->neighborhood : null]);
     }
 }
