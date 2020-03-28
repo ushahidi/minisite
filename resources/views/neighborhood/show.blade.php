@@ -67,6 +67,7 @@
                             <span>The minisite is visible to: &nbsp;</span> {{ $neighborhood->minisite->visibility }}
                         </div>                    
                         <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">Edit your neighborhood site.</a></div>
+                        <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$neighborhood->minisite]) }}">View your neighborhood site.</a></div>
 
                     </div>
                 </div>
