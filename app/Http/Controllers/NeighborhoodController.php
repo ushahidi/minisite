@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Spatie\Searchable\Search;
+use Spatie\Searchable\ModelSearchAspect;
+
 use App\Invite;
 use App\User;
 use App\Neighborhood;
@@ -88,4 +91,22 @@ class NeighborhoodController extends Controller
             'register'
         )->with( ['token' => $token]);
     }
+
+    
+
+    public function search(Request $request)
+    {
+        $searchResults = (new Search())
+            ->registerModel(Neighborhood::class, function(ModelSearchAspect $modelSearchAspect) {
+                $modelSearchAspect
+                    ->addSearchableAttribute('city')
+                    ->addSearchableAttribute('state')
+                    ->addSearchableAttribute('country')
+                    ->addSearchableAttribute('name'); // only return results that exactly match the e-mail address
+            }
+        )->search($request->input('query'));
+        return view('search', compact('searchResults'));
+    }
+
 }
+

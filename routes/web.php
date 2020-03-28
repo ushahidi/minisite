@@ -20,6 +20,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
 Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
+Route::post('/search', 'NeighborhoodController@search')->name('search');
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/neighborhood/create', 'NeighborhoodController@create')->name('neighborhoodCreate');

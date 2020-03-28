@@ -18,7 +18,9 @@ class SiteController extends Controller
      * The only minisite public view
      */
     public function public(Minisite $minisite){
-        if (!$this->canSeeMinisite($minisite)) {
+        $user = Auth::user();
+
+        if (!$minisite->visibleBy($user)) {
             abort(403, 'The site is not available.');
         }
         $returnBlocks = [];
@@ -32,7 +34,7 @@ class SiteController extends Controller
                 $mapped[$fieldDefinition->name] = $field_value;
             }
             $block->content = $mapped;
-            if ($this->canSeeBlock($block)) {
+            if ($block->visibleBy($user)) {
                 $returnBlocks[] = $block;
             }
         }
@@ -73,27 +75,4 @@ class SiteController extends Controller
         return $field_value;
     }
 
-    private function canSeeMinisite(Minisite $minisite) {
-        if ($minisite->visibility === 'public') {
-            return true;
-        }
-        $user = Auth::user();
-        $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $minisite->neighborhood_id;
-        if ($minisite->visibility === 'neighbors' && $isNeighbor === true) {
-            return true;
-        }
-        return false;
-    }
-    
-    private function canSeeBlock(Block $block) {
-        if ($block->visibility === 'public') {
-            return true;
-        }
-        $user = Auth::user();
-        $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $block->neighborhood_id;
-        if ($block->visibility === 'neighbors' && $isNeighbor === true) {
-            return true;
-        }
-        return false;
-    }
 }

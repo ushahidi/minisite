@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Neighborhood extends Model
+class Neighborhood extends Model implements Searchable
 {
     
     /**
@@ -30,6 +32,17 @@ class Neighborhood extends Model
     public function minisite()
     {
         return $this->hasOne('App\Minisite');
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+       $url = route('neighborhoodShow', $this->id);
+    
+        return new \Spatie\Searchable\SearchResult(
+           $this,
+           $this->name,
+           $url
+        );
     }
 
 }

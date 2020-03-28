@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Minisite extends Model
+class Minisite extends Model implements Searchable
 {
     
     use Sluggable;
@@ -46,5 +48,27 @@ class Minisite extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+    
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('minisitePublic', $this->slug);
+
+        return new SearchResult(
+            $this,
+            $this->title,
+            $url
+        );
+    }
+    
+    public function visibleBy(User $user = null) {
+        if ($this->visibility === 'public') {
+            return true;
+        }
+        $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $this->neighborhood_id;
+        if ($this->visibility === 'neighbors' && $isNeighbor === true) {
+            return true;
+        }
+        return false;
     }
 }
