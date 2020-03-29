@@ -12,7 +12,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-right">@lang('minisite.minisiteName')</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $minisite->title }}" required autofocus>
@@ -25,20 +25,20 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="visibility" class="col-md-4 col-form-label text-md-right">{{ __('Visibility') }}</label>
+                            <label for="visibility" class="col-md-4 col-form-label text-md-right">@lang('minisite.selectVisibility')</label>
                             
                             <div class="col-md-6">
                                 <select name="visibility" id="visibility" class="form-control @error('visibility') is-invalid @enderror" required autofocus>
-                                    <option value="">--Please choose a visibility level--</option>
+                                    <option value="">--@lang('minisite.selectVisibility')--</option>
                                     @if ($minisite->visibility === 'neighbors')
-                                        <option value="neighbors" selected='selected'>neighbors</option>
+                                        <option value="neighbors" selected='selected'>@lang('minisite.visibleTo.neighbors')</option>
                                     @else
-                                        <option value="neighbors">neighbors</option>
+                                        <option value="neighbors">@lang('minisite.visibleTo.neighbors')</option>
                                     @endif
                                     @if ($minisite->visibility === 'public')
-                                        <option value="public" selected='selected'>public</option>
+                                        <option value="public" selected='selected'>@lang('minisite.visibleTo.public')</option>
                                     @else
-                                        <option value="public">public</option>
+                                        <option value="public">@lang('minisite.visibleTo.public')</option>
                                     @endif
                                 </select>
                                 @error('visibility')
@@ -51,7 +51,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Save') }}
+                                    @lang('minisite.save')
                                 </button>
                             </div>
                         </div>
@@ -70,13 +70,13 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">Edit this block.</a>
+                    <a href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">@lang('minisite.editBlock')</a>
                 </div>
             </div>
         @endforeach
     </div>
     <div class="row justify-content-center">
-        <div class="card-footer"><a href="{{ route('blockCreate', ['minisite'=>$minisite]) }}">Add a block to your site.</a></div>
+        <div class="card-footer"><a href="{{ route('blockCreate', ['minisite'=>$minisite]) }}">@lang('minisite.addBlock')</a></div>
     </div>
 </div>
 @endsection

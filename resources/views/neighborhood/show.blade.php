@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group row">
                             <span>@lang('minisite.visibleTo'): &nbsp;</span> @lang("minisite.visibleTo.{$neighborhood->minisite->visibility}")
-                        </div>   
+                        </div>
                         <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.editSite')</a></div>
                         <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.viewSite')</a></div>
                     </div>
