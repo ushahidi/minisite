@@ -15,8 +15,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">@lang('general.dashboard')</div>
-                
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -36,17 +34,18 @@
                         </div>
                     </div>
                     @endisset
+                    @if($isLoggedIn)
                     <div class="alert alert-success" role="alert">
-                    @isset($neighborhood)
-                        <a href="{{ url('/neighborhood') }}">@lang('nav.goToYourNeighborhood')</a>
-                    @endisset
+                        @if(!empty($neighborhood))
+                            <a href="{{ url('/neighborhood') }}">@lang('nav.goToYourNeighborhood')</a>
+                        @endif
 
-                    @empty($neighborhood)
-                        <a href="{{ url('/neighborhood/create') }}">@lang('nav.createYourNeighborhood')</a>
-                    @endempty
-                    @empty($neighborhood->id)
+                        @if(empty($neighborhood))
+
+                            <a href="{{ url('/neighborhood/create') }}">@lang('nav.createYourNeighborhood')</a>
+                        @endif
                     </div>
-                    @endempty
+                    @endif
                 </div>
             </div>
         </div>

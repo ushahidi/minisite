@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('home', ['neighborhood' => $user->neighborhood]);
+        return view('home', ['neighborhood' => $user->neighborhood, 'isLoggedIn' => !!$user]);
     }
     
     /**
@@ -39,6 +39,6 @@ class HomeController extends Controller
 
     public function welcome() {
         $user = Auth::user();
-        return view('home', ['neighborhood' => $user ? $user->neighborhood : null]);
+        return view('home', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
     }
 }
