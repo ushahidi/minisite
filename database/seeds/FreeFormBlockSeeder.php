@@ -22,8 +22,8 @@ class FreeFormBlockSeeder extends Seeder
             'block_type' => 'Free form',
             'name' => 'Content',
             'validator' => 'required',            
-            'html_element' => 'input',
-            'html_element_type' => 'text'
+            'html_element' => 'textarea',
+            'html_element_type' => ''
         ])->save();
     }
 }
