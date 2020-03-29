@@ -9,30 +9,13 @@
     <x-featured-youtube-video :block='$block'></x-featured-youtube-video>    
     <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
     <x-whats-app-group :block='$block'></x-whats-app-group>
-    <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
+
 @endforeach
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-body">
-                    This is some text within a card body.
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-body">
-                    This is some text within a card body.
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <h3>Important information</h3>
-        </div>
-    </div>
-</div>
-@endsection
+@foreach ($minisite->blocks as $block)
+    @if(isset($block) && $block->type === 'Free form')      
+        <x-free-form :block='$block'></x-free-form>
+    @endif   
+    <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
+@endforeach
 

@@ -17,6 +17,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "scrumpy/prosemirror-to-html": "^0.8.0",
         "spatie/laravel-html": "^2.25",
         "spatie/laravel-searchable": "^1.6",
         "thepinecode/i18n": "^0.8.0",

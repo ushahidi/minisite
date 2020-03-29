@@ -88,7 +88,10 @@
         <main class="py-4">
             @yield('ushahidiPlatformMap')
             @yield('content')
-            @yield('emailForm')
+            <div class="container">
+                @yield('freeForm')
+                @yield('emailForm')
+            </div>
         </main>
     </div>
 </body>
