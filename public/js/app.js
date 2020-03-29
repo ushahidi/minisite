@@ -1992,6 +1992,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -37496,7 +37497,11 @@ var render = function() {
                 },
                 [
                   _c("option", { attrs: { value: "" } }, [
-                    _vm._v("--Please choose a block type--")
+                    _vm._v(
+                      "--" +
+                        _vm._s(_vm.$I18n.trans("block.chooseBlockType")) +
+                        "--"
+                    )
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.blockTypes, function(blockType) {
@@ -37512,7 +37517,7 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(blockType.id) +
+                            _vm._s(_vm.$I18n.trans("block." + blockType.id)) +
                             "\n                "
                         )
                       ]
@@ -37536,7 +37541,11 @@ var render = function() {
                         staticClass: "col-md-4 col-form-label text-md-right",
                         attrs: { for: blockField.name }
                       },
-                      [_vm._v(_vm._s(blockField.name))]
+                      [
+                        _vm._v(
+                          _vm._s(_vm.$I18n.trans("block." + blockField.name))
+                        )
+                      ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -37618,7 +37627,11 @@ var render = function() {
             staticClass: "col-md-4 col-form-label text-md-right",
             attrs: { for: "visibility" }
           },
-          [_vm._v(" Visibility ")]
+          [
+            _vm._v(
+              " " + _vm._s(_vm.$I18n.trans("block.selectVisibility")) + " "
+            )
+          ]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
@@ -37660,7 +37673,11 @@ var render = function() {
             },
             [
               _c("option", { attrs: { value: "" } }, [
-                _vm._v("--Please choose a visibility level--")
+                _vm._v(
+                  "--" +
+                    _vm._s(_vm.$I18n.trans("minisite.selectVisibility")) +
+                    "--"
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -37671,7 +37688,7 @@ var render = function() {
                     selected: _vm.block && "neighbors" === _vm.block.visibility
                   }
                 },
-                [_vm._v("neighbors")]
+                [_vm._v(_vm._s(_vm.$I18n.trans("block.neighbors")))]
               ),
               _vm._v(" "),
               _c(
@@ -37682,7 +37699,7 @@ var render = function() {
                     selected: _vm.block && "public" === _vm.block.visibility
                   }
                 },
-                [_vm._v("public")]
+                [_vm._v(_vm._s(_vm.$I18n.trans("block.public")))]
               )
             ]
           ),
@@ -37704,7 +37721,7 @@ var render = function() {
             staticClass: "col-md-4 col-form-label text-md-right",
             attrs: { for: "position" }
           },
-          [_vm._v(" Position ")]
+          [_vm._v(" " + _vm._s(_vm.$I18n.trans("block.position")) + " ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
@@ -37753,7 +37770,7 @@ var render = function() {
             staticClass: "col-md-4 col-form-label text-md-right",
             attrs: { for: "enabled[]" }
           },
-          [_vm._v(" Enabled ")]
+          [_vm._v(" " + _vm._s(_vm.$I18n.trans("block.enabled")) + " ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
@@ -37815,26 +37832,25 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "form-group row mb-0" }, [
+        _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.$I18n.trans("block.save")) +
+                  "\n        "
+              )
+            ]
+          )
+        ])
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-0" }, [
-      _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("\n            Save\n        ")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -50002,9 +50018,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendor/I18n */ "./resources/js/vendor/I18n.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -50012,7 +50031,10 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+
+window.I18n = _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__["default"];
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue.prototype.$I18n = new _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__["default"]();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -50145,6 +50167,176 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlockTypes_vue_vue_type_template_id_3e6c4a97___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlockTypes_vue_vue_type_template_id_3e6c4a97___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/vendor/I18n.js":
+/*!*************************************!*\
+  !*** ./resources/js/vendor/I18n.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return I18n; });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var I18n = /*#__PURE__*/function () {
+  /**
+   * Initialize a new translation instance.
+   *
+   * @param  {string}  key
+   * @return {void}
+   */
+  function I18n() {
+    var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'translations';
+
+    _classCallCheck(this, I18n);
+
+    this.key = key;
+  }
+  /**
+   * Get and replace the string of the given key.
+   *
+   * @param  {string}  key
+   * @param  {object}  replace
+   * @return {string}
+   */
+
+
+  _createClass(I18n, [{
+    key: "trans",
+    value: function trans(key) {
+      var replace = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return this._replace(this._extract(key), replace);
+    }
+    /**
+     * Get and pluralize the strings of the given key.
+     *
+     * @param  {string}  key
+     * @param  {number}  count
+     * @param  {object}  replace
+     * @return {string}
+     */
+
+  }, {
+    key: "trans_choice",
+    value: function trans_choice(key) {
+      var _this = this;
+
+      var count = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      var replace = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      var translations = this._extract(key, '|').split('|'),
+          translation;
+
+      translations.some(function (t) {
+        return translation = _this._match(t, count);
+      });
+      translation = translation || (count > 1 ? translations[1] : translations[0]);
+      translation = translation.replace(/\[.*?\]|\{.*?\}/, '');
+      return this._replace(translation, replace);
+    }
+    /**
+     * Match the translation limit with the count.
+     *
+     * @param  {string}  translation
+     * @param  {number}  count
+     * @return {string|null}
+     */
+
+  }, {
+    key: "_match",
+    value: function _match(translation, count) {
+      var match = translation.match(/^[\{\[]([^\[\]\{\}]*)[\}\]](.*)/);
+      if (!match) return;
+
+      if (match[1].includes(',')) {
+        var _match$1$split = match[1].split(',', 2),
+            _match$1$split2 = _slicedToArray(_match$1$split, 2),
+            from = _match$1$split2[0],
+            to = _match$1$split2[1];
+
+        if (to === '*' && count >= from) {
+          return match[2];
+        } else if (from === '*' && count <= to) {
+          return match[2];
+        } else if (count >= from && count <= to) {
+          return match[2];
+        }
+      }
+
+      return match[1] == count ? match[2] : null;
+    }
+    /**
+     * Replace the placeholders.
+     *
+     * @param  {string}  translation
+     * @param  {object}  replace
+     * @return {string}
+     */
+
+  }, {
+    key: "_replace",
+    value: function _replace(translation, replace) {
+      if (_typeof(translation) === 'object') {
+        return translation;
+      }
+
+      for (var placeholder in replace) {
+        translation = translation.toString().replace(":".concat(placeholder), replace[placeholder]).replace(":".concat(placeholder.toUpperCase()), replace[placeholder].toString().toUpperCase()).replace(":".concat(placeholder.charAt(0).toUpperCase()).concat(placeholder.slice(1)), replace[placeholder].toString().charAt(0).toUpperCase() + replace[placeholder].toString().slice(1));
+      }
+
+      return translation.toString().trim();
+    }
+    /**
+     * Extract values from objects by dot notation.
+     *
+     * @param  {string}  key
+     * @param  {mixed}  value
+     * @return {mixed}
+     */
+
+  }, {
+    key: "_extract",
+    value: function _extract(key) {
+      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var path = key.toString().split('::'),
+          keys = path.pop().toString().split('.');
+
+      if (path.length > 0) {
+        path[0] += '::';
+      }
+
+      return path.concat(keys).reduce(function (t, i) {
+        return t[i] || value || key;
+      }, window[this.key]);
+    }
+  }]);
+
+  return I18n;
+}();
 
 
 

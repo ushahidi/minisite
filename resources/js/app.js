@@ -5,9 +5,11 @@
  */
 
 require('./bootstrap');
+import I18n from './vendor/I18n';
+window.I18n = I18n;
 
 window.Vue = require('vue');
-
+window.Vue.prototype.$I18n = new I18n;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

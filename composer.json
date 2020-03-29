@@ -19,6 +19,7 @@
         "laravel/ui": "^2.0",
         "spatie/laravel-html": "^2.25",
         "spatie/laravel-searchable": "^1.6",
+        "thepinecode/i18n": "^0.8.0",
         "willdurand/negotiation": "^2.3"
     },
     "require-dev": {

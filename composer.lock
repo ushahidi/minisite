@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06f263ba1ea7efba933bc7d0cab892ff",
+    "content-hash": "157c1c542420feaa71f2c2b939922ebb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3801,6 +3801,56 @@
                 "dump"
             ],
             "time": "2020-02-26T22:30:10+00:00"
+        },
+        {
+            "name": "thepinecode/i18n",
+            "version": "v0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thepinecode/i18n.git",
+                "reference": "aa7bfe1ca0efffd1297366bbd18a6ab01e26eadb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thepinecode/i18n/zipball/aa7bfe1ca0efffd1297366bbd18a6ab01e26eadb",
+                "reference": "aa7bfe1ca0efffd1297366bbd18a6ab01e26eadb",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0|^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5.0.0"
+            },
+            "type": "project",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pine\\I18n\\I18nServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pine\\I18n\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gergő D. Nagy",
+                    "email": "hello@iamgergo.com"
+                }
+            ],
+            "description": "Push your translations to the front-end.",
+            "time": "2020-03-09T08:50:18+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

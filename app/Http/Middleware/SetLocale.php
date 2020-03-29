@@ -38,6 +38,7 @@ class SetLocale
                 $type = $bestLanguage->getType();
             }
             app('translator')->setLocale($type);
+            \App::setLocale($type);
             if ($type !== $fallback) {
                 app('translator')->setFallback($fallback);
             }

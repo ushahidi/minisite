@@ -1,20 +1,21 @@
 <template>
-<form @submit.prevent="submit">
 
+<form @submit.prevent="submit">
+    
 <div style="background-color:aliceblue; padding: 10px; margin-bottom:10px; margin-top:10px;" class="full">
     <div class="form-group row">
         <label for="type" class="col-md-4 col-form-label text-md-right">Type</label>
         <div class="col-md-6">
             <select @change="onBlockSelect($event)" name="type" id="type" class="form-control" v-model="selectedBlockType" required autofocus>
-                <option value="">--Please choose a block type--</option>                
+                <option value="">--{{ $I18n.trans('block.chooseBlockType') }}--</option>                
                 <option :selected="blockType.id === fields.type" v-for="blockType in blockTypes" :key="blockType.id" :value="blockType.id">
-                    {{blockType.id}}
+                    {{ $I18n.trans(`block.${blockType.id}`) }}
                 </option> 
             </select>
         </div>
     </div>
     <div class="form-group row" v-for="blockField in blockFields" :key="blockField.id" >
-        <label class="col-md-4 col-form-label text-md-right" v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{blockField.name}}</label >
+        <label class="col-md-4 col-form-label text-md-right" v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{ $I18n.trans(`block.${blockField.name}`) }}</label >
         <div class="col-md-6">
                 <input 
                     v-model="fields.blockFields[blockField.id]"
@@ -33,13 +34,13 @@
     </div>
 </div>
 <div class="form-group row">
-    <label for="visibility" class="col-md-4 col-form-label text-md-right"> Visibility </label>
+    <label for="visibility" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.selectVisibility') }} </label>
 
     <div class="col-md-6">
         <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
-            <option value="">--Please choose a visibility level--</option>
-            <option :selected="block && 'neighbors' === block.visibility" value="neighbors">neighbors</option>
-            <option :selected="block && 'public'=== block.visibility" value="public">public</option>
+            <option value="">--{{ $I18n.trans('minisite.selectVisibility') }}--</option>
+            <option :selected="block && 'neighbors' === block.visibility" value="neighbors">{{ $I18n.trans('block.neighbors') }}</option>
+            <option :selected="block && 'public'=== block.visibility" value="public">{{ $I18n.trans('block.public') }}</option>
         </select>
         <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
             <strong>{{ errors.visibility[0] }}</strong>
@@ -47,7 +48,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label for="position" class="col-md-4 col-form-label text-md-right"> Position </label>
+    <label for="position" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.position') }} </label>
 
     <div class="col-md-6">
         <input id="position" v-model="fields.position" type="number" class="form-control" name="position" required autofocus>
@@ -57,7 +58,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label for="enabled[]" class="col-md-4 col-form-label text-md-right"> Enabled </label>
+    <label for="enabled[]" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.enabled') }} </label>
 
     <div class="col-md-6">
         <input v-model="fields.enabled" id="enabled" type="checkbox" class="form-control" name="enabled[]" required autofocus>
@@ -69,7 +70,7 @@
 <div class="form-group row mb-0">
     <div class="col-md-6 offset-md-4">
         <button type="submit" class="btn btn-primary">
-            Save
+            {{ $I18n.trans('block.save') }}
         </button>
     </div>
 </div>
