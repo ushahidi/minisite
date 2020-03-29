@@ -7,14 +7,14 @@
         <form action="{{ route('search') }}" method="POST">
             @csrf
             <input type="text" name="query" />
-            <input type="submit" class="btn btn-sm btn-primary" value="Search" />
+            <input type="submit" class="btn btn-sm btn-primary" value="@lang('search.search')" />
         </form>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">@lang('general.dashboard')</div>
                 
 
                 <div class="card-body">
@@ -38,11 +38,11 @@
                     @endisset
                     <div class="alert alert-success" role="alert">
                     @isset($neighborhood)
-                        <a href="{{ url('/neighborhood') }}">Go to your neighborhood</a>
+                        <a href="{{ url('/neighborhood') }}">@lang('nav.goToYourNeighborhood')</a>
                     @endisset
 
                     @empty($neighborhood)
-                        <a href="{{ url('/neighborhood/create') }}">Create your neighborhood</a>
+                        <a href="{{ url('/neighborhood/create') }}">@lang('nav.createYourNeighborhood')</a>
                     @endempty
                     @empty($neighborhood->id)
                     </div>

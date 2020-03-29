@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">Your neighborhood</div>
+            <div class="card-header">@lang('neighborhood.yourNeighborhood')</div>
             <div class="card-body">
                 <div class="form-group row">
                     {{ $neighborhood->name }}
@@ -24,7 +24,7 @@
                     @csrf
                     <input type="text" name="inviteFaker" value="{{$neighborhood->id}}" hidden/>
                     <button type="submit" class="btn btn-primary">
-                        {{ __('Invite someone to your neighborhood') }}
+                        @lang('neighborhood.inviteSomeone')
                     </button>
                 </form>
             </div>
@@ -33,7 +33,7 @@
             </div>
             @if(Session::get('token') !== null)
                 <div class="card">
-                    <div class="card-header">Invite a neighbor with this link (single use)</div>
+                    <div class="card-header">@lang('neighborhood.inviteSomeoneWithLink')</div>
                     <div class="card-body">
                         <a href="{{URL::to(route('joinFromInvite', ['token' => Session::get('token')]))}}">
                             {{ Session::get('token') }}
@@ -45,7 +45,7 @@
         <div class="row justify-content-center">
             @foreach ($neighborhood->neighbors as $neighbor )
                 <div class="card">
-                    <div class="card-header">Your neighbors</div>
+                    <div class="card-header">@lang('neighborhood.yourNeighbors')</div>
                     <div class="card-body">
                         <div class="form-group row">
                             {{ $neighbor->name }}
@@ -55,19 +55,16 @@
             @endforeach
             @if ($neighborhood->minisite)
                 <div class="card">
-                    <div class="card-header">Your neighborhood site</div>
+                    <div class="card-header">@lang('minisite.yourSite')</div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <span>Title: </span> {{ $neighborhood->minisite->title }}
+                            <span>@lang('minisite.minisiteName'): </span> {{ $neighborhood->minisite->title }}
                         </div>
                         <div class="form-group row">
-                            <span>Visibility: </span> {{ $neighborhood->minisite->visibility }}
-                        </div>
-                        <div class="form-group row">
-                            <span>The minisite is visible to: &nbsp;</span> {{ $neighborhood->minisite->visibility }}
-                        </div>               
-                        <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">Edit your neighborhood site.</a></div>
-                        <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$neighborhood->minisite]) }}">View your neighborhood site.</a></div>
+                            <span>@lang('minisite.visibleTo'): &nbsp;</span> @lang("minisite.visibleTo.{$neighborhood->minisite->visibility}")
+                        </div>   
+                        <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.editSite')</a></div>
+                        <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.viewSite')</a></div>
                     </div>
                 </div>
             @endif

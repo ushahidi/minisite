@@ -14,4 +14,10 @@ return [
 
     'failed'   => 'Estas credenciales no coinciden con nuestros registros.',
     'throttle' => 'Demasiados intentos de acceso. Por favor intente nuevamente en :seconds segundos.',
+    'login' => 'Ingresar',
+    'register' => 'Registrarse',
+    'forgotPasswordQuestion' => 'Olvidó la contraseña?',
+    'rememberMe' => 'Recuerdame.',
+    'emailAddress' => 'Correo electrónico',
+    'password' => 'Contraseña'
 ];

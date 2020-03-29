@@ -1,5 +1,5 @@
 
-{{$email}} sent the following message:
+{{$email}} @lang('email.sentMessage')
 ------
 <br/>
 {{$text}}

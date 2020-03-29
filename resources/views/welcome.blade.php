@@ -68,12 +68,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">@lang('nav.home')</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">@lang('auth.login')</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">@lang('auth.register')</a>
                         @endif
                     @endauth
                 </div>
@@ -82,9 +82,9 @@
             <div class="content">
                 <div class="title m-b-md">
                     @if(!$neighborhood)
-                        <a href="{{ url('/neighborhood/create') }}">Create your neighborhood</a>
+                        <a href="{{ url('/neighborhood/create') }}">@lang('nav.neighborhood')</a>
                     @else
-                        <a href="{{ url('/neighborhood') }}">Go to your neighborhood</a>
+                        <a href="{{ url('/neighborhood') }}">@lang('nav.goToYourNeighborhood')</a>
                     @endif
                 </div>
             </div>

@@ -38,7 +38,9 @@ class SetLocale
                 $type = $bestLanguage->getType();
             }
             app('translator')->setLocale($type);
-            app('translator')->setFallback($fallback);
+            if ($type !== $fallback) {
+                app('translator')->setFallback($fallback);
+            }
         }
         
         return $next($request);
