@@ -246,7 +246,7 @@ export default {
     this.editor.on('update', () => {
       this.html = this.editor.getHTML()
       this.json = this.editor.getJSON()
-      this.$emit('update', this.html)
+      this.$emit('update', this.json)
     })
   }
 }

@@ -26,8 +26,6 @@
                         required autofocus
                     >
                     <div class="editor" v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'">
-                        <input style="visibility: hidden" id="editorBlockFieldId" type="text" v-model="fields.blockFields[blockField.id]" value="Active"/>
-                        {{blockField.id}}
                         <editor
                             v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'"
                             @update="setContent"

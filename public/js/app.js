@@ -2015,8 +2015,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2327,7 +2325,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       _this.html = _this.editor.getHTML();
       _this.json = _this.editor.getJSON();
 
-      _this.$emit('update', _this.html);
+      _this.$emit('update', _this.json);
     });
   }
 });
@@ -66659,44 +66657,6 @@ var render = function() {
                             "div",
                             { staticClass: "editor" },
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
-                                      _vm.fields.blockFields[blockField.id],
-                                    expression:
-                                      "fields.blockFields[blockField.id]"
-                                  }
-                                ],
-                                staticStyle: { visibility: "hidden" },
-                                attrs: {
-                                  id: "editorBlockFieldId",
-                                  type: "text",
-                                  value: "Active"
-                                },
-                                domProps: {
-                                  value: _vm.fields.blockFields[blockField.id]
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.fields.blockFields,
-                                      blockField.id,
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(blockField.id) +
-                                  "\r\n                        "
-                              ),
                               blockField.block_type === _vm.selectedBlockType &&
                               blockField.html_element == "textarea"
                                 ? _c("editor", {

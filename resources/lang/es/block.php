@@ -20,5 +20,7 @@ return [
     'chooseBlockType' => 'Elige el tipo de bloque',
     'neighbors' => 'Vecines',
     'public' => 'El Mundo',
-    'save' => 'Guardar'
+    'save' => 'Guardar',
+    'Content' => 'Contenido',
+    'Free form' => 'Contenido de forma libre'
 ];

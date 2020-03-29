@@ -20,5 +20,7 @@ return [
     'chooseBlockType' => 'Choose a block type',
     'neighbors' => 'Neighbors',
     'public' => 'The world',
-    'save' => 'Save'
+    'save' => 'Save',
+    'Content' => 'Content',
+    'Free form' => 'Free form content'
 ];
