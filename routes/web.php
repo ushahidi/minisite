@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
     Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
     Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
+    Route::get('/minisite/{minisite}/block/{block}/destroy', 'BlockController@destroy')->name('blockDestroy');
 
 });
 

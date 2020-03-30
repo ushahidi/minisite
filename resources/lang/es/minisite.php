@@ -8,7 +8,9 @@ return [
     'yourSite' => 'Tu sitio',
     'addBlock' => 'Agrega un bloque a tu sitio',
     'save' => 'Guardar',
-    'editBlock' => 'Edita este bloque',
+    'editBlock' => 'Modifica este bloque',
+    'deleteBlock' => 'Elimina este bloque',
+    'deleteBlockConfirmation' => 'Confirma que quiere eliminar este bloque? Esto no se podra deshacer.',
     'selectVisibility' => 'Quien puede ver tu sitio?',
     'chooseBlockType' => 'Elige el tipo de bloque'
 ];

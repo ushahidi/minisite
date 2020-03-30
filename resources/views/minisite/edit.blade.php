@@ -70,7 +70,13 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">@lang('minisite.editBlock')</a>
+                    <a class="alert-info alert" href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">@lang('minisite.editBlock')</a>
+                    <a 
+                        class="alert-danger alert"
+                        href="{{ route('blockDestroy', ['minisite'=>  $minisite, 'block' => $block]) }}"
+                        onclick="return confirm('@lang('minisite.deleteBlockConfirmation')')">
+                            @lang('minisite.deleteBlock')
+                    </a>
                 </div>
             </div>
         @endforeach

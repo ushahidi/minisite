@@ -139,8 +139,9 @@ class BlockController extends Controller
      * @param  \App\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Block $block)
+    public function destroy(Minisite $minisite, Block $block)
     {
-        //
+        $block->delete();
+        return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
     }
 }
