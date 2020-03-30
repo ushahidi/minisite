@@ -97,7 +97,7 @@
 </div>
 <div class="form-group row mb-0">
     <div class="col-md-6 offset-md-4">
-        <button type="submit" class="btn btn-primary" v-on:click.capture="submit">
+        <button type="submit" class="btn btn-primary">
             {{ $I18n.trans('block.save') }}
         </button>
     </div>
@@ -156,17 +156,16 @@
                 if (this.fields.name === 'Free form') {
                     this.fields.blockFields[this.getFreeformContentFieldId().toString()] = this.editorContent;
                 }
-                
                 this.errors = {};
-                let submit = axios.post;
+                let submittable = axios.post;
                 let success = 'Block created';
                 let url = '/minisite/' + this.minisiteSlug + '/block';
                 if (this.method === 'PUT') {
-                    submit = axios.put;
+                    submittable = axios.put;
                     url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
                     success = 'Block updated';
                 }
-                submit(url, this.fields).then(response => {
+                submittable(url, this.fields).then(response => {
                     // @TODO: add flash/ok message in the minisite view to send back the feedback
                     window.location	= '/neighborhood'
                 }).catch(error => {

@@ -2081,17 +2081,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.errors = {};
-      var submit = axios.post;
+      var submittable = axios.post;
       var success = 'Block created';
       var url = '/minisite/' + this.minisiteSlug + '/block';
 
       if (this.method === 'PUT') {
-        submit = axios.put;
+        submittable = axios.put;
         url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
         success = 'Block updated';
       }
 
-      submit(url, this.fields).then(function (response) {
+      submittable(url, this.fields).then(function (response) {
         // @TODO: add flash/ok message in the minisite view to send back the feedback
         window.location = '/neighborhood';
       })["catch"](function (error) {
@@ -66958,15 +66958,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-6 offset-md-4" }, [
           _c(
             "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "submit" },
-              on: {
-                "!click": function($event) {
-                  return _vm.submit($event)
-                }
-              }
-            },
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
             [
               _vm._v(
                 "\r\n            " +
