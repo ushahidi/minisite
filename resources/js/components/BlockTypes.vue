@@ -25,7 +25,14 @@
                         class="form-control"
                         required autofocus
                     >
-                    <div class="editor" v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'">
+                    {{selectedBlockType.name}}
+                    <textarea 
+                        v-model="fields.blockFields[blockField.id]"
+                        v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name !== 'Free form'"
+                        class="form-control"
+                        required autofocus
+                    ></textarea>
+                    <div class="editor" v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name == 'Free form'">
                         <editor
                             v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'"
                             @update="setContent"
