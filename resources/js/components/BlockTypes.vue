@@ -75,7 +75,7 @@
         </span>
     </div>
 </div>
-<div class="form-group row">
+<!-- <div class="form-group row">
     <label for="position" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.position') }} </label>
 
     <div class="col-md-6">
@@ -94,7 +94,7 @@
             <strong>{{ errors.enabled[0] }}</strong>
         </span>
     </div>
-</div>
+</div> -->
 <div class="form-group row mb-0">
     <div class="col-md-6 offset-md-4">
         <button type="submit" class="btn btn-primary">
@@ -124,6 +124,8 @@
                 editorContent: '',
                 editor: null,
                 fields: {
+                    position: 1, //@todo change this once we have block sorting,
+                    enabled: 1, //@todo change this when we have enabled/disabled blocks again
                     type: '',
                     blockFields: this.block ? JSON.parse(this.block.content) : {},
                     ...this.block 

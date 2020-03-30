@@ -77,7 +77,7 @@
             @yield('feedback')
         </div>
         <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+            <div class="container-fluid">
                 <p class="display-4">@yield('header')</p>
                 <p class="lead">@yield('header-desc')</p>
                 @yield('pinned')
@@ -85,12 +85,26 @@
                 @yield('whatsappGroup')
             </div>
         </div>
-        <main class="py-4">
-            @yield('ushahidiPlatformMap')
+        <main class="py-4">           
             @yield('content')
-            <div class="container">
-                @yield('freeForm')
-                @yield('emailForm')
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        @yield('freeForm')
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        @yield('ushahidiPlatformMap')
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="card col">
+                        <div class="card-body">
+                            @yield('emailForm')
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

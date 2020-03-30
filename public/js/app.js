@@ -2039,6 +2039,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       editorContent: '',
       editor: null,
       fields: _objectSpread({
+        position: 1,
+        //@todo change this once we have block sorting,
+        enabled: 1,
+        //@todo change this when we have enabled/disabled blocks again
         type: '',
         blockFields: this.block ? JSON.parse(this.block.content) : {}
       }, this.block),
@@ -66831,124 +66835,6 @@ var render = function() {
                 "span",
                 { staticClass: "invalid-feedback", attrs: { role: "alert" } },
                 [_c("strong", [_vm._v(_vm._s(_vm.errors.visibility[0]))])]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "position" }
-          },
-          [_vm._v(" " + _vm._s(_vm.$I18n.trans("block.position")) + " ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.position,
-                expression: "fields.position"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "position",
-              type: "number",
-              name: "position",
-              required: "",
-              autofocus: ""
-            },
-            domProps: { value: _vm.fields.position },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.fields, "position", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.position
-            ? _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong", [_vm._v(_vm._s(_vm.errors.position[0]))])]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "enabled[]" }
-          },
-          [_vm._v(" " + _vm._s(_vm.$I18n.trans("block.enabled")) + " ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.enabled,
-                expression: "fields.enabled"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "enabled",
-              type: "checkbox",
-              name: "enabled[]",
-              required: "",
-              autofocus: ""
-            },
-            domProps: {
-              checked: Array.isArray(_vm.fields.enabled)
-                ? _vm._i(_vm.fields.enabled, null) > -1
-                : _vm.fields.enabled
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.fields.enabled,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.fields, "enabled", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.fields,
-                        "enabled",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.fields, "enabled", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.enabled
-            ? _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong", [_vm._v(_vm._s(_vm.errors.enabled[0]))])]
               )
             : _vm._e()
         ])
