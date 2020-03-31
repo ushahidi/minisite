@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class FeaturedYoutubeVideo extends Component
+class RSSFeed extends Component
 {
     public $block;
     /**
@@ -17,6 +17,7 @@ class FeaturedYoutubeVideo extends Component
         $this->block = $block;
     }
 
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -24,6 +25,6 @@ class FeaturedYoutubeVideo extends Component
      */
     public function render()
     {
-        return view('components.featured-youtube-video');
+        return view('components.rss-feed');
     }
 }

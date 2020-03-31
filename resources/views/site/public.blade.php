@@ -4,7 +4,7 @@
 @endsection
 {{-- retrieve only enabled blocks and pre-filter by authorization --}}
 @foreach ($minisite->blocks as $block)
-    @if ($block && $block->type === 'Page header' && isset($block->content->Title))
+    @if (isset($block) && $block->type === 'Page header' && isset($block->content->Title))
         <x-page-header :block='$block'></x-page-header>
     @endif
     @if (isset($block) && $block->type === 'Pinned item')
@@ -13,13 +13,16 @@
     @if (isset($block) && $block->type === 'WhatsApp Group Link')
         <x-whats-app-group :block='$block'></x-whats-app-group>
     @endif
+     @if (isset($block) && $block->type === 'RSS Feed')
+        <x-rss-feed :block='$block'></x-rss-feed>
+    @endif
     @if(isset($block) && $block->type === 'Featured Youtube Video')      
         <x-featured-youtube-video :block='$block'></x-featured-youtube-video>
     @endif
 @endforeach
 
 @foreach ($minisite->blocks as $block)
-    @if(isset($block) && $block->type === 'Free form')      
+    @if(isset($block) && $block->type === 'Free form')  
         <x-free-form :block='$block'></x-free-form>
     @endif   
     @if(isset($block) && $block->type === 'Ushahidi Platform Map')

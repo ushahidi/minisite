@@ -22,5 +22,7 @@ return [
     'public' => 'El Mundo',
     'save' => 'Guardar',
     'Content' => 'Contenido',
-    'Free form' => 'Contenido de forma libre'
+    'Free form' => 'Contenido de forma libre',
+    'rssFeed' => 'Contenido RSS',
+    'RSS Feed' => 'Contenido RSS',
 ];

@@ -22,5 +22,7 @@ return [
     'public' => 'The world',
     'save' => 'Save',
     'Content' => 'Content',
-    'Free form' => 'Free form content'
+    'Free form' => 'Free form content',
+    'rssFeed' => 'RSS Feed',
+    'RSS Feed' => 'RSS Feed',
 ];

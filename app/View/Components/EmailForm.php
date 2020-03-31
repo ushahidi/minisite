@@ -13,7 +13,7 @@ class EmailForm extends Component
      *
      * @return void
      */
-    public function __construct($block = null, $minisite = null)
+    public function __construct($block, $minisite)
     {
         $this->block = $block;
         $this->minisite = $minisite;

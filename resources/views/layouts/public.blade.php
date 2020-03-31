@@ -83,6 +83,7 @@
                 @yield('pinned')
                 @yield('featuredYoutubeVideo')
                 @yield('whatsappGroup')
+                @yield('rssFeed')
             </div>
         </div>
         <main class="py-4">           

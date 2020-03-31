@@ -13,14 +13,20 @@ class FreeForm extends Component
      *
      * @return void
      */
-    public function __construct($block = null)
+    public function __construct($block)
     {
-        $json = $block->content->Content->content;
-        $this->renderedHTML = (new \Scrumpy\ProseMirrorToHtml\Renderer)->render([
-            'type' => 'doc',
-            'content' => $json,
-        ]);
+        
         $this->block = $block;
+        if (!$block->content->Content) {
+            $this->renderedHTML = "";
+        } else {
+            $json = $block->content->Content->content;
+            $this->renderedHTML = (new \Scrumpy\ProseMirrorToHtml\Renderer)->render([
+                'type' => 'doc',
+                'content' => $json,
+            ]);
+        }
+        
     }
 
     /**

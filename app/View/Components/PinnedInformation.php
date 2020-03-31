@@ -12,7 +12,7 @@ class PinnedInformation extends Component
      *
      * @return void
      */
-    public function __construct($block = null)
+    public function __construct($block)
     {
         $this->block = $block;
     }
