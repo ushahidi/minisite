@@ -20,3 +20,8 @@ mix
         includePaths: ["node_modules"]
     }
 );
+
+// https://browsersync.io/docs/options
+mix.browserSync({
+   proxy: 'minisite.homestead.test'
+});
