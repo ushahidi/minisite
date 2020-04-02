@@ -58,6 +58,7 @@
                                     <option value="">@lang('neighborhood.chooseCountry')</option>
                                     <option value="uruguay">Uruguay</option>
                                     <option value="kenya">Kenya</option>
+                                    <option value="united states">United States</option>
                                 </select>
                                 @error('country')
                                     <span class="invalid-feedback" role="alert">

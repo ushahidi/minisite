@@ -32,3 +32,30 @@ Vue.component('block-types', require('./components/BlockTypes.vue').default);
 const app = new Vue({
     el: '#app'
 });
+
+// Material Design Web Components Instantiation
+
+// Drawer Menu
+import { MDCDrawer } from "@material/drawer";
+const drawer = MDCDrawer.attachTo(document.querySelector(".mdc-drawer"));
+const button = document.querySelector(".mdc-icon-button");
+MDCRipple.attachTo(button);
+button.addEventListener("click", function() {
+    drawer.open = true;
+});
+
+// const listEl = document.querySelector(".mdc-drawer .mdc-list");
+const mainContentEl = document.querySelector(".mdc-drawer-scrim");
+
+mainContentEl.addEventListener("click", event => {
+    drawer.open = false;
+});
+
+// Text Field
+// import { MDCTextField } from "@material/textfield";
+// const textField = new MDCTextField(document.querySelector(".mdc-text-field"));
+
+// Button
+import { MDCRipple } from "@material/ripple/index";
+const ripple = new MDCRipple(document.querySelector(".mdc-button"));
+

@@ -1,10 +1,35 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Theme
+@use "@material/theme"with (
+  $primary: #EF6292,
+  $secondary: #feeae6,
+  $on-primary: #212121,
+  $on-secondary: #212121,
+);
 
-// Variables
-@import 'variables';
+@import "theme";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import "@material/theme/mdc-theme";
+// @import "@material/theme/mixins";
 
+// Import MDC Web components
+@import "@material/layout-grid/mdc-layout-grid";
+@import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+@import "@material/card/mdc-card";
+@import "@material/textfield/mdc-text-field";
+@import "@material/icon-button/mdc-icon-button";
+
+@import "@material/typography/mdc-typography";
+@import "@material/button/mdc-button";
+
+// Globals
+@import "global";
+@import "drawer";
+
+// Views
+@import "welcome";
+@import "login";
+
+// dependencies
 @import 'tiptap/main.scss'

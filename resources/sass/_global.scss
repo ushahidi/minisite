@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+}
+
+.container {
+    width: 360px;
+    max-width: 500px;
+    padding: 64px 0 0 0;
+    margin: auto;
+}
+
+.mdc-theme--primary {
+    background-color: $theme-primary;
+}
+
+.mdc-theme--secondary {
+    background-color: $theme-secondary !important;
+}
+
+.mdc-button {
+    width: 100%;
+}
+
+// This sets all <h1>,...,<h6> elements with Material headline1,...,headline6 typography styles
+// Check out the MDC Web documentation for how to use MDC Typography Sass mixins:
+// https://github.com/material-components/material-components-web/tree/master/packages/mdc-typography
+h1 {
+    @include mdc-typography(headline1);
+}
+
+h2 {
+    @include mdc-typography(headline2);
+}
+
+h3 {
+    @include mdc-typography(headline3);
+}
+
+h4 {
+    @include mdc-typography(headline4);
+}
+
+h5 {
+    @include mdc-typography(headline5);
+}
+
+h6 {
+    @include mdc-typography(headline6);
+}
+
+// This sets all <p> elements with Material body1 typography styles
+p {
+    @include mdc-typography(body1);
+}
+
+.button-group {
+    padding-top: 20px;
+}

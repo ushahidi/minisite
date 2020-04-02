@@ -1,0 +1,12 @@
+.mdc-drawer {
+    width: 304px;
+
+    .mdc-drawer__header {
+      background: $theme-secondary;
+      padding: 10px 0;
+
+      .mdc-button {
+        font-size: 14px;
+      }
+    }
+}
