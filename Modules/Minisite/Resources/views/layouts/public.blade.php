@@ -106,8 +106,10 @@
                     <!-- the bit that matters is the yield statement with the block's name -->
                     <div class="mdc-layout-grid__cell--span-12">@yield('content')</div>
                     <!-- start of header block --> 
-                    <p class="display-4">@yield('header')</p>
-                    <p class="display-4">@yield('header-desc')</p>
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <h1>@yield('header')</h1>
+                        <p>@yield('header-desc')</p>
+                    </div>
                     <!-- end of header block --> 
                     <div class="mdc-layout-grid__cell--span-12">@yield('pinned')</div>
                     <div class="mdc-layout-grid__cell--span-12">@yield('featuredYoutubeVideo')</div>
