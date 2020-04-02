@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Minisite;
+use Modules\Minisite\Minisite;
 
 use App\Block;
 use Illuminate\Http\Request;

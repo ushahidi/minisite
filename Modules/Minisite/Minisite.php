@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Minisite;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -49,7 +49,7 @@ class Minisite extends Model implements Searchable
     {
         return 'slug';
     }
-    
+
     public function getSearchResult(): SearchResult
     {
         $url = route('minisitePublic', $this->slug);
@@ -60,8 +60,8 @@ class Minisite extends Model implements Searchable
             $url
         );
     }
-    
-    public function visibleBy(User $user = null) {
+
+    public function visibleBy(\App\User $user = null) {
         if ($this->visibility === 'public') {
             return true;
         }

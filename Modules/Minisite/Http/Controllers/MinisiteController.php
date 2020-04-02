@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Block;
 use App\BlockTypeFields;
-use App\Minisite;
+use Modules\Minisite\Minisite;
 use App\Mail\SendSiteEmail;
 
 class MinisiteController extends Controller

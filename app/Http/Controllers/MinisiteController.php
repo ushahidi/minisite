@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-use App\Minisite;
+use Modules\Minisite\Minisite;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 class MinisiteController extends Controller
@@ -11,7 +11,7 @@ class MinisiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Minisite  $minisite
+     * @param  \Modules\Minisite  $minisite
      * @return \Illuminate\Http\Response
      */
     public function edit(Minisite $minisite)
@@ -26,7 +26,7 @@ class MinisiteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Minisite  $minisite
+     * @param  \Modules\Minisite  $minisite
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Minisite $minisite)
@@ -49,7 +49,7 @@ class MinisiteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Minisite  $minisite
+     * @param  \Modules\Minisite  $minisite
      * @return \Illuminate\Http\Response
      */
     public function destroy(Minisite $minisite)

@@ -20,7 +20,7 @@ class Block extends Model
 
     public function minisite()
     {
-        return $this->belongsTo('App\Minisite', 'minisite_id');
+        return $this->belongsTo('Modules\Minisite\Minisite', 'minisite_id');
     }
     
     public function visibleBy(User $user = null) {

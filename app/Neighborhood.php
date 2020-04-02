@@ -31,7 +31,7 @@ class Neighborhood extends Model implements Searchable
 
     public function minisite()
     {
-        return $this->hasOne('App\Minisite');
+        return $this->hasOne('Modules\Minisite\Minisite');
     }
 
     public function getSearchResult(): SearchResult

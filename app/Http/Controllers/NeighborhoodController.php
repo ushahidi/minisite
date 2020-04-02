@@ -12,7 +12,7 @@ use Spatie\Searchable\ModelSearchAspect;
 use App\Invite;
 use App\User;
 use App\Neighborhood;
-use App\Minisite;
+use Modules\Minisite\Minisite;
 
 use Illuminate\Support\Facades\Validator;
 
