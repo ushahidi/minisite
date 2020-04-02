@@ -26,16 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/neighborhood', 'NeighborhoodController@show')->name('neighborhoodShow');    
     Route::get('/neighborhood/{id}', 'NeighborhoodController@show')->name('neighborhoodShow');    
 
-    // // minisites
-    // Route::get('/minisite/{minisite}/edit', 'MinisiteController@edit')->name('minisiteEdit');
-    // Route::put('/minisite/{minisite}', 'MinisiteController@update')->name('minisiteUpdate');
-
-    // // blocks
-    // Route::get('/minisite/{minisite}/block/create', 'BlockController@create')->name('blockCreate');
-    // Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
-    // Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
-    // Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
-    // Route::get('/minisite/{minisite}/block/{block}/destroy', 'BlockController@destroy')->name('blockDestroy');
 
 });
 

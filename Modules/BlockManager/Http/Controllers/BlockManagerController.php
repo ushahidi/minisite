@@ -5,74 +5,59 @@ namespace Modules\BlockManager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Modules\Minisite\Minisite;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class BlockManagerController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        return view('blockmanager::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('blockmanager::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('blockmanager::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     *
+     * @param  \Modules\Minisite  $minisite
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Minisite $minisite)
     {
-        return view('blockmanager::edit');
+        if ($minisite->neighborhood->captain_id !== Auth::user()->id){
+            abort("401", "You are not authorized to edit this page");
+        }
+        return view('blockmanager::minisite.edit', ['minisite' => $minisite]);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Modules\Minisite  $minisite
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Minisite $minisite)
     {
-        //
+        $data = $request->input();
+        if ($minisite->neighborhood->captain_id !== Auth::user()->id){
+            abort("401", "You are not authorized to edit this page");
+        }
+        $minisite->update([
+            'visibility' => $data['visibility'],
+            'title' => $data['title'],
+        ]);
+    
+        return redirect()->route(
+            'neighborhoodShow',
+            ['id' => $minisite->neighborhood->id] )->with( ['id' => $minisite->neighborhood->id]
+        );
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     *
+     * @param  \Modules\Minisite  $minisite
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Minisite $minisite)
     {
         //
     }

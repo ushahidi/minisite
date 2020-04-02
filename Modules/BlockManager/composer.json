@@ -21,5 +21,8 @@
         "psr-4": {
             "Modules\\BlockManager\\": ""
         }
+    },
+    "require": {
+        "cviebrock/eloquent-sluggable": "^7.0"
     }
 }

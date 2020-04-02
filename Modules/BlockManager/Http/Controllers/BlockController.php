@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\BlockManager\Http\Controllers;
 use Modules\Minisite\Minisite;
-
-use App\Block;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
+use App\Block;
 use App\BlockType;
 use App\BlockTypeFields;
-use Illuminate\Validation\Validator;
+use Illuminate\Routing\Controller;
+
 class BlockController extends Controller
 {
     /**
@@ -27,7 +28,7 @@ class BlockController extends Controller
      */
     public function create(Minisite $minisite)
     {
-        return view('block.create', 
+        return view('blockmanager::block.create', 
             [
                 'minisite' => $minisite,
                 'content' => '{}',
@@ -79,7 +80,7 @@ class BlockController extends Controller
      */
     public function edit(Minisite $minisite, Block $block)
     {
-        return view('block.edit', 
+        return view('blockmanager::block.edit', 
             [
                 'minisite' => $minisite,
                 'block' => $block,

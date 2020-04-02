@@ -2087,11 +2087,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.errors = {};
       var submittable = axios.post;
       var success = 'Block created';
-      var url = '/minisite/' + this.minisiteSlug + '/block';
+      var url = '/blockmanager/' + this.minisiteSlug + '/block';
 
       if (this.method === 'PUT') {
         submittable = axios.put;
-        url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
+        url = '/blockmanager/' + this.minisiteSlug + '/block/' + this.block.id;
         success = 'Block updated';
       }
 

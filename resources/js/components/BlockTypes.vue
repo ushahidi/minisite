@@ -161,10 +161,10 @@
                 this.errors = {};
                 let submittable = axios.post;
                 let success = 'Block created';
-                let url = '/minisite/' + this.minisiteSlug + '/block';
+                let url = '/blockmanager/' + this.minisiteSlug + '/block';
                 if (this.method === 'PUT') {
                     submittable = axios.put;
-                    url = '/minisite/' + this.minisiteSlug + '/block/' + this.block.id;
+                    url = '/blockmanager/' + this.minisiteSlug + '/block/' + this.block.id;
                     success = 'Block updated';
                 }
                 submittable(url, this.fields).then(response => {
