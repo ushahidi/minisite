@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\NeighborhoodManager;
 
 use Illuminate\Database\Eloquent\Model;
 

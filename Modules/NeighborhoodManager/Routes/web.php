@@ -12,7 +12,9 @@
 */
 
 Route::prefix('neighborhoodmanager')->group(function() {
-    Route::post('/search', 'NeighborhoodController@search')->name('search');
+    Route::post('/search', 'NeighborhoodManagerController@search')->name('search');
+    Route::get('/user/invited/{token}', 'NeighborhoodManagerController@joinFromInvite')->name('joinFromInvite');
+
 });
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('neighborhood')->group(function () {

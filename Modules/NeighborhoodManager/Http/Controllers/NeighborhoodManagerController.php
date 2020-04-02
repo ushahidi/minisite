@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
 
-use App\Invite;
+use Modules\NeighborhoodManager\Invite;
 use App\User;
 use Modules\NeighborhoodManager\Neighborhood;
 use Modules\Minisite\Minisite;
