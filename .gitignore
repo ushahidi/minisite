@@ -23,3 +23,4 @@ yarn-error.log
 .history
 /.vagrant
 Modules/*/vendor
+NOTES.md

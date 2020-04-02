@@ -34,7 +34,7 @@ class Minisite extends Model implements Searchable
     
     public function neighborhood()
     {
-        return $this->belongsTo('App\Neighborhood', 'neighborhood_id');
+        return $this->belongsTo('Modules\NeighborhoodManager\Neighborhood', 'neighborhood_id');
     }
     public function blocks()
     {

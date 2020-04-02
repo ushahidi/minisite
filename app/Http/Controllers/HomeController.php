@@ -41,4 +41,5 @@ class HomeController extends Controller
         $user = Auth::user();
         return view('home', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
     }
+
 }

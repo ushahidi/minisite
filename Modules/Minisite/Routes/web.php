@@ -15,6 +15,7 @@ Route::prefix('minisite')->group(function() {
     Route::get('/', 'MinisiteController@index');
 });
 
-
-Route::get('/minisite/{minisite}', 'MinisiteController@public')->name('minisitePublic');
-Route::post('/minisite/{minisite}/{block}/email', 'MinisiteController@email')->name('sendSiteEmail');
+Route::prefix('minisite')->group(function() {
+    Route::get('/{minisite}', 'MinisiteController@public')->name('minisitePublic');
+    Route::post('/{minisite}/{block}/email', 'MinisiteController@email')->name('sendSiteEmail');
+});

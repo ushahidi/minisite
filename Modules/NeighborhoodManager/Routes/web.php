@@ -12,5 +12,14 @@
 */
 
 Route::prefix('neighborhoodmanager')->group(function() {
-    Route::get('/', 'NeighborhoodManagerController@index');
+    Route::post('/search', 'NeighborhoodController@search')->name('search');
+});
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('neighborhood')->group(function () {
+        Route::get('/create', 'NeighborhoodManagerController@create')->name('neighborhoodCreate');
+        Route::post('/{neighborhoodId}/invite', 'InviteController@generate')->name('inviteMember');
+        Route::post('/', 'NeighborhoodManagerController@store')->name('neighborhoodStore');
+        Route::get('/', 'NeighborhoodManagerController@show')->name('neighborhoodShow');    
+        Route::get('/{id}', 'NeighborhoodManagerController@show')->name('neighborhoodShow');    
+    });
 });

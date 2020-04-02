@@ -39,7 +39,7 @@ class User extends Authenticatable
     
     public function neighborhood()
     {
-        return $this->belongsTo('App\Neighborhood');
+        return $this->belongsTo('Modules\NeighborhoodManager\Neighborhood');
     }
 
 }
