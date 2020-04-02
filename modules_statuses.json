@@ -1,0 +1,5 @@
+{
+    "BlockManager": true,
+    "NeighborhoodManager": true,
+    "Minisite": true
+}

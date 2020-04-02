@@ -1,0 +1,25 @@
+{
+    "name": "ushahidi/neighborhoodmanager",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ushahidi Team",
+            "email": "developers@ushahidi.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\NeighborhoodManager\\Providers\\NeighborhoodManagerServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\NeighborhoodManager\\": ""
+        }
+    }
+}

@@ -41,7 +41,6 @@
                         @endif
 
                         @if(empty($neighborhood))
-
                             <a href="{{ url('/neighborhood/create') }}">@lang('nav.createYourNeighborhood')</a>
                         @endif
                     </div>

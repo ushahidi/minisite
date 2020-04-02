@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@welcome');
 Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->name('joinFromInvite');
 
-Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
-Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
 Route::post('/search', 'NeighborhoodController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -28,16 +26,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/neighborhood', 'NeighborhoodController@show')->name('neighborhoodShow');    
     Route::get('/neighborhood/{id}', 'NeighborhoodController@show')->name('neighborhoodShow');    
 
-    // minisites
-    Route::get('/minisite/{minisite}/edit', 'MinisiteController@edit')->name('minisiteEdit');
-    Route::put('/minisite/{minisite}', 'MinisiteController@update')->name('minisiteUpdate');
+    // // minisites
+    // Route::get('/minisite/{minisite}/edit', 'MinisiteController@edit')->name('minisiteEdit');
+    // Route::put('/minisite/{minisite}', 'MinisiteController@update')->name('minisiteUpdate');
 
-    // blocks
-    Route::get('/minisite/{minisite}/block/create', 'BlockController@create')->name('blockCreate');
-    Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
-    Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
-    Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
-    Route::get('/minisite/{minisite}/block/{block}/destroy', 'BlockController@destroy')->name('blockDestroy');
+    // // blocks
+    // Route::get('/minisite/{minisite}/block/create', 'BlockController@create')->name('blockCreate');
+    // Route::post('/minisite/{minisite}/block', 'BlockController@store')->name('blockStore');
+    // Route::get('/minisite/{minisite}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
+    // Route::put('/minisite/{minisite}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
+    // Route::get('/minisite/{minisite}/block/{block}/destroy', 'BlockController@destroy')->name('blockDestroy');
 
 });
 

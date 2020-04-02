@@ -1,25 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Block;
+namespace Modules\Minisite\Http\Controllers;
 
-use App\BlockTypeFields;
-use App\Minisite;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Mail;
+
+use App\User;
+use App\Block;
+use App\BlockTypeFields;
+use App\Minisite;
 use App\Mail\SendSiteEmail;
 
-class SiteController extends Controller
+class MinisiteController extends Controller
 {
+    
     /**
      * The only minisite public view
      */
     public function public(Minisite $minisite){
         $user = Auth::user();
-
         if (!$minisite->visibleBy($user)) {
             abort(403, 'The site is not available.');
         }
@@ -43,7 +48,7 @@ class SiteController extends Controller
             }
         }
         $minisite->blocks = $returnBlocks;
-        return view('site.public', ['minisite' => $minisite]);
+        return view('minisite::public', ['minisite' => $minisite]);
     }
 
     public function email(Minisite $minisite, Block $block, Request $request)
