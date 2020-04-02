@@ -39,7 +39,19 @@ class HomeController extends Controller
 
     public function welcome() {
         $user = Auth::user();
-        return view('home', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
+        return view('welcome', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
+    }
+
+    public function searching(){
+        return view ('searching');
+    }
+
+    public function community(){
+        return view ('community');
+    }
+
+    public function allMahallas(){
+        return view ('all-mahallas');
     }
 
 }

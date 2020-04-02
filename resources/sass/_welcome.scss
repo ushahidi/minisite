@@ -1,0 +1,27 @@
+.welcome {
+
+    h1 {
+        font-size: 32px;
+        color: $theme-secondary;
+    }
+
+    h4 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .callout {
+        font-size: 14px;
+        color: $theme-primary;
+    }
+
+    .mdc-card {
+
+        .icon {
+            font-size: 75px;
+        }
+    }
+}

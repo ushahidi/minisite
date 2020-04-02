@@ -1,93 +1,81 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.public')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">@lang('nav.home')</a>
-                    @else
-                        <a href="{{ route('login') }}">@lang('auth.login')</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">@lang('auth.register')</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    @if(!$neighborhood)
-                        <a href="{{ url('/neighborhood/create') }}">@lang('nav.neighborhood')</a>
-                    @else
-                        <a href="{{ url('/neighborhood') }}">@lang('nav.goToYourNeighborhood')</a>
-                    @endif
+@section('content')
+<div class="welcome tac">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-12">
+            <h1 class="mdc-typography--headline4">Start a COVID-19 community page for your Neighbourhood</h1>
+        </div>
+        <div class="mdc-layout-grid__cell--span-12">
+            <p>Mahalla is an open community tool for neighbourhoods – a bulletin board that enables your community
+                to create share and maintain locally relevant information.
+            </p>
+        </div>
+        <div class="mdc-layout-grid__cell--span-12">
+            <p class="callout">Search for existing communities or create one and invite your neighbours.</p>
+            <div class="button-group">
+                <div class="mdc-layout-grid__inner">
+                    <div class="grid-cell">
+                        <a href="/searching" class="mdc-button mdc-button--raised">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Search</span>
+                        </a>
+                    </div>
+                    <div class="grid-cell">
+                        <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme--secondary-bg">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Create</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+
+        <div class="mdc-layout-grid__cell--span-12">
+            <h4>Things you can do</h4>
+            <div class="mdc-card">
+                <i class="fas fa-user-circle icon"></i>
+                <h6>Tackle Misinformation</h6>
+                <p>Crowdsource and publish validated info with help from your community. Information like local
+                    news,
+                    emergency contacts, local resources, best practices and more.
+                </p>
+            </div>
+
+            <div class="mdc-card">
+                <i class="fas fa-user-circle icon"></i>
+                <h6>POST LOCAL ALERTS</h6>
+                <p>Post alerts that are locally relevant</p>
+            </div>
+
+            <div class="mdc-card">
+                <i class="fas fa-user-circle icon"></i>
+                <h6>LOCAL RESOURCES</h6>
+                <p>Share & maintain information on shops and establishments open during COVID-19 lockdown</p>
+            </div>
+
+            <div class="mdc-card">
+                <i class="fas fa-user-circle icon"></i>
+                <h6>HELP EACH OTHER</h6>
+                <p>Find someone to help you with a task</p>
+            </div>
+        </div>
+
+        <div class="mdc-layout-grid__cell--span-12">
+            <h4>Active Communities</h4>
+            @include('includes.neighborhood-card')
+            @include('includes.neighborhood-card')
+            @include('includes.neighborhood-card')
+            @include('includes.neighborhood-card')
+            @include('includes.neighborhood-card')
+            <div class="mdc-card">
+                <h6 class="theme--primary tal">MAHALLA</h6>
+                <p class="theme--secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
+                    maḥalla; Bengali: মহল্লা
+                    môhollā; Hindustani: मोहल्ला; محلہ mōhallā; Persian: محله‎ mahalleh; Azerbaijani: Məhəllə;
+                    Albanian: mahallë or mahalla, or mëhallë or mëhalla, Bulgarian: махала</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
