@@ -19,6 +19,9 @@ Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->na
 Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
 Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
 Route::post('/search', 'NeighborhoodController@search')->name('search');
+Route::get('/searching', 'HomeController@searching');
+Route::get('/community', 'HomeController@community');
+Route::get('/all-mahallas', 'HomeController@allMahallas');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');

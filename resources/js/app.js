@@ -4,12 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-import I18n from './vendor/I18n';
+require("./bootstrap");
+import I18n from "./vendor/I18n";
 window.I18n = I18n;
 
-window.Vue = require('vue');
-window.Vue.prototype.$I18n = new I18n;
+window.Vue = require("vue");
+window.Vue.prototype.$I18n = new I18n();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,7 +21,7 @@ window.Vue.prototype.$I18n = new I18n;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('block-types', require('./components/BlockTypes.vue').default);
+Vue.component("block-types", require("./components/BlockTypes.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,7 +30,7 @@ Vue.component('block-types', require('./components/BlockTypes.vue').default);
  */
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
 });
 
 // Material Design Web Components Instantiation
@@ -51,11 +51,30 @@ mainContentEl.addEventListener("click", event => {
     drawer.open = false;
 });
 
-// Text Field
-// import { MDCTextField } from "@material/textfield";
-// const textField = new MDCTextField(document.querySelector(".mdc-text-field"));
-
 // Button
 import { MDCRipple } from "@material/ripple/index";
 const ripple = new MDCRipple(document.querySelector(".mdc-button"));
 
+// Text Field
+import { MDCTextField } from "@material/textfield";
+const mdcTexts = [].map.call(
+    document.querySelectorAll(".mdc-text-field"),
+    function(el) {
+        return new MDCTextField(el);
+    }
+);
+
+// Text Area Notched Outline
+import { MDCNotchedOutline } from "@material/notched-outline";
+const mdcNotchedOutline = [].map.call(
+    document.querySelectorAll(".mdc-notched-outline"),
+    function(el) {
+        return new MDCNotchedOutline(el);
+    }
+);
+
+// Text Counter
+import { MDCTextFieldCharacterCounter } from "@material/textfield/character-counter";
+const characterCounter = new MDCTextFieldCharacterCounter(
+    document.querySelector(".mdc-text-field-character-counter")
+);

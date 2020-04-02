@@ -1,9 +1,10 @@
 .mdc-card {
-    margin: 30px 0;
+    margin: 10px 0 30px 0;
     padding: 20px;
 
-    i {
-        font-size: 75px;
+    .mdc-button {
+        font-size: 14px;
+        padding: 0;
     }
 
     &.neighborhood-card {
@@ -17,5 +18,9 @@
                 margin: 0;
             }
         }
+    }
+
+    &.header-card {
+
     }
 }

@@ -2,11 +2,19 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container {
     width: 360px;
-    max-width: 500px;
+    max-width: 600px;
     padding: 75px 0 0 0;
     margin: auto;
+
+    @include tabletUp {
+        width: 600px;
+    }
 }
 
 .mdc-layout-grid {
@@ -16,7 +24,7 @@ body {
 // Colors
 
 .theme--primary {
-    color: $theme-primary;
+    color: $theme-primary !important;
 }
 
 .theme--secondary {
@@ -24,11 +32,19 @@ body {
 }
 
 .theme--primary-bg {
-    background-color: $theme-primary;
+    background-color: $theme-primary !important;
 }
 
 .theme--secondary-bg {
     background-color: $theme-secondary !important;
+}
+
+.theme--neutral-bg {
+    background-color: $theme-neutral !important;
+}
+
+.mdc-text-field {
+    width: 100%;
 }
 
 .mdc-button {
@@ -65,6 +81,7 @@ h6 {
 // This sets all <p> elements with Material body1 typography styles
 p {
     @include mdc-typography(body1);
+    line-height: 1.5;
 }
 
 .tal {
@@ -80,7 +97,19 @@ p {
 }
 
 .button-group {
-    padding: 30px 0;
+    padding: 10px 0 30px 0;
+
+    .grid-cell {
+        @include mdc-layout-grid-cell(phone, 2, 3);
+
+        @include tablet {
+            @include mdc-layout-grid-cell(tablet, 4, 3);
+        }
+
+        @include desktop {
+            @include mdc-layout-grid-cell(desktop, 6, 3);
+        }
+    }
 }
 
 // spacing

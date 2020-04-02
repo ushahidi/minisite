@@ -93,10 +93,7 @@
         <header class="mdc-top-app-bar drawer-top-app-bar">
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section">
-                    <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-                    <span class="mdc-top-app-bar__title">
-                        {{ config('app.name', 'Mahalla') }}
-                    </span>
+                    @include('includes.top-bar')
                 </section>
             </div>
         </header>

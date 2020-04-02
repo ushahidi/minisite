@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="login mdc-card">
-    <div class="v">
+    <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
             <div class="card__primary">
                 <h2 class="card__title mdc-typography mdc-typography--headline6">@lang('auth.login')</h2>
@@ -14,35 +14,34 @@
 
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">
-                        <label class="mdc-text-field mdc-text-field--no-label" for="email">
-                            <div class="mdc-text-field__ripple"></div>
+                        <div class="mdc-text-field">
                             <input id="email" type="email"
                                 class="mdc-text-field__input @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" aria-labelledby="email" autocomplete="email"
-                                placeholder=@lang('auth.emailAddress') autofocus required>
+                                value="{{ old('email') }}" aria-labelledby="email" autocomplete="email" autofocus
+                                required>
                             <div class="mdc-line-ripple"></div>
+                            <label for="email" class="mdc-floating-label">Email Address</label>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </label>
+                        </div>
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
-                        <label class="mdc-text-field  mdc-text-field--no-label" for="password">
-                            <div class="mdc-text-field__ripple"></div>
+                        <div class="mdc-text-field">
                             <input id="password" type="password"
                                 class="mdc-text-field__input @error('password') is-invalid @enderror" name="password"
-                                aria-labelledby="password" autocomplete="current-password"
-                                placeholder=@lang('auth.password') required>
+                                aria-labelledby="password" autocomplete="current-password" required>
                             <div class="mdc-line-ripple"></div>
+                            <label for="password" class="mdc-floating-label">Password</label>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </label>
+                        </div>
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">

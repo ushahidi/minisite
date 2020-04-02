@@ -1,17 +1,17 @@
 // Theme
-@use "@material/theme"with (
-  $primary: #EF6292,
-  $secondary: #feeae6,
-  $on-primary: #212121,
-  $on-secondary: #212121,
+@use "@material/theme"with ($primary: #EF6292,
+    $secondary: #feeae6,
+    $on-primary: #212121,
+    $on-secondary: #212121,
 );
 
 @import "theme";
+@import "mediaQueries"; // https://davidwalsh.name/write-media-queries-sass
 
 // @import "@material/theme/mdc-theme";
 // @import "@material/theme/mixins";
 
-// Import MDC Web components
+// MDC Web Components
 @import "@material/layout-grid/mdc-layout-grid";
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/drawer/mdc-drawer";
@@ -23,14 +23,18 @@
 @import "@material/typography/mdc-typography";
 @import "@material/button/mdc-button";
 
+
 // Globals
 @import "global";
 @import "drawer";
 @import "cards";
+@import "search";
 
 // Views
 @import "welcome";
 @import "login";
+@import "community";
+@import "all-mahallas";
 
-// dependencies
+// Dependencies
 @import 'tiptap/main.scss'
