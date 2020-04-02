@@ -102,7 +102,22 @@
         <div class="container">
             <div class="mdc-layout-grid">
                 <div class="mdc-layout-grid__inner">
+                    <!-- everything from here is content that is rendered based on user selection for their minisites --> 
+                    <!-- the bit that matters is the yield statement with the block's name -->
                     <div class="mdc-layout-grid__cell--span-12">@yield('content')</div>
+                    <!-- start of header block --> 
+                    <p class="display-4">@yield('header')</p>
+                    <p class="display-4">@yield('header-desc')</p>
+                    <!-- end of header block --> 
+                    <div class="mdc-layout-grid__cell--span-12">@yield('pinned')</div>
+                    <div class="mdc-layout-grid__cell--span-12">@yield('featuredYoutubeVideo')</div>
+                    <div class="mdc-layout-grid__cell--span-12">@yield('whatsappGroup')</div>
+                    <div class="mdc-layout-grid__cell--span-12">@yield('rssFeed')</div>
+                    <!-- start of free form content block --> 
+                    <div class="mdc-layout-grid__cell--span-12">@yield('freeForm')</div>
+                    <!-- end of free form content block --> 
+                    <div class="mdc-layout-grid__cell--span-12">@yield('ushahidiPlatformMap')</div>
+                    <div class="mdc-layout-grid__cell--span-12">@yield('emailForm')</div>
                 </div>
             </div>
         </div>
