@@ -5,15 +5,29 @@ body {
 .container {
     width: 360px;
     max-width: 500px;
-    padding: 64px 0 0 0;
+    padding: 75px 0 0 0;
     margin: auto;
 }
 
-.mdc-theme--primary {
+.mdc-layout-grid {
+    padding: 0 10px;
+}
+
+// Colors
+
+.theme--primary {
+    color: $theme-primary;
+}
+
+.theme--secondary {
+    color: $theme-secondary !important;
+}
+
+.theme--primary-bg {
     background-color: $theme-primary;
 }
 
-.mdc-theme--secondary {
+.theme--secondary-bg {
     background-color: $theme-secondary !important;
 }
 
@@ -53,6 +67,23 @@ p {
     @include mdc-typography(body1);
 }
 
+.tal {
+    text-align: left;
+}
+
+.tar {
+    text-align: right;
+}
+
+.tac {
+    text-align: center;
+}
+
 .button-group {
-    padding-top: 20px;
+    padding: 30px 0;
+}
+
+// spacing
+.p-0 {
+    padding: 0;
 }

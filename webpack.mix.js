@@ -11,9 +11,7 @@ const mix = require("laravel-mix");
  |
  */
 
-mix
-   .js("resources/js/app.js", "public/js")
-   .sass(
+mix.js("resources/js/app.js", "public/js").sass(
     "resources/sass/app.scss",
     "public/css",
     {
@@ -23,5 +21,6 @@ mix
 
 // https://browsersync.io/docs/options
 mix.browserSync({
-   proxy: 'minisite.homestead.test'
+    watch: true,
+    proxy: "minisite.homestead.test"
 });

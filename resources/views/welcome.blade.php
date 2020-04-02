@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="welcome">
+<div class="welcome tac">
     <div class="mdc-layout-grid">
         <div class="mdc-layout-grid__inner">
             <div class="mdc-layout-grid__cell--span-12">
@@ -13,7 +13,7 @@
                 </p>
             </div>
             <div class="mdc-layout-grid__cell--span-12">
-                <span class="callout">Search for existing communities or create one and invite your neighbours.</span>
+                <p class="callout">Search for existing communities or create one and invite your neighbours.</p>
                 <div class="button-group">
                     <div class="mdc-layout-grid__inner">
                         <div
@@ -25,7 +25,7 @@
                         </div>
                         <div
                             class="mdc-layout-grid__cell--span-2-phone mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-6-desktop">
-                            <a href="#" class="mdc-button mdc-button--raised mdc-theme--secondary">
+                            <a href="#" class="mdc-button mdc-button--raised theme--secondary-bg">
                                 <div class="mdc-button__ripple"></div>
                                 <span class="mdc-button__label">Create</span>
                             </a>
@@ -66,12 +66,21 @@
 
             <div class="mdc-layout-grid__cell--span-12">
                 <h4>Active Communities</h4>
-                <div class="mdc-card">
-
+                <div class="mdc-card neighborhood-card">
+                    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+                        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"
+                            style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);">
+                        </div>
+                        <div class="card__primary theme--primary-bg neighborhood-card-location">
+                            <p class="card__subtitle mdc-typography mdc-typography--subtitle2">Cooke Town</p>
+                            <p class="card__subtitle mdc-typography mdc-typography--subtitle2">Bangalore</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="mdc-card">
-                    <h6>Mahalla</h6>
-                    <p>Mahalla means Neighborhood in a number of countries: Arabic: محلة‎ maḥalla; Bengali: মহল্লা
+                    <h6 class="theme--primary tal">MAHALLA</h6>
+                    <p class="theme--secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
+                        maḥalla; Bengali: মহল্লা
                         môhollā; Hindustani: मोहल्ला; محلہ mōhallā; Persian: محله‎ mahalleh; Azerbaijani: Məhəllə;
                         Albanian: mahallë or mahalla, or mëhallë or mëhalla, Bulgarian: махала</p>
                 </div>

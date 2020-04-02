@@ -5610,15 +5610,27 @@ body {
 .container {
   width: 360px;
   max-width: 500px;
-  padding: 64px 0 0 0;
+  padding: 75px 0 0 0;
   margin: auto;
 }
 
-.mdc-theme--primary {
+.mdc-layout-grid {
+  padding: 0 10px;
+}
+
+.theme--primary {
+  color: #EF6292;
+}
+
+.theme--secondary {
+  color: #47B7AD !important;
+}
+
+.theme--primary-bg {
   background-color: #EF6292;
 }
 
-.mdc-theme--secondary {
+.theme--secondary-bg {
   background-color: #47B7AD !important;
 }
 
@@ -5815,8 +5827,24 @@ p {
   text-transform: var(--mdc-typography-body1-text-transform, inherit);
 }
 
+.tal {
+  text-align: left;
+}
+
+.tar {
+  text-align: right;
+}
+
+.tac {
+  text-align: center;
+}
+
 .button-group {
-  padding-top: 20px;
+  padding: 30px 0;
+}
+
+.p-0 {
+  padding: 0;
 }
 
 .mdc-drawer {
@@ -5832,8 +5860,26 @@ p {
   font-size: 14px;
 }
 
-.welcome {
-  text-align: center;
+.mdc-card {
+  margin: 30px 0;
+  padding: 20px;
+}
+
+.mdc-card i {
+  font-size: 75px;
+}
+
+.mdc-card.neighborhood-card {
+  padding: 0;
+}
+
+.mdc-card.neighborhood-card .neighborhood-card-location {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.mdc-card.neighborhood-card .neighborhood-card-location .card__subtitle {
+  margin: 0;
 }
 
 .welcome h1 {
@@ -5852,15 +5898,6 @@ p {
 .welcome .callout {
   font-size: 14px;
   color: #EF6292;
-}
-
-.welcome .mdc-card {
-  padding: 20px 5px;
-  margin: 30px 0;
-}
-
-.welcome .mdc-card i {
-  font-size: 75px;
 }
 
 .login {
