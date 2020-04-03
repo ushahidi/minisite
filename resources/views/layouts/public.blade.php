@@ -28,66 +28,7 @@
 
 <body class="mdc-typography">
     <aside class="mdc-drawer mdc-drawer--modal">
-        <div class="mdc-drawer__header">
-            <div class="mdc-layout-grid">
-                <div class="mdc-layout-grid__inner">
-                    <div class="mdc-layout-grid__cell--span-12">
-                        <h3 class="mdc-drawer__title">Mahalla Logo</h3>
-                    </div>
-                    <div class="mdc-layout-grid__cell--span-12">
-                        <div class="mdc-layout-grid__inner">
-                            <div
-                                class="mdc-layout-grid__cell--span-2-phone mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-6-desktop">
-                                <a href="{{ route('login') }}" class="mdc-button mdc-button--raised">
-                                    <div class="mdc-button__ripple"></div>
-                                    <span class="mdc-button__label">@lang('auth.login')</span>
-                                </a>
-                            </div>
-                            <div
-                                class="mdc-layout-grid__cell--span-2-phone mdc-layout-grid__cell--span-4-tablet mdc-layout-grid__cell--span-6-desktop">
-                                <a href="{{ route('register') }}" class="mdc-button mdc-button--raised">
-                                    <div class="mdc-button__ripple"></div>
-                                    <span class="mdc-button__label">@lang('auth.register')</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mdc-drawer__content">
-            <nav class="mdc-list">
-                @guest
-                <a class="mdc-list-item" href="{{ route('login') }}" aria-current="page">
-                    <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-                    <span class="mdc-list-item__text">Create a Mahalla</span>
-                </a>
-
-                @if (Route::has('register'))
-                <a class="mdc-list-item" href="{{ route('register') }}">
-                    <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-                    <span class="mdc-list-item__text">Search</span>
-                </a>
-                @endif
-                <a class="mdc-list-item" href="{{ route('register') }}">
-                    <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-                    <span class="mdc-list-item__text">About Mahalla</span>
-                </a>
-                @else
-                <span class="mdc-list-item">
-                    {{ Auth::user()->name }}
-                </span>
-                <a class="mdc-list-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt mdc-list-item__graphic" aria-hidden="true"></i>
-                    <span class="mdc-list-item__text">{{ __('Logout') }}</span>
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                @endguest
-            </nav>
-        </div>
+        @include('includes.menu-context')
     </aside>
     <div class="mdc-drawer-scrim"></div>
     <div id="app">

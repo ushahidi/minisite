@@ -22,7 +22,7 @@
                         </a>
                     </div>
                     <div class="grid-cell">
-                        <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme--secondary-bg">
+                        <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme-secondary-bg">
                             <div class="mdc-button__ripple"></div>
                             <span class="mdc-button__label">Create</span>
                         </a>
@@ -69,8 +69,8 @@
             @include('includes.neighborhood-card')
             @include('includes.neighborhood-card')
             <div class="mdc-card">
-                <h6 class="theme--primary tal">MAHALLA</h6>
-                <p class="theme--secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
+                <h6 class="theme-primary tal">MAHALLA</h6>
+                <p class="theme-secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
                     maḥalla; Bengali: মহল্লা
                     môhollā; Hindustani: मोहल्ला; محلہ mōhallā; Persian: محله‎ mahalleh; Azerbaijani: Məhəllə;
                     Albanian: mahallë or mahalla, or mëhallë or mëhalla, Bulgarian: махала</p>

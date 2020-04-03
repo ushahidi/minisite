@@ -1,12 +1,34 @@
 .mdc-drawer {
     width: 304px;
 
-    .mdc-drawer__header {
-      background: $theme-secondary;
-      padding: 10px 0;
+    .grid-cell {
+        @include button-group(2, 4, 6)
+    }
 
-      .mdc-button {
-        font-size: 14px;
-      }
+    .mdc-drawer__header {
+        background: $theme-secondary;
+        padding: 10px 0;
+
+        .mdc-layout-grid__inner {
+          // grid-gap: 0;
+        }
+
+        .avatar {
+          font-size: 40px;
+        }
+
+        .mdc-button {
+            font-size: 14px;
+        }
+
+        .mdc-card__subtitle {
+          display: flex;
+          justify-content: space-between;
+
+          .icon {
+            position: relative;
+            top: 4px;
+          }
+        }
     }
 }

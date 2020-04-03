@@ -1,0 +1,26 @@
+@mixin button-group($phoneCells, $tabletCells, $desktopCells) {
+    .grid-cell {
+        @include mdc-layout-grid-cell(phone, $phoneCells, 3);
+
+        @include tablet {
+            @include mdc-layout-grid-cell(tablet, $tabletCells, 3);
+        }
+
+        @include desktop {
+            @include mdc-layout-grid-cell(desktop, $desktopCells, 3);
+        }
+    }
+}
+
+@mixin icon-element {
+    .icon-element {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .icon {
+            font-size: 50px;
+            margin-right: 5px !important;
+        }
+    }
+}

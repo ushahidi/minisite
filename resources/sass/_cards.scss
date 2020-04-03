@@ -7,6 +7,11 @@
         padding: 0;
     }
 
+    .more-options {
+        position: absolute;
+        right: 0;
+    }
+
     &.neighborhood-card {
         padding: 0;
 
@@ -20,7 +25,9 @@
         }
     }
 
-    &.header-card {
-
+    &.heading-card {
+        .mdc-card__actions .more-options {
+            justify-content: flex-end;
+        }
     }
 }
