@@ -19,7 +19,6 @@ use App\Mail\SendSiteEmail;
 
 class MinisiteController extends Controller
 {
-    
     /**
      * The only minisite public view
      */

@@ -5,7 +5,14 @@ namespace Modules\Minisite\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Blade;
-use \Modules\Minisite\View\Components;
+use Modules\Minisite\View\Components\EmailForm;
+use Modules\Minisite\View\Components\FeaturedYoutubeVideo;
+use Modules\Minisite\View\Components\FreeForm;
+use Modules\Minisite\View\Components\PageHeader;
+use Modules\Minisite\View\Components\PinnedInformation;
+use Modules\Minisite\View\Components\RSSFeed;
+use Modules\Minisite\View\Components\UshahidiPlatformMap;
+use Modules\Minisite\View\Components\WhatsAppGroup;
 class MinisiteServiceProvider extends ServiceProvider
 {
     /**
