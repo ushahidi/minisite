@@ -93,24 +93,4 @@ class NeighborhoodManagerController extends Controller
     }
 
     
-    public function searchPage(Request $request)
-    {
-        return view('search');
-    }
-
-
-    public function search(Request $request)
-    {
-        $searchResults = (new Search())
-            ->registerModel(Neighborhood::class, function(ModelSearchAspect $modelSearchAspect) {
-                $modelSearchAspect
-                    ->addSearchableAttribute('city')
-                    ->addSearchableAttribute('state')
-                    ->addSearchableAttribute('country')
-                    ->addSearchableAttribute('name'); // only return results that exactly match the e-mail address
-            }
-        )->search($request->input('query'));
-        return view('search', compact('searchResults'));
-    }
-
 }

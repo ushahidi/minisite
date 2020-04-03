@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
+use App\User;
 
 class Minisite extends Model implements Searchable
 {
@@ -38,7 +39,7 @@ class Minisite extends Model implements Searchable
     }
     public function blocks()
     {
-        return $this->hasMany('Modules\Block');
+        return $this->hasMany('Modules\BlockManager\Block');
     }
     /**
      * Get the route key for the model.

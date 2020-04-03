@@ -12,8 +12,8 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Mail;
 
 use App\User;
-use Modules\Block;
-use Modules\BlockTypeFields;
+use Modules\BlockManager\Block;
+use Modules\BlockManager\BlockTypeFields;
 use Modules\Minisite\Minisite;
 use App\Mail\SendSiteEmail;
 

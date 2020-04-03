@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('mahallahlanding')->group(function() {
-    Route::get('/', 'MahallahLandingController@index');
-});
+Route::get('/', 'MahallahLandingController@index');
+Route::get('/search', 'MahallahLandingController@searchPage')->name('searchPage');
+Route::post('/search', 'MahallahLandingController@search')->name('search');

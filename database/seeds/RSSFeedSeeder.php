@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Modules\BlockTypeFields;
+use Modules\BlockManager\BlockTypeFields;
 use Modules\BlockType;
 
 class RSSFeedSeeder extends Seeder

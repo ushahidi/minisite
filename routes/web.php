@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'HomeController@welcome');
-
 Route::get('/community', 'HomeController@community');
 Route::get('/all-mahallas', 'HomeController@allMahallas');
 Route::get('/add-blocks', 'HomeController@addBlocks');

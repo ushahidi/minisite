@@ -4,9 +4,9 @@ namespace Modules\BlockManager\Http\Controllers;
 use Modules\Minisite\Minisite;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
-use Modules\Block;
+use Modules\BlockManager\Block;
 use Modules\BlockType;
-use Modules\BlockTypeFields;
+use Modules\BlockManager\BlockTypeFields;
 use Illuminate\Routing\Controller;
 
 class BlockController extends Controller

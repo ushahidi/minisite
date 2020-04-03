@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/search', 'NeighborhoodManagerController@searchPage')->name('searchPage');
-Route::post('/search', 'NeighborhoodManagerController@search')->name('search');
 Route::prefix('neighborhoodmanager')->group(function() {
     
     Route::get('/user/invited/{token}', 'NeighborhoodManagerController@joinFromInvite')->name('joinFromInvite');

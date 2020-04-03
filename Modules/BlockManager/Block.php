@@ -3,6 +3,7 @@
 namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Block extends Model
 {    
