@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,6 @@ class BlockTypeFields extends Model
 {
     public function blockType()
     {
-        return $this->belongsTo('App\BlockType', 'block_type');
+        return $this->belongsTo('Modules\BlockManager\BlockType', 'block_type');
     }
 }

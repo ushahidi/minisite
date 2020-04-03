@@ -38,7 +38,7 @@ class Minisite extends Model implements Searchable
     }
     public function blocks()
     {
-        return $this->hasMany('App\Block');
+        return $this->hasMany('Modules\Block');
     }
     /**
      * Get the route key for the model.

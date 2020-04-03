@@ -1,5 +1,6 @@
 {
     "BlockManager": true,
     "NeighborhoodManager": true,
-    "Minisite": true
+    "Minisite": true,
+    "Core": true
 }

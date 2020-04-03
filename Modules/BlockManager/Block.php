@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
 

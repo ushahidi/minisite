@@ -4,9 +4,9 @@ namespace Modules\BlockManager\Http\Controllers;
 use Modules\Minisite\Minisite;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
-use App\Block;
-use App\BlockType;
-use App\BlockTypeFields;
+use Modules\Block;
+use Modules\BlockType;
+use Modules\BlockTypeFields;
 use Illuminate\Routing\Controller;
 
 class BlockController extends Controller
@@ -64,7 +64,7 @@ class BlockController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Block  $block
+     * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
     public function show(Block $block)
@@ -75,7 +75,7 @@ class BlockController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Block  $block
+     * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
     public function edit(Minisite $minisite, Block $block)
@@ -96,7 +96,7 @@ class BlockController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Block  $block
+     * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $minisiteSlug, $blockId)
@@ -137,7 +137,7 @@ class BlockController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Block  $block
+     * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
     public function destroy(Minisite $minisite, Block $block)

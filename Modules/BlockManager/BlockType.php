@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +14,6 @@ class BlockType extends Model
     protected $keyType = 'string';
 
     protected function fields() {
-        return $this->hasMany('App\BlockTypeFields', 'block_type', 'id');
+        return $this->hasMany('Modules\BlockManager\BlockTypeFields', 'block_type', 'id');
     }
 }
