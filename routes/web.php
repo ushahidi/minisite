@@ -22,6 +22,7 @@ Route::post('/search', 'NeighborhoodController@search')->name('search');
 Route::get('/searching', 'HomeController@searching');
 Route::get('/community', 'HomeController@community');
 Route::get('/all-mahallas', 'HomeController@allMahallas');
+Route::get('/add-blocks', 'HomeController@addBlocks');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');

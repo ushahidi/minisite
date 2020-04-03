@@ -18,6 +18,11 @@
 <span class="mdc-top-app-bar__title">
     My Mahallas
 </span>
+@elseif (Request::is('add-blocks'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Add Blocks
+</span>
 @else
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
 <span class="mdc-top-app-bar__title">

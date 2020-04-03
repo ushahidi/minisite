@@ -6151,6 +6151,31 @@ p {
 }
 }
 
+.add-blocks .mdc-card {
+  padding: 0;
+}
+
+.add-blocks .mdc-card__title,
+.add-blocks .mdc-card__subtitle {
+  margin: 0;
+}
+
+.add-blocks .mdc-card__primary,
+.add-blocks .mdc-card__secondary {
+  padding: 20px;
+}
+
+.add-blocks .mdc-card__primary .inner-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.add-blocks .mdc-card__primary .inner-wrapper .icon {
+  font-size: 50px;
+  margin-right: 5px !important;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -53,4 +53,8 @@ class HomeController extends Controller
     public function allMahallas(){
         return view ('all-mahallas');
     }
+
+    public function addBlocks() {
+        return view ('add-blocks');
+    }
 }
