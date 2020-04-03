@@ -24,7 +24,13 @@ class MahallahLandingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('mahallahlanding::welcome', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
+        return view(
+                'mahallahlanding::welcome', 
+                [
+                    'neighborhood' => $user ? $user->neighborhood : null,  
+                    'activeCommunities' => $this->activeCommunities(),
+                    'isLoggedIn' => !!$user
+                ]);
     }
     
     public function searchPage(Request $request)
@@ -45,5 +51,11 @@ class MahallahLandingController extends Controller
         )->search($request->input('query'));
         return view('mahallahlanding::search', compact('searchResults'));
     }
-
+    
+    private function activeCommunities() {
+        $communities = \Modules\NeighborhoodManager\Neighborhood::orderBy('created_at', 'desc')
+               ->take(5)
+               ->get();
+        return $communities;
+    }
 }

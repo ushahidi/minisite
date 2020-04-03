@@ -63,11 +63,9 @@
 
         <div class="mdc-layout-grid__cell--span-12">
             <h4>Active Communities</h4>
-            @include('includes.neighborhood-card')
-            @include('includes.neighborhood-card')
-            @include('includes.neighborhood-card')
-            @include('includes.neighborhood-card')
-            @include('includes.neighborhood-card')
+            @foreach ($activeCommunities as $community)
+                @include('includes.neighborhood-card', ['neighborhood' => $community])    
+            @endforeach
             <div class="mdc-card">
                 <h6 class="theme-primary tal">MAHALLA</h6>
                 <p class="theme-secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
