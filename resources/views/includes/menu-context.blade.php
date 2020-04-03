@@ -73,7 +73,7 @@
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="content">
                     <h2 class="mdc-card__title mdc-typography mdc-typography--headline6 p-0">
-                        Admin User Name
+                        {{ Auth::user() ? Auth::user()->name : '' }}
                     </h2>
                     <span class="mdc-card__subtitle mdc-typography mdc-typography--subtitle2">
                         {{ Auth::user() ? Auth::user()->email : '' }}
