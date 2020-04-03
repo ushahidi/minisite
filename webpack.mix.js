@@ -21,6 +21,11 @@ mix.js("resources/js/app.js", "public/js").sass(
 
 // https://browsersync.io/docs/options
 mix.browserSync({
-    watch: true,
+    files: [
+        // "resources/**/*",
+        "resources/sass/*.scss",
+        "resources/js/**/*.js",
+        "resources/views/**/*.php"
+    ],
     proxy: "minisite.homestead.test"
 });

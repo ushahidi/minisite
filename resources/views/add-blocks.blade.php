@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="mdc-card__primary">
-                        <div class="inner-wrapper">
+                        <div class="icon-element">
                             <div class="icon">
                                 <i class="fas fa-user-circle icon"></i>
                             </div>
@@ -40,10 +40,10 @@
                 </div>
                 <div class="mdc-card__actions">
                     <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button theme--secondary">
+                        <a href="/add-block" class="mdc-button mdc-card__action mdc-card__action--button theme-secondary">
                             <span class="mdc-button__ripple"></span>
                             Add
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -34,6 +34,7 @@ const app = new Vue({
 });
 
 // Material Design Web Components Instantiation
+import { MDCRipple } from "@material/ripple/index";
 
 // Drawer Menu
 import { MDCDrawer } from "@material/drawer";
@@ -52,8 +53,31 @@ mainContentEl.addEventListener("click", event => {
 });
 
 // Button
-import { MDCRipple } from "@material/ripple/index";
 const ripple = new MDCRipple(document.querySelector(".mdc-button"));
+
+// Icon Button
+const iconButtonRipple = new MDCRipple(
+    document.querySelector(".mdc-icon-button")
+);
+iconButtonRipple.unbounded = true;
+
+// Menu Surface
+import { MDCMenuSurface } from "@material/menu-surface";
+
+const menuSurface = new MDCMenuSurface(
+    document.querySelector(".mdc-menu-surface")
+);
+
+// Menu List
+import { MDCMenu } from "@material/menu";
+
+// Show menu on Button click
+const buttonEl = document.querySelector("#menu-button");
+const menuEl = document.querySelector(".mdc-menu");
+const menu = new MDCMenu(menuEl);
+buttonEl.addEventListener("click", event => {
+    menu.open = true;
+});
 
 // Text Field
 import { MDCTextField } from "@material/textfield";

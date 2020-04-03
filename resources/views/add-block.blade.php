@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="create">
+<div class="add-block">
     <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-text-field">
@@ -41,7 +41,7 @@
         <div class="mdc-layout-grid__cell--span-2">
             <button class="mdc-button theme-secondary-bg">
                 <div class="mdc-button__ripple"></div>
-                <span class="mdc-button__label theme-black">Next</span>
+                <span class="mdc-button__label theme-black">Add</span>
             </button>
         </div>
     </div>

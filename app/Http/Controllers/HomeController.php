@@ -57,4 +57,12 @@ class HomeController extends Controller
     public function addBlocks() {
         return view ('add-blocks');
     }
+
+    public function addBlock() {
+        return view ('add-block');
+    }
+
+    public function editBlock() {
+        return view ('edit-block');
+    }
 }

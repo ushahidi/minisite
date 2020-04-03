@@ -1,0 +1,20 @@
+.add-blocks {
+
+    .mdc-card {
+        padding: 0;
+    }
+
+    .mdc-card__primary,
+    .mdc-card__secondary {
+        padding: 20px;
+    }
+
+    .mdc-card__primary {
+        @include icon-element;
+    }
+
+}
+
+.edit-blocks {
+    @include button-group(2, 4, 6)
+}

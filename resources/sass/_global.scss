@@ -23,23 +23,27 @@ a {
 
 // Colors
 
-.theme--primary {
+.theme-black {
+    color: $theme-black !important;
+}
+
+.theme-primary {
     color: $theme-primary !important;
 }
 
-.theme--secondary {
+.theme-secondary {
     color: $theme-secondary !important;
 }
 
-.theme--primary-bg {
+.theme-primary-bg {
     background-color: $theme-primary !important;
 }
 
-.theme--secondary-bg {
+.theme-secondary-bg {
     background-color: $theme-secondary !important;
 }
 
-.theme--neutral-bg {
+.theme-neutral-bg {
     background-color: $theme-neutral !important;
 }
 
@@ -110,6 +114,11 @@ p {
             @include mdc-layout-grid-cell(desktop, 6, 3);
         }
     }
+}
+
+.mdc-card__title,
+.mdc-card__subtitle {
+    margin: 0;
 }
 
 // spacing
