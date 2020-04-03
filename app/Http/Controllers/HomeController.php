@@ -42,10 +42,6 @@ class HomeController extends Controller
         return view('welcome', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
     }
 
-    public function searching(){
-        return view ('searching');
-    }
-
     public function community(){
         return view ('community');
     }

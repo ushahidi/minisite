@@ -1,4 +1,4 @@
-@if (Request::is('searching'))
+@if (Request::is('search'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Search

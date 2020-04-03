@@ -93,6 +93,11 @@ class NeighborhoodManagerController extends Controller
     }
 
     
+    public function searchPage(Request $request)
+    {
+        return view('search');
+    }
+
 
     public function search(Request $request)
     {

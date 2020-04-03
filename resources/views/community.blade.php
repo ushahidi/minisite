@@ -23,7 +23,7 @@
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">
                                 <div class="grid-cell">
-                                    <a href="/searching" class="mdc-button mdc-button--raised theme--secondary-bg">
+                                    <a href="/search" class="mdc-button mdc-button--raised theme--secondary-bg">
                                         <div class="mdc-button__ripple"></div>
                                         <span class="mdc-button__label">Add Blocks</span>
                                     </a>
@@ -64,7 +64,7 @@
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">
                                 <div class="grid-cell">
-                                    <a href="/searching" class="mdc-button mdc-button--raised theme--secondary-bg">
+                                    <a href="/search" class="mdc-button mdc-button--raised theme--secondary-bg">
                                         <div class="mdc-button__ripple"></div>
                                         <span class="mdc-button__label">Add Members</span>
                                     </a>
