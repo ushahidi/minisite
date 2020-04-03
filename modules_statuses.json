@@ -2,5 +2,6 @@
     "BlockManager": true,
     "NeighborhoodManager": true,
     "Minisite": true,
-    "Core": true
+    "Core": true,
+    "MahallahLanding": true
 }
