@@ -42,4 +42,8 @@ class User extends Authenticatable
         return $this->belongsTo('Modules\NeighborhoodManager\Neighborhood');
     }
 
+    public function isCaptain() {
+        return $this->neighborhood->captain_id === $this->id;
+    }
+
 }

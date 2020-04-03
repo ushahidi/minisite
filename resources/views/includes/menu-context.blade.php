@@ -88,7 +88,7 @@
 </div>
 <div class="mdc-drawer__content">
     <nav class="mdc-list">
-        @if (Request::is('community'))
+        @if (Auth::user() && Auth::user()->isCaptain() )
         <a class="mdc-list-item" href="/" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Home</span>
