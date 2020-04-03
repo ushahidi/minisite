@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace Modules\Minisite\View\Components;
 
 use Illuminate\View\Component;
 
@@ -24,6 +24,6 @@ class UshahidiPlatformMap extends Component
      */
     public function render()
     {
-        return view('components.ushahidi-platform-map');
+        return view('minisite::components.ushahidi-platform-map');
     }
 }

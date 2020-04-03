@@ -1,22 +1,20 @@
 <?php
 
-namespace App\View\Components;
+namespace Modules\Minisite\View\Components;
 
 use Illuminate\View\Component;
 
-class EmailForm extends Component
+class FeaturedYoutubeVideo extends Component
 {
     public $block;
-    public $minisite;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($block, $minisite)
+    public function __construct($block)
     {
         $this->block = $block;
-        $this->minisite = $minisite;
     }
 
     /**
@@ -26,6 +24,6 @@ class EmailForm extends Component
      */
     public function render()
     {
-        return view('components.email-form');
+        return view('minisite::components.featured-youtube-video');
     }
 }

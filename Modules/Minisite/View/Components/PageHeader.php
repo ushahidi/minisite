@@ -1,11 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace Modules\Minisite\View\Components;
 
 use Illuminate\View\Component;
 
-class RSSFeed extends Component
+class PageHeader extends Component
 {
+  
     public $block;
     /**
      * Create a new component instance.
@@ -25,6 +26,6 @@ class RSSFeed extends Component
      */
     public function render()
     {
-        return view('components.rss-feed');
+        return view('minisite::components.page-header');
     }
 }

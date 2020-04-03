@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace Modules\Minisite\View\Components;
 
 use Illuminate\View\Component;
 
@@ -37,6 +37,6 @@ class FreeForm extends Component
     public function render()
     {
         
-        return view('components.free-form');
+        return view('minisite::components.free-form');
     }
 }

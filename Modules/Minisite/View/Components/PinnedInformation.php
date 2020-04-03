@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components;
+namespace Modules\Minisite\View\Components;
 
 use Illuminate\View\Component;
 
-class WhatsAppGroup extends Component
+class PinnedInformation extends Component
 {
     public $block;
     /**
@@ -12,10 +12,11 @@ class WhatsAppGroup extends Component
      *
      * @return void
      */
-    public function __construct($block = null)
+    public function __construct($block)
     {
         $this->block = $block;
     }
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -23,6 +24,6 @@ class WhatsAppGroup extends Component
      */
     public function render()
     {
-        return view('components.whats-app-group');
+        return view('minisite::components.pinned-information');
     }
 }
