@@ -57,7 +57,7 @@
         --}}
         <a tabindex="0" class="mdc-list-item" href="{{route('home')}}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-            <span class="mdc-list-item__text">Home</span>
+            <span class="mdc-list-item__text">My communities</span>
         </a>
         {{-- @change Pending integration --}}
         {{-- <a class="mdc-list-item" href="/add-blocks" aria-current="page">
