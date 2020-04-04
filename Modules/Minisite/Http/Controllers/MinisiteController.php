@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\User;
 use Modules\BlockManager\Block;
 use Modules\BlockManager\BlockTypeFields;
-use Modules\Minisite\Minisite;
+use Modules\CommunityManager\Community;
 use App\Mail\SendSiteEmail;
 
 class MinisiteController extends Controller
@@ -22,7 +22,7 @@ class MinisiteController extends Controller
     /**
      * The only minisite public view
      */
-    public function public(Minisite $minisite){
+    public function public(Community $minisite){
         $user = Auth::user();
         if (!$minisite->visibleBy($user)) {
             abort(403, 'The site is not available.');
@@ -50,7 +50,7 @@ class MinisiteController extends Controller
         return view('minisite::public', ['minisite' => $minisite]);
     }
 
-    public function email(Minisite $minisite, Block $block, Request $request)
+    public function email(Communit $minisite, Block $block, Request $request)
     {
         $errors = null;
         $success = null;

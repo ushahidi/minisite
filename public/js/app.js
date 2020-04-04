@@ -86762,12 +86762,19 @@ button.addEventListener("click", function () {
 var mainContentEl = document.querySelector(".mdc-drawer-scrim");
 mainContentEl.addEventListener("click", function (event) {
   drawer.open = false;
-}); // Button
+});
 
-var ripple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-button")); // Icon Button
+if (document.querySelector(".mdc-button")) {
+  // Button
+  var ripple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-button"));
+}
 
-var iconButtonRipple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-icon-button"));
-iconButtonRipple.unbounded = true; // Menu Surface
+if (document.querySelector(".mdc-icon-button")) {
+  // Icon Button
+  var iconButtonRipple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-icon-button"));
+  iconButtonRipple.unbounded = true;
+} // Menu Surface
+
 
  //@fixme this was erroring out because mdc-menu-surface is not always available
 

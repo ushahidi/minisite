@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">@lang('community.editSite')</div>
+                <div class="card-header">@lang('minisite.editSite')</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('communityUpdate', ['community' => $community]) }}">
@@ -15,7 +15,7 @@
                             <label for="title" class="col-md-4 col-form-label text-md-right">@lang('minisite.minisiteName')</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $community->title }}" required autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $community->name }}" required autofocus>
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">

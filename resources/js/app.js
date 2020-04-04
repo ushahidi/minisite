@@ -52,15 +52,17 @@ mainContentEl.addEventListener("click", event => {
     drawer.open = false;
 });
 
-// Button
-const ripple = new MDCRipple(document.querySelector(".mdc-button"));
-
-// Icon Button
-const iconButtonRipple = new MDCRipple(
-    document.querySelector(".mdc-icon-button")
-);
-iconButtonRipple.unbounded = true;
-
+if (document.querySelector(".mdc-button")){
+    // Button
+    const ripple = new MDCRipple(document.querySelector(".mdc-button"));
+}
+if (document.querySelector(".mdc-icon-button")){
+    // Icon Button
+    const iconButtonRipple = new MDCRipple(
+        document.querySelector(".mdc-icon-button")
+    );
+    iconButtonRipple.unbounded = true;
+}
 // Menu Surface
 import { MDCMenuSurface } from "@material/menu-surface";
 //@fixme this was erroring out because mdc-menu-surface is not always available
