@@ -74,16 +74,23 @@ if (document.querySelector(".mdc-menu-surface")) {
 
 // Menu List
 import { MDCMenu } from "@material/menu";
-const buttonEl = document.querySelector("#menu-button");
-const menuEl = document.querySelector(".mdc-menu");
 
-if (buttonEl && menuEl) {
-    // Show menu on Button click
-    const menu = new MDCMenu(menuEl);
-    buttonEl.addEventListener("click", event => {
-        menu.open = true;
+const menuElements = document.querySelectorAll(".blocks-js .mdc-menu");
+const menus = [];
+if (menuElements) {
+    [].map.call(
+        document.querySelectorAll(".blocks-js .mdc-menu"),
+        function(el) {
+            menus[el.getAttribute('data-menu-index')] = new MDCMenu(el);
+        }
+    );
+    document.querySelectorAll(".blocks-js .menu-button").forEach(buttonEl => {
+        buttonEl.addEventListener('click', event => {
+            menus[event.currentTarget.getAttribute('data-menu-index')].open = !menus[event.currentTarget.getAttribute('data-menu-index')].open;
+        });
     });
 }
+
 // Text Field
 import { MDCTextField } from "@material/textfield";
 if (document.querySelectorAll(".mdc-text-field")) {

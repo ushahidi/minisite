@@ -86784,14 +86784,17 @@ if (document.querySelector(".mdc-menu-surface")) {
 
 
 
-var buttonEl = document.querySelector("#menu-button");
-var menuEl = document.querySelector(".mdc-menu");
+var menuElements = document.querySelectorAll(".blocks-js .mdc-menu");
+var menus = [];
 
-if (buttonEl && menuEl) {
-  // Show menu on Button click
-  var menu = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](menuEl);
-  buttonEl.addEventListener("click", function (event) {
-    menu.open = true;
+if (menuElements) {
+  [].map.call(document.querySelectorAll(".blocks-js .mdc-menu"), function (el) {
+    menus[el.getAttribute('data-menu-index')] = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](el);
+  });
+  document.querySelectorAll(".blocks-js .menu-button").forEach(function (buttonEl) {
+    buttonEl.addEventListener('click', function (event) {
+      menus[event.currentTarget.getAttribute('data-menu-index')].open = !menus[event.currentTarget.getAttribute('data-menu-index')].open;
+    });
   });
 } // Text Field
 
