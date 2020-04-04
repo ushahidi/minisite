@@ -85,6 +85,10 @@ class Community extends Model implements Searchable
         return $this->hasMany('Modules\BlockManager\Block');
     }
 
+    public function communityLocation()
+    {
+        return $this->belongsTo('Modules\CommunityManager\Community', 'location_id');
+    }
     /**
      * Get the route key for the model.
      *

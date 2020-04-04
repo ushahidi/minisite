@@ -21,6 +21,7 @@ class CreateCommunitiesTable extends Migration
             $table->string('state');
             $table->string('country');
             $table->json('location_info')->nullable();//generic "all other stuff" 
+            $table->softDeletes('deleted_at', 0);
         });
 
         Schema::create('communities', function (Blueprint $table) {

@@ -13,7 +13,8 @@ use Spatie\Searchable\ModelSearchAspect;
 
 use App\User;
 use Modules\CommunityManager\Community;
-
+use Modules\CommunityManager\CommunityLocation;
+use Illuminate\Support\Facades\DB;
 class MahallahLandingController extends Controller
 {
     /**
@@ -39,16 +40,19 @@ class MahallahLandingController extends Controller
 
     public function search(Request $request)
     {
-        $searchResults = (new Search())
-            ->registerModel(Community::class, function(ModelSearchAspect $modelSearchAspect) {
-                $modelSearchAspect
-                    ->addSearchableAttribute('city')
-                    ->addSearchableAttribute('state')
-                    ->addSearchableAttribute('country')
-                    ->addSearchableAttribute('name'); // only return results that exactly match the e-mail address
-            }
-        )->search($request->input('query'));
-        return view('mahallahlanding::search', compact('searchResults'));
+        $input = $request->input('query');
+        $communities = DB::table('communities')
+            ->join('community_locations', 'communities.location_id', '=', 'community_locations.id', 'left')
+            ->where(function ($query) use ($input) {
+                $query->where('name', 'LIKE', "%$input%")
+                    ->orWhere('description', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.neighborhood', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.city', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.state', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.country', 'LIKE', "%$input%");
+                }
+            )->get();
+        return view('mahallahlanding::search', compact('communities'));
     }
     
     private function activeCommunities() {

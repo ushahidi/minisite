@@ -43,7 +43,7 @@
                 @endisset
                 @if($isLoggedIn)
                     @foreach ($communities as $community)
-                        @include('includes.community-card-admin', ['community' => $community])
+                        @include('communitymanager::includes.community-card-admin', ['community' => $community])
                     @endforeach
                     <div class="alert alert-success" role="alert">
                         @if(!empty($community))

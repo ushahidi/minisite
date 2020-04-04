@@ -18,17 +18,14 @@
                 </div>
             </form>
         </div>
-        @isset($searchResults)
+        @isset($communities)
             <div class="mdc-layout-grid__cell--span-12">
-                <div class="mdc-layout-grid__inner">
-                    {{-- Bring the location grouped search results --}}
-                    @foreach($searchResults->groupByType() as $type => $modelSearchResults)
-                        {{-- Render each result in its group --}}
-                        @foreach($modelSearchResults as $searchResult)
-                            <div class="grid-cell">
-                                @include('includes.community-search-result', ['searchResult' => $searchResult])
-                            </div>
-                        @endforeach
+                <div class="mdc-layout-grid__inner">                    
+                    {{-- Render each result in its group --}}
+                    @foreach($communities as $community)
+                        <div class="grid-cell">
+                            @include('mahallahlanding::includes.community-search-result', ['searchResult' => $community])
+                        </div>
                     @endforeach
                 </div>
             </div>
