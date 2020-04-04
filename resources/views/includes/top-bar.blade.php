@@ -26,21 +26,21 @@
 </span>
 
 {{-- Add Blocks --}}
-@elseif (Request::is('add-blocks'))
+@elseif (Request::is('communityBlocksEdit'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Add Blocks
 </span>
 
 {{-- Add Single Block --}}
-@elseif (Request::is('add-block'))
+@elseif (Request::is('blockCreate'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Add Page Header
 </span>
 
 {{-- Edit Single Block --}}
-@elseif (Request::is('edit-block'))
+@elseif (Request::is('blockEdit'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Edit Page Header

@@ -88,17 +88,6 @@
     </aside>
     <div class="mdc-drawer-scrim"></div>
     <div id="app">
-        <header class="mdc-top-app-bar drawer-top-app-bar">
-            <div class="mdc-top-app-bar__row">
-                <section class="mdc-top-app-bar__section">
-                    <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-                    <span class="mdc-top-app-bar__title">
-                        {{ config('app.name', 'Mahalla') }}
-                    </span>
-                </section>
-            </div>
-        </header>
-
         <div class="container">
             <div class="mdc-layout-grid">
                 <div class="mdc-layout-grid__inner">

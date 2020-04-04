@@ -1,44 +1,3 @@
-{{-- <nav class="mdc-list">
-    @if (Request::is('welcome'))
-    <a class="mdc-list-item" href="{{ route('login') }}" aria-current="page">
-<i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-<span class="mdc-list-item__text">Create a Mahalla</span>
-</a>
-
-<a class="mdc-list-item" href="{{ route('register') }}">
-    <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-    <span class="mdc-list-item__text">Search</span>
-</a>
-@else
-<div class="icon-element">
-    <div class="icon">
-        <i class="fas fa-user-circle icon"></i>
-    </div>
-    <div class="content">
-        <h2 class="mdc-card__title mdc-typography mdc-typography--headline6">Page
-            Header</h2>
-        <h3 class="mdc-card__subtitle mdc-typography mdc-typography--subtitle2">
-            Welcome to your
-            Community</h3>
-    </div>
-</div>
-@endif
-<a class="mdc-list-item" href="{{ route('register') }}">
-    <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-    <span class="mdc-list-item__text">About Mahalla</span>
-</a>
-
-<a class="mdc-list-item" href="{{ route('logout') }}"
-    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-    <i class="fas fa-sign-out-alt mdc-list-item__graphic" aria-hidden="true"></i>
-    <span class="mdc-list-item__text">{{ __('Logout') }}</span>
-</a>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
-@endguest
-</nav> --}}
-
 <div class="mdc-drawer__header">
     <div class="mdc-layout-grid">
         <div class="mdc-layout-grid__inner">
@@ -46,6 +5,7 @@
             <div class="mdc-layout-grid__cell--span-12">
                 <h3 class="mdc-drawer__title">Mahall Logo</h3>
             </div>
+            @if (!Auth::user())
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="button-group">
                     <div class="mdc-layout-grid__inner">
@@ -64,6 +24,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             @else
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="avatar">
@@ -89,33 +50,39 @@
 <div class="mdc-drawer__content">
     <nav class="mdc-list">
         @if (Auth::user())
-        <a class="mdc-list-item" href="/" aria-current="page">
+        {{-- @review this with Seth. 
+            We had an exception about focusable elements
+            https://github.com/material-components/material-components-web/issues/5615
+            and using the tabindex solution solved it 
+        --}}
+        <a tabindex="0" class="mdc-list-item" href="{{route('home')}}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Home</span>
         </a>
-        <a class="mdc-list-item" href="/add-blocks" aria-current="page">
+        {{-- @change Pending integration --}}
+        {{-- <a class="mdc-list-item" href="/add-blocks" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Add Blocks</span>
         </a>
         <a class="mdc-list-item" href="/reorder-blocks">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Reorder Blocks</span>
-        </a>
-        <a class="mdc-list-item" href="/manage-members">
+        </a> --}}
+        {{-- <a class="mdc-list-item" href="/manage-members">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Manage Members</span>
-        </a>
+        </a> --}}
         <hr class="mdc-list-divder">
         @endif
-        <a class="mdc-list-item" href="/create" aria-current="page">
+        <a class="mdc-list-item" href="{{route('communityCreate')}}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Create a Mahalla</span>
         </a>
-        <a class="mdc-list-item" href="/search">
+        <a class="mdc-list-item" href="{{route('search')}}">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Search</span>
         </a>
-        <a class="mdc-list-item" href="/about">
+        <a class="mdc-list-item" href="/">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">About Mahalla</span>
         </a>
