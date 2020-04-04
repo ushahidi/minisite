@@ -4,7 +4,7 @@ namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Modules\CommunityManager\Community;
 use App\User;
 
 class Block extends Model
@@ -31,14 +31,16 @@ class Block extends Model
 
     public function minisite()
     {
-        return $this->belongsTo('Modules\CommunityManager\Community', 'community_id');
+        return $this->belongsTo('Community', 'community_id');
     }
     
-    public function visibleBy(User $user = null) {
+    public function visibleBy(User $user = null, Community $community = null) {
+        return true;
         if ($this->visibility === 'public') {
             return true;
         }
-        $isCommunityMember = $user && $user->community_id && $user->community_id === $this->minisite->community_id;
+
+        $isCommunityMember = $user && $community->containsUser($user);
         if ($this->visibility === 'community members' && $isCommunityMember === true) {
             return true;
         }

@@ -7,7 +7,8 @@ use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
-
+use Modules\CommunityManager\UserCommunity;
+use Illuminate\Support\Facades\DB;
 class Community extends Model implements Searchable
 {
     use Sluggable;
@@ -62,8 +63,18 @@ class Community extends Model implements Searchable
         return $this->belongsToMany('App\User', 'user_communities');
     }
     
-    public function owner() {
-        return UserCommunity::where('user_id', $this->id)->get() ?? null;
+    public function owner($user) {
+        return DB::table('user_communities')->where(
+            [
+                ['user_id', '=', $user->id],
+                ['community_id', '=', $this->id],
+                ['role', '=', UserCommunity::ROLE_OWNER]
+            ]
+        )->get() ?? null;            
+    }
+
+    public function containsUser($user) {
+        return UserCommunity::where('user_id', $user->id)->where('community_id', $this->id)->get() ?? null;
     }
 
     // //@change

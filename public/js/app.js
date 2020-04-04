@@ -8949,6 +8949,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -73687,117 +73692,122 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.submit($event)
-        }
-      }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "full",
-          staticStyle: {
-            "background-color": "aliceblue",
-            padding: "10px",
-            "margin-bottom": "10px",
-            "margin-top": "10px"
+  return _c("div", { staticClass: "edit-block" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
           }
-        },
-        [
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-form-label text-md-right",
-                attrs: { for: "type" }
-              },
-              [_vm._v("Type")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedBlockType,
-                      expression: "selectedBlockType"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "type",
-                    id: "type",
-                    required: "",
-                    autofocus: ""
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "mdc-layout-grid__inner" },
+          [
+            _c("div", { staticClass: "mdc-layout-grid__cell--span-12" }, [
+              _c("div", { staticClass: "mdc-select" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-md-4 col-form-label text-md-right",
+                    attrs: { for: "type" }
                   },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedBlockType = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      function($event) {
-                        return _vm.onBlockSelect($event)
-                      }
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v(
-                      "--" +
-                        _vm._s(_vm.$I18n.trans("block.chooseBlockType")) +
-                        "--"
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.blockTypes, function(blockType) {
-                    return _c(
-                      "option",
-                      {
-                        key: blockType.id,
-                        domProps: {
-                          selected: blockType.id === _vm.fields.type,
-                          value: blockType.id
+                  [_vm._v("Type")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedBlockType,
+                          expression: "selectedBlockType"
                         }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "type",
+                        id: "type",
+                        required: "",
+                        autofocus: ""
                       },
-                      [
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedBlockType = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          function($event) {
+                            return _vm.onBlockSelect($event)
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
                         _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.$I18n.trans("block." + blockType.id)) +
-                            "\n                "
+                          "--" +
+                            _vm._s(_vm.$I18n.trans("block.chooseBlockType")) +
+                            "--"
                         )
-                      ]
-                    )
-                  })
-                ],
-                2
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.blockFields, function(blockField) {
-            return _c("span", { key: blockField.id }, [
-              blockField.block_type === _vm.selectedBlockType
-                ? _c("div", { staticClass: "form-group row" }, [
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.blockTypes, function(blockType) {
+                        return _c(
+                          "option",
+                          {
+                            key: blockType.id,
+                            domProps: {
+                              selected: blockType.id === _vm.fields.type,
+                              value: blockType.id
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  _vm.$I18n.trans("block." + blockType.id)
+                                ) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._l(
+              _vm.blockFields.filter(function(b) {
+                return b.block_type === _vm.selectedBlockType
+              }),
+              function(blockField) {
+                return _c(
+                  "div",
+                  {
+                    key: blockField.id,
+                    staticClass: "mdc-layout-grid__cell--span-12"
+                  },
+                  [
                     blockField.block_type === _vm.selectedBlockType
                       ? _c(
                           "label",
@@ -73816,239 +73826,324 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      blockField.block_type === _vm.selectedBlockType &&
-                      blockField.html_element_type == "text" &&
-                      blockField.html_element === "input"
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.fields.blockFields[blockField.id],
-                                expression: "fields.blockFields[blockField.id]"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              required: "",
-                              autofocus: ""
-                            },
-                            domProps: {
-                              value: _vm.fields.blockFields[blockField.id]
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                    blockField.block_type === _vm.selectedBlockType &&
+                    blockField.html_element_type == "text" &&
+                    blockField.html_element === "input"
+                      ? _c("div", { staticClass: "mdc-text-field" }, [
+                          blockField.block_type === _vm.selectedBlockType &&
+                          blockField.html_element_type == "text" &&
+                          blockField.html_element === "input"
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value:
+                                      _vm.fields.blockFields[blockField.id],
+                                    expression:
+                                      "fields.blockFields[blockField.id]"
+                                  }
+                                ],
+                                staticClass: "mdc-text-field__input",
+                                attrs: {
+                                  type: "text",
+                                  required: "",
+                                  autofocus: ""
+                                },
+                                domProps: {
+                                  value: _vm.fields.blockFields[blockField.id]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.fields.blockFields,
+                                      blockField.id,
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                                _vm.$set(
-                                  _vm.fields.blockFields,
-                                  blockField.id,
-                                  $event.target.value
-                                )
-                              }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "mdc-line-ripple" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "mdc-floating-label" }, [
+                            _vm._v(_vm._s(_vm.selectedBlockType.name))
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    blockField.block_type === _vm.selectedBlockType &&
+                    blockField.html_element == "textarea" &&
+                    _vm.fields.name !== "Free form"
+                      ? _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.blockFields[blockField.id],
+                              expression: "fields.blockFields[blockField.id]"
                             }
-                          })
-                        : _vm._e(),
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(_vm.selectedBlockType.name) +
-                          "\n                    "
-                      ),
-                      blockField.block_type === _vm.selectedBlockType &&
-                      blockField.html_element == "textarea" &&
-                      _vm.fields.name !== "Free form"
-                        ? _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.fields.blockFields[blockField.id],
-                                expression: "fields.blockFields[blockField.id]"
+                          ],
+                          staticClass: "mdc-text-field__input",
+                          attrs: {
+                            "aria-labelledby": "description",
+                            required: "",
+                            autofocus: ""
+                          },
+                          domProps: {
+                            value: _vm.fields.blockFields[blockField.id]
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { required: "", autofocus: "" },
-                            domProps: {
-                              value: _vm.fields.blockFields[blockField.id]
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.fields.blockFields,
-                                  blockField.id,
-                                  $event.target.value
-                                )
-                              }
+                              _vm.$set(
+                                _vm.fields.blockFields,
+                                blockField.id,
+                                $event.target.value
+                              )
                             }
-                          })
-                        : _vm._e(),
-                      _vm._v(" "),
-                      blockField.block_type === _vm.selectedBlockType &&
-                      blockField.html_element == "textarea" &&
-                      _vm.fields.name == "Free form"
-                        ? _c(
+                          }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    blockField.block_type === _vm.selectedBlockType &&
+                    blockField.html_element == "textarea" &&
+                    _vm.fields.name !== "Free form"
+                      ? _c("div", { staticClass: "mdc-notched-outline" }, [
+                          _c("div", {
+                            staticClass: "mdc-notched-outline__leading"
+                          }),
+                          _vm._v(" "),
+                          _c(
                             "div",
-                            { staticClass: "editor" },
+                            { staticClass: "mdc-notched-outline__notch" },
                             [
-                              blockField.block_type === _vm.selectedBlockType &&
-                              blockField.html_element == "textarea"
-                                ? _c("editor", {
-                                    attrs: {
-                                      initialContent:
-                                        _vm.fields.blockFields[blockField.id],
-                                      activeButtons: [
-                                        "bold",
-                                        "italic",
-                                        "strike",
-                                        "underline",
-                                        "code",
-                                        "paragraph",
-                                        "h1",
-                                        "h2",
-                                        "h3",
-                                        "bullet_list",
-                                        "ordered_list",
-                                        "blockquote",
-                                        "code_block",
-                                        "horizontal_rule",
-                                        "undo",
-                                        "redo"
-                                      ]
-                                    },
-                                    on: { update: _vm.setContent }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ])
-                  ])
-                : _vm._e()
-            ])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "visibility" }
-          },
-          [
-            _vm._v(
-              " " + _vm._s(_vm.$I18n.trans("block.selectVisibility")) + " "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fields.visibility,
-                  expression: "fields.visibility"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                name: "visibility",
-                id: "visibility",
-                required: "",
-                autofocus: ""
-              },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.fields,
-                    "visibility",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v(
-                  "--" +
-                    _vm._s(_vm.$I18n.trans("minisite.selectVisibility")) +
-                    "--"
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "mdc-floating-label",
+                                  attrs: { id: "description" }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.selectedBlockType.description)
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass: "mdc-notched-outline__trailing"
+                          })
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    blockField.block_type === _vm.selectedBlockType &&
+                    blockField.html_element == "textarea" &&
+                    _vm.fields.name == "Free form"
+                      ? _c(
+                          "div",
+                          { staticClass: "editor" },
+                          [
+                            blockField.block_type === _vm.selectedBlockType &&
+                            blockField.html_element == "textarea"
+                              ? _c("editor", {
+                                  attrs: {
+                                    initialContent:
+                                      _vm.fields.blockFields[blockField.id],
+                                    activeButtons: [
+                                      "bold",
+                                      "italic",
+                                      "strike",
+                                      "underline",
+                                      "code",
+                                      "paragraph",
+                                      "h1",
+                                      "h2",
+                                      "h3",
+                                      "bullet_list",
+                                      "ordered_list",
+                                      "blockquote",
+                                      "code_block",
+                                      "horizontal_rule",
+                                      "undo",
+                                      "redo"
+                                    ]
+                                  },
+                                  on: { update: _vm.setContent }
+                                })
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ]
                 )
-              ]),
-              _vm._v(" "),
+              }
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "mdc-layout-grid__cell--span-12" }, [
               _c(
-                "option",
+                "label",
                 {
-                  attrs: { value: "community members" },
-                  domProps: {
-                    selected:
-                      _vm.block && "community members" === _vm.block.visibility
-                  }
+                  staticClass: "col-md-4 col-form-label text-md-right",
+                  attrs: { for: "visibility" }
                 },
-                [_vm._v(_vm._s(_vm.$I18n.trans("block.community members")))]
+                [
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm.$I18n.trans("block.selectVisibility")) +
+                      " "
+                  )
+                ]
               ),
               _vm._v(" "),
-              _c(
-                "option",
-                {
-                  attrs: { value: "public" },
-                  domProps: {
-                    selected: _vm.block && "public" === _vm.block.visibility
-                  }
-                },
-                [_vm._v(_vm._s(_vm.$I18n.trans("block.public")))]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.visibility
-            ? _c(
-                "span",
-                { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-                [_c("strong", [_vm._v(_vm._s(_vm.errors.visibility[0]))])]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row mb-0" }, [
-        _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.$I18n.trans("block.save")) +
-                  "\n        "
-              )
-            ]
-          )
-        ])
-      ])
-    ]
-  )
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.visibility,
+                        expression: "fields.visibility"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "visibility",
+                      id: "visibility",
+                      required: "",
+                      autofocus: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.fields,
+                          "visibility",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v(
+                        "--" +
+                          _vm._s(_vm.$I18n.trans("minisite.selectVisibility")) +
+                          "--"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "community members" },
+                        domProps: {
+                          selected:
+                            _vm.block &&
+                            "community members" === _vm.block.visibility
+                        }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.$I18n.trans("block.community members"))
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "public" },
+                        domProps: {
+                          selected:
+                            _vm.block && "public" === _vm.block.visibility
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.$I18n.trans("block.public")))]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.visibility
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "invalid-feedback",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v(_vm._s(_vm.errors.visibility[0]))])]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mdc-layout-grid__cell--span-4" }, [
+              _c("div", { staticClass: "button-group" }, [
+                _c("div", { staticClass: "mdc-layout-grid__inner" }, [
+                  _c("div", { staticClass: "grid-cell" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mdc-button mdc-button--raised theme-secondary-bg",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("div", { staticClass: "mdc-button__ripple" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "mdc-button__label" }, [
+                          _vm._v(_vm._s(_vm.$I18n.trans("block.save")))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "grid-cell" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mdc-button mdc-button--raised theme-neutral-bg",
+                        attrs: { disabled: "" }
+                      },
+                      [
+                        _c("div", { staticClass: "mdc-button__ripple" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "mdc-button__label" }, [
+                          _vm._v(_vm._s(_vm.$I18n.trans("block.delete")))
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ],
+          2
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

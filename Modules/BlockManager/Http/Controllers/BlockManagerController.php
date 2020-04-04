@@ -20,7 +20,7 @@ class BlockManagerController extends Controller
      */
     public function edit(Community $community)
     {
-        if (!$community->owner()){
+        if (!$community->owner(Auth::user())){
             abort("401", "You are not authorized to edit this page");
         }
         return view('blockmanager::minisite.edit', ['community' => $community]);

@@ -28,8 +28,10 @@ class MinisiteController extends Controller
             abort(403, 'The site is not available.');
         }
         $returnBlocks = [];
+
         foreach($minisite->blocks as $block) {
             $content = json_decode($block->content);
+
             $mapped = [];
             foreach ($content as $field_key => $field_value) {
                 $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
@@ -42,15 +44,16 @@ class MinisiteController extends Controller
                 $mapped['Url']['item'] = array_slice($mapped['Url']['item'], 0, (int) $mapped['Limit']);
             }
             $block->content = $mapped;
-            if ($block->visibleBy($user)) {
+            
+            if ($block->visibleBy($user, $minisite)) {
                 $returnBlocks[] = $block;
             }
         }
         $minisite->blocks = $returnBlocks;
-        return view('minisite::public', ['minisite' => $minisite]);
+        return view('minisite::public', ['minisite' => $minisite, 'returnBlocks' => $returnBlocks]);
     }
 
-    public function email(Communit $minisite, Block $block, Request $request)
+    public function email(Community $minisite, Block $block, Request $request)
     {
         $errors = null;
         $success = null;

@@ -1,108 +1,113 @@
 <template>
-
-<form  @submit.prevent="submit" >
-    
-<div style="background-color:aliceblue; padding: 10px; margin-bottom:10px; margin-top:10px;" class="full">
-    <div class="form-group row">
-        <label for="type" class="col-md-4 col-form-label text-md-right">Type</label>
-        <div class="col-md-6">
-            <select @change="onBlockSelect($event)" name="type" id="type" class="form-control" v-model="selectedBlockType" required autofocus>
-                <option value="">--{{ $I18n.trans('block.chooseBlockType') }}--</option>                
-                <option :selected="blockType.id === fields.type" v-for="blockType in blockTypes" :key="blockType.id" :value="blockType.id">
-                    {{ $I18n.trans(`block.${blockType.id}`) }}
-                </option> 
-            </select>
-        </div>
-    </div>
-    <span v-for="blockField in blockFields" :key="blockField.id" >
-        <div  class="form-group row" v-if="blockField.block_type === selectedBlockType">
-            <label class="col-md-4 col-form-label text-md-right" v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{ $I18n.trans(`block.${blockField.name}`) }}</label >
-            <div class="col-md-6" >
-                    <input 
-                        v-model="fields.blockFields[blockField.id]"
-                        v-if="blockField.block_type === selectedBlockType && blockField.html_element_type=='text' && blockField.html_element==='input'"
-                        type="text"
-                        class="form-control"
-                        required autofocus
-                    >
-                    {{selectedBlockType.name}}
-                    <textarea 
-                        v-model="fields.blockFields[blockField.id]"
-                        v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name !== 'Free form'"
-                        class="form-control"
-                        required autofocus
-                    ></textarea>
-                    <div class="editor" v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name == 'Free form'">
-                        <editor
-                            v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'"
-                            @update="setContent"
-                            v-bind:initialContent="fields.blockFields[blockField.id]"
-                            v-bind:activeButtons="[
-                                'bold',
-                                'italic',
-                                'strike',
-                                'underline',
-                                'code',
-                                'paragraph',
-                                'h1',
-                                'h2',
-                                'h3',
-                                'bullet_list',
-                                'ordered_list',
-                                'blockquote',
-                                'code_block',
-                                'horizontal_rule',
-                                'undo',
-                                'redo'
-                            ]"
-                        />
-                    </div>
+<div class="edit-block">
+    <form  @submit.prevent="submit" >
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-12">
+            <div class="mdc-select">
+                <label for="type" class="col-md-4 col-form-label text-md-right">Type</label>
+                <div class="col-md-6">
+                    <select @change="onBlockSelect($event)" name="type" id="type" class="form-control" v-model="selectedBlockType" required autofocus>
+                        <option value="">--{{ $I18n.trans('block.chooseBlockType') }}--</option>                
+                        <option :selected="blockType.id === fields.type" v-for="blockType in blockTypes" :key="blockType.id" :value="blockType.id">
+                            {{ $I18n.trans(`block.${blockType.id}`) }}
+                        </option> 
+                    </select>
+                </div>
             </div>
         </div>
-    </span>
-</div>
-<div class="form-group row">
-    <label for="visibility" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.selectVisibility') }} </label>
+        <div class="mdc-layout-grid__cell--span-12" v-for="blockField in blockFields.filter(b => b.block_type === selectedBlockType)" :key="blockField.id" >
+            <label class="col-md-4 col-form-label text-md-right" v-if="blockField.block_type === selectedBlockType" :for="blockField.name">{{ $I18n.trans(`block.${blockField.name}`) }}</label >
+            <div class="mdc-text-field"
+                v-if="blockField.block_type === selectedBlockType && blockField.html_element_type=='text' && blockField.html_element==='input'"
+            >
+                <input 
+                    v-model="fields.blockFields[blockField.id]"
+                    v-if="blockField.block_type === selectedBlockType && blockField.html_element_type=='text' && blockField.html_element==='input'"
+                    type="text"
+                    class="mdc-text-field__input"
+                    required autofocus
+                />
+                <div class="mdc-line-ripple"></div>
+                <!-- @change Missing label for= -->
+                <label class="mdc-floating-label">{{selectedBlockType.name}}</label>
+            </div>
+            <textarea 
+                v-model="fields.blockFields[blockField.id]"
+                aria-labelledby="description"
+                v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name !== 'Free form'"
+                class="mdc-text-field__input"
+                required autofocus
+            ></textarea>                       
+            <div class="mdc-notched-outline"
+                v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name !== 'Free form'"
+            >
+                <div class="mdc-notched-outline__leading"></div>
+                <div class="mdc-notched-outline__notch" style="">
+                    <span class="mdc-floating-label" id="description">{{selectedBlockType.description}}</span>
+                </div>
+                <div class="mdc-notched-outline__trailing"></div>
+            </div>
 
-    <div class="col-md-6">
-        <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
-            <option value="">--{{ $I18n.trans('minisite.selectVisibility') }}--</option>
-            <option :selected="block && 'community members' === block.visibility" value="community members">{{ $I18n.trans('block.community members') }}</option>
-            <option :selected="block && 'public'=== block.visibility" value="public">{{ $I18n.trans('block.public') }}</option>
-        </select>
-        <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
-            <strong>{{ errors.visibility[0] }}</strong>
-        </span>
+            <div class="editor" v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea' && fields.name == 'Free form'">
+                <editor
+                    v-if="blockField.block_type === selectedBlockType && blockField.html_element=='textarea'"
+                    @update="setContent"
+                    v-bind:initialContent="fields.blockFields[blockField.id]"
+                    v-bind:activeButtons="[
+                        'bold',
+                        'italic',
+                        'strike',
+                        'underline',
+                        'code',
+                        'paragraph',
+                        'h1',
+                        'h2',
+                        'h3',
+                        'bullet_list',
+                        'ordered_list',
+                        'blockquote',
+                        'code_block',
+                        'horizontal_rule',
+                        'undo',
+                        'redo'
+                    ]"
+                />
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell--span-12">
+            <label for="visibility" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.selectVisibility') }} </label>
+            <div class="col-md-6">
+                <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
+                    <option value="">--{{ $I18n.trans('minisite.selectVisibility') }}--</option>
+                    <option :selected="block && 'community members' === block.visibility" value="community members">{{ $I18n.trans('block.community members') }}</option>
+                    <option :selected="block && 'public'=== block.visibility" value="public">{{ $I18n.trans('block.public') }}</option>
+                </select>
+                <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
+                    <strong>{{ errors.visibility[0] }}</strong>
+                </span>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell--span-4">
+            <div class="button-group">
+                <div class="mdc-layout-grid__inner">
+                    <div class="grid-cell">
+                        <button type="submit" class="mdc-button mdc-button--raised theme-secondary-bg">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">{{ $I18n.trans('block.save') }}</span>
+                        </button>
+                    </div>
+                    <div class="grid-cell">
+                        <button disabled class="mdc-button mdc-button--raised theme-neutral-bg">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">{{ $I18n.trans('block.delete') }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<!-- <div class="form-group row">
-    <label for="position" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.position') }} </label>
-
-    <div class="col-md-6">
-        <input id="position" v-model="fields.position" type="number" class="form-control" name="position" required autofocus>
-        <span v-if="errors && errors.position" class="invalid-feedback" role="alert">
-            <strong>{{ errors.position[0] }}</strong>
-        </span>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="enabled[]" class="col-md-4 col-form-label text-md-right"> {{ $I18n.trans('block.enabled') }} </label>
-
-    <div class="col-md-6">
-        <input v-model="fields.enabled" id="enabled" type="checkbox" class="form-control" name="enabled[]" required autofocus>
-        <span v-if="errors && errors.enabled" class="invalid-feedback" role="alert">
-            <strong>{{ errors.enabled[0] }}</strong>
-        </span>
-    </div>
-</div> -->
-<div class="form-group row mb-0">
-    <div class="col-md-6 offset-md-4">
-        <button type="submit" class="btn btn-primary">
-            {{ $I18n.trans('block.save') }}
-        </button>
-    </div>
-</div>
 </form>
+</div>
 </template>
 
 <script>
