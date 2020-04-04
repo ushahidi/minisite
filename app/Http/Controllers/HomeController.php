@@ -14,18 +14,6 @@ class HomeController extends Controller
     public function __construct()
     {
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        return view('home', ['neighborhood' => $user->neighborhood, 'isLoggedIn' => !!$user]);
-    }
-    
     /**
      * Show the profile for the given user.
      *

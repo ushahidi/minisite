@@ -18,9 +18,5 @@ Route::get('/add-blocks', 'HomeController@addBlocks');
 Route::get('/add-block', 'HomeController@addBlock');
 Route::get('/edit-block', 'HomeController@editBlock');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-});
-
 
 Auth::routes();

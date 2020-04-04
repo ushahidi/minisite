@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">@lang('neighborhood.editSite')</div>
+                <div class="card-header">@lang('community.editSite')</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('minisiteUpdate', ['minisite' => $minisite]) }}">
@@ -30,10 +30,10 @@
                             <div class="col-md-6">
                                 <select name="visibility" id="visibility" class="form-control @error('visibility') is-invalid @enderror" required autofocus>
                                     <option value="">--@lang('minisite.selectVisibility')--</option>
-                                    @if ($minisite->visibility === 'neighbors')
-                                        <option value="neighbors" selected='selected'>@lang('minisite.visibleTo.neighbors')</option>
+                                    @if ($minisite->visibility === 'community members')
+                                        <option value="community members" selected='selected'>@lang('minisite.visibleTo.community members')</option>
                                     @else
-                                        <option value="neighbors">@lang('minisite.visibleTo.neighbors')</option>
+                                        <option value="community members">@lang('minisite.visibleTo.community members')</option>
                                     @endif
                                     @if ($minisite->visibility === 'public')
                                         <option value="public" selected='selected'>@lang('minisite.visibleTo.public')</option>

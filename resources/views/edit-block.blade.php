@@ -48,7 +48,7 @@
                         </a>
                     </div>
                     <div class="grid-cell">
-                        <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme-neutral-bg">
+                        <a href="/community/create" class="mdc-button mdc-button--raised theme-neutral-bg">
                             <div class="mdc-button__ripple"></div>
                             <span class="mdc-button__label">Remove</span>
                         </a>

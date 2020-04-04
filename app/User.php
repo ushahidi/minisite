@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'neighborhood_id'
+        'name', 'email', 'password', 'community_id'
     ];
 
     /**
@@ -37,13 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function neighborhood()
+    public function community()
     {
-        return $this->belongsTo('Modules\NeighborhoodManager\Neighborhood');
+        return $this->belongsTo('Modules\CommunityManager\Community');
     }
-
+    //@change
     public function isCaptain() {
-        return $this->neighborhood->captain_id === $this->id;
+        return $this->community->captain_id === $this->id;
     }
 
 }

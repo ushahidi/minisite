@@ -16,6 +16,7 @@ class AddBlockTypesToBlocks extends Migration
         Schema::table('blocks', function (Blueprint $table) {
             $table->foreign('type')->references('id')->on('block_types')->onDelete('cascade')->onUpdate('cascade');
         });
+
     }
 
     /**

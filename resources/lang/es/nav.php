@@ -2,7 +2,7 @@
 
 return [
     'home'   => 'Inicio',
-    'neighborhood' => 'Barrio',
-    'goToYourNeighborhood' => 'Ir a tu barrio',
-    'createYourNeighborhood' => 'Crea un sitio para tu barrio'
+    'community' => 'Comunidad',
+    'goToYourCommunity' => 'Ir a tu comunidad',
+    'createYourCommunity' => 'Crea un sitio para tu comunidad'
 ];

@@ -21,7 +21,7 @@ class BlockManagerController extends Controller
      */
     public function edit(Minisite $minisite)
     {
-        if ($minisite->neighborhood->captain_id !== Auth::user()->id){
+        if ($minisite->community->captain_id !== Auth::user()->id){
             abort("401", "You are not authorized to edit this page");
         }
         return view('blockmanager::minisite.edit', ['minisite' => $minisite]);
@@ -37,7 +37,7 @@ class BlockManagerController extends Controller
     public function update(Request $request, Minisite $minisite)
     {
         $data = $request->input();
-        if ($minisite->neighborhood->captain_id !== Auth::user()->id){
+        if ($minisite->community->captain_id !== Auth::user()->id){
             abort("401", "You are not authorized to edit this page");
         }
         $minisite->update([
@@ -46,8 +46,8 @@ class BlockManagerController extends Controller
         ]);
     
         return redirect()->route(
-            'neighborhoodShow',
-            ['id' => $minisite->neighborhood->id] )->with( ['id' => $minisite->neighborhood->id]
+            'communityShow',
+            ['id' => $minisite->community->id] )->with( ['id' => $minisite->community->id]
         );
     }
 

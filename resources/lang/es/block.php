@@ -18,7 +18,7 @@ return [
     'enabled'=> 'Habilitado?',
     'selectVisibility' => 'Quien puede ver este bloque?',
     'chooseBlockType' => 'Elige el tipo de bloque',
-    'neighbors' => 'Vecines',
+    'community members' => 'Vecines',
     'public' => 'El Mundo',
     'save' => 'Guardar',
     'Content' => 'Contenido',

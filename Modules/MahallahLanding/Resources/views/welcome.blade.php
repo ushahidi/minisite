@@ -22,7 +22,7 @@
                         </a>
                     </div>
                     <div class="grid-cell">
-                        <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme-secondary-bg">
+                        <a href="/community/create" class="mdc-button mdc-button--raised theme-secondary-bg">
                             <div class="mdc-button__ripple"></div>
                             <span class="mdc-button__label">Create</span>
                         </a>
@@ -64,11 +64,11 @@
         <div class="mdc-layout-grid__cell--span-12">
             <h4>Active Communities</h4>
             @foreach ($activeCommunities as $community)
-                @include('includes.neighborhood-card', ['neighborhood' => $community])    
+                @include('includes.community-card', ['community' => $community])    
             @endforeach
             <div class="mdc-card">
                 <h6 class="theme-primary tal">MAHALLA</h6>
-                <p class="theme-secondary tal">Mahalla means Neighborhood in a number of countries: Arabic: محلة‎
+                <p class="theme-secondary tal">Mahalla means Community in a number of countries: Arabic: محلة‎
                     maḥalla; Bengali: মহল্লা
                     môhollā; Hindustani: मोहल्ला; محلہ mōhallā; Persian: محله‎ mahalleh; Azerbaijani: Məhəllə;
                     Albanian: mahallë or mahalla, or mëhallë or mëhalla, Bulgarian: махала</p>

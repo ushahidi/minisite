@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\NeighborhoodManager\Http\Controllers;
+namespace Modules\CommunityManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\NeighborhoodManager\Invite;
-use Modules\NeighborhoodManager\Neighborhood;
+use Modules\CommunityManager\Invite;
+use Modules\CommunityManager\Community;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Validator;
@@ -13,19 +13,19 @@ use Illuminate\Support\Str;
 class InviteController extends Controller
 {
 
-    protected function generate($neighborhoodId, Request $request) {
+    protected function generate($communityId, Request $request) {
         $generatedBy = Auth::user()->id;
         $token = (string) Str::uuid();
-        $canGenerateLink = Neighborhood::find($neighborhoodId)->captain_id === $generatedBy;
+        $canGenerateLink = Community::find($communityId)->captain_id === $generatedBy;
         $invite = Invite::create([
             'token' => $token,
             'generated_by' => $generatedBy,
-            'neighborhood_id' => $neighborhoodId
+            'community_id' => $communityId
         ]);
         $invite->save();
         return redirect()->route(
-            'neighborhoodShow',
-            ['id' => $neighborhoodId] )->with( ['token' => $invite->token, 'id' => $neighborhoodId]
+            'communityShow',
+            ['id' => $communityId] )->with( ['token' => $invite->token, 'id' => $communityId]
         );
     }
 }

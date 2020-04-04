@@ -1,0 +1,13 @@
+{
+    "name": "CommunityManager",
+    "alias": "communitymanager",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\CommunityManager\\Providers\\CommunityManagerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -2,6 +2,6 @@
 
 return [
     'resultsFound'   => 'resultados encontrados para',
-    'neighborhoods'  => 'Barrios',
+    'communities'  => 'Comunidades',
     'search'         => 'Buscar'
 ];

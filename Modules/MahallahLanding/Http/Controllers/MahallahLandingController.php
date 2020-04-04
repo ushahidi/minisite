@@ -12,7 +12,7 @@ use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
 
 use App\User;
-use Modules\NeighborhoodManager\Neighborhood;
+use Modules\CommunityManager\Community;
 use Modules\Minisite\Minisite;
 
 class MahallahLandingController extends Controller
@@ -27,7 +27,7 @@ class MahallahLandingController extends Controller
         return view(
                 'mahallahlanding::welcome', 
                 [
-                    'neighborhood' => $user ? $user->neighborhood : null,  
+                    'community' => $user ? $user->community : null,  
                     'activeCommunities' => $this->activeCommunities(),
                     'isLoggedIn' => !!$user
                 ]);
@@ -41,7 +41,7 @@ class MahallahLandingController extends Controller
     public function search(Request $request)
     {
         $searchResults = (new Search())
-            ->registerModel(Neighborhood::class, function(ModelSearchAspect $modelSearchAspect) {
+            ->registerModel(Community::class, function(ModelSearchAspect $modelSearchAspect) {
                 $modelSearchAspect
                     ->addSearchableAttribute('city')
                     ->addSearchableAttribute('state')
@@ -53,7 +53,7 @@ class MahallahLandingController extends Controller
     }
     
     private function activeCommunities() {
-        $communities = \Modules\NeighborhoodManager\Neighborhood::orderBy('created_at', 'desc')
+        $communities = \Modules\CommunityManager\Community::orderBy('created_at', 'desc')
                ->take(5)
                ->get();
         return $communities;

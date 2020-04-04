@@ -1,14 +1,16 @@
 <?php
 
-namespace Modules\NeighborhoodManager;
+namespace Modules\CommunityManager;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Neighborhood extends Model implements Searchable
+class Community extends Model implements Searchable
 {
-    
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,11 +19,17 @@ class Neighborhood extends Model implements Searchable
     protected $fillable = ['name', 'city', 'state', 'country', 'captain_id'];
 
     /**
-     * Get the neighbors for the neighborhood.
+     * The attributes that should be mutated to dates.
+     * @var array
+    */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Get the community members for the community.
      */
-    public function neighbors()
+    public function community members()
     {
-        return $this->hasMany('App\User', 'neighborhood_id');
+        return $this->hasMany('App\User', 'community_id');
     }
 
     public function captain()
@@ -36,7 +44,7 @@ class Neighborhood extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {
-       $url = route('neighborhoodShow', $this->id);
+       $url = route('communityShow', $this->id);
     
         return new \Spatie\Searchable\SearchResult(
            $this,

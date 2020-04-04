@@ -1,21 +1,21 @@
 <?php
 
-namespace Modules\NeighborhoodManager\Providers;
+namespace Modules\CommunityManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class NeighborhoodManagerServiceProvider extends ServiceProvider
+class CommunityManagerServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'NeighborhoodManager';
+    protected $moduleName = 'CommunityManager';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'neighborhoodmanager';
+    protected $moduleNameLower = 'communitymanager';
 
     /**
      * Boot the application events.

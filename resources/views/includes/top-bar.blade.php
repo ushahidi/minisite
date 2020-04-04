@@ -5,7 +5,7 @@
 </span>
 
 {{-- Create Mahalla --}}
-@elseif (Request::is('neighborhood/create'))
+@elseif (Request::is('community/create'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Create

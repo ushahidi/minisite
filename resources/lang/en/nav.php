@@ -2,7 +2,7 @@
 
 return [
     'home'   => 'Home',
-    'neighborhood' => 'Neighborhood',
-    'goToYourNeighborhood' => 'Go to your neighborhood',
-    'createYourNeighborhood' => 'Create your neighborhood site'
+    'community' => 'Community',
+    'goToYourCommunity' => 'Go to your community',
+    'createYourCommunity' => 'Create your community site'
 ];

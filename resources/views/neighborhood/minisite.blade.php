@@ -4,27 +4,27 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">@lang('neighborhood.yourNeighborhood')</div>
+            <div class="card-header">@lang('community.yourCommunity')</div>
             <div class="card-body">
                 <div class="form-group row">
-                    {{ $neighborhood->name }}
+                    {{ $community->name }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->city }}
+                    {{ $community->city }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->state }}
+                    {{ $community->state }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->country }}
+                    {{ $community->country }}
                 </div>
             </div>
             <div class="title m-b-md">
-                <form method="POST" action="{{ route('inviteMember', ['neighborhoodId' => $neighborhood->id])  }}">
+                <form method="POST" action="{{ route('inviteMember', ['communityId' => $community->id])  }}">
                     @csrf
-                    <input type="text" name="inviteFaker" value="{{$neighborhood->id}}" hidden/>
+                    <input type="text" name="inviteFaker" value="{{$community->id}}" hidden/>
                     <button type="submit" class="btn btn-primary">
-                        @lang('neighborhood.inviteSomeone')
+                        @lang('community.inviteSomeone')
                     </button>
                 </form>
             </div>
@@ -33,7 +33,7 @@
             </div>
             @if(Session::get('token') !== null)
                 <div class="card">
-                    <div class="card-header">@lang('neighborhood.inviteSomeoneWithLink')</div>
+                    <div class="card-header">@lang('community.inviteSomeoneWithLink')</div>
                     <div class="card-body">
                         <a href="{{URL::to(route('joinFromInvite', ['token' => Session::get('token')]))}}">
                             {{ Session::get('token') }}
@@ -43,9 +43,9 @@
             @endisset
         </div>
         <div class="row justify-content-center">
-            @foreach ($neighborhood->neighbors as $neighbor )
+            @foreach ($community->community members as $neighbor )
                 <div class="card">
-                    <div class="card-header">@lang('neighborhood.yourNeighborhood')</div>
+                    <div class="card-header">@lang('community.yourCommunity')</div>
                     <div class="card-body">
                         <div class="form-group row">
                             {{ $neighbor->name }}

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Modules\BlockManager\BlockTypeFields;
-use Modules\BlockType;
+use Modules\BlockManager\BlockType;
 class EmailFormBlockSeeder extends Seeder
 {
     /**

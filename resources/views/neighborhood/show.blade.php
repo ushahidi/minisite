@@ -4,27 +4,27 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">@lang('neighborhood.yourNeighborhood')</div>
+            <div class="card-header">@lang('community.yourCommunity')</div>
             <div class="card-body">
                 <div class="form-group row">
-                    {{ $neighborhood->name }}
+                    {{ $community->name }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->city }}
+                    {{ $community->city }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->state }}
+                    {{ $community->state }}
                 </div>
                 <div class="form-group row">
-                    {{ $neighborhood->country }}
+                    {{ $community->country }}
                 </div>
             </div>
             <div class="title m-b-md">
-                <form method="POST" action="{{ route('inviteMember', ['neighborhoodId' => $neighborhood->id])  }}">
+                <form method="POST" action="{{ route('inviteMember', ['communityId' => $community->id])  }}">
                     @csrf
-                    <input type="text" name="inviteFaker" value="{{$neighborhood->id}}" hidden/>
+                    <input type="text" name="inviteFaker" value="{{$community->id}}" hidden/>
                     <button type="submit" class="btn btn-primary">
-                        @lang('neighborhood.inviteSomeone')
+                        @lang('community.inviteSomeone')
                     </button>
                 </form>
             </div>
@@ -33,7 +33,7 @@
             </div>
             @if(Session::get('token') !== null)
                 <div class="card">
-                    <div class="card-header">@lang('neighborhood.inviteSomeoneWithLink')</div>
+                    <div class="card-header">@lang('community.inviteSomeoneWithLink')</div>
                     <div class="card-body">
                         <a href="{{URL::to(route('joinFromInvite', ['token' => Session::get('token')]))}}">
                             {{ Session::get('token') }}
@@ -43,9 +43,9 @@
             @endisset
         </div>
         <div class="row justify-content-center">
-            @foreach ($neighborhood->neighbors as $neighbor )
+            @foreach ($community->community members as $neighbor )
                 <div class="card">
-                    <div class="card-header">@lang('neighborhood.yourNeighbors')</div>
+                    <div class="card-header">@lang('community.yourCommunityMembers')</div>
                     <div class="card-body">
                         <div class="form-group row">
                             {{ $neighbor->name }}
@@ -53,18 +53,18 @@
                     </div>
                 </div>
             @endforeach
-            @if ($neighborhood->minisite)
+            @if ($community->minisite)
                 <div class="card">
                     <div class="card-header">@lang('minisite.yourSite')</div>
                     <div class="card-body">
                         <div class="form-group row">
-                            <span>@lang('minisite.minisiteName'): </span> {{ $neighborhood->minisite->title }}
+                            <span>@lang('minisite.minisiteName'): </span> {{ $community->minisite->title }}
                         </div>
                         <div class="form-group row">
-                            <span>@lang('minisite.visibleTo'): &nbsp;</span> @lang("minisite.visibleTo.{$neighborhood->minisite->visibility}")
+                            <span>@lang('minisite.visibleTo'): &nbsp;</span> @lang("minisite.visibleTo.{$community->minisite->visibility}")
                         </div>
-                        <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.editSite')</a></div>
-                        <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$neighborhood->minisite]) }}">@lang('neighborhood.viewSite')</a></div>
+                        <div class="card-footer"><a href="{{ route('minisiteEdit', ['minisite'=>$community->minisite]) }}">@lang('community.editSite')</a></div>
+                        <div class="card-footer"><a href="{{ route('minisitePublic', ['minisite'=>$community->minisite]) }}">@lang('community.viewSite')</a></div>
                     </div>
                 </div>
             @endif

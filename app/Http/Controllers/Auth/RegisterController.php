@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Modules\NeighborhoodManager\Invite;
+use Modules\CommunityManager\Invite;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -75,7 +75,7 @@ class RegisterController extends Controller
         if (isset($invite) && $invite->claimed){
             return abort(403);
         } else if (isset($invite)){
-            $userData['neighborhood_id'] = Invite::where('token', $data['invitation_token'])->first()->neighborhood_id;
+            $userData['community_id'] = Invite::where('token', $data['invitation_token'])->first()->community_id;
         }
         Invite::where('token', $data['invitation_token'])->update(['claimed' => Carbon::now()]);
         return User::create($userData);

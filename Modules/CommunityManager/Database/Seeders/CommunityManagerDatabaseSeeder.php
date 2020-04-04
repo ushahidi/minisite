@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\NeighborhoodManager\Database\Seeders;
+namespace Modules\CommunityManager\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class NeighborhoodManagerDatabaseSeeder extends Seeder
+class CommunityManagerDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

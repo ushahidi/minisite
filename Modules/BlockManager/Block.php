@@ -3,14 +3,24 @@
 namespace Modules\BlockManager;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use App\User;
 
 class Block extends Model
 {    
-    
+    use SoftDeletes;
+
     protected $casts = [
         'content' => 'object'
     ];
+    
+    /**
+     * The attributes that should be mutated to dates.
+     * @var array
+    */
+    protected $dates = ['deleted_at'];
+
     /**
     * The attributes that are mass assignable.
     *
@@ -28,8 +38,8 @@ class Block extends Model
         if ($this->visibility === 'public') {
             return true;
         }
-        $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $this->minisite->neighborhood_id;
-        if ($this->visibility === 'neighbors' && $isNeighbor === true) {
+        $isCommunityMember = $user && $user->community_id && $user->community_id === $this->minisite->community_id;
+        if ($this->visibility === 'community members' && $isCommunityMember === true) {
             return true;
         }
         return false;

@@ -67,7 +67,7 @@
     <div class="col-md-6">
         <select v-model="fields.visibility" name="visibility" id="visibility" class="form-control" required autofocus>
             <option value="">--{{ $I18n.trans('minisite.selectVisibility') }}--</option>
-            <option :selected="block && 'neighbors' === block.visibility" value="neighbors">{{ $I18n.trans('block.neighbors') }}</option>
+            <option :selected="block && 'community members' === block.visibility" value="community members">{{ $I18n.trans('block.community members') }}</option>
             <option :selected="block && 'public'=== block.visibility" value="public">{{ $I18n.trans('block.public') }}</option>
         </select>
         <span v-if="errors && errors.visibility" class="invalid-feedback" role="alert">
@@ -169,7 +169,7 @@
                 }
                 submittable(url, this.fields).then(response => {
                     // @TODO: add flash/ok message in the minisite view to send back the feedback
-                    window.location	= '/neighborhood'
+                    window.location	= '/community'
                 }).catch(error => {
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};

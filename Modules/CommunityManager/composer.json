@@ -1,5 +1,5 @@
 {
-    "name": "ushahidi/neighborhoodmanager",
+    "name": "ushahidi/communitymanager",
     "description": "",
     "authors": [
         {
@@ -10,7 +10,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\NeighborhoodManager\\Providers\\NeighborhoodManagerServiceProvider"
+                "Modules\\CommunityManager\\Providers\\CommunityManagerServiceProvider"
             ],
             "aliases": {
 
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\NeighborhoodManager\\": ""
+            "Modules\\CommunityManager\\": ""
         }
     }
 }

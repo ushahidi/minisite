@@ -63,10 +63,12 @@ iconButtonRipple.unbounded = true;
 
 // Menu Surface
 import { MDCMenuSurface } from "@material/menu-surface";
-
-const menuSurface = new MDCMenuSurface(
-    document.querySelector(".mdc-menu-surface")
-);
+//@fixme this was erroring out because mdc-menu-surface is not always available
+if (document.querySelector(".mdc-menu-surface")) {
+    const menuSurface = new MDCMenuSurface(
+        document.querySelector(".mdc-menu-surface")
+    );    
+}
 
 // Menu List
 import { MDCMenu } from "@material/menu";

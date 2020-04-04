@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\BlockManager;
+namespace Modules\CommunityManager;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlockTypeFields extends Model
+class Invite extends Model
 {
     use SoftDeletes;
 
@@ -15,8 +15,10 @@ class BlockTypeFields extends Model
     */
     protected $dates = ['deleted_at'];
 
-    public function blockType()
-    {
-        return $this->belongsTo('Modules\BlockManager\BlockType', 'block_type');
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['generated_by', 'token', 'community_id'];
 }

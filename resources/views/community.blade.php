@@ -30,7 +30,7 @@
                                     </a>
                                 </div>
                                 <div class="grid-cell">
-                                    <a href="/neighborhood/create"
+                                    <a href="/community/create"
                                         class="mdc-button mdc-button--raised theme-neutral-bg">
                                         <div class="mdc-button__ripple"></div>
                                         <span class="mdc-button__label">Later</span>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <h5>Welcome to your community run neighborhood homepage. Use this page to find local information, help,
+                <h5>Welcome to your community run community homepage. Use this page to find local information, help,
                     alerts and more</h5>
             </div>
         </div>
@@ -95,7 +95,7 @@
                                 </a>
                             </div>
                             <div class="grid-cell">
-                                <a href="/neighborhood/create" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                <a href="/community/create" class="mdc-button mdc-button--raised theme-neutral-bg">
                                     <div class="mdc-button__ripple"></div>
                                     <span class="mdc-button__label">Later</span>
                                 </a>

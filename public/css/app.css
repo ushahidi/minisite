@@ -6940,16 +6940,16 @@ p {
   right: 0;
 }
 
-.mdc-card.neighborhood-card {
+.mdc-card.community-card {
   padding: 0;
 }
 
-.mdc-card.neighborhood-card .neighborhood-card-location {
+.mdc-card.community-card .community-card-location {
   text-align: left;
   padding: 5px 10px;
 }
 
-.mdc-card.neighborhood-card .neighborhood-card-location .card__subtitle {
+.mdc-card.community-card .community-card-location .card__subtitle {
   margin: 0;
 }
 

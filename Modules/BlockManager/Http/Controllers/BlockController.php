@@ -58,7 +58,7 @@ class BlockController extends Controller
         
         $block = Block::create(array_merge(['minisite_id' => $minisite->id, 'content' => $contentFields], $validatedData));
         $block->save();
-        return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
+        return view('community.show', ['community' => $minisite->community]);
     }
 
     /**
@@ -123,7 +123,7 @@ class BlockController extends Controller
         if ($block->update($inputs)) {
             return response()->json([
                 'success' => [
-                    'neighborhoodId' => $minisite->neighborhood->id,
+                    'communityId' => $minisite->community->id,
                     'block' => $block
                 ]
             ]);
@@ -143,6 +143,6 @@ class BlockController extends Controller
     public function destroy(Minisite $minisite, Block $block)
     {
         $block->delete();
-        return view('neighborhood.show', ['neighborhood' => $minisite->neighborhood]);
+        return view('community.show', ['community' => $minisite->community]);
     }
 }

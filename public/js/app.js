@@ -9024,7 +9024,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       submittable(url, this.fields).then(function (response) {
         // @TODO: add flash/ok message in the minisite view to send back the feedback
-        window.location = '/neighborhood';
+        window.location = '/community';
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors || {};
@@ -74000,12 +74000,13 @@ var render = function() {
               _c(
                 "option",
                 {
-                  attrs: { value: "neighbors" },
+                  attrs: { value: "community members" },
                   domProps: {
-                    selected: _vm.block && "neighbors" === _vm.block.visibility
+                    selected:
+                      _vm.block && "community members" === _vm.block.visibility
                   }
                 },
-                [_vm._v(_vm._s(_vm.$I18n.trans("block.neighbors")))]
+                [_vm._v(_vm._s(_vm.$I18n.trans("block.community members")))]
               ),
               _vm._v(" "),
               _c(
@@ -86768,8 +86769,12 @@ var ripple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"
 var iconButtonRipple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-icon-button"));
 iconButtonRipple.unbounded = true; // Menu Surface
 
+ //@fixme this was erroring out because mdc-menu-surface is not always available
 
-var menuSurface = new _material_menu_surface__WEBPACK_IMPORTED_MODULE_3__["MDCMenuSurface"](document.querySelector(".mdc-menu-surface")); // Menu List
+if (document.querySelector(".mdc-menu-surface")) {
+  var menuSurface = new _material_menu_surface__WEBPACK_IMPORTED_MODULE_3__["MDCMenuSurface"](document.querySelector(".mdc-menu-surface"));
+} // Menu List
+
 
  // Show menu on Button click
 

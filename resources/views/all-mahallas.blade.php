@@ -10,10 +10,10 @@
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-layout-grid__inner">
                 <div class="grid-cell">
-                    @include('includes.neighborhood-card')
+                    @include('includes.community-card')
                 </div>
                 <div class="grid-cell">
-                    @include('includes.neighborhood-card')
+                    @include('includes.community-card')
                 </div>
             </div>
         </div>

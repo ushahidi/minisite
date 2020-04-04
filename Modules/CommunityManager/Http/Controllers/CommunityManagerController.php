@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\NeighborhoodManager\Http\Controllers;
+namespace Modules\CommunityManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,16 +11,29 @@ use Illuminate\Support\Facades\Session;
 use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
 
-use Modules\NeighborhoodManager\Invite;
+use Modules\CommunityManager\Invite;
 use App\User;
-use Modules\NeighborhoodManager\Neighborhood;
+use Modules\CommunityManager\Community;
 use Modules\Minisite\Minisite;
 
 use Illuminate\Support\Facades\Validator;
 
-class NeighborhoodManagerController extends Controller
+class CommunityManagerController extends Controller
 {
 
+    
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function all()
+    {
+        $user = Auth::user();
+        return view('communitymanager::index', ['community' => $user->community, 'isLoggedIn' => !!$user]);
+    }
+    
     /**
      * Show the profile for the given user.
      *
@@ -31,22 +44,22 @@ class NeighborhoodManagerController extends Controller
     {
         $user = Auth::user();
 
-        return view('neighborhood.create', ['user' => $user]);
+        return view('community.create', ['user' => $user]);
     }
 
     /**
-     * Show the neighborhood for the given user.
+     * Show the community for the given user.
      *
      * @param  int  $id
      * @return View
      */
     protected function show($id = null)
     {
-        $neighborhood = Auth::user()->neighborhood;
-        if (!$neighborhood) {
-            abort(404, 'You don\'t belong to any neighborhood yet');
+        $community = Auth::user()->community;
+        if (!$community) {
+            abort(404, 'You don\'t belong to any community yet');
         }
-        return view('neighborhood.show', ['neighborhood' => Neighborhood::findOrFail($neighborhood->id)]);
+        return view('community.show', ['community' => Community::findOrFail($community->id)]);
     }
     
     /**
@@ -63,7 +76,7 @@ class NeighborhoodManagerController extends Controller
             'state' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
         ]);
-        $neighborhood = Neighborhood::create([
+        $community = Community::create([
             'name' => $validatedData['name'],
             'city' => $validatedData['city'],
             'state' => $validatedData['state'],
@@ -71,14 +84,14 @@ class NeighborhoodManagerController extends Controller
             'captain_id' => Auth::user()->id
         ]);
         
-        $neighborhood->save();
-        $user = User::findOrFail(Auth::user()->id)->update(['neighborhood_id' => $neighborhood->id]);
+        $community->save();
+        $user = User::findOrFail(Auth::user()->id)->update(['community_id' => $community->id]);
         $minisite = Minisite::create([
-            'title' => $neighborhood->name, 
-            'neighborhood_id' => $neighborhood->id,
+            'title' => $community->name, 
+            'community_id' => $community->id,
             'visibility' => 'public'
         ])->save();
-        return view('neighborhood.show', ['neighborhood' => $neighborhood]);
+        return view('community.show', ['community' => $community]);
     }
 
     public function joinFromInvite($token) {

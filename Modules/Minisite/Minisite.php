@@ -3,6 +3,7 @@
 namespace Modules\Minisite;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
@@ -10,8 +11,15 @@ use App\User;
 
 class Minisite extends Model implements Searchable
 {
-    
     use Sluggable;
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+    */
+    protected $dates = ['deleted_at'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -31,16 +39,18 @@ class Minisite extends Model implements Searchable
      *
      * @var array
      */
-    protected $fillable = ['title', 'neighborhood_id', 'visibility', 'slug'];
+    protected $fillable = ['title', 'community_id', 'visibility', 'slug'];
     
-    public function neighborhood()
+    public function community()
     {
-        return $this->belongsTo('Modules\NeighborhoodManager\Neighborhood', 'neighborhood_id');
+        return $this->belongsTo('Modules\CommunityManager\Community', 'community_id');
     }
+
     public function blocks()
     {
         return $this->hasMany('Modules\BlockManager\Block');
     }
+
     /**
      * Get the route key for the model.
      *
@@ -66,8 +76,8 @@ class Minisite extends Model implements Searchable
         if ($this->visibility === 'public') {
             return true;
         }
-        $isNeighbor = $user && $user->neighborhood_id && $user->neighborhood_id === $this->neighborhood_id;
-        if ($this->visibility === 'neighbors' && $isNeighbor === true) {
+        $isCommunityMember = $user && $user->community_id && $user->community_id === $this->community_id;
+        if ($this->visibility === 'community members' && $isCommunityMember === true) {
             return true;
         }
         return false;
