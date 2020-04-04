@@ -1,4 +1,5 @@
 
+
 # Setup
 - Install virtualbox 6.x (or other virtualizer like parallels/vmware) https://www.virtualbox.org/wiki/Downloads
 - Install vagrant https://www.vagrantup.com/downloads.html 
@@ -79,3 +80,14 @@ hostname: minisite
     - Run  `composer dump-autoload;` to update path maps 
 - I want to start over with my database
     - composer dump-autoload; php artisan db:wipe; php artisan migrate; php artisan db:seed; 
+
+
+
+#geocode notes
+- User to write down neighborhood
+- Pick up first result from OSM
+- Show it to them, let them put a pin somewhere (or take the center/default if they don't pick one)
+- Confirm we got the right neighrbohood
+- Save Neighborhood, City, blablabla, but not necessarily lat/lon at this point
+- 
+

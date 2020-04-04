@@ -86776,27 +86776,42 @@ if (document.querySelector(".mdc-menu-surface")) {
 } // Menu List
 
 
- // Show menu on Button click
 
 var buttonEl = document.querySelector("#menu-button");
 var menuEl = document.querySelector(".mdc-menu");
-var menu = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](menuEl);
-buttonEl.addEventListener("click", function (event) {
-  menu.open = true;
-}); // Text Field
+
+if (buttonEl && menuEl) {
+  // Show menu on Button click
+  var menu = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](menuEl);
+  buttonEl.addEventListener("click", function (event) {
+    menu.open = true;
+  });
+} // Text Field
 
 
-var mdcTexts = [].map.call(document.querySelectorAll(".mdc-text-field"), function (el) {
-  return new _material_textfield__WEBPACK_IMPORTED_MODULE_5__["MDCTextField"](el);
-}); // Text Area Notched Outline
 
 
-var mdcNotchedOutline = [].map.call(document.querySelectorAll(".mdc-notched-outline"), function (el) {
-  return new _material_notched_outline__WEBPACK_IMPORTED_MODULE_6__["MDCNotchedOutline"](el);
-}); // Text Counter
+if (document.querySelectorAll(".mdc-text-field")) {
+  var mdcTexts = [].map.call(document.querySelectorAll(".mdc-text-field"), function (el) {
+    return new _material_textfield__WEBPACK_IMPORTED_MODULE_5__["MDCTextField"](el);
+  });
+} // Text Area Notched Outline
 
 
-var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter"));
+
+
+if (document.querySelectorAll(".mdc-notched-outline")) {
+  var mdcNotchedOutline = [].map.call(document.querySelectorAll(".mdc-notched-outline"), function (el) {
+    return new _material_notched_outline__WEBPACK_IMPORTED_MODULE_6__["MDCNotchedOutline"](el);
+  });
+} // Text Counter
+
+
+
+
+if (document.querySelector(".mdc-text-field-character-counter")) {
+  var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter"));
+}
 
 /***/ }),
 

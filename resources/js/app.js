@@ -72,35 +72,42 @@ if (document.querySelector(".mdc-menu-surface")) {
 
 // Menu List
 import { MDCMenu } from "@material/menu";
-
-// Show menu on Button click
 const buttonEl = document.querySelector("#menu-button");
 const menuEl = document.querySelector(".mdc-menu");
-const menu = new MDCMenu(menuEl);
-buttonEl.addEventListener("click", event => {
-    menu.open = true;
-});
 
+if (buttonEl && menuEl) {
+    // Show menu on Button click
+    const menu = new MDCMenu(menuEl);
+    buttonEl.addEventListener("click", event => {
+        menu.open = true;
+    });
+}
 // Text Field
 import { MDCTextField } from "@material/textfield";
-const mdcTexts = [].map.call(
-    document.querySelectorAll(".mdc-text-field"),
-    function(el) {
-        return new MDCTextField(el);
-    }
-);
+if (document.querySelectorAll(".mdc-text-field")) {
+    const mdcTexts = [].map.call(
+        document.querySelectorAll(".mdc-text-field"),
+        function(el) {
+            return new MDCTextField(el);
+        }
+    );
+}
 
 // Text Area Notched Outline
 import { MDCNotchedOutline } from "@material/notched-outline";
-const mdcNotchedOutline = [].map.call(
-    document.querySelectorAll(".mdc-notched-outline"),
-    function(el) {
-        return new MDCNotchedOutline(el);
-    }
-);
+if (document.querySelectorAll(".mdc-notched-outline")) {
+    const mdcNotchedOutline = [].map.call(
+        document.querySelectorAll(".mdc-notched-outline"),
+        function(el) {
+            return new MDCNotchedOutline(el);
+        }
+    );    
+}
 
 // Text Counter
 import { MDCTextFieldCharacterCounter } from "@material/textfield/character-counter";
-const characterCounter = new MDCTextFieldCharacterCounter(
-    document.querySelector(".mdc-text-field-character-counter")
-);
+if (document.querySelector(".mdc-text-field-character-counter")) {
+    const characterCounter = new MDCTextFieldCharacterCounter(
+        document.querySelector(".mdc-text-field-character-counter")
+    );
+}

@@ -31,7 +31,7 @@ class CommunityManagerController extends Controller
     public function all()
     {
         $user = Auth::user();
-        return view('communitymanager::index', ['community' => $user->community, 'isLoggedIn' => !!$user]);
+        return view('communitymanager::index', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
     }
     
     /**
@@ -44,7 +44,7 @@ class CommunityManagerController extends Controller
     {
         $user = Auth::user();
 
-        return view('community.create', ['user' => $user]);
+        return view('communitymanager::community.create', ['user' => $user]);
     }
 
     /**
@@ -59,7 +59,7 @@ class CommunityManagerController extends Controller
         if (!$community) {
             abort(404, 'You don\'t belong to any community yet');
         }
-        return view('community.show', ['community' => Community::findOrFail($community->id)]);
+        return view('communitymanager::community.show', ['community' => Community::findOrFail($community->id)]);
     }
     
     /**
@@ -81,7 +81,8 @@ class CommunityManagerController extends Controller
             'city' => $validatedData['city'],
             'state' => $validatedData['state'],
             'country' => $validatedData['country'],
-            'captain_id' => Auth::user()->id
+            //@change
+            // 'captain_id' => Auth::user()->id
         ]);
         
         $community->save();
@@ -91,7 +92,7 @@ class CommunityManagerController extends Controller
             'community_id' => $community->id,
             'visibility' => 'public'
         ])->save();
-        return view('community.show', ['community' => $community]);
+        return view('communitymanager::community.show', ['community' => $community]);
     }
 
     public function joinFromInvite($token) {

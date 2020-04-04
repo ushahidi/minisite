@@ -10,10 +10,9 @@
                 <label for="community-name" class="mdc-floating-label">Name of your community</label>
             </div>
         </div>
-
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-text-field">
-                <input id="welcome-message" class="mdc-text-field__input" required>
+                <input id="welcome-message" class="mdc-text-field__input" maxlength="50" required>
                 <div class="mdc-line-ripple"></div>
                 <label for="welcome-message" class="mdc-floating-label">Welcome message</label>
             </div>
@@ -21,7 +20,6 @@
                 <div class="mdc-text-field-character-counter">0 / 50</div>
             </div>
         </div>
-
         <div class="mdc-layout-grid__cell--span-12">
             <div
                 class="mdc-text-field text-field mdc-text-field--fullwidth mdc-text-field--no-label mdc-text-field--textarea">
@@ -37,7 +35,6 @@
                 </div>
             </div>
         </div>
-
         <div class="mdc-layout-grid__cell--span-2">
             <button class="mdc-button theme-secondary-bg">
                 <div class="mdc-button__ripple"></div>

@@ -43,12 +43,12 @@
             @endisset
         </div>
         <div class="row justify-content-center">
-            @foreach ($community->community members as $neighbor )
+            @foreach ($community->communityMembers as $member )
                 <div class="card">
                     <div class="card-header">@lang('community.yourCommunity')</div>
                     <div class="card-body">
                         <div class="form-group row">
-                            {{ $neighbor->name }}
+                            {{ $member->name }}
                         </div>
                     </div>
                 </div>

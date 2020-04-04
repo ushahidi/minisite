@@ -64,10 +64,10 @@
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="mdc-text-field">
                             <input id="password" type="password"
-                                class="mdc-text-field__input @error('password') is-invalid @enderror" name="password"
+                                class="mdc-text-field__input @error('password') is-invalid @enderror" name="password_confirmation"
                                 aria-labelledby="password" autocomplete="current-password" required>
                             <div class="mdc-line-ripple"></div>
-                            <label for="password" class="mdc-floating-label">Confirm @lang('auth.password')</label>
+                            <label for="password_confirmation " class="mdc-floating-label">Confirm @lang('auth.password')</label>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

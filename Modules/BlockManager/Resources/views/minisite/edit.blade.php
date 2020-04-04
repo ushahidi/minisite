@@ -31,9 +31,9 @@
                                 <select name="visibility" id="visibility" class="form-control @error('visibility') is-invalid @enderror" required autofocus>
                                     <option value="">--@lang('minisite.selectVisibility')--</option>
                                     @if ($minisite->visibility === 'community members')
-                                        <option value="community members" selected='selected'>@lang('minisite.visibleTo.community members')</option>
+                                        <option value="community members" selected='selected'>@lang('minisite.visibleTo.communityMembers')</option>
                                     @else
-                                        <option value="community members">@lang('minisite.visibleTo.community members')</option>
+                                        <option value="community members">@lang('minisite.visibleTo.communityMembers')</option>
                                     @endif
                                     @if ($minisite->visibility === 'public')
                                         <option value="public" selected='selected'>@lang('minisite.visibleTo.public')</option>

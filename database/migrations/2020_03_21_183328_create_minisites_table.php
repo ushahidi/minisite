@@ -15,11 +15,12 @@ class CreateMinisitesTable extends Migration
     {
         Schema::create('minisites', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('community_id')->unsigned()->nullable();
-            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->string('title');
+            $table->string('description');
             $table->string('visibility');//who can see this
             $table->string('slug');
+            $table->bigInteger('community_id')->unsigned()->nullable();
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

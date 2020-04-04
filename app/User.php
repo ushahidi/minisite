@@ -37,13 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function community()
+    public function communities()
     {
-        return $this->belongsTo('Modules\CommunityManager\Community');
+        return $this->belongsToMany('Modules\CommunityManager\Community', 'user_communities');
     }
     //@change
     public function isCaptain() {
-        return $this->community->captain_id === $this->id;
+        return true;
     }
 
 }

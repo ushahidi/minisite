@@ -27,7 +27,7 @@ class Community extends Model implements Searchable
     /**
      * Get the community members for the community.
      */
-    public function community members()
+    public function communityMembers()
     {
         return $this->hasMany('App\User', 'community_id');
     }

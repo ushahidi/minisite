@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class InviteController extends Controller
 {
-
     protected function generate($communityId, Request $request) {
         $generatedBy = Auth::user()->id;
         $token = (string) Str::uuid();
+        //@change
         $canGenerateLink = Community::find($communityId)->captain_id === $generatedBy;
         $invite = Invite::create([
             'token' => $token,
