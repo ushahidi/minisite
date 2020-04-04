@@ -169,7 +169,7 @@
                 }
                 submittable(url, this.fields).then(response => {
                     // @TODO: add flash/ok message in the minisite view to send back the feedback
-                    window.location	= '/community'
+                    window.location	= '/blockmanager/' + this.minisiteSlug + '/edit'
                 }).catch(error => {
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};

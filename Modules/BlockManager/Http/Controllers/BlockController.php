@@ -1,11 +1,11 @@
 <?php
 
 namespace Modules\BlockManager\Http\Controllers;
-use Modules\community\community;
+use Modules\CommunityManager\Community;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Modules\BlockManager\Block;
-use Modules\BlockType;
+use Modules\BlockManager\BlockType;
 use Modules\BlockManager\BlockTypeFields;
 use Illuminate\Routing\Controller;
 
@@ -58,7 +58,7 @@ class BlockController extends Controller
         
         $block = Block::create(array_merge(['community_id' => $community->id, 'content' => $contentFields], $validatedData));
         $block->save();
-        return view('community.show', ['community' => $community->community]);
+        return view('blockmanager::minisite.edit', ['community' => $community]);
     }
 
     /**
@@ -103,7 +103,7 @@ class BlockController extends Controller
     {
 
         $block = Block::findOrFail($blockId);
-        $community = community::where(['slug' => $communitySlug])->first();
+        $community = Community::where(['slug' => $communitySlug])->first();
         $contentFields = json_encode($request->input('blockFields'));
         $inputs = array_merge($request->input(), ['content' => $contentFields]);
         $validator = \Validator::make($inputs, [
@@ -123,7 +123,7 @@ class BlockController extends Controller
         if ($block->update($inputs)) {
             return response()->json([
                 'success' => [
-                    'communityId' => $community->community->id,
+                    'communityId' => $community->id,
                     'block' => $block
                 ]
             ]);
@@ -143,6 +143,6 @@ class BlockController extends Controller
     public function destroy(Community $community, Block $block)
     {
         $block->delete();
-        return view('community.show', ['community' => $community->community]);
+        return view('community.show', ['community' => $community]);
     }
 }

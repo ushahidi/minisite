@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Add a block to your site') }}</div>
                 <div class="card-body">
-                    <block-types :method='"PUT"' :block='@json($block)' :block-types='@json($types)' :block-fields='@json($fields)' :minisite-slug='@json($minisite->slug)'></block-types>
+                    <block-types :method='"PUT"' :block='@json($block)' :block-types='@json($types)' :block-fields='@json($fields)' :minisite-slug='@json($community->slug)'></block-types>
                 </div>
             </div>
         </div>

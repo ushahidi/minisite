@@ -62,6 +62,9 @@ class Community extends Model implements Searchable
         return $this->belongsToMany('App\User', 'user_communities');
     }
     
+    public function owner() {
+        return UserCommunity::where('user_id', $this->id)->get() ?? null;
+    }
 
     // //@change
     // public function captain()
@@ -89,6 +92,7 @@ class Community extends Model implements Searchable
     {
         return $this->belongsTo('Modules\CommunityManager\Community', 'location_id');
     }
+    
     /**
      * Get the route key for the model.
      *

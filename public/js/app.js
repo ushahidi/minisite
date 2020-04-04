@@ -9024,7 +9024,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       submittable(url, this.fields).then(function (response) {
         // @TODO: add flash/ok message in the minisite view to send back the feedback
-        window.location = '/community';
+        window.location = '/blockmanager/' + _this2.minisiteSlug + '/edit';
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors || {};

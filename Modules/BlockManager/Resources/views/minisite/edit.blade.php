@@ -8,14 +8,14 @@
                 <div class="card-header">@lang('community.editSite')</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('minisiteUpdate', ['minisite' => $minisite]) }}">
+                    <form method="POST" action="{{ route('communityUpdate', ['community' => $community]) }}">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">@lang('minisite.minisiteName')</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $minisite->title }}" required autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $community->title }}" required autofocus>
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -30,12 +30,12 @@
                             <div class="col-md-6">
                                 <select name="visibility" id="visibility" class="form-control @error('visibility') is-invalid @enderror" required autofocus>
                                     <option value="">--@lang('minisite.selectVisibility')--</option>
-                                    @if ($minisite->visibility === 'community members')
+                                    @if ($community->visibility === 'community members')
                                         <option value="community members" selected='selected'>@lang('minisite.visibleTo.communityMembers')</option>
                                     @else
                                         <option value="community members">@lang('minisite.visibleTo.communityMembers')</option>
                                     @endif
-                                    @if ($minisite->visibility === 'public')
+                                    @if ($community->visibility === 'public')
                                         <option value="public" selected='selected'>@lang('minisite.visibleTo.public')</option>
                                     @else
                                         <option value="public">@lang('minisite.visibleTo.public')</option>
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        @foreach ($minisite->blocks as $block )
+        @foreach ($community->blocks as $block )
             <div class="card">
                 <div class="card-header">{{$block->name}}</div>
                 <div class="card-body">
@@ -70,10 +70,10 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="alert-info alert" href="{{ route('blockEdit', ['minisite'=>  $minisite, 'block' => $block]) }}">@lang('minisite.editBlock')</a>
+                    <a class="alert-info alert" href="{{ route('blockEdit', ['community'=>  $community, 'block' => $block]) }}">@lang('minisite.editBlock')</a>
                     <a 
                         class="alert-danger alert"
-                        href="{{ route('blockDestroy', ['minisite'=>  $minisite, 'block' => $block]) }}"
+                        href="{{ route('blockDestroy', ['community'=>  $community, 'block' => $block]) }}"
                         onclick="return confirm('@lang('minisite.deleteBlockConfirmation')')">
                             @lang('minisite.deleteBlock')
                     </a>
@@ -82,7 +82,7 @@
         @endforeach
     </div>
     <div class="row justify-content-center">
-        <div class="card-footer"><a href="{{ route('blockCreate', ['minisite'=>$minisite]) }}">@lang('minisite.addBlock')</a></div>
+        <div class="card-footer"><a href="{{ route('blockCreate', ['community'=>$community]) }}">@lang('minisite.addBlock')</a></div>
     </div>
 </div>
 @endsection

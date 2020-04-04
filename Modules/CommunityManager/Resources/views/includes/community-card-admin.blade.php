@@ -1,5 +1,5 @@
 @isset ($community)
-<a href="{{ route('communityShow', ['id' => $community->id]) }}">
+<a href="{{ route('communityBlocksEdit', ['community' => $community]) }}">
     <div class="mdc-card community-card">
         <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
             <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"

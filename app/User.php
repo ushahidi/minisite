@@ -41,9 +41,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('Modules\CommunityManager\Community', 'user_communities');
     }
-    //@change
-    public function isCaptain() {
-        return true;
-    }
 
 }

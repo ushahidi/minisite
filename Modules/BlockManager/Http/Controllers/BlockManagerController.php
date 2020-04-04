@@ -10,55 +10,43 @@ use App\User;
 use Modules\CommunityManager\Community;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-
 class BlockManagerController extends Controller
 {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Modules\Minisite  $minisite
+     * @param  \Modules\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function edit(Community $minisite)
+    public function edit(Community $community)
     {
-        if ($minisite->community->captain_id !== Auth::user()->id){
+        if (!$community->owner()){
             abort("401", "You are not authorized to edit this page");
         }
-        return view('blockmanager::minisite.edit', ['minisite' => $minisite]);
+        return view('blockmanager::minisite.edit', ['community' => $community]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Modules\Minisite  $minisite
+     * @param  \Modules\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Community $minisite)
+    public function update(Request $request, Community $community)
     {
         $data = $request->input();
-        if ($minisite->community->captain_id !== Auth::user()->id){
+        if ($community->captain_id !== Auth::user()->id){
             abort("401", "You are not authorized to edit this page");
         }
-        $minisite->update([
+        $community->update([
             'visibility' => $data['visibility'],
             'title' => $data['title'],
         ]);
     
         return redirect()->route(
             'communityShow',
-            ['id' => $minisite->community->id] )->with( ['id' => $minisite->community->id]
+            ['id' => $community->id] )->with( ['id' => $community->id]
         );
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Modules\Minisite  $minisite
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Community $minisite)
-    {
-        //
     }
 }
