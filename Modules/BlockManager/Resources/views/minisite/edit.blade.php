@@ -27,7 +27,7 @@
                                     </a>
                                 </div>
                                 <div class="grid-cell">
-                                    <a href="/community/create"
+                                    <a href="#"
                                         class="mdc-button mdc-button--raised theme-neutral-bg">
                                         <div class="mdc-button__ripple"></div>
                                         <span class="mdc-button__label">Later</span>
