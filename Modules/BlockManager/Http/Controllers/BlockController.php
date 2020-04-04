@@ -1,7 +1,7 @@
 <?php
 
 namespace Modules\BlockManager\Http\Controllers;
-use Modules\Minisite\Minisite;
+use Modules\community\community;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 use Modules\BlockManager\Block;
@@ -26,11 +26,11 @@ class BlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Minisite $minisite)
+    public function create(Community $community)
     {
         return view('blockmanager::block.create', 
             [
-                'minisite' => $minisite,
+                'community' => $community,
                 'content' => '{}',
                 'types' => BlockType::get(),
                 'fields' => BlockTypeFields::get()
@@ -44,7 +44,7 @@ class BlockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Minisite $minisite)
+    public function store(Request $request, Community $community)
     {
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -56,9 +56,9 @@ class BlockController extends Controller
         ]);
         $contentFields = json_encode($request->input('blockFields'));
         
-        $block = Block::create(array_merge(['minisite_id' => $minisite->id, 'content' => $contentFields], $validatedData));
+        $block = Block::create(array_merge(['community_id' => $community->id, 'content' => $contentFields], $validatedData));
         $block->save();
-        return view('community.show', ['community' => $minisite->community]);
+        return view('community.show', ['community' => $community->community]);
     }
 
     /**
@@ -78,11 +78,11 @@ class BlockController extends Controller
      * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function edit(Minisite $minisite, Block $block)
+    public function edit(Community $community, Block $block)
     {
         return view('blockmanager::block.edit', 
             [
-                'minisite' => $minisite,
+                'community' => $community,
                 'block' => $block,
                 'content' => '{}',
                 'types' => BlockType::get(),
@@ -99,11 +99,11 @@ class BlockController extends Controller
      * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $minisiteSlug, $blockId)
+    public function update(Request $request, $communitySlug, $blockId)
     {
 
         $block = Block::findOrFail($blockId);
-        $minisite = Minisite::where(['slug' => $minisiteSlug])->first();
+        $community = community::where(['slug' => $communitySlug])->first();
         $contentFields = json_encode($request->input('blockFields'));
         $inputs = array_merge($request->input(), ['content' => $contentFields]);
         $validator = \Validator::make($inputs, [
@@ -123,7 +123,7 @@ class BlockController extends Controller
         if ($block->update($inputs)) {
             return response()->json([
                 'success' => [
-                    'communityId' => $minisite->community->id,
+                    'communityId' => $community->community->id,
                     'block' => $block
                 ]
             ]);
@@ -140,9 +140,9 @@ class BlockController extends Controller
      * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Minisite $minisite, Block $block)
+    public function destroy(Community $community, Block $block)
     {
         $block->delete();
-        return view('community.show', ['community' => $minisite->community]);
+        return view('community.show', ['community' => $community->community]);
     }
 }

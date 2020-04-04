@@ -15,8 +15,8 @@ class CreateBlocksTable extends Migration
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('minisite_id')->unsigned()->nullable();
-            $table->foreign('minisite_id')->references('id')->on('minisites')->onDelete('cascade');
+            $table->bigInteger('community_id')->unsigned()->nullable();
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->string('name');
             /**
              * block's content is a json. This may change once we have a handle on what is needed

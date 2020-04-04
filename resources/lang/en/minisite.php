@@ -12,5 +12,17 @@ return [
     'deleteBlock' => 'Delete this block',
     'deleteBlockConfirmation' => 'Are you sure you want to delete this block? This action cannot be undone.',
     'selectVisibility' => 'Who can see your site?',
-    'chooseBlockType' => 'Choose the block type'
+    'chooseBlockType' => 'Choose the block type',
+    'create'   => 'Create',
+    'chooseCountry'  => 'Choose a country',
+    'country'         => 'Country',
+    'city'         => 'City',
+    'state'         => 'State/Province',
+    'name'         => 'Community',
+    'inviteSomeone' => 'Invite someone to join',
+    'inviteSomeoneWithLink' => 'Invite someone with this link (single use)',
+    'yourCommunity'  => 'Your community',
+    'yourCommunityMembers' => 'Your community members',
+    'viewSite'  => 'View your minisite',
+    'editSite'  => 'Edit your minisite',
 ];

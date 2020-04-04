@@ -13,6 +13,7 @@ class Minisite extends Model implements Searchable
 {
     use Sluggable;
     use SoftDeletes;
+    public $table = 'community'
 
     /**
      * The attributes that should be mutated to dates.
@@ -30,7 +31,7 @@ class Minisite extends Model implements Searchable
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'name'
             ]
         ];
     }
@@ -39,47 +40,6 @@ class Minisite extends Model implements Searchable
      *
      * @var array
      */
-    protected $fillable = ['title', 'community_id', 'visibility', 'slug'];
+    protected $fillable = ['name', 'community_id', 'visibility', 'slug'];
     
-    public function community()
-    {
-        return $this->belongsTo('Modules\CommunityManager\Community', 'community_id');
-    }
-
-    public function blocks()
-    {
-        return $this->hasMany('Modules\BlockManager\Block');
-    }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    public function getSearchResult(): SearchResult
-    {
-        $url = route('minisitePublic', $this->slug);
-
-        return new SearchResult(
-            $this,
-            $this->title,
-            $url
-        );
-    }
-
-    public function visibleBy(\App\User $user = null) {
-        if ($this->visibility === 'public') {
-            return true;
-        }
-        $isCommunityMember = $user && $user->community_id && $user->community_id === $this->community_id;
-        if ($this->visibility === 'community members' && $isCommunityMember === true) {
-            return true;
-        }
-        return false;
-    }
 }

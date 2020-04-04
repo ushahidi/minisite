@@ -64,7 +64,7 @@
         <div class="mdc-layout-grid__cell--span-12">
             <h4>Active Communities</h4>
             @foreach ($activeCommunities as $community)
-                @include('includes.community-card', ['community' => $community])    
+                @include('mahallahlanding::includes.community-card', ['community' => $community])    
             @endforeach
             <div class="mdc-card">
                 <h6 class="theme-primary tal">MAHALLA</h6>

@@ -14,10 +14,10 @@ use Spatie\Searchable\ModelSearchAspect;
 use Modules\CommunityManager\Invite;
 use App\User;
 use Modules\CommunityManager\Community;
-use Modules\Minisite\Minisite;
-
+use Modules\CommunityManager\UserCommunity;
 use Illuminate\Support\Facades\Validator;
-
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Validation\Rule;
 class CommunityManagerController extends Controller
 {
 
@@ -70,28 +70,31 @@ class CommunityManagerController extends Controller
      */
     protected function store(Request $request)
     {
+        //[ 'visibility', 'type', 'location_id', 'deployment_id'];
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:50'],
+            'welcome' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'visibility' => ['required', 'string',  Rule::in([Community::VISIBILITY_COMMUNITY, Community::VISIBILITY_PUBLIC]),],
         ]);
+
         $community = Community::create([
             'name' => $validatedData['name'],
-            'city' => $validatedData['city'],
-            'state' => $validatedData['state'],
-            'country' => $validatedData['country'],
-            //@change
-            // 'captain_id' => Auth::user()->id
+            'description' => $validatedData['description'],
+            'welcome' => $validatedData['welcome'],
+            'visibility' => $validatedData['visibility'],
+            'type' => Community::TYPE_NEIGHBORHOOD
         ]);
-        
+
         $community->save();
-        $user = User::findOrFail(Auth::user()->id)->update(['community_id' => $community->id]);
-        $minisite = Minisite::create([
-            'title' => $community->name, 
-            'community_id' => $community->id,
-            'visibility' => 'public'
-        ])->save();
+
+        $user = UserCommunity::create(
+            [
+                'community_id' => $community->id,
+                'user_id' => Auth::user()->id,
+                'role' => UserCommunity::ROLE_OWNER
+            ]
+        )->save();
         return view('communitymanager::community.show', ['community' => $community]);
     }
 

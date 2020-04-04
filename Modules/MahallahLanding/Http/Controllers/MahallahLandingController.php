@@ -13,7 +13,6 @@ use Spatie\Searchable\ModelSearchAspect;
 
 use App\User;
 use Modules\CommunityManager\Community;
-use Modules\Minisite\Minisite;
 
 class MahallahLandingController extends Controller
 {

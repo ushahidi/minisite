@@ -91,3 +91,5 @@ hostname: minisite
 - Save Neighborhood, City, blablabla, but not necessarily lat/lon at this point
 - 
 
+https://github.com/thephpleague/geotools
+https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers

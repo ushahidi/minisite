@@ -26,12 +26,12 @@ class Block extends Model
     *
     * @var array
     */
-    protected $fillable = ['minisite_id', 'name', 'description', 'type', 'visibility', 'position', 'enabled', 'content'];
+    protected $fillable = ['community_id', 'name', 'description', 'type', 'visibility', 'position', 'enabled', 'content'];
 
 
     public function minisite()
     {
-        return $this->belongsTo('Modules\Minisite\Minisite', 'minisite_id');
+        return $this->belongsTo('Modules\CommunityManager\Community', 'community_id');
     }
     
     public function visibleBy(User $user = null) {
