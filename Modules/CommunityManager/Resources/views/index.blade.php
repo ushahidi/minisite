@@ -6,15 +6,13 @@
         <div class="mdc-layout-grid__cell--span-12">
             <p>All the Mahallas you are part of.</p>
         </div>
-
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-layout-grid__inner">
-                <div class="grid-cell">
-                    @include('communitymanager::includes.community-card-admin')
-                </div>
-                <div class="grid-cell">
-                    @include('communitymanager::includes.community-card-admin')
-                </div>
+                @foreach ($communities as $community)
+                    <div class="grid-cell">                     
+                        @include('communitymanager::includes.community-card-admin', ['community' => $community])
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -42,9 +40,7 @@
                 </div>
                 @endisset
                 @if($isLoggedIn)
-                    @foreach ($communities as $community)
-                        @include('communitymanager::includes.community-card-admin', ['community' => $community])
-                    @endforeach
+                   
                     <div class="alert alert-success" role="alert">
                         @if(!empty($community))
                             <a href="{{ url('/community') }}">@lang('nav.goToYourCommunity')</a>
