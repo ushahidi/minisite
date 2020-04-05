@@ -84,7 +84,7 @@ class BlockController extends Controller
         $block->save();
         
         return redirect()->route(
-            'communityBlocksEdit', 
+            'minisite.admin', 
             ['community' => $community]
         );
     }
@@ -164,7 +164,7 @@ class BlockController extends Controller
         $validatedData = array_merge(['content' => $fields], $validatedData);
         $block->update($validatedData);
         return redirect()->route(
-            'communityBlocksEdit', 
+            'minisite.admin', 
             ['community' => $community]
         );
         
@@ -181,7 +181,7 @@ class BlockController extends Controller
         $block->delete();
         
         return redirect()->route(
-            'communityBlocksEdit', 
+            'minisite.admin', 
             ['community' => $community]
         );
     }

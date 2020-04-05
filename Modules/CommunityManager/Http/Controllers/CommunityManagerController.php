@@ -96,7 +96,7 @@ class CommunityManagerController extends Controller
             ]
         )->save();
         return redirect()->route(
-            'communityBlocksEdit',
+            'minisite.admin',
             ['community' => $community]
         );
     }
