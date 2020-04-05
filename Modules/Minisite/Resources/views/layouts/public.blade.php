@@ -60,7 +60,7 @@
                     <span class="mdc-list-item__text">Create a community</span>
                 </a>
 
-                @if (Route::has('register'))
+                @if (Route::is('register'))
                 <a class="mdc-list-item" href="{{ route('register') }}">
                     <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                     <span class="mdc-list-item__text">Search</span>
