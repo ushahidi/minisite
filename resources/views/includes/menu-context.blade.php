@@ -72,7 +72,7 @@
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Manage Members</span>
         </a> --}}
-        <hr class="mdc-list-divder">
+        <hr class="mdc-list-divider">
         @endif
         <a class="mdc-list-item" href="{{route('communityCreate')}}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
@@ -86,6 +86,7 @@
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">About Mahalla</span>
         </a>
+        @if (Auth::user())
         <a class="mdc-list-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt mdc-list-item__graphic" aria-hidden="true"></i>
@@ -94,5 +95,6 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
+        @endif
     </nav>
 </div>
