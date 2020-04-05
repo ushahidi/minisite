@@ -126,11 +126,11 @@ class Community extends Model implements Searchable
     }
 
     public function visibleBy(\App\User $user = null) {
-        if ($this->visibility === 'public') {
+        if ($this->visibility === Community::VISIBILITY_PUBLIC) {
             return true;
         }
         $isCommunityMember = $user && $user->community_id && $user->community_id === $this->community_id;
-        if ($this->visibility === 'community members' && $isCommunityMember === true) {
+        if ($this->visibility === Community::VISIBILITY_COMMUNITY && $isCommunityMember === true) {
             return true;
         }
         return false;

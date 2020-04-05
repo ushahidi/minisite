@@ -21,7 +21,7 @@
                 <div class="mdc-text-field">
                     <input id="welcome" name="welcome" class="mdc-text-field__input @error('welcome') is-invalid @enderror" required>
                     <div class="mdc-line-ripple"></div>
-                    <label for="welcome" class="mdc-floating-label">Welcome message</label>
+                    <label for="welcome" class="mdc-floating-label">@lang('minisite.welcomeMessage')</label>
                     @error('message')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                     <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
                         <div class="mdc-notched-outline__notch" style="">
-                            <span class="mdc-floating-label" id="description">Describe your page</span>
+                            <span class="mdc-floating-label" id="description">@lang('minisite.describeYourSite')</span>
                         </div>
                         <div class="mdc-notched-outline__trailing"></div>
                     </div>
@@ -50,13 +50,43 @@
                 </div>
             </div>
             <div class="mdc-layout-grid__cell--span-12">
+                <div class="mdc-text-field">
+                    <input id="location_string" name="location_string" class="mdc-text-field__input @error('location_string') is-invalid @enderror" required>
+                    <div class="mdc-line-ripple"></div>
+                    <label for="location_string" class="mdc-floating-label">@lang('minisite.yourNeighborhoodLocation')</label>
+                    @error('location_string')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="mdc-layout-grid__cell--span-12">
                 <div class="">
-                    <select name="visibility" id="visibility" class="form-control @error('visibility') is-invalid @enderror" required>
-                        <option value="">--@lang('minisite.selectVisibility')--</option>
-                        <option selected value="community">@lang('minisite.visibleTo.communityMembers')</option>
-                        <option value="public">@lang('minisite.visibleTo.public')</option>
-                    </select>
-                    @error('description')
+                    <div class="mdc-form-field">
+                        <div class="mdc-radio">
+                            <input class="mdc-radio__native-control" type="radio" name="visibility" value="community" class="form-control @error('visibility') is-invalid @enderror" checked>
+                            <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                            <div class="mdc-radio__ripple"></div>
+                        </div>
+                        <label for="visibility">@lang('minisite.visibleTo.community')</label>
+                    </div>
+                    
+                    <div class="mdc-form-field">
+                        <div class="mdc-radio">
+                            <input class="mdc-radio__native-control" type="radio" name="visibility" value="public" class="form-control @error('visibility') is-invalid @enderror">
+                            <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                            <div class="mdc-radio__ripple"></div>
+                        </div>
+                        <label for="visibility">@lang('minisite.visibleTo.public')</label>
+                    </div>
+                    @error('visibility')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

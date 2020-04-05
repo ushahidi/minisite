@@ -26,4 +26,7 @@ return [
     'yourCommunityMembers' => 'Personas en tu comunidad',
     'viewSite'  => 'Ver tu mini sitio',
     'editSite'  => 'Edita tu mini sitio',
+    'yourNeighborhoodLocation' => 'Localidad (barrio o dirección)',
+    'describeYourSite' => 'Describe el sitio de tu communidad',
+    'welcomeMessage' => 'Mensaje de bienvenida'
 ];

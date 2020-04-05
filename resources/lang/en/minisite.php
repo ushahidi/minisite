@@ -26,4 +26,7 @@ return [
     'yourCommunityMembers' => 'Your community members',
     'viewSite'  => 'View your minisite',
     'editSite'  => 'Edit your minisite',
+    'yourNeighborhoodLocation' => 'Location (neighborhood or address)',
+    'describeYourSite' => 'Describe your community page',
+    'welcomeMessage' => 'Welcome message'
 ];
