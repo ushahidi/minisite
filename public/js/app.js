@@ -86121,7 +86121,6 @@ window.Vue.prototype.$I18n = new _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__["defa
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component("block-types", require("./components/BlockTypes.vue").default);
 
 Vue.component("editor", __webpack_require__(/*! ./components/tiptap/Editor.vue */ "./resources/js/components/tiptap/Editor.vue")["default"]);
 /**

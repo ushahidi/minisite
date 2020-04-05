@@ -81,7 +81,7 @@
                             <div data-menu-index="{{$index}}" class="mdc-menu mdc-menu-surface" tabindex="-1">
                                 <ul class="mdc-list" role="menu" aria-hidden="true">
                                     <a href="{{ route('blockEdit', ['community'=>  $community, 'block' => $block]) }}">
-                                        <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1">@lang('minisite.adminBlock')
+                                        <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1">@lang('minisite.editBlock')
                                         </li>
                                     </a>
                                     <a 

@@ -22,7 +22,7 @@
                 <div class="grid-cell">
                     <button type="submit" class="mdc-button theme-secondary-bg">
                         <div class="mdc-button__ripple"></div>
-                        <span class="mdc-button__label theme-black">@lang('minisite.addBlock')</span>
+                        <span class="mdc-button__label theme-black">@lang('minisite.editBlock')</span>
                     </button>
                 </div>
                 <div class="grid-cell">
