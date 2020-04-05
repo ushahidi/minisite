@@ -95,7 +95,10 @@ class CommunityManagerController extends Controller
                 'role' => UserCommunity::ROLE_OWNER
             ]
         )->save();
-        return view('communitymanager::community.show', ['community' => $community]);
+        return redirect()->route(
+            'communityBlocksEdit',
+            ['community' => $community]
+        ));
     }
 
     public function joinFromInvite($token) {
