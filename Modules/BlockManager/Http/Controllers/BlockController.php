@@ -26,14 +26,14 @@ class BlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Community $community)
+    public function create(Community $community, Request $request)
     {
         return view('blockmanager::block.create-block', 
             [
                 'community' => $community,
                 'content' => '{}',
-                'types' => BlockType::get(),
-                'fields' => BlockTypeFields::get()
+                'blockType' => BlockType::where('id', $request->input('blockType'))->first(),
+                'fields' => BlockTypeFields::where('block_type', $request->input('blockType'))->get()
             ]
         );
     }
@@ -61,19 +61,32 @@ class BlockController extends Controller
      */
     public function store(Request $request, Community $community)
     {
+        $fields = $request->input('fields') ?? [];
+        $freeFormContent = null;
+        if ($request->input('blockType') === 'Free form') {
+            $freeFormContent = $request->input('content');
+            $blockTypeField = BlockTypeFields::where('block_type', $request->input('blockType'))->where('name', 'Content')->first();
+            $fields[$blockTypeField->id] = $freeFormContent;
+        }
+        
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'type' => ['required', 'string', 'max:255'],
             'visibility' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'integer'],
-            "enabled" => ['required']
+            'position' => ['required'],
+            'enabled' => ['required'],
         ]);
-        $contentFields = json_encode($request->input('blockFields'));
         
-        $block = Block::create(array_merge(['community_id' => $community->id, 'content' => $contentFields], $validatedData));
+        $block = Block::create(
+            array_merge(['community_id' => $community->id, 'content' => $fields], $validatedData)
+        );
         $block->save();
-        return view('blockmanager::minisite.edit', ['community' => $community]);
+        
+        return redirect()->route(
+            'communityBlocksEdit', 
+            ['community' => $community]
+        );
     }
 
     /**
@@ -158,6 +171,10 @@ class BlockController extends Controller
     public function destroy(Community $community, Block $block)
     {
         $block->delete();
-        return view('community.show', ['community' => $community]);
+        
+        return redirect()->route(
+            'communityBlocksEdit', 
+            ['community' => $community]
+        );
     }
 }

@@ -21,8 +21,8 @@ window.Vue.prototype.$I18n = new I18n();
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component("block-types", require("./components/BlockTypes.vue").default);
-
+// Vue.component("block-types", require("./components/BlockTypes.vue").default);
+Vue.component("editor", require("./components/tiptap/Editor.vue").default)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

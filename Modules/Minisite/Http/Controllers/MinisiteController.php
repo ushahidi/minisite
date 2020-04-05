@@ -30,7 +30,7 @@ class MinisiteController extends Controller
         $returnBlocks = [];
 
         foreach($minisite->blocks as $block) {
-            $content = json_decode($block->content);
+            $content = $block->content;
 
             $mapped = [];
             foreach ($content as $field_key => $field_value) {
