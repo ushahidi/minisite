@@ -20,10 +20,10 @@ class FreeForm extends Component
         if (!$block->content->Content) {
             $this->renderedHTML = "";
         } else {
-            $json = $block->content->Content->content;
+            $c = json_decode($block->content->Content);
             $this->renderedHTML = (new \Scrumpy\ProseMirrorToHtml\Renderer)->render([
                 'type' => 'doc',
-                'content' => $json,
+                'content' => $c->content,
             ]);
         }
         

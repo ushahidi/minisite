@@ -3,6 +3,7 @@
 return [
     'visibleTo' => 'El minisitio es visible para',
     'visibleTo.community members' => 'Personas en tu comunidad',
+    'visibleTo.community' => 'Personas en tu comunidad',
     'visibleTo.public' => 'El Mundo',
     'minisiteName'     => 'Nombre del minisitio',
     'yourSite' => 'Tu sitio',
