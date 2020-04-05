@@ -37,6 +37,21 @@ class BlockController extends Controller
             ]
         );
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTypes(Community $community, BlockType $blockType)
+    {
+        return view('blockmanager::block.create', 
+            [
+                'community' => $community,
+                'content' => '{}',
+                'blockTypes' => BlockType::get(),
+            ]
+        );
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -15,10 +15,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('blockmanager')->group(function() {
         Route::get('/{community}/edit', 'BlockManagerController@edit')->name('communityBlocksEdit');
+        
+        Route::get('/{community}/block/types', 'BlockController@getTypes')->name('blockTypes');
+
+        Route::get('/{community}/block/create', 'BlockController@getTypes')->name('createByType');
+
         Route::put('/{community}', 'BlockManagerController@update')->name('communityUpdate');
 
         // blocks
-        Route::get('/{community}/block/create', 'BlockController@create')->name('blockCreate');
+        // Route::get('/{community}/block/create', 'BlockController@create')->name('blockCreate');
         Route::post('/{community}/block', 'BlockController@store')->name('blockStore');
         Route::get('/{community}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
         Route::put('/{community}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
