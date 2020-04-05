@@ -98,7 +98,7 @@ class CommunityManagerController extends Controller
         return redirect()->route(
             'communityBlocksEdit',
             ['community' => $community]
-        ));
+        );
     }
 
     public function joinFromInvite($token) {
