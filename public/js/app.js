@@ -86094,13 +86094,13 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendor/I18n */ "./resources/js/vendor/I18n.js");
-/* harmony import */ var _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/ripple/index */ "./node_modules/@material/ripple/index.js");
-/* harmony import */ var _material_drawer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/drawer */ "./node_modules/@material/drawer/index.js");
+/* harmony import */ var _material_drawer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/drawer */ "./node_modules/@material/drawer/index.js");
+/* harmony import */ var _material_ripple_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/index */ "./node_modules/@material/ripple/index.js");
 /* harmony import */ var _material_menu_surface__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/menu-surface */ "./node_modules/@material/menu-surface/index.js");
 /* harmony import */ var _material_menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/menu */ "./node_modules/@material/menu/index.js");
-/* harmony import */ var _material_textfield__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/textfield */ "./node_modules/@material/textfield/index.js");
-/* harmony import */ var _material_notched_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/notched-outline */ "./node_modules/@material/notched-outline/index.js");
-/* harmony import */ var _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/textfield/character-counter */ "./node_modules/@material/textfield/character-counter/index.js");
+/* harmony import */ var _material_notched_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/notched-outline */ "./node_modules/@material/notched-outline/index.js");
+/* harmony import */ var _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/textfield/character-counter */ "./node_modules/@material/textfield/character-counter/index.js");
+/* harmony import */ var _material_textfield__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/textfield */ "./node_modules/@material/textfield/index.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -86133,79 +86133,102 @@ var app = new Vue({
   el: "#app"
 }); // Material Design Web Components Instantiation
 
- // Drawer Menu
-
-
-var drawer = _material_drawer__WEBPACK_IMPORTED_MODULE_2__["MDCDrawer"].attachTo(document.querySelector(".mdc-drawer"));
-var button = document.querySelector(".mdc-icon-button");
-_material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"].attachTo(button);
-button.addEventListener("click", function () {
-  drawer.open = true;
-}); // const listEl = document.querySelector(".mdc-drawer .mdc-list");
-
-var mainContentEl = document.querySelector(".mdc-drawer-scrim");
-mainContentEl.addEventListener("click", function (event) {
-  drawer.open = false;
-});
-
-if (document.querySelector(".mdc-button")) {
-  // Button
-  var ripple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-button"));
-}
-
-if (document.querySelector(".mdc-icon-button")) {
-  // Icon Button
-  var iconButtonRipple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"](document.querySelector(".mdc-icon-button"));
-  iconButtonRipple.unbounded = true;
-} // Menu Surface
-
-
- //@fixme this was erroring out because mdc-menu-surface is not always available
-
-if (document.querySelector(".mdc-menu-surface")) {
-  var menuSurface = new _material_menu_surface__WEBPACK_IMPORTED_MODULE_3__["MDCMenuSurface"](document.querySelector(".mdc-menu-surface"));
-} // Menu List
 
 
 
-var menuElements = document.querySelectorAll(".blocks-js .mdc-menu");
-var menus = [];
 
-if (menuElements) {
-  [].map.call(document.querySelectorAll(".blocks-js .mdc-menu"), function (el) {
-    menus[el.getAttribute('data-menu-index')] = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](el);
-  });
-  document.querySelectorAll(".blocks-js .menu-button").forEach(function (buttonEl) {
-    buttonEl.addEventListener('click', function (event) {
-      menus[event.currentTarget.getAttribute('data-menu-index')].open = !menus[event.currentTarget.getAttribute('data-menu-index')].open;
+
+
+
+
+var navigationDrawer = function navigationDrawer() {
+  // Drawer Menu
+  var drawer = _material_drawer__WEBPACK_IMPORTED_MODULE_1__["MDCDrawer"].attachTo(document.querySelector(".mdc-drawer"));
+
+  var menuButtons = function menuButtons() {
+    var button = document.querySelector(".js-menu-button");
+    if (!button) return;
+    _material_ripple_index__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].attachTo(button);
+    button.addEventListener("click", function () {
+      drawer.open = true;
     });
+  };
+
+  menuButtons(); // const listEl = document.querySelector(".mdc-drawer .mdc-list");
+
+  var mainContentEl = document.querySelector(".mdc-drawer-scrim");
+  mainContentEl.addEventListener("click", function (event) {
+    drawer.open = false;
   });
-} // Text Field
 
+  if (document.querySelector(".mdc-button")) {
+    // Button
+    var ripple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"](document.querySelector(".mdc-button"));
+  }
 
+  if (document.querySelector(".mdc-icon-button")) {
+    // Icon Button
+    var iconButtonRipple = new _material_ripple_index__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"](document.querySelector(".mdc-icon-button"));
+    iconButtonRipple.unbounded = true;
+  }
+};
 
+var contextualMenuSurface = function contextualMenuSurface() {
+  // Menu Surface
+  // this was erroring out because mdc-menu-surface is not always available
+  if (document.querySelector(".mdc-menu-surface")) {
+    var menuSurface = new _material_menu_surface__WEBPACK_IMPORTED_MODULE_3__["MDCMenuSurface"](document.querySelector(".mdc-menu-surface"));
+  }
+};
 
-if (document.querySelectorAll(".mdc-text-field")) {
-  var mdcTexts = [].map.call(document.querySelectorAll(".mdc-text-field"), function (el) {
-    return new _material_textfield__WEBPACK_IMPORTED_MODULE_5__["MDCTextField"](el);
-  });
-} // Text Area Notched Outline
+var contextualMenu = function contextualMenu() {
+  // Menu List
+  var menuElements = document.querySelectorAll(".blocks-js .mdc-menu");
+  var menus = [];
 
+  if (menuElements) {
+    [].map.call(document.querySelectorAll(".blocks-js .mdc-menu"), function (el) {
+      menus[el.getAttribute('data-menu-index')] = new _material_menu__WEBPACK_IMPORTED_MODULE_4__["MDCMenu"](el);
+    });
+    document.querySelectorAll(".blocks-js .menu-button").forEach(function (buttonEl) {
+      buttonEl.addEventListener('click', function (event) {
+        menus[event.currentTarget.getAttribute('data-menu-index')].open = !menus[event.currentTarget.getAttribute('data-menu-index')].open;
+      });
+    });
+  }
+};
 
+var textField = function textField() {
+  // Text Field
+  if (document.querySelectorAll(".mdc-text-field")) {
+    var mdcTexts = [].map.call(document.querySelectorAll(".mdc-text-field"), function (el) {
+      return new _material_textfield__WEBPACK_IMPORTED_MODULE_7__["MDCTextField"](el);
+    });
+  }
+};
 
+var textAreaOutline = function textAreaOutline() {
+  // Text Area Notched Outline
+  if (document.querySelectorAll(".mdc-notched-outline")) {
+    var mdcNotchedOutline = [].map.call(document.querySelectorAll(".mdc-notched-outline"), function (el) {
+      return new _material_notched_outline__WEBPACK_IMPORTED_MODULE_5__["MDCNotchedOutline"](el);
+    });
+  }
+};
 
-if (document.querySelectorAll(".mdc-notched-outline")) {
-  var mdcNotchedOutline = [].map.call(document.querySelectorAll(".mdc-notched-outline"), function (el) {
-    return new _material_notched_outline__WEBPACK_IMPORTED_MODULE_6__["MDCNotchedOutline"](el);
-  });
-} // Text Counter
+var textCounter = function textCounter() {
+  // Text Counter
+  if (document.querySelector(".mdc-text-field-character-counter")) {
+    var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_6__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter"));
+  }
+};
 
-
-
-
-if (document.querySelector(".mdc-text-field-character-counter")) {
-  var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter"));
-}
+textCounter();
+textAreaOutline();
+textField();
+contextualMenuSurface();
+contextualMenu();
+navigationDrawer();
 
 /***/ }),
 
