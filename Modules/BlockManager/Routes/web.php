@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('/{community}/block/create', 'BlockController@create')->name('blockCreate');
         Route::post('/{community}/block', 'BlockController@store')->name('blockStore');
         Route::get('/{community}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
-        Route::put('/{community}/block/{blockId}', 'BlockController@update')->name('blockUpdate');
+        Route::put('/{community}/block/{block}', 'BlockController@update')->name('blockUpdate');
         Route::get('/{community}/block/{block}/destroy', 'BlockController@destroy')->name('blockDestroy');
     });
 

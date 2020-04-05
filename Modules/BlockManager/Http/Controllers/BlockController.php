@@ -108,14 +108,29 @@ class BlockController extends Controller
      */
     public function edit(Community $community, Block $block)
     {
-        return view('blockmanager::block.edit', 
-            [
+        $newBlock = $block;
+        $initialContent = null;
+        if ($block->type === 'Free form') {
+            $fields = BlockTypeFields::where('block_type', $block->type)->get();
+            foreach ($fields as $field) {
+                if ($field->name === 'Content') {
+                    $initialContent = (new \Scrumpy\ProseMirrorToHtml\Renderer)->render([
+                        'type' => 'doc',
+                        'content' => json_decode($block->content->{$field->id})->content,
+                    ]);
+                }
+            }
+        }
+        
+        return view('blockmanager::block.edit-block', 
+        [
                 'community' => $community,
-                'block' => $block,
                 'content' => '{}',
-                'types' => BlockType::get(),
-                'fields' => BlockTypeFields::get(),
-                'blockFields' => json_encode($block)
+                'blockType' => BlockType::where('id', $block->type)->first(),
+                'fields' => BlockTypeFields::where('block_type', $block->type)->get(),
+                'block' => $block,
+                'initialContent' => $initialContent,
+                'blockFields' => $block->content,
             ]
         );
     }
@@ -127,38 +142,31 @@ class BlockController extends Controller
      * @param  \Modules\Block  $block
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $communitySlug, $blockId)
+    public function update(Request $request, Community $community, Block $block)
     {
 
-        $block = Block::findOrFail($blockId);
-        $community = Community::where(['slug' => $communitySlug])->first();
-        $contentFields = json_encode($request->input('blockFields'));
-        $inputs = array_merge($request->input(), ['content' => $contentFields]);
-        $validator = \Validator::make($inputs, [
+        $fields = $request->input('fields') ?? [];
+        $freeFormContent = null;
+        if ($block->type === 'Free form') {
+            $freeFormContent = $request->input('content');
+            $blockTypeField = BlockTypeFields::where('block_type', $block->type)->where('name', 'Content')->first();
+            $fields[$blockTypeField->id] = $freeFormContent;
+        }
+        $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'type' => ['required', 'string', 'max:255'],
             'visibility' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'integer'],
-            'content' => ['required', 'json'],
-            'enabled' => ['required']
+            'position' => ['required'],
+            'enabled' => ['required'],
         ]);
-
-        if ($validator->fails()) {    
-            return response()->json($validator->messages(), 422);
-        }
-
-        if ($block->update($inputs)) {
-            return response()->json([
-                'success' => [
-                    'communityId' => $community->id,
-                    'block' => $block
-                ]
-            ]);
-        } else {
-            return response()->json(['error' => 'An unexpected error occured. Please try again later.'], 500);
-        }
-
+        
+        $validatedData = array_merge(['content' => $fields], $validatedData);
+        $block->update($validatedData);
+        return redirect()->route(
+            'communityBlocksEdit', 
+            ['community' => $community]
+        );
         
     }
 

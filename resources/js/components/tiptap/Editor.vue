@@ -245,7 +245,6 @@ export default {
   created() {
     this.html = this.editor.getHTML()
     this.json = this.editor.getJSON()
-
     this.editor.on('update', () => {
       this.html = this.editor.getHTML()
       this.json = this.editor.getJSON()
