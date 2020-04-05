@@ -37,7 +37,7 @@
                         <i class="fas fa-thumbs-up icon"></i>
                     </div>
                     <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                        <p><strong>Welcome to your community home page!</strong>
+                        <p><strong>Welcome to your community management page!</strong>
                             Your home page is made of blocks. Each block represents a different type of content you can add to your home page. 
                             Let’s try adding one?
                         </p>
