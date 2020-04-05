@@ -19,15 +19,9 @@
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">
                                 <div class="grid-cell">
-                                    <a href="/searching" class="mdc-button mdc-button--raised theme-secondary-bg">
+                                    <a onclick="return alert('Just an idea, but this would serve to edit public/non-public site settings and inform people on what the options mean')" class="mdc-button mdc-button--raised theme-secondary-bg">
                                         <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Add Members</span>
-                                    </a>
-                                </div>
-                                <div class="grid-cell">
-                                    <a href="/community/create" class="mdc-button mdc-button--raised theme-neutral-bg">
-                                        <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Later</span>
+                                        <span class="mdc-button__label">Edit your site preferences</span>
                                     </a>
                                 </div>
                             </div>
@@ -123,13 +117,13 @@
                     <div class="button-group">
                         <div class="mdc-layout-grid__inner">
                             <div class="grid-cell">
-                                <a href="/searching" class="mdc-button mdc-button--raised theme-secondary-bg">
+                                <a onclick="return alert('Not implemented')"  class="mdc-button mdc-button--raised theme-secondary-bg">
                                     <div class="mdc-button__ripple"></div>
                                     <span class="mdc-button__label">Add Members</span>
                                 </a>
                             </div>
                             <div class="grid-cell">
-                                <a href="/community/create" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                <a href="#" class="mdc-button mdc-button--raised theme-neutral-bg">
                                     <div class="mdc-button__ripple"></div>
                                     <span class="mdc-button__label">Later</span>
                                 </a>
