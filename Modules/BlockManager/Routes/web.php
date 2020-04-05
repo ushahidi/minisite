@@ -18,7 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/{community}/block/types', 'BlockController@getTypes')->name('blockTypes');
 
-        Route::get('/{community}/block/create', 'BlockController@getTypes')->name('createByType');
+        Route::get('/{community}/block/create', 'BlockController@create')->name('createByType');
 
         Route::put('/{community}', 'BlockManagerController@update')->name('communityUpdate');
 

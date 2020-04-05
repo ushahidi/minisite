@@ -33,13 +33,12 @@
                     <div class="mdc-card__secondary mdc-typography mdc-typography--body2">
                         {{$blockType->where_is_placed}}
                     </div>
-
                 </div>
                 <div class="mdc-card__actions">
                     <div class="mdc-card__action-buttons">
                         <a href="{{route('createByType', ['community' => $community, 'blockType' => $blockType])}}" class="mdc-button mdc-card__action mdc-card__action--button theme-secondary">
                             <span class="mdc-button__ripple"></span>
-                            Add
+                            @lang('minisite.addBlock')
                         </a>
                     </div>
                 </div>

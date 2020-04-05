@@ -6,7 +6,7 @@ return [
     'visibleTo.public' => 'El Mundo',
     'minisiteName'     => 'Nombre del minisitio',
     'yourSite' => 'Tu sitio',
-    'addBlock' => 'Agrega un bloque a tu sitio',
+    'addBlock' => 'Agregar',
     'save' => 'Guardar',
     'editBlock' => 'Modificar',
     'deleteBlock' => 'Eliminar',

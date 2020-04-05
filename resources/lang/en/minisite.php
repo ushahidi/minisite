@@ -6,7 +6,7 @@ return [
     'visibleTo.public' => 'Everyone',
     'minisiteName'     => 'Minisite name',
     'yourSite' => 'Your site',
-    'addBlock' => 'Add a block to your site',
+    'addBlock' => 'Add',
     'save' => 'Save',
     'editBlock' => 'Edit',
     'deleteBlock' => 'Remove',

@@ -28,7 +28,7 @@ class BlockController extends Controller
      */
     public function create(Community $community)
     {
-        return view('blockmanager::block.create', 
+        return view('blockmanager::block.create-block', 
             [
                 'community' => $community,
                 'content' => '{}',
@@ -42,7 +42,7 @@ class BlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getTypes(Community $community, BlockType $blockType)
+    public function getTypes(Community $community)
     {
         return view('blockmanager::block.create', 
             [
