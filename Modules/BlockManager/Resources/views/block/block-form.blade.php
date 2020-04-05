@@ -19,7 +19,7 @@
         <div class="mdc-text-field text-field mdc-text-field--fullwidth mdc-text-field--no-label mdc-text-field--textarea">
             {{-- <div class="mdc-text-field-character-counter">0 / 200</div> --}}
             <textarea name="fields[{{$field->id}}]" class="mdc-text-field__input" rows="6"
-                cols="40" required></textarea>
+                cols="40" required>{{$blockFields ? $blockFields->{$field->id} : ''}} </textarea>
             <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading"></div>
                 <div class="mdc-notched-outline__notch" style="">
