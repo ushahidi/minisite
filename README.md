@@ -93,3 +93,15 @@ hostname: minisite
 
 https://github.com/thephpleague/geotools
 https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers
+
+
+
+
+# Deploy
+git pull origin refactor
+~/composer.phar install
+php artisan migrate
+sudo chown -R www-data:www-data storage/
+php artisan config:cache
+php artisan view:cache
+~/composer.phar dumpautoload
