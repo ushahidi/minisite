@@ -1,5 +1,4 @@
 @section('emailForm')
-<h1>H1l</h1>
     @if(isset($block->content->Recipient))
         <form method="POST" action="{{ route('sendSiteEmail', ['minisite' => $minisite, 'block'=>$block]) }}">
             @csrf

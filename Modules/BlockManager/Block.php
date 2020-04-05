@@ -35,13 +35,12 @@ class Block extends Model
     }
     
     public function visibleBy(User $user = null, Community $community = null) {
-        return true;
         if ($this->visibility === 'public') {
             return true;
         }
 
         $isCommunityMember = $user && $community->containsUser($user);
-        if ($this->visibility === 'community members' && $isCommunityMember === true) {
+        if ($this->visibility === 'community' && $isCommunityMember === true) {
             return true;
         }
         return false;
