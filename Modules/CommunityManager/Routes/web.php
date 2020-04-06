@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/create', 'CommunityManagerController@create')->name('communityCreate');
         Route::post('/{communityId}/invite', 'InviteController@generate')->name('inviteMember');
         Route::post('/', 'CommunityManagerController@store')->name('communityStore');
+        Route::get('/{community}/location', 'CommunityManagerController@getLocationOptions')->name('getLocationOptions');
+        Route::post('/{community}/location', 'CommunityManagerController@storeLocation')->name('communitySetLocation');
         Route::get('/', 'CommunityManagerController@show')->name('communityShow');    
         Route::get('/{id}', 'CommunityManagerController@show')->name('communityShow');    
     });

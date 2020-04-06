@@ -9,12 +9,10 @@
                     <div class="mdc-layout-grid__cell--span-12">
                         <i class="fas fa-info icon"></i>
                     </div>
-                    @if ($community->visibility === 'public')
                     <div class="mdc-layout-grid__cell--span-12 theme-primary">
                         <p> You can share <strong><a href="{{route('minisitePublic', ['minisite'=>$community])}}" target="_blank">this site's public content</a></strong> with others who aren't part of your community.</p>
                         <p>Based on your community's visibility preferences, your community can be seen by: @lang("minisite.visibleTo.$community->visibility")
                     </div>
-                    @endif
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">

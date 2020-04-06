@@ -14,8 +14,7 @@ class CommunityLocation extends Model
     public const SOURCE_MANUAL = 'manual_entry';
     public const SOURCE_USER_OSM = 'user_osm_entry'; //user entry, with OSM
 
-    protected $fillable = ['location_source', 'city', 'state', 'country', 'location_info'];
-
+    protected $fillable = ['display_name', 'locality', 'postal_code', 'location_source', 'city', 'state', 'country', 'location_info'];
     protected $casts = [
         'location_info' => 'object'
     ];
