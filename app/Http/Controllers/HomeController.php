@@ -50,8 +50,8 @@ class HomeController extends Controller
         return view ('community');
     }
 
-    public function allMahallas(){
-        return view ('all-mahallas');
+    public function myCommunities(){
+        return view ('my-communities');
     }
 
     public function addBlocks() {
@@ -64,5 +64,21 @@ class HomeController extends Controller
 
     public function editBlock() {
         return view ('edit-block');
+    }
+
+    public function manageBlocks() {
+        return view ('manage-blocks');
+    }
+
+    public function addPinned() {
+        return view ('add-pinned');
+    }
+
+    public function freeForm() {
+        return view ('free-form-content');
+    }
+
+    public function createAddress() {
+        return view ('neighborhood/create-address');
     }
 }

@@ -93,9 +93,9 @@
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Home</span>
         </a>
-        <a class="mdc-list-item" href="/add-blocks" aria-current="page">
+        <a class="mdc-list-item" href="/manage-blocks" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-            <span class="mdc-list-item__text">Add Blocks</span>
+            <span class="mdc-list-item__text">Manage Blocks</span>
         </a>
         <a class="mdc-list-item" href="/reorder-blocks">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
@@ -105,11 +105,19 @@
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Manage Members</span>
         </a>
+        <a class="mdc-list-item" href="/site-settings">
+            <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
+            <span class="mdc-list-item__text">Site Settings</span>
+        </a>
         <hr class="mdc-list-divder">
         @endif
+        <a class="mdc-list-item" href="/my-communities" aria-current="page">
+            <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
+            <span class="mdc-list-item__text">My Communities</span>
+        </a>
         <a class="mdc-list-item" href="/create" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-            <span class="mdc-list-item__text">Create a Mahalla</span>
+            <span class="mdc-list-item__text">Create a Community</span>
         </a>
         <a class="mdc-list-item" href="/searching">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>

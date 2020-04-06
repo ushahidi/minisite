@@ -19,12 +19,18 @@ Route::get('/user/invited/{token}', 'NeighborhoodController@joinFromInvite')->na
 Route::get('/site/{minisite}', 'SiteController@public')->name('minisitePublic');
 Route::post('/site/{minisite}/{block}/email', 'SiteController@email')->name('sendSiteEmail');
 Route::post('/search', 'NeighborhoodController@search')->name('search');
+
+// added by Seth
 Route::get('/searching', 'HomeController@searching');
 Route::get('/community', 'HomeController@community');
-Route::get('/all-mahallas', 'HomeController@allMahallas');
+Route::get('/my-communities', 'HomeController@myCommunities');
 Route::get('/add-blocks', 'HomeController@addBlocks');
 Route::get('/add-block', 'HomeController@addBlock');
 Route::get('/edit-block', 'HomeController@editBlock');
+Route::get('/manage-blocks', 'HomeController@manageBlocks');
+Route::get('/add-pinned', 'HomeController@addPinned');
+Route::get('/free-form-content', 'HomeController@freeForm');
+Route::get('/neighborhood/create-address', 'HomeController@createAddress');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');

@@ -6,7 +6,7 @@
 </span>
 
 {{-- Create Mahalla --}}
-@elseif (Request::is('neighborhood/create'))
+@elseif (Request::is('neighborhood/create', 'neighborhood/create-address'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Create
@@ -20,7 +20,7 @@
 </span>
 
 {{-- All Mahallas --}}
-@elseif (Request::is('all-mahallas'))
+@elseif (Request::is('my-communities'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
 <span class="mdc-top-app-bar__title">
     My Mahallas
@@ -45,6 +45,27 @@
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Edit Page Header
+</span>
+
+{{-- Manage Blocks --}}
+@elseif (Request::is('manage-blocks'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Manage Blocks
+</span>
+
+{{-- Add Pinned --}}
+@elseif (Request::is('add-pinned'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Add Pinned Content
+</span>
+
+{{-- Free Form Content --}}
+@elseif (Request::is('free-form-content'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Free Form Content
 </span>
 
 @else

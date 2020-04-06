@@ -27,6 +27,10 @@ a {
     color: $theme-black !important;
 }
 
+.theme-gray {
+    color: $theme-gray !important;
+}
+
 .theme-primary {
     color: $theme-primary !important;
 }
@@ -51,8 +55,13 @@ a {
     width: 100%;
 }
 
+.mdc-radio {
+    margin-right: 20px;
+}
+
 .mdc-button {
     width: 100%;
+    text-transform: capitalize;
 }
 
 // This sets all <h1>,...,<h6> elements with Material headline1,...,headline6 typography styles
@@ -112,6 +121,20 @@ p {
 
         @include desktop {
             @include mdc-layout-grid-cell(desktop, 6, 3);
+        }
+    }
+
+    &.small {
+        .grid-cell {
+            @include mdc-layout-grid-cell(phone, 1, 3);
+
+            @include tablet {
+                @include mdc-layout-grid-cell(tablet, 2, 3);
+            }
+
+            @include desktop {
+                @include mdc-layout-grid-cell(desktop, 4, 3);
+            }
         }
     }
 }

@@ -86716,6 +86716,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_textfield__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/textfield */ "./node_modules/@material/textfield/index.js");
 /* harmony import */ var _material_notched_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/notched-outline */ "./node_modules/@material/notched-outline/index.js");
 /* harmony import */ var _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/textfield/character-counter */ "./node_modules/@material/textfield/character-counter/index.js");
+/* harmony import */ var _material_textfield_helper_text__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material/textfield/helper-text */ "./node_modules/@material/textfield/helper-text/index.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -86791,7 +86792,10 @@ var mdcNotchedOutline = [].map.call(document.querySelectorAll(".mdc-notched-outl
 }); // Text Counter
 
 
-var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter"));
+var characterCounter = new _material_textfield_character_counter__WEBPACK_IMPORTED_MODULE_7__["MDCTextFieldCharacterCounter"](document.querySelector(".mdc-text-field-character-counter")); // Form Text Field Helper Text
+
+
+var helperText = new _material_textfield_helper_text__WEBPACK_IMPORTED_MODULE_8__["MDCTextFieldHelperText"](document.querySelector(".mdc-text-field-helper-text"));
 
 /***/ }),
 

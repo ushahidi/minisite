@@ -1,39 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="community">
+<div class="add-block">
     <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">
-                        <i class="fas fa-thumbs-up icon-small"></i>
+                        <i class="fas fa-th-large icon-small"></i>
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                        <p><strong>Welcome to your community home page!</strong> You also just added your first “block”
-                            to
-                            your home
-                            page.
-                            Blocks represent different types of content you can add to your home page. Let’s try adding
-                            more?
-                        </p>
+                        <p>Blocks represent different types of content that you can add to your home page.</p>
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">
                                 <div class="grid-cell">
-                                    <a href="/add-blocks" class="mdc-button mdc-button--raised theme-secondary-bg">
+                                    <a href="/add-blocks" class="mdc-button mdc-button--raised theme-neutral-bg">
                                         <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Add Block</span>
+                                        <span class="mdc-button__label">Add Blocks</span>
                                     </a>
                                 </div>
                                 <div class="grid-cell">
-                                    <a href="/neighborhood/create"
-                                        class="mdc-button mdc-button--raised theme-neutral-bg">
+                                    <a href="/reorder-blocks" class="mdc-button mdc-button--raised theme-neutral-bg">
                                         <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Later</span>
+                                        <span class="mdc-button__label">Reorder Blocks</span>
                                     </a>
                                 </div>
                             </div>
@@ -42,8 +35,42 @@
                 </div>
             </div>
         </div>
+
         <div class="mdc-layout-grid__cell--span-12">
-            <div class="mdc-card heading-card">
+            <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <i class="fas fa-cog icon-small"></i>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12 theme-primary">
+                        <p>Your Site’s title and description are always shown on top of your home page. Your site is
+                            currently visible to <strong>Community Members</strong>.</p>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="button-group">
+                            <div class="mdc-layout-grid__inner">
+                                <div class="grid-cell">
+                                    <a href="/add-blocks" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                        <div class="mdc-button__ripple"></div>
+                                        <span class="mdc-button__label">Change Site Settings</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdc-layout-grid__cell--span-12">
+            <p>Your site is using the following Content Blocks. Edit or remove blocks by clicking on <i
+                    class="fas fa-ellipsis-v"></i> icon.</p>
+        </div>
+
+        <div class="mdc-layout-grid__cell--span-12">
+            <div class="mdc-card mini-card">
                 <div class="more-options">
                     {{-- todo: bring style into sass --}}
                     <button id="menu-button"
@@ -71,39 +98,12 @@
                 </div>
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">
-                        <p class="theme-primary">Namaste</p>
-                        <h5>Welcome to your community run neighborhood homepage. Use this page to find local
-                            information, help,
-                            alerts and more</h5>
+                        <p class="theme-primary">Pinned Content</p>
+                        <p>Visible to Community</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mdc-layout-grid__cell--span-12">
-        <div class="mdc-card">
-            <div class="mdc-layout-grid__inner">
-                <div class="mdc-layout-grid__cell--span-12">
-                    <i class="fas fa-question-circle icon-small"></i>
-                </div>
-
-                <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                    <p>As a next step, <a href="">invite your community members</a> to this page, or <a href="/manage-blocks">manage
-                            content blocks</a>, or <a href="">change settings</a> of this page. You can also find these
-                        options and more by clicking on the <i class="fas fa-bars theme-gray"></i>
-                        icon-small on top
-                        left corner.</p>
-                </div>
-
-                <div class="grid-cell">
-                    <a href="#" class="mdc-button mdc-button--raised theme-neutral-bg">
-                        <div class="mdc-button__ripple"></div>
-                        <span class="mdc-button__label">Got it!</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 @endsection

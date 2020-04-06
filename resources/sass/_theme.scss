@@ -1,6 +1,18 @@
 // Typography
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+$mdc-typography-styles-body1: (
+  font-size: 14px,
+);
+
+$mdc-typography-styles-button: (
+  font-size: 20px,
+);
+
+$mdc-typography-styles-body1: (font-size: 14px,
+);
+
 $mdc-typography-font-family: unquote("Roboto, sans-serif");
 
 // Shape
@@ -12,6 +24,7 @@ $mdc-shape-large-component-radius: 0px;
 $theme-primary: #EF6292;
 $theme-secondary: #47B7AD;
 $theme-neutral: #EEEEEE;
+$theme-gray: #7F7F7F;
 $theme-black: #1F0D13;
 
 // Theme background ($mdc-theme-background) appears behind scrollable content. Surface color ($mdc-theme-surface) is mapped to the surface of components such as cards, sheets, and menus. Error color ($mdc-theme-error) is used to indicate an error state for components such as text fields provided with inaccurate input.

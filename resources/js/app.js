@@ -88,6 +88,8 @@ const mdcTexts = [].map.call(
     }
 );
 
+
+
 // Text Area Notched Outline
 import { MDCNotchedOutline } from "@material/notched-outline";
 const mdcNotchedOutline = [].map.call(
@@ -101,4 +103,11 @@ const mdcNotchedOutline = [].map.call(
 import { MDCTextFieldCharacterCounter } from "@material/textfield/character-counter";
 const characterCounter = new MDCTextFieldCharacterCounter(
     document.querySelector(".mdc-text-field-character-counter")
+);
+
+// Form Text Field Helper Text
+import { MDCTextFieldHelperText } from "@material/textfield/helper-text";
+
+const helperText = new MDCTextFieldHelperText(
+    document.querySelector(".mdc-text-field-helper-text")
 );
