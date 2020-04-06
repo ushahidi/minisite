@@ -46,7 +46,9 @@ class MahallahLandingController extends Controller
             ->where(function ($query) use ($input) {
                 $query->where('name', 'LIKE', "%$input%")
                     ->orWhere('description', 'LIKE', "%$input%")
-                    ->orWhere('community_locations.neighborhood', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.postal_code', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.display_name', 'LIKE', "%$input%")
+                    ->orWhere('community_locations.locality', 'LIKE', "%$input%")
                     ->orWhere('community_locations.city', 'LIKE', "%$input%")
                     ->orWhere('community_locations.state', 'LIKE', "%$input%")
                     ->orWhere('community_locations.country', 'LIKE', "%$input%");

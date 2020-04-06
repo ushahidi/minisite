@@ -31,7 +31,6 @@ class MinisiteController extends Controller
 
         foreach($minisite->blocks as $block) {
             $content = $block->content;
-
             $mapped = [];
             foreach ($content as $field_key => $field_value) {
                 $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
