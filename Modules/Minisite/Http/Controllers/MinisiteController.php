@@ -56,7 +56,7 @@ class MinisiteController extends Controller
     {
         $errors = null;
         $success = null;
-        $content = json_decode($block->content);
+        $content = $block->content;
         $email = null;
         foreach ($content as $field_key => $field_value) {
             $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
