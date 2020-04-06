@@ -13,6 +13,6 @@ return [
     */
 
     'resultsFound'   => 'results found for',
-    'neighborhoods'  => 'Neighborhoods',
+    'communities'  => 'Communities',
     'search'         => 'Search'
 ];

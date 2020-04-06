@@ -1,0 +1,13 @@
+{
+    "name": "MahallahLanding",
+    "alias": "mahallahlanding",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\MahallahLanding\\Providers\\MahallahLandingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

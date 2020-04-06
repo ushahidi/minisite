@@ -14,18 +14,6 @@ class HomeController extends Controller
     public function __construct()
     {
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        return view('home', ['neighborhood' => $user->neighborhood, 'isLoggedIn' => !!$user]);
-    }
-    
     /**
      * Show the profile for the given user.
      *
@@ -36,9 +24,15 @@ class HomeController extends Controller
     {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
+    // public function addBlocks() {
+    //     return view ('add-blocks');
+    // }
 
-    public function welcome() {
-        $user = Auth::user();
-        return view('home', ['neighborhood' => $user ? $user->neighborhood : null,  'isLoggedIn' => !!$user]);
-    }
+    // public function addBlock() {
+    //     return view ('add-block');
+    // }
+
+    // public function editBlock() {
+    //     return view ('edit-block');
+    // }
 }

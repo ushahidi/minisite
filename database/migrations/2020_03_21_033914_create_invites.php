@@ -11,12 +11,13 @@ class CreateInvites extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->uuid('token');
-            $table->bigInteger('neighborhood_id')->unsigned()->nullable();
-            $table->foreign('neighborhood_id')->references('id')->on('neighborhoods')->onDelete('cascade');
+            $table->bigInteger('community_id')->unsigned()->nullable();
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->bigInteger('generated_by')->unsigned()->nullable();
             $table->foreign('generated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('claimed')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
     

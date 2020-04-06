@@ -1,78 +1,91 @@
 @extends('layouts.app')
 
-@section('content')                    
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <input id="invitation_token" type="text" name="invitation_token" value="{{ Session::get('token') }}" hidden>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+@section('content')
+<div class="register mdc-card">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-12">
+            <div class="card__primary">
+                <h2 class="card__title mdc-typography mdc-typography--headline6">@lang('auth.register')</h2>
             </div>
+        </div>
+        <div class="mdc-layout-grid__cell--span-12">
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <input id="invitation_token" type="text" name="invitation_token" value="{{ Session::get('token') }}"
+                    hidden>
+
+                <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="mdc-text-field">
+                            <input id="name" type="text"
+                                class="mdc-text-field__input @error('name') is-invalid @enderror" name="name"
+                                aria-labelledby="name" autocomplete="name" autofocus required>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="name" class="mdc-floating-label">Name</label>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="mdc-text-field">
+                            <input id="email" type="email"
+                                class="mdc-text-field__input @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" aria-labelledby="email" autocomplete="email" autofocus
+                                required>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="email" class="mdc-floating-label">@lang('auth.emailAddress')</label>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="mdc-text-field">
+                            <input id="password" type="password"
+                                class="mdc-text-field__input @error('password') is-invalid @enderror" name="password"
+                                aria-labelledby="password" autocomplete="current-password" required>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="password" class="mdc-floating-label">@lang('auth.password')</label>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="mdc-text-field">
+                            <input id="password" type="password"
+                                class="mdc-text-field__input @error('password') is-invalid @enderror" name="password_confirmation"
+                                aria-labelledby="password" autocomplete="current-password" required>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="password_confirmation " class="mdc-floating-label">Confirm @lang('auth.password')</label>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="mdc-card__actions">
+                            <button class="mdc-button mdc-button--unelevated" type="submit">
+                                <div class="mdc-button__ripple"></div>
+                                <span class="mdc-button__label">@lang('auth.register')</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

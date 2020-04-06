@@ -36,6 +36,6 @@ class SendSiteEmail extends Mailable
     {
         return 
             $this
-                ->view('site.email')->with(['text' => $this->message, 'email' => $this->email]);
+                ->view('minisite::email')->with(['text' => $this->message, 'email' => $this->email]);
     }
 }

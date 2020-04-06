@@ -15,12 +15,14 @@ class CreateBlocksTable extends Migration
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('minisite_id')->unsigned()->nullable();
-            $table->foreign('minisite_id')->references('id')->on('minisites')->onDelete('cascade');
+            $table->bigInteger('community_id')->unsigned()->nullable();
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->string('name');
             /**
-             * block's content for now it's just a json, we'll go migrate to a better
-             * architecture in a few days when we discover more
+             * block's content is a json. This may change once we have a handle on what is needed
+             * works pretty well for having a very flexible schema in terms of module field names etc
+             * at minimal dev cost, but it's not clear what impact this will have on performance yet
+             * If perf starts to get bad we can move away from this.
             **/
             $table->json('content');
             $table->string('description')->nullable();
@@ -29,6 +31,7 @@ class CreateBlocksTable extends Migration
             $table->integer('position');
             $table->boolean('enabled');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

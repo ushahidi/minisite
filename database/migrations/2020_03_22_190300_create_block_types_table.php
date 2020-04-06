@@ -18,6 +18,7 @@ class CreateBlockTypesTable extends Migration
             $table->primary('id');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

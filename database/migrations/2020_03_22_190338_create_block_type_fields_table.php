@@ -24,6 +24,7 @@ class CreateBlockTypeFieldsTable extends Migration
             $table->string('html_element_type')->nullable();
 
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
     /**

@@ -1,0 +1,25 @@
+{
+    "name": "ushahidi/core",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ushahidi Team",
+            "email": "developers@ushahidi.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Core\\Providers\\CoreServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Core\\": ""
+        }
+    }
+}

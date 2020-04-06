@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'neighborhood_id'
+        'name', 'email', 'password', 'community_id'
     ];
 
     /**
@@ -37,9 +37,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function neighborhood()
+    public function communities()
     {
-        return $this->belongsTo('App\Neighborhood');
+        return $this->belongsToMany('Modules\CommunityManager\Community', 'user_communities');
     }
 
 }

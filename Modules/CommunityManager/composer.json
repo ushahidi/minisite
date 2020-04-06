@@ -1,0 +1,28 @@
+{
+    "name": "ushahidi/communitymanager",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ushahidi Team",
+            "email": "developers@ushahidi.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\CommunityManager\\Providers\\CommunityManagerServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\CommunityManager\\": ""
+        }
+    },
+    "require": {
+        "cviebrock/eloquent-sluggable": "^7.0"
+    }
+}

@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 360px;
+    max-width: 600px;
+    padding: 75px 0 0 0;
+    margin: auto;
+
+    @include tabletUp {
+        width: 600px;
+    }
+}
+
+.mdc-layout-grid {
+    padding: 0 10px;
+}
+
+// Colors
+
+.theme-black {
+    color: $theme-black !important;
+}
+
+.theme-primary {
+    color: $theme-primary !important;
+}
+
+.theme-secondary {
+    color: $theme-secondary !important;
+}
+
+.theme-primary-bg {
+    background-color: $theme-primary !important;
+}
+
+.theme-secondary-bg {
+    background-color: $theme-secondary !important;
+}
+
+.theme-neutral-bg {
+    background-color: $theme-neutral !important;
+}
+
+.mdc-text-field {
+    width: 100%;
+}
+
+.mdc-button {
+    width: 100%;
+}
+
+// This sets all <h1>,...,<h6> elements with Material headline1,...,headline6 typography styles
+// Check out the MDC Web documentation for how to use MDC Typography Sass mixins:
+// https://github.com/material-components/material-components-web/tree/master/packages/mdc-typography
+h1 {
+    @include mdc-typography(headline1);
+}
+
+h2 {
+    @include mdc-typography(headline2);
+}
+
+h3 {
+    @include mdc-typography(headline3);
+}
+
+h4 {
+    @include mdc-typography(headline4);
+}
+
+h5 {
+    @include mdc-typography(headline5);
+}
+
+h6 {
+    @include mdc-typography(headline6);
+}
+
+// This sets all <p> elements with Material body1 typography styles
+p {
+    @include mdc-typography(body1);
+    line-height: 1.5;
+}
+
+.tal {
+    text-align: left;
+}
+
+.tar {
+    text-align: right;
+}
+
+.tac {
+    text-align: center;
+}
+
+.button-group {
+    padding: 10px 0 30px 0;
+
+    .grid-cell {
+        @include mdc-layout-grid-cell(phone, 2, 3);
+
+        @include tablet {
+            @include mdc-layout-grid-cell(tablet, 4, 3);
+        }
+
+        @include desktop {
+            @include mdc-layout-grid-cell(desktop, 6, 3);
+        }
+    }
+}
+
+.mdc-card__title,
+.mdc-card__subtitle {
+    margin: 0;
+}
+
+// spacing
+.p-0 {
+    padding: 0;
+}

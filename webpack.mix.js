@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,10 +11,21 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js("resources/js/app.js", "public/js").sass(
+    "resources/sass/app.scss",
+    "public/css",
+    {
+        includePaths: ["node_modules"]
+    }
+);
 
 // https://browsersync.io/docs/options
 mix.browserSync({
-   proxy: 'minisite.homestead.test'
+    files: [
+        // "resources/**/*",
+        "resources/sass/*.scss",
+        "resources/js/**/*.js",
+        "resources/views/**/*.php"
+    ],
+    proxy: "minisite.homestead.test"
 });

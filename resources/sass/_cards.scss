@@ -1,0 +1,33 @@
+.mdc-card {
+    margin: 10px 0 30px 0;
+    padding: 20px;
+
+    .mdc-button {
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .more-options {
+        position: absolute;
+        right: 0;
+    }
+
+    &.community-card {
+        padding: 0;
+
+        .community-card-location {
+            text-align: left;
+            padding: 5px 10px;
+
+            .card__subtitle {
+                margin: 0;
+            }
+        }
+    }
+
+    &.heading-card {
+        .mdc-card__actions .more-options {
+            justify-content: flex-end;
+        }
+    }
+}

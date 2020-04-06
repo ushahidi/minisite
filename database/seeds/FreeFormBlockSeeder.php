@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BlockTypeFields;
-use App\BlockType;
+use Modules\BlockManager\BlockTypeFields;
+use Modules\BlockManager\BlockType;
 
 class FreeFormBlockSeeder extends Seeder
 {
@@ -15,7 +15,9 @@ class FreeFormBlockSeeder extends Seeder
     {
         BlockType::create([
             'id' => 'Free form',
-            'description' => 'Add content that doesn\'t fit other block types.'
+            'description' => 'Add content that doesn\'t fit other block types.',
+            'where_is_placed' => 'Use it to write down other information that you want to share with your community, with some formatting options.',
+            'image_url' => '/img/tipTap.png'
         ])->save();
         
         BlockTypeFields::create([

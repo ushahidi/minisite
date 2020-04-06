@@ -1,0 +1,13 @@
+{
+    "name": "Minisite",
+    "alias": "minisite",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Minisite\\Providers\\MinisiteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

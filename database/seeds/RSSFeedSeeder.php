@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BlockTypeFields;
-use App\BlockType;
+use Modules\BlockManager\BlockTypeFields;
+use Modules\BlockManager\BlockType;
 
 class RSSFeedSeeder extends Seeder
 {
@@ -15,7 +15,9 @@ class RSSFeedSeeder extends Seeder
     {
         BlockType::create([
             'id' => 'RSS Feed',
-            'description' => 'The link to a RSS feed you want to display in your site.'
+            'description' => 'The link to a RSS feed you want to display in your site.',
+            'where_is_placed' => 'Use it to highlight trustworthy news sources, or announcements from authorities that have a RSS feed.',
+            'image_url' => 'https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/1200px-Feed-icon.svg.png'
         ])->save();
         
         BlockTypeFields::create([

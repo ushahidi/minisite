@@ -1,0 +1,18 @@
+.login {
+    padding: 30px;
+
+    form {
+
+      label {
+        width: 100%;
+      }
+
+      .form-check {
+        align-self: end;
+      }
+
+      .mdc-card__actions {
+        justify-content: flex-end;
+      }
+    }
+}

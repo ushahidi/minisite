@@ -136,6 +136,8 @@
     </editor-menu-bar>
 
     <editor-content class="editor__content" :editor="editor" />
+    <input type="text" id="contenthandler"  v-model="editorContent" name="content" style="visibility:hidden">
+
   </div>
 </template>
 
@@ -172,7 +174,7 @@ export default {
   props: {
     initialContent: {
       type: String,
-      required: true,
+      required: false,
       default: '<em>editable text</em>'
     },
     activeButtons: {
@@ -212,6 +214,7 @@ export default {
     return {
       html: '',
       json: '',
+      editorContent: '',
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -242,11 +245,11 @@ export default {
   created() {
     this.html = this.editor.getHTML()
     this.json = this.editor.getJSON()
-
     this.editor.on('update', () => {
       this.html = this.editor.getHTML()
       this.json = this.editor.getJSON()
       this.$emit('update', this.json)
+      this.editorContent = JSON.stringify(this.json);
     })
   }
 }

@@ -22,3 +22,5 @@ yarn-error.log
 # Ignore all local history of files
 .history
 /.vagrant
+Modules/*/vendor
+NOTES.md

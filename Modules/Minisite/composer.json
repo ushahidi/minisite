@@ -1,0 +1,28 @@
+{
+    "name": "ushahidi/minisite",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ushahidi Team",
+            "email": "developers@ushahidi.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Minisite\\Providers\\MinisiteServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Minisite\\": ""
+        }
+    },
+    "require": {
+        "cviebrock/eloquent-sluggable": "^7.0"
+    }
+}

@@ -18,7 +18,7 @@ return [
     'enabled'=> 'Enabled',
     'selectVisibility' => 'Who can see this block?',
     'chooseBlockType' => 'Choose a block type',
-    'neighbors' => 'Neighbors',
+    'community members' => 'Community Members',
     'public' => 'The world',
     'save' => 'Save',
     'Content' => 'Content',
