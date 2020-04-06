@@ -1,14 +1,20 @@
 @section('pinned')
-<div class="card">
-    @if(isset($block->content->Text))
-    <div class="card-header">
-        {{$block->content->Text}}
-    </div>
-    @endif
-    <div class="card-body">
-        @if (isset($block->content->Info))
-            {{$block->content->Info}}
-        @endif
+<div class="mdc-card">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-12">
+            <i class="fas fa-info icon"></i>
+        </div>
+        <div class="mdc-layout-grid__cell--span-12 theme-primary">
+            @if(isset($block->content->Text))
+                {{$block->content->Text}}
+            @endif
+        </div>
+        <div class="mdc-layout-grid__cell--span-12 theme-secondary">
+                @if (isset($block->content->Info))
+                    {{$block->content->Info}}
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 @endsection
