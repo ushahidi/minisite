@@ -1,0 +1,86 @@
+.login,
+.register,
+.forgot-password,
+.reset-password,
+.change-password
+ {
+    padding: 30px;
+
+    form {
+
+        label {
+            width: 100%;
+        }
+
+        .login-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            @include tabletUp {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .checkbox-with-label {
+                margin-left: -15px;
+            }
+        }
+    }
+}
+
+.login,
+.register {
+
+    form {
+
+        .grid-cell {
+            @include mdc-layout-grid-cell(phone, 4, 3);
+
+            @include tablet {
+                @include mdc-layout-grid-cell(tablet, 2, 3);
+            }
+
+            @include desktop {
+                @include mdc-layout-grid-cell(desktop, 3, 3);
+            }
+        }
+    }
+}
+
+.forgot-password {
+
+    form {
+
+        .grid-cell {
+            @include mdc-layout-grid-cell(phone, 4, 3);
+
+            @include tablet {
+                @include mdc-layout-grid-cell(tablet, 4, 3);
+            }
+
+            @include desktop {
+                @include mdc-layout-grid-cell(desktop, 6, 3);
+            }
+        }
+    }
+}
+
+.reset-password,
+.change-password {
+
+    form {
+
+        .grid-cell {
+            @include mdc-layout-grid-cell(phone, 4, 3);
+
+            @include tablet {
+                @include mdc-layout-grid-cell(tablet, 3, 3);
+            }
+
+            @include desktop {
+                @include mdc-layout-grid-cell(desktop, 4, 3);
+            }
+        }
+    }
+}

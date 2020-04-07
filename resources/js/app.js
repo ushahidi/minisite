@@ -88,8 +88,6 @@ const mdcTexts = [].map.call(
     }
 );
 
-
-
 // Text Area Notched Outline
 import { MDCNotchedOutline } from "@material/notched-outline";
 const mdcNotchedOutline = [].map.call(
@@ -111,3 +109,19 @@ import { MDCTextFieldHelperText } from "@material/textfield/helper-text";
 const helperText = new MDCTextFieldHelperText(
     document.querySelector(".mdc-text-field-helper-text")
 );
+
+// List
+import { MDCList } from "@material/list";
+
+const list = new MDCList(document.querySelector(".mdc-list"));
+const listItemRipples = list.listElements.map(
+    listItemEl => new MDCRipple(listItemEl)
+);
+
+// Checkbox
+import { MDCFormField } from "@material/form-field";
+import { MDCCheckbox } from "@material/checkbox";
+
+const checkbox = new MDCCheckbox(document.querySelector(".mdc-checkbox"));
+const formField = new MDCFormField(document.querySelector(".mdc-form-field"));
+formField.input = checkbox;

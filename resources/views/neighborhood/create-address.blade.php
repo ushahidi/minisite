@@ -113,11 +113,17 @@
             <img src="/img/map.png" alt="location-map" class="location-map">
         </div>
 
-        <div class="mdc-layout-grid__cell--span-2">
-            <button class="mdc-button theme-secondary-bg">
-                <div class="mdc-button__ripple"></div>
-                <span class="mdc-button__label theme-black">Create</span>
-            </button>
+        <div class="mdc-layout-grid__cell--span-12">
+            <div class="button-group small">
+                <div class="mdc-layout-grid__inner">
+                    <div class="grid-cell">
+                        <button class="mdc-button theme-secondary-bg">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label theme-black">Create</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

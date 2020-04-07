@@ -20,6 +20,7 @@
 @import "@material/textfield/mdc-text-field";
 @import "@material/textfield/helper-text/mdc-text-field-helper-text";
 @import "@material/form-field/mdc-form-field";
+@import "@material/checkbox/mdc-checkbox";
 @import "@material/radio/mdc-radio";
 @import "@material/icon-button/mdc-icon-button";
 
@@ -38,14 +39,16 @@
 @import "drawer";
 @import "cards";
 @import "search";
-@import "create";
+@import "lists";
+@import "auth";
 
 // Views
 @import "welcome";
-@import "login";
 @import "community";
 @import "my-communities";
 @import "blocks";
+@import "create";
+@import "user";
 
 // Dependencies
 @import 'tiptap/main.scss'

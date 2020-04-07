@@ -4,11 +4,6 @@
 <div class="register mdc-card">
     <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
-            <div class="card__primary">
-                <h2 class="card__title mdc-typography mdc-typography--headline6">@lang('auth.register')</h2>
-            </div>
-        </div>
-        <div class="mdc-layout-grid__cell--span-12">
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <input id="invitation_token" type="text" name="invitation_token" value="{{ Session::get('token') }}"
@@ -76,13 +71,15 @@
                         </div>
                     </div>
 
+                    <div class="grid-cell">
+                        <button class="mdc-button mdc-button--unelevated theme-secondary-bg" type="submit">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">@lang('auth.register')</span>
+                        </button>
+                    </div>
+
                     <div class="mdc-layout-grid__cell--span-12">
-                        <div class="mdc-card__actions">
-                            <button class="mdc-button mdc-button--unelevated" type="submit">
-                                <div class="mdc-button__ripple"></div>
-                                <span class="mdc-button__label">@lang('auth.register')</span>
-                            </button>
-                        </div>
+                        <a href="/login" class="theme-secondary">Sign In</a>
                     </div>
                 </div>
             </form>

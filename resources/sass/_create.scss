@@ -1,18 +1,5 @@
 .create {
 
-  .location-list {
-    height: 248px;
-    padding: 0;
-    overflow: scroll;
-    .mdc-list-item {
-      border: 1px solid $theme-gray;
-      border-bottom: none;
-
-      &:last-of-type {
-        border-bottom: 1px solid $theme-gray;
-      }
-    }
-  }
   .location-map {
     width: 100%;
   }

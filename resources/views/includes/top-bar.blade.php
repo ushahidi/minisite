@@ -1,5 +1,47 @@
+{{-- Log In --}}
+@if (Request::is('login'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    @lang('auth.login')
+</span>
+
+{{-- Register --}}
+@elseif (Request::is('register'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Register New Account
+</span>
+
+{{-- Forgot Password --}}
+@elseif (Request::is('password/reset'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Forgot Password
+</span>
+
+{{-- Reset Password --}}
+@elseif (Request::is('reset-password'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Reset Password
+</span>
+
+{{-- Change Password --}}
+@elseif (Request::is('change-password'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Change Password
+</span>
+
+{{-- User Profile --}}
+@elseif (Request::is('user-profile'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Profile
+</span>
+
 {{-- Search --}}
-@if (Request::is('searching'))
+@elseif (Request::is('searching'))
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
 <span class="mdc-top-app-bar__title">
     Search
@@ -52,6 +94,34 @@
 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
 <span class="mdc-top-app-bar__title">
     Manage Blocks
+</span>
+
+{{-- Manage Members --}}
+@elseif (Request::is('manage-members'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Manage Members
+</span>
+
+{{-- Manage Member --}}
+@elseif (Request::is('manage-member'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Manage Member
+</span>
+
+{{-- Invite Members --}}
+@elseif (Request::is('invite-members'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</button>
+<span class="mdc-top-app-bar__title">
+    Invite Members
+</span>
+
+{{-- Reorder Blocks --}}
+@elseif (Request::is('reorder-blocks'))
+<button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+<span class="mdc-top-app-bar__title">
+    Reorder Blocks
 </span>
 
 {{-- Add Pinned --}}

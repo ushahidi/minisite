@@ -81,4 +81,32 @@ class HomeController extends Controller
     public function createAddress() {
         return view ('neighborhood/create-address');
     }
+
+    public function manageMembers() {
+        return view ('manage-members');
+    }
+
+    public function manageMember() {
+        return view ('manage-member');
+    }
+
+    public function inviteMembers() {
+        return view ('invite-members');
+    }
+
+    public function reorderBlocks() {
+        return view ('reorder-blocks');
+    }
+
+    public function resetPassword() {
+        return view ('reset-password');
+    }
+
+    public function changePassword() {
+        return view ('change-password');
+    }
+
+    public function userProfile() {
+        return view ('user-profile');
+    }
 }

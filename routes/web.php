@@ -31,6 +31,13 @@ Route::get('/manage-blocks', 'HomeController@manageBlocks');
 Route::get('/add-pinned', 'HomeController@addPinned');
 Route::get('/free-form-content', 'HomeController@freeForm');
 Route::get('/neighborhood/create-address', 'HomeController@createAddress');
+Route::get('/manage-members', 'HomeController@manageMembers');
+Route::get('/manage-member', 'HomeController@manageMember');
+Route::get('/invite-members', 'HomeController@inviteMembers');
+Route::get('/reorder-blocks', 'HomeController@reorderBlocks');
+Route::get('/reset-password', 'HomeController@resetPassword');
+Route::get('/change-password', 'HomeController@changePassword');
+Route::get('/user-profile', 'HomeController@userProfile');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
