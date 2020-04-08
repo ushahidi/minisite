@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>@yield('header')</title>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -96,8 +96,10 @@
                     <div class="mdc-layout-grid__cell--span-12">@yield('content')</div>
                     <!-- start of header block --> 
                     <div class="mdc-layout-grid__cell--span-12">
-                        <h1>@yield('header')</h1>
-                        <p>@yield('header-desc')</p>
+                        <div class="mdc-card">
+                            <h1>@yield('header')</h1>
+                            <p>@yield('header-desc')</p>
+                        </div>
                     </div>
                     <!-- end of header block --> 
                     <div class="mdc-layout-grid__cell--span-12">@yield('pinned')</div>
