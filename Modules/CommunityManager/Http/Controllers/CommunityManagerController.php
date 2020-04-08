@@ -120,12 +120,11 @@ class CommunityManagerController extends Controller
         );
 
         $locations = [];
-        
+                
         foreach($results as $result) {
             $geoCoderBase = $result->toArray();
             $nominatim = [
                 'displayName' => $result->getDisplayName(),
-                'bounds' => $result->getBounds(),
                 'category' => $result->getCategory(),
                 'type' => $result->getType(),
                 'osmId' => $result->getOSMId()
@@ -156,7 +155,7 @@ class CommunityManagerController extends Controller
                 'city'  => null, //left blank until I figure out admin levels correctly            
                 'state' => null, //left blank until I figure out admin levels correctly            
             ]
-            );
+        );
         $communityLocation->save();
         $community->location_id = $communityLocation->id;
         $community->save();

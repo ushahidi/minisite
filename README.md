@@ -98,6 +98,7 @@ https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers
 
 
 # Deploy
+php artisan down;
 git pull origin refactor;
 ~/composer.phar install;
 php artisan migrate;
@@ -106,3 +107,4 @@ npm run production;
 php artisan config:cache;
 php artisan view:cache;
 ~/composer.phar dumpautoload;
+php artisan up;
