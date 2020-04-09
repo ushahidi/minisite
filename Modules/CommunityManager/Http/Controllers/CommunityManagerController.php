@@ -15,7 +15,8 @@ use Modules\CommunityManager\Invite;
 use App\User;
 use Modules\CommunityManager\Community;
 use Modules\CommunityManager\CommunityLocation;
-
+use Modules\BlockManager\Block;
+use Modules\BlockManager\BlockTypeFields;
 use Modules\CommunityManager\UserCommunity;
 use Illuminate\Support\Facades\Validator;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -90,6 +91,8 @@ class CommunityManagerController extends Controller
             'visibility' => $validatedData['visibility'],
             'type' => Community::TYPE_NEIGHBORHOOD
         ]);
+        $title = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Title'])->first();
+        $description = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Description'])->first();
 
         $community->save();
 
@@ -100,14 +103,25 @@ class CommunityManagerController extends Controller
                 'role' => UserCommunity::ROLE_OWNER
             ]
         )->save();
+        $blockContent = [
+            $title->id => $validatedData['welcome'],
+            $description->id => $validatedData['description']
+        ];
+        Block::create([
+            'content' => $blockContent,
+            'community_id' => $community->id,
+            'name' => 'Page header',
+            'description' => null,
+            'type' => 'Page header',
+            'visibility' => $community->visibility,
+            'position' => 1,
+            'enabled' => 1,
+        ])->save();
+
         return redirect()->route(
             'getLocationOptions', 
             ['community' => $community, 'location_string' => $request->input('location_string')]
         );
-        // return redirect()->route(
-        //     'minisite.location',
-        //     ['community' => $community]
-        // );
     }
 
     protected function getLocationOptions(Community $community, Request $request) {
@@ -116,11 +130,11 @@ class CommunityManagerController extends Controller
         $provider = new \Geocoder\Provider\Nominatim\Nominatim($httpClient,"https://nominatim.openstreetmap.org", "COVID19 Mahallah response", "");
         $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
         $results = $geocoder->geocodeQuery(
-                GeocodeQuery::create($request->input('location_string'))
+            GeocodeQuery::create($request->input('location_string'))
         );
 
         $locations = [];
-                
+
         foreach($results as $result) {
             $geoCoderBase = $result->toArray();
             $nominatim = [
@@ -132,12 +146,6 @@ class CommunityManagerController extends Controller
             $locations[] = array_merge($geoCoderBase, $nominatim);
         }
         return view('communitymanager::community.set-location', ['community' => $community, 'locations' => $locations]);
-
-        // return redirect()->route(
-        //     'minisite.setLocation',
-        //     ['community' => $community]
-        // )->with(["locations" => $result])
-        // return $result;
     }
     protected function storeLocation(Community $community, Request $request) {
         $locationJSON = json_decode($request->input("location"));
