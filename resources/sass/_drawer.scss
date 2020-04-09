@@ -10,11 +10,11 @@
         padding: 10px 0;
 
         .mdc-layout-grid__inner {
-          // grid-gap: 0;
+            // grid-gap: 0;
         }
 
         .avatar {
-          font-size: 40px;
+            font-size: 40px;
         }
 
         .mdc-button {
@@ -22,13 +22,25 @@
         }
 
         .mdc-card__subtitle {
-          display: flex;
-          justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
 
-          .icon {
-            position: relative;
-            top: 4px;
-          }
+            .icon {
+                position: relative;
+                top: 4px;
+            }
+        }
+    }
+
+    .mdc-list-item {
+
+        &:hover {
+            color: $theme-primary;
+            background-color: lighten(desaturate(adjust-hue($theme-primary, -1), 4.78), 30.20);
+
+            .icon {
+                color: $theme-secondary
+            }
         }
     }
 }

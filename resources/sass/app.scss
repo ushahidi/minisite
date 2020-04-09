@@ -1,6 +1,6 @@
 // Theme
 @use "@material/theme"with ($primary: #EF6292,
-    $secondary: #feeae6,
+    $secondary: #47B7AD,
     $on-primary: #212121,
     $on-secondary: #212121,
 );
@@ -18,7 +18,12 @@
 @import "@material/list/mdc-list";
 @import "@material/card/mdc-card";
 @import "@material/textfield/mdc-text-field";
+@import "@material/textfield/helper-text/mdc-text-field-helper-text";
+@import "@material/form-field/mdc-form-field";
+@import "@material/checkbox/mdc-checkbox";
+@import "@material/radio/mdc-radio";
 @import "@material/icon-button/mdc-icon-button";
+
 
 @import "@material/list/mdc-list";
 @import "@material/menu-surface/mdc-menu-surface";
@@ -34,13 +39,16 @@
 @import "drawer";
 @import "cards";
 @import "search";
+@import "lists";
+@import "auth";
 
 // Views
 @import "welcome";
-@import "login";
 @import "community";
-@import "all-mahallas";
+@import "my-communities";
 @import "blocks";
+@import "create";
+@import "user";
 
 // Dependencies
 @import 'tiptap/main.scss'
