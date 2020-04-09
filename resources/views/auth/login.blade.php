@@ -79,22 +79,7 @@
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
-                        <div class="mdc-card__actions">
-                            <button class="mdc-button mdc-button--unelevated" type="submit">
-                                <div class="mdc-button__ripple"></div>
-                                <span class="mdc-button__label">@lang('auth.login')</span>
-                            </button>
-                        </div>
-                        <div class="button-group">
-                            <div class="mdc-layout-grid__inner">
-                                <div class="grid-cell">
-                                    <a href="{{ route('register') }}" class="mdc-button mdc-button--raised theme-secondary-bg">
-                                        <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Register</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="{{ route('register') }}" class="theme-secondary">Register a new account</a>
                     </div>
                 </div>
             </form>
