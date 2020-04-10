@@ -58,9 +58,11 @@ class MahallahLandingController extends Controller
     }
     
     private function activeCommunities() {
-        $communities = \Modules\CommunityManager\Community::orderBy('created_at', 'desc')
-               ->take(5)
-               ->get();
+        $communities = 
+                \Modules\CommunityManager\Community::where('visibility', 'public')
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
         return $communities;
     }
 }
