@@ -20,8 +20,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'CommunityManagerController@all')->name('home');
     Route::prefix('community')->group(function () {
         Route::get('/create', 'CommunityManagerController@create')->name('communityCreate');
+        Route::get('/{community}/edit', 'CommunityManagerController@edit')->name('communityEdit');
+        
         Route::post('/{communityId}/invite', 'InviteController@generate')->name('inviteMember');
         Route::post('/', 'CommunityManagerController@store')->name('communityStore');
+        Route::put('/{community}', 'CommunityManagerController@update')->name('communityUpdate');
+
         Route::get('/{community}/location', 'CommunityManagerController@getLocationOptions')->name('getLocationOptions');
         Route::post('/{community}/location', 'CommunityManagerController@storeLocation')->name('communitySetLocation');
         Route::get('/', 'CommunityManagerController@show')->name('communityShow');    

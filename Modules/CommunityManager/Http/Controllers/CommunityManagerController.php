@@ -54,6 +54,17 @@ class CommunityManagerController extends Controller
     }
 
     /**
+     * Edit the community settings
+     *
+     * @param  int  $id
+     * @return View
+     */
+    protected function edit(Community $community)
+    {
+        $user = Auth::user();
+        return view('communitymanager::community.edit', ['user' => $user, 'community' => $community]);
+    }
+    /**
      * Show the community for the given user.
      *
      * @param  int  $id
@@ -68,6 +79,62 @@ class CommunityManagerController extends Controller
         return view('communitymanager::community.show', ['community' => Community::findOrFail($community->id)]);
     }
     
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    protected function update(Request $request, Community $community)
+    {
+        //[ 'visibility', 'type', 'location_id', 'deployment_id'];
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:50'],
+            'welcome' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'visibility' => ['required', 'string',  Rule::in([Community::VISIBILITY_COMMUNITY, Community::VISIBILITY_PUBLIC]),],
+        ]);
+
+        $community->update([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'welcome' => $validatedData['welcome'],
+            'visibility' => $validatedData['visibility'],
+            'type' => Community::TYPE_NEIGHBORHOOD
+        ]);
+
+        // find the page header block and update it, since that's what users expect if they change the welcome and description :shrugs:
+        $pageHeaderBlock = Block::where(['community_id' => $community->id])->where(['type' => 'Page header'])->first();
+        $title = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Title'])->first();
+        $description = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Description'])->first();
+
+        $blockContent = [
+            $title->id => $validatedData['welcome'],
+            $description->id => $validatedData['description']
+        ];
+        if (!$pageHeaderBlock) {    
+            Block::create([
+                'content' => $blockContent,
+                'community_id' => $community->id,
+                'name' => 'Page header',
+                'description' => null,
+                'type' => 'Page header',
+                'visibility' => $community->visibility,
+                'position' => 1,
+                'enabled' => 1,
+            ])->save();
+        } else {
+            $pageHeaderBlock->update([
+                'content' => $blockContent,
+            ]);    
+        }
+        
+        return redirect()->route(
+            'getLocationOptions', 
+            ['community' => $community, 'location_string' => $request->input('location_string')]
+        );
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -91,6 +158,7 @@ class CommunityManagerController extends Controller
             'visibility' => $validatedData['visibility'],
             'type' => Community::TYPE_NEIGHBORHOOD
         ]);
+
         $title = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Title'])->first();
         $description = BlockTypeFields::where(['block_type' => 'Page header'])->where(['name' => 'Description'])->first();
 
@@ -147,6 +215,7 @@ class CommunityManagerController extends Controller
         }
         return view('communitymanager::community.set-location', ['community' => $community, 'locations' => $locations]);
     }
+
     protected function storeLocation(Community $community, Request $request) {
         $locationJSON = json_decode($request->input("location"));
         $communityLocation = CommunityLocation::create(
@@ -171,7 +240,6 @@ class CommunityManagerController extends Controller
             'minisite.admin',
             ['community' => $community]
         );
-
     }
     public function joinFromInvite($token) {
         $invite = Invite::where('token', $token)->first();

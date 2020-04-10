@@ -14,7 +14,7 @@
                     @foreach ($locations as $location)
                         <div class="mdc-form-field" style="height: 100%">
                             <div class="mdc-radio">
-                                <input data-osm-id="{{$location['osmId']}}" class="mdc-radio__native-control location-selector" type="radio" name="location" value="{{json_encode($location)}}" class="form-control @error('visibility') is-invalid @enderror">
+                                <input {{$community->communityLocation->display_name === $location["displayName"] ? 'checked' : ''}} data-osm-id="{{$location['osmId']}}" class="mdc-radio__native-control location-selector" type="radio" name="location" value="{{json_encode($location)}}" class="form-control @error('visibility') is-invalid @enderror">
                                 <div class="mdc-radio__background">
                                 <div class="mdc-radio__outer-circle"></div>
                                 <div class="mdc-radio__inner-circle"></div>

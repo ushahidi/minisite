@@ -17,7 +17,7 @@
                         <div class="button-group">
                             <div class="mdc-layout-grid__inner">
                                 <div class="grid-cell">
-                                    <a onclick="return alert('Just an idea, but this would serve to edit public/non-public site settings and inform people on what the options mean')" class="mdc-button mdc-button--raised theme-secondary-bg">
+                                    <a href="{{route('communityEdit', ['community' => $community])}}" class="mdc-button mdc-button--raised theme-secondary-bg">
                                         <div class="mdc-button__ripple"></div>
                                         <span class="mdc-button__label">Edit your site preferences</span>
                                     </a>
