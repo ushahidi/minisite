@@ -132,6 +132,30 @@
             </div>
         </div>
     </div>
+    <div class="mdc-layout-grid__cell--span-12">
+        <div class="mdc-card">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell--span-12">
+                    <i class="fas fa-question-circle icon-small"></i>
+                </div>
+
+                <div class="mdc-layout-grid__cell--span-12 theme-primary">
+                    <p>As a next step, <a href="">invite your community members</a> to this page, or <a href="/manage-blocks">manage
+                            content blocks</a>, or <a href="">change settings</a> of this page. You can also find these
+                        options and more by clicking on the <i class="fas fa-bars theme-gray"></i>
+                        icon-small on top
+                        left corner.</p>
+                </div>
+
+                <div class="grid-cell">
+                    <a href="#" class="mdc-button mdc-button--raised theme-neutral-bg">
+                        <div class="mdc-button__ripple"></div>
+                        <span class="mdc-button__label">Got it!</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 @endsection

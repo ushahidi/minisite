@@ -1,6 +1,6 @@
 @section('featuredYoutubeVideo')
     @if(isset($block->content->Url))
-        <div class="embed-responsive embed-responsive-21by9">
+        <div class="mdc-card">
             <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{$block->content->Url}}"></iframe>
         </div>
     @endif

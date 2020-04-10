@@ -1,7 +1,14 @@
 .community {
 
-  .icon {
-    font-size: 25px;
-    color: $theme-secondary;
+  .grid-cell {
+        @include mdc-layout-grid-cell(phone, 4, 3);
+
+        @include tablet {
+            @include mdc-layout-grid-cell(tablet, 2, 3);
+        }
+
+        @include desktop {
+            @include mdc-layout-grid-cell(desktop, 4, 3);
+        }
   }
 }
