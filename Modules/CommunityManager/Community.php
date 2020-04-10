@@ -101,7 +101,7 @@ class Community extends Model implements Searchable
 
     public function communityLocation()
     {
-        return $this->belongsTo('Modules\CommunityManager\Community', 'location_id');
+        return $this->belongsTo('Modules\CommunityManager\CommunityLocation', 'location_id');
     }
     
     /**

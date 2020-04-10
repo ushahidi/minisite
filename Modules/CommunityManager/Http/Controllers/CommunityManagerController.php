@@ -215,6 +215,7 @@ class CommunityManagerController extends Controller
         }
         return view('communitymanager::community.set-location', ['community' => $community, 'locations' => $locations]);
     }
+
     protected function storeLocation(Community $community, Request $request) {
         $locationJSON = json_decode($request->input("location"));
         $communityLocation = CommunityLocation::create(
