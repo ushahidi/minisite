@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Modules\CommunityManager\Community;
+use Modules\BlockManager\Block;
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class BlockManagerController extends Controller
@@ -47,6 +49,30 @@ class BlockManagerController extends Controller
         return redirect()->route(
             'communityShow',
             ['id' => $community->id] )->with( ['id' => $community->id]
+        );
+    }
+
+    public function reorder(Request $request, Community $community) {        
+        $blocks = $community->blocks->sortBy('position');
+        $sorted = json_encode($blocks->values()->all());
+        return view('blockmanager::minisite.reorder', ['community' => $community, 'sorted' => $sorted]);
+    }
+    
+    public function saveOrder(Request $request, Community $community) {
+        $reordered = $request->input('reordered');
+        if ($reordered) {
+            $blocks = json_decode($reordered);
+
+            $sorted = $request->input('reordered');
+            $blocks = Block::hydrate($blocks);
+            foreach ($blocks as $index => $block) {
+                $block->position = $index;
+                $block->update();
+            }
+        }
+        return redirect()->route(
+            'minisite.admin',
+            ['community' => $community] )->with( ['id' => $community->id]
         );
     }
 }

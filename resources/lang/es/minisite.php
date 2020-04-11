@@ -28,5 +28,6 @@ return [
     'editSite'  => 'Edita tu mini sitio',
     'yourNeighborhoodLocation' => 'Localidad (barrio o dirección)',
     'describeYourSite' => 'Describe el sitio de tu communidad',
-    'welcomeMessage' => 'Mensaje de bienvenida'
+    'welcomeMessage' => 'Mensaje de bienvenida',
+    'reorderBlocks' => 'Guarder el orden de los bloques'
 ];

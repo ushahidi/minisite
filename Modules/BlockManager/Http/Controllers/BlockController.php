@@ -121,7 +121,7 @@ class BlockController extends Controller
                 }
             }
         }
-        
+
         return view('blockmanager::block.edit-block', 
         [
                 'community' => $community,

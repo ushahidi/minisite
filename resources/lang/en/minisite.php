@@ -28,5 +28,6 @@ return [
     'editSite'  => 'Edit your minisite',
     'yourNeighborhoodLocation' => 'Location (neighborhood or address)',
     'describeYourSite' => 'Describe your community page',
-    'welcomeMessage' => 'Welcome message'
+    'welcomeMessage' => 'Welcome message',
+    'reorderBlocks' => 'Save Block Order'
 ];
