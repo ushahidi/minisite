@@ -12,6 +12,5 @@
             @if (isset($block->content->Info))
                 {{$block->content->Info}}
             @endif
-        </div>
-    </div>
+    </div>    
 </div>
