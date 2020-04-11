@@ -25,7 +25,9 @@ class BlockManagerController extends Controller
         if (!$community->owner(Auth::user())){
             abort("401", "You are not authorized to edit this page");
         }
-        return view('blockmanager::minisite.admin', ['community' => $community]);
+        $blocks = $community->blocks->sortBy('position');
+        $community->blocks = $blocks;
+        return view('blockmanager::minisite.admin', ['community' => $community, 'blocks' => $blocks]);
     }
 
     /**
