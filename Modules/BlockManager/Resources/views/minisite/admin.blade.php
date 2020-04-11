@@ -131,7 +131,7 @@
                 <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
             @endif
             @if(isset($block) && $block->type === 'Email Form')
-                <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
+                <x-email-form :minisite='$community' :block='$block'></x-email-form>
             @endif
                     
                     </p>
