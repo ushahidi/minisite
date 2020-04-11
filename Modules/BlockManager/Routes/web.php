@@ -15,7 +15,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('blockmanager')->group(function() {
         Route::get('/{community}/admin', 'BlockManagerController@index')->name('minisite.admin');
-        
+        Route::get('/{community}/reorder', 'BlockManagerController@reorder')->name('minisite.admin.reorder');
+        Route::post('/{community}/reorder', 'BlockManagerController@saveOrder')->name('minisite.admin.reorder.submit');
+
         Route::get('/{community}/block/types', 'BlockController@getTypes')->name('blockTypes');
 
         Route::get('/{community}/block/create', 'BlockController@create')->name('createByType');

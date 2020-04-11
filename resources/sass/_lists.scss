@@ -27,14 +27,6 @@
 
         &:hover {
           cursor: auto;
-
-          &:before {
-              opacity: 0 !important;
-          }
-        }
-
-        &:active {
-          opacity: 0 !important;
         }
     }
 

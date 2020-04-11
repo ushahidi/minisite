@@ -2,7 +2,39 @@
 
 @section('content')
 <div class="community">
-    <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__inner">   
+        <div class="mdc-layout-grid__cell--span-12">
+            <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <i class="fas fa-th-large icon-small"></i>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12 theme-primary">
+                        <p>Blocks represent different types of content that you can add to your home page.</p>
+                    </div>
+
+                    <div class="mdc-layout-grid__cell--span-12">
+                        <div class="button-group">
+                            <div class="mdc-layout-grid__inner">
+                                <div class="grid-cell">
+                                    <a href="{{ route('blockTypes', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                        <div class="mdc-button__ripple"></div>
+                                        <span class="mdc-button__label">@lang('minisite.addBlock')</span>
+                                    </a>
+                                </div>
+                                <div class="grid-cell">
+                                    <a href="{{ route('minisite.admin.reorder', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                        <div class="mdc-button__ripple"></div>
+                                        <span class="mdc-button__label">@lang('minisite.reorderBlocks')</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
                 <div class="mdc-layout-grid__inner">
@@ -28,7 +60,8 @@
                 </div>
             </div>
         </div>
-        <div class="mdc-layout-grid__cell--span-12">
+        <!-- this section seems to be gone from the designs now? I don't get it. Hidden while I discover why :| --->
+        <div class="mdc-layout-grid__cell--span-12" style="display:none">
             <div class="mdc-card">
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">

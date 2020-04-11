@@ -1,5 +1,5 @@
 
-@section('emailForm')
+<div class="mdc-layout-grid__cell--span-12">
     @if(isset($block->content->Recipient))
         <form method="POST" action="{{ route('sendSiteEmail', ['minisite' => $minisite, 'block'=>$block]) }}">
             @csrf
@@ -40,4 +40,4 @@
             </div>
         </form>
     @endif
-@endsection
+</div>

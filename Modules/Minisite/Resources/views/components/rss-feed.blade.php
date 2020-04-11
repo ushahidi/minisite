@@ -1,4 +1,4 @@
-@section('rssFeed')
+<div class="mdc-layout-grid__cell--span-12">
     @if ($block->content->Url)
         <h3>@lang('block.rssFeed')</h3>
         <div class="row justify-content-center">
@@ -12,4 +12,4 @@
             </ul>
         </div>
     @endif
-@endsection
+</div>

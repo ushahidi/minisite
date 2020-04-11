@@ -8812,14 +8812,6 @@ p {
   cursor: auto;
 }
 
-.reorder-list .mdc-list-item:hover:before {
-  opacity: 0 !important;
-}
-
-.reorder-list .mdc-list-item:active {
-  opacity: 0 !important;
-}
-
 .reorder-list .reorder-buttons {
   display: flex;
   justify-content: space-between;
