@@ -4,7 +4,7 @@ namespace Modules\BlockManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller ;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Modules\CommunityManager\Community;
@@ -28,6 +28,7 @@ class BlockManagerController extends Controller
         //     abort("401", "You are not authorized to edit this page");
         // }
         // @todo refactor to just grab the role :shrugs: this is bad
+        // @todo super gross if I'm an owener in SOME site I'm suddenly an owner in all of them wtf
         $role = 'guest';
         if ($user && $community->owner($user)) {
             $role = 'owner';
@@ -52,15 +53,13 @@ class BlockManagerController extends Controller
                 $mapped['Url']['item'] = array_slice($mapped['Url']['item'], 0, (int) $mapped['Limit']);
             }
             $block->content = $mapped;
-            
             if ($block->visibleBy($user, $community)) {
                 $returnBlocks[] = $block;
             }
         }
         $collection = collect($returnBlocks);
-        $blocks = $community->blocks->sortBy('position');
+        $blocks = $collection->sortBy('position');
         $community->blocks = $blocks;
-        
         return view('blockmanager::minisite.admin', ['community' => $community, 'blocks' => $blocks, 'role' => $role]);
     }
 
@@ -73,6 +72,8 @@ class BlockManagerController extends Controller
      */
     public function update(Request $request, Community $community)
     {
+        $this->authorize('update', $community);
+
         $data = $request->input();
         if ($community->captain_id !== Auth::user()->id){
             abort("401", "You are not authorized to edit this page");
@@ -88,13 +89,17 @@ class BlockManagerController extends Controller
         );
     }
 
-    public function reorder(Request $request, Community $community) {        
+    public function reorder(Request $request, Community $community) {      
+        $this->authorize('update', $community);
+  
         $blocks = $community->blocks->sortBy('position');
         $sorted = json_encode($blocks->values()->all());
         return view('blockmanager::minisite.reorder', ['community' => $community, 'sorted' => $sorted]);
     }
     
     public function saveOrder(Request $request, Community $community) {
+        $this->authorize('update', $community);
+
         $reordered = $request->input('reordered');
         if ($reordered) {
             $blocks = json_decode($reordered);

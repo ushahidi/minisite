@@ -36,9 +36,14 @@
                     <h2 class="mdc-card__title mdc-typography mdc-typography--headline6 p-0">
                         {{ Auth::user() ? Auth::user()->name : '' }}
                     </h2>
+                    
                     <span class="mdc-card__subtitle mdc-typography mdc-typography--subtitle2">
                         {{ Auth::user() ? Auth::user()->email : '' }}
-                        <i class="fas fa-caret-down icon"></i>
+                        <!-- @seth make this link pink??? -->
+                        <a href="{{ route('register') }}" class="">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">@lang('auth.register')</span>
+                        </a>
                     </span>
                 </div>
             </div>

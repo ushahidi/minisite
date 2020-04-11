@@ -4,7 +4,7 @@ namespace Modules\CommunityManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller ;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -61,6 +61,8 @@ class CommunityManagerController extends Controller
      */
     protected function edit(Community $community)
     {
+        $this->authorize('update', $community);
+
         $user = Auth::user();
         return view('communitymanager::community.edit', ['user' => $user, 'community' => $community]);
     }
@@ -72,6 +74,8 @@ class CommunityManagerController extends Controller
      */
     protected function show($id = null)
     {
+        $this->authorize('view', $community);
+
         $community = Auth::user()->community;
         if (!$community) {
             abort(404, 'You don\'t belong to any community yet');
@@ -87,6 +91,8 @@ class CommunityManagerController extends Controller
      */
     protected function update(Request $request, Community $community)
     {
+        $this->authorize('update', $community);
+
         //[ 'visibility', 'type', 'location_id', 'deployment_id'];
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:50'],
@@ -143,6 +149,7 @@ class CommunityManagerController extends Controller
      */
     protected function store(Request $request)
     {
+
         //[ 'visibility', 'type', 'location_id', 'deployment_id'];
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:50'],
@@ -193,6 +200,10 @@ class CommunityManagerController extends Controller
     }
 
     protected function getLocationOptions(Community $community, Request $request) {
+        $this->authorize('update', $community);
+        if (!$request->input('location_string')) {
+            return view('communitymanager::community.set-location', ['community' => $community, 'locations' => []]);
+        }
         $location_string = $request->input('location');
         $httpClient = new \Http\Adapter\Guzzle6\Client();
         $provider = new \Geocoder\Provider\Nominatim\Nominatim($httpClient,"https://nominatim.openstreetmap.org", "COVID19 Mahallah response", "");
@@ -217,7 +228,11 @@ class CommunityManagerController extends Controller
     }
 
     protected function storeLocation(Community $community, Request $request) {
+        $this->authorize('update', $community);
         $locationJSON = json_decode($request->input("location"));
+        if (!$locationJSON) {
+            return view('communitymanager::community.set-location', ['community' => $community, 'locations' => []]);
+        }
         $communityLocation = CommunityLocation::create(
             [
                 //we save the raw json, because we may need some of this information later on :) 

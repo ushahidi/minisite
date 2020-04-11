@@ -70,7 +70,7 @@ class Community extends Model implements Searchable
                 ['community_id', '=', $this->id],
                 ['role', '=', UserCommunity::ROLE_MEMBER]
             ]
-        )->get() ?? null;            
+        )->first() ?? null;            
     }
 
     public function admin($user) {
@@ -80,17 +80,18 @@ class Community extends Model implements Searchable
                 ['community_id', '=', $this->id],
                 ['role', '=', UserCommunity::ROLE_ADMIN]
             ]
-        )->get() ?? null;            
+        )->first() ?? null;            
     }
 
     public function owner($user) {
+
         return DB::table('user_communities')->where(
             [
                 ['user_id', '=', $user->id],
                 ['community_id', '=', $this->id],
                 ['role', '=', UserCommunity::ROLE_OWNER]
             ]
-        )->get() ?? null;            
+        )->first() ?? null;
     }
 
     public function containsUser($user) {
