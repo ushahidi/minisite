@@ -48,8 +48,9 @@ class MinisiteController extends Controller
                 $returnBlocks[] = $block;
             }
         }
-        $minisite->blocks = $returnBlocks;
-        return view('minisite::public', ['minisite' => $minisite, 'returnBlocks' => $returnBlocks]);
+        $collection = collect($returnBlocks);
+        $minisite->blocks = $collection->sortBy('position');
+        return view('minisite::public', ['minisite' => $minisite, 'returnBlocks' => $collection->sortBy('position')]);
     }
 
     public function email(Community $minisite, Block $block, Request $request)

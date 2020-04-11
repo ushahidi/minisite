@@ -1,8 +1,6 @@
 @if(isset($block) && $block->type === 'Free form')   
-
-    @section('freeForm')
-            {{-- this is rendered with the prosemirror to html plugin in the FreeForm View in laravel --}}
-            {!! $renderedHTML !!}
-    @endsection
-
+<div class="mdc-layout-grid__cell--span-12">
+    {{-- this is rendered with the prosemirror to html plugin in the FreeForm View in laravel --}}
+    {!! $renderedHTML !!}
+</div>
 @endif

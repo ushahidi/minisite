@@ -1,6 +1,6 @@
-@section('header')
-    {{$block->content->Title}}
-@endsection
-@section('header-desc')
-    {{$block->content->Description}}
-@endsection
+<div class="mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        {{$block->content->Title}}
+        {{$block->content->Description}}
+    </div>
+</div>

@@ -3,8 +3,10 @@
 @section('title')
 {{$minisite->title}}
 @endsection
+@section('content')
 {{-- retrieve only enabled blocks and pre-filter by authorization --}}
-@foreach ($minisite->blocks as $block)
+@foreach ($returnBlocks as $block)
+
     @if (isset($block) && $block->type === 'Page header' && isset($block->content->Title))
         <x-page-header :block='$block'></x-page-header>
     @endif
@@ -20,9 +22,6 @@
     @if(isset($block) && $block->type === 'Featured Youtube Video')      
         <x-featured-youtube-video :block='$block'></x-featured-youtube-video>
     @endif
-@endforeach
-
-@foreach ($minisite->blocks as $block)
     @if(isset($block) && $block->type === 'Free form')  
         <x-free-form :block='$block'></x-free-form>
     @endif   
@@ -34,3 +33,4 @@
     @endif
 @endforeach
 
+@endsection
