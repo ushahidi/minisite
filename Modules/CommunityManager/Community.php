@@ -63,6 +63,26 @@ class Community extends Model implements Searchable
         return $this->belongsToMany('App\User', 'user_communities');
     }
     
+    public function member($user) {
+        return DB::table('user_communities')->where(
+            [
+                ['user_id', '=', $user->id],
+                ['community_id', '=', $this->id],
+                ['role', '=', UserCommunity::ROLE_MEMBER]
+            ]
+        )->get() ?? null;            
+    }
+
+    public function admin($user) {
+        return DB::table('user_communities')->where(
+            [
+                ['user_id', '=', $user->id],
+                ['community_id', '=', $this->id],
+                ['role', '=', UserCommunity::ROLE_ADMIN]
+            ]
+        )->get() ?? null;            
+    }
+
     public function owner($user) {
         return DB::table('user_communities')->where(
             [
@@ -116,7 +136,7 @@ class Community extends Model implements Searchable
 
     public function getSearchResult(): SearchResult
     {
-        $url = route('minisitePublic', $this->slug);
+        $url = route('minisite.admin', $this->slug);
 
         return new SearchResult(
             $this,

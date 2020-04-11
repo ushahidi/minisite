@@ -24,10 +24,20 @@ class BlockManagerController extends Controller
     public function index(Community $community)
     {
         $user = Auth::user();
-        if (!$community->owner($user)){
-            abort("401", "You are not authorized to edit this page");
+        // if (!$community->owner($user)){
+        //     abort("401", "You are not authorized to edit this page");
+        // }
+        // @todo refactor to just grab the role :shrugs: this is bad
+        $role = 'guest';
+        if ($user && $community->owner($user)) {
+            $role = 'owner';
+        } else if ($user && $community->admin($user)) {
+            $role = 'admin';
+        } else if ($user && $community->member($user)) {
+            $role = 'member';
         }
 
+        $returnBlocks = [];
         foreach($community->blocks as $block) {
             $content = $block->content;
             $mapped = [];
@@ -50,7 +60,8 @@ class BlockManagerController extends Controller
         $collection = collect($returnBlocks);
         $blocks = $community->blocks->sortBy('position');
         $community->blocks = $blocks;
-        return view('blockmanager::minisite.admin', ['community' => $community, 'blocks' => $blocks]);
+        
+        return view('blockmanager::minisite.admin', ['community' => $community, 'blocks' => $blocks, 'role' => $role]);
     }
 
     /**
