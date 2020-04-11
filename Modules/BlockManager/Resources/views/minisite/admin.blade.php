@@ -97,10 +97,44 @@
                 </div>
             </div>
         </div>
+                
+        {{-- retrieve only enabled blocks and pre-filter by authorization --}}
+        @foreach ($community->blocks as $block)
+
+           
+        @endforeach
+
         @foreach ($community->blocks as $index => $block)
+        
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="mdc-card heading-card blocks-js">
-                    <p class="theme-primary">{{$block->name}}</p>
+                    <p class="theme-primary">
+                     @if (isset($block) && $block->type === 'Page header' && isset($block->content->Title))
+                <x-page-header :block='$block'></x-page-header>
+            @endif
+            @if (isset($block) && $block->type === 'Pinned item')
+                <x-pinned-information :block='$block'></x-pinned-information>
+            @endif
+            @if (isset($block) && $block->type === 'WhatsApp Group Link')
+                <x-whats-app-group :block='$block'></x-whats-app-group>
+            @endif
+            @if (isset($block) && $block->type === 'RSS Feed')
+                <x-rss-feed :block='$block'></x-rss-feed>
+            @endif
+            @if(isset($block) && $block->type === 'Featured Youtube Video')      
+                <x-featured-youtube-video :block='$block'></x-featured-youtube-video>
+            @endif
+            @if(isset($block) && $block->type === 'Free form')  
+                <x-free-form :block='$block'></x-free-form>
+            @endif   
+            @if(isset($block) && $block->type === 'Ushahidi Platform Map')
+                <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
+            @endif
+            @if(isset($block) && $block->type === 'Email Form')
+                <x-email-form :minisite='$minisite' :block='$block'></x-email-form>
+            @endif
+                    
+                    </p>
                     <div class="more-options">
                         <button data-menu-index="{{$index}}" class="menu-button mdc-icon-button mdc-card__action mdc-card__action--icon
                             mdc-ripple-upgraded--unbounded
