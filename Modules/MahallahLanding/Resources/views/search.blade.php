@@ -29,7 +29,7 @@
                 </div>
             </div>
         @endisset
-        @include('includes.create-community')
+        @include('mahallahlanding::includes.create-community')
     </div>
 </div>
 @endsection
