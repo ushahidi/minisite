@@ -211,8 +211,7 @@
                 </div>
 
                 <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                    <p>As a next step, <a href="{{ route('community.members', ['community' => session('selectedCommunitySlug')]) }}">invite your community members</a> to this page, or <a href="/manage-blocks">manage
-                            content blocks</a>, or <a href="{{ route('communityEdit', ['community' => session('selectedCommunitySlug')]) }}">change settings</a> of this page. You can also find these
+                    <p>As a next step, <a href="{{ route('community.members', ['community' => session('selectedCommunitySlug')]) }}">invite your community members</a> to this page, or <a href="{{ route('communityEdit', ['community' => session('selectedCommunitySlug')]) }}">change settings</a> of this page. You can also find these
                         options and more by clicking on the <i class="fas fa-bars theme-gray"></i>
                         icon-small on top
                         left corner.</p>

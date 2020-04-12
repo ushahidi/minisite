@@ -101,7 +101,7 @@ https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers
 php artisan down;
 git pull origin master;
 ~/composer.phar install;
-php artisan migrate;
+php artisan migrate --database=migrate;
 sudo chown -R www-data:www-data storage/;
 npm run production;
 php artisan config:cache;
