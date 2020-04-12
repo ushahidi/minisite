@@ -16,12 +16,12 @@
                                 required>
                             <div class="mdc-line-ripple"></div>
                             <label for="email" class="mdc-floating-label">Email Address</label>
-                            @error('email')
+                        </div>
+                        @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
@@ -31,12 +31,12 @@
                                 aria-labelledby="password" autocomplete="current-password" required>
                             <div class="mdc-line-ripple"></div>
                             <label for="password" class="mdc-floating-label">Password</label>
-                            @error('password')
+                        </div>
+                        @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">

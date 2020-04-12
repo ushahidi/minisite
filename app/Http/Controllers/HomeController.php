@@ -24,15 +24,4 @@ class HomeController extends Controller
     {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
-    // public function addBlocks() {
-    //     return view ('add-blocks');
-    // }
-
-    // public function addBlock() {
-    //     return view ('add-block');
-    // }
-
-    // public function editBlock() {
-    //     return view ('edit-block');
-    // }
 }

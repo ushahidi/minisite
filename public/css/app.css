@@ -8557,6 +8557,15 @@ p {
   padding: 0;
 }
 
+footer {
+  padding: 4px;
+  background-color: #EF6292;
+}
+
+.invalid-feedback {
+  color: #b00020;
+}
+
 .mdc-drawer {
   width: 304px;
 }

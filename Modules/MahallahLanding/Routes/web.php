@@ -10,6 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'MahallahLandingController@index');
-Route::get('/search', 'MahallahLandingController@searchPage')->name('searchPage');
-Route::post('/search', 'MahallahLandingController@search')->name('search');
+Route::get('/', 'MahallahLandingController@index')->name('landing');
+Route::get('/search', 'MahallahLandingController@searchPage')->name('landing.search');
+Route::post('/search', 'MahallahLandingController@search')->name('landing.search.submit');

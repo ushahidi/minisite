@@ -3,7 +3,7 @@
         <div class="mdc-layout-grid__inner">
             @if (Request::is('/', 'login', 'register'))
             <div class="mdc-layout-grid__cell--span-12">
-                <h3 class="mdc-drawer__title">Mahall Logo</h3>
+                <h3 class="mdc-drawer__title">Mahallah.org</h3>
             </div>
             @if (!Auth::user())
             <div class="mdc-layout-grid__cell--span-12">
@@ -83,7 +83,7 @@
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Create a community</span>
         </a>
-        <a class="mdc-list-item" href="{{route('search')}}">
+        <a class="mdc-list-item" href="{{route('landing.search')}}">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Search</span>
         </a>

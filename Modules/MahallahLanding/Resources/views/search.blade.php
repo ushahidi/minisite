@@ -8,7 +8,7 @@
                 exist in your location of interest.</p>
         </div>
         <div class="mdc-layout-grid__cell--span-12">
-            <form action="{{ route('search') }}" method="POST">
+            <form action="{{ route('landing.search.submit') }}" method="POST">
                 @csrf
                 <div class="mdc-text-field mdc-text-field--with-trailing-icon">
                     <i class="material-icons mdc-text-field__icon">search</i>

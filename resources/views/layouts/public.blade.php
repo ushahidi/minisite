@@ -51,6 +51,9 @@
             </div>
         </div>
     </div>
+    <footer>
+        &nbsp;
+    </footer>
 </body>
 
 </html>
