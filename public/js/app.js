@@ -9132,6 +9132,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     this.html = this.editor.getHTML();
     this.json = this.editor.getJSON();
+    this.editorContent = JSON.stringify(this.json);
     this.editor.on('update', function () {
       _this.html = _this.editor.getHTML();
       _this.json = _this.editor.getJSON();
