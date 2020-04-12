@@ -39,11 +39,13 @@
                     
                     <span class="mdc-card__subtitle mdc-typography mdc-typography--subtitle2">
                         {{ Auth::user() ? Auth::user()->email : '' }}
+                        <i class="fas fa-caret-down icon"></i>
+
                         <!-- @seth make this link pink??? -->
-                        <a href="{{ route('register') }}" class="">
+                        {{-- <a href="{{ route('login') }}" class="">
                             <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">@lang('auth.register')</span>
-                        </a>
+                            <span class="mdc-button__label">@lang('auth.login')</span>
+                        </a> --}}
                     </span>
                 </div>
             </div>
@@ -54,30 +56,29 @@
 </div>
 <div class="mdc-drawer__content">
     <nav class="mdc-list">
-        @if (Auth::user())
-        {{-- @review this with Seth. 
-            We had an exception about focusable elements
-            https://github.com/material-components/material-components-web/issues/5615
-            and using the tabindex solution solved it 
-        --}}
-        <a tabindex="0" class="mdc-list-item" href="{{route('home')}}" aria-current="page">
-            <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
-            <span class="mdc-list-item__text">My communities</span>
+        @if (Auth::user() && session('selectedCommunitySlug'))
+        <a class="mdc-list-item" href="{{route('minisite.admin' , ['community' => session('selectedCommunitySlug') ])}}" aria-current="page">
+            <span class="mdc-list-item__text"> < {{session('selectedCommunityName')}} > </span>
         </a>
-        {{-- @change Pending integration --}}
-        {{-- <a class="mdc-list-item" href="/add-blocks" aria-current="page">
+        <a class="mdc-list-item" href="{{ route('blockTypes', ['community' => session('selectedCommunitySlug')]) }}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Add Blocks</span>
         </a>
-        <a class="mdc-list-item" href="/reorder-blocks">
+        <a class="mdc-list-item" href="{{ route('minisite.admin.reorder', ['community' => session('selectedCommunitySlug')]) }}">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Reorder Blocks</span>
-        </a> --}}
+        </a>
         {{-- <a class="mdc-list-item" href="/manage-members">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
             <span class="mdc-list-item__text">Manage Members</span>
         </a> --}}
+        @endif
+        @if(Auth::user())
         <hr class="mdc-list-divider">
+        <a tabindex="0" class="mdc-list-item" href="{{route('home')}}" aria-current="page">
+            <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
+            <span class="mdc-list-item__text">My communities</span>
+        </a>
         @endif
         <a class="mdc-list-item" href="{{route('communityCreate')}}" aria-current="page">
             <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>

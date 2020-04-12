@@ -42,20 +42,32 @@ class BlockManagerController extends Controller
         foreach($community->blocks as $block) {
             $content = $block->content;
             $mapped = [];
-            foreach ($content as $field_key => $field_value) {
-                $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
-                //@todo when less asleep: make into a transformer setup of sorts
-                $field_value = $this->transform($block, $fieldDefinition, $field_value, $content);
-                $mapped[$fieldDefinition->name] = $field_value;
+            try {
+                foreach ($content as $field_key => $field_value) {
+                    $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
+                    //@todo when less asleep: make into a transformer setup of sorts
+                    $field_value = $this->transform($block, $fieldDefinition, $field_value, $content);
+                    $mapped[$fieldDefinition->name] = $field_value;
+                }
+                // @todo not loving this hack... it's almost rude. Refactor when doing tranformers
+                if ($block->type === 'RSS Feed' && $mapped['Limit'] && $mapped['Url'] && $mapped['Url']['item']) {
+                    $mapped['Url']['item'] = array_slice($mapped['Url']['item'], 0, (int) $mapped['Limit']);
+                }
+                $block->content = $mapped;
+                if ($block->visibleBy($user, $community)) {
+                    $returnBlocks[] = $block;
+                }
+            }catch (\Exception $e){
+                // @decide we could delete the block's content if we end up in an exception because of $content?
+                // @decide maybe we also show them a ->flash() error explaining what happened
+                \Log::warn("There was an issue going through the content for this block");
+                \Log::warn(var_export($block,true));
+                // if (!is_array($block->content)) {
+                //     $block->content = [];
+                //     $block->save();
+                // }
             }
-            // @todo not loving this hack... it's almost rude. Refactor when doing tranformers
-            if ($block->type === 'RSS Feed' && $mapped['Limit'] && $mapped['Url'] && $mapped['Url']['item']) {
-                $mapped['Url']['item'] = array_slice($mapped['Url']['item'], 0, (int) $mapped['Limit']);
-            }
-            $block->content = $mapped;
-            if ($block->visibleBy($user, $community)) {
-                $returnBlocks[] = $block;
-            }
+            
         }
         $collection = collect($returnBlocks);
         $blocks = $collection->sortBy('position');
