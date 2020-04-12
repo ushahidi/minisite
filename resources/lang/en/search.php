@@ -16,5 +16,8 @@ return [
     'communities'  => 'Communities',
     'search'         => 'Search',
     'explainer' => 'Enter the name of community or city that you are interested in. We will show you communities that exist in your location of interest.',
-    'communityOrCity' => 'Name of the community or city'
+    'communityOrCity' => 'Name of the community or city',
+    'cantFind' => 'Can\'t find what you are looking for?',
+    'createCommunity' => 'Create a community'
+
 ];
