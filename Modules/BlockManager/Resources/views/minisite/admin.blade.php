@@ -37,7 +37,8 @@
                 </div>
             </div>
         @endif
-        @if ($role === 'admin' || $role === 'owner')
+        @if (session('selectedCommunityRole') === 'owner' )
+
 
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
@@ -65,8 +66,7 @@
             </div>
         </div>
         @endif
-        @if ($role === 'admin' || $role === 'owner')
-
+        @if (session('selectedCommunityRole') === 'admin' || session('selectedCommunityRole') === 'owner' )
         <!-- this section seems to be gone from the designs now? I don't get it. Hidden while I discover why :| --->
         <div class="mdc-layout-grid__cell--span-12" style="display:none">
             <div class="mdc-card">
@@ -136,7 +136,7 @@
                             <x-email-form :minisite='$community' :block='$block'></x-email-form>
                         @endif
                     </p>
-                    @if ($role === 'admin' || $role === 'owner')
+                    @if (session('selectedCommunityRole') === 'admin' || session('selectedCommunityRole') === 'owner' )
                     <div class="more-options">
                         <button data-menu-index="{{$index}}" class="menu-button mdc-icon-button mdc-card__action mdc-card__action--icon
                             mdc-ripple-upgraded--unbounded
@@ -167,8 +167,7 @@
             </div>
         @endforeach
     </div>
-    @if ($role === 'admin' || $role === 'owner')
-
+    {{-- @if (session('selectedCommunityRole') === 'owner' )
     <div class="mdc-layout-grid__cell--span-12">
         <div class="mdc-card">
             <div class="mdc-layout-grid__inner">
@@ -202,8 +201,8 @@
             </div>
         </div>
     </div>
-    @endif
-    @if ($role === 'admin' || $role === 'owner')
+    @endif --}}
+    @if (session('selectedCommunityRole') === 'owner' )
     <div class="mdc-layout-grid__cell--span-12">
         <div class="mdc-card">
             <div class="mdc-layout-grid__inner">
@@ -212,8 +211,8 @@
                 </div>
 
                 <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                    <p>As a next step, <a href="">invite your community members</a> to this page, or <a href="/manage-blocks">manage
-                            content blocks</a>, or <a href="">change settings</a> of this page. You can also find these
+                    <p>As a next step, <a href="{{ route('community.members', ['community' => session('selectedCommunitySlug')]) }}">invite your community members</a> to this page, or <a href="/manage-blocks">manage
+                            content blocks</a>, or <a href="{{ route('communityEdit', ['community' => session('selectedCommunitySlug')]) }}">change settings</a> of this page. You can also find these
                         options and more by clicking on the <i class="fas fa-bars theme-gray"></i>
                         icon-small on top
                         left corner.</p>

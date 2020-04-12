@@ -23,6 +23,9 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Validation\Rule;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
+use App\Mail\SendSiteEmail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class CommunityManagerController extends Controller
 {
@@ -262,10 +265,96 @@ class CommunityManagerController extends Controller
         if ($invite->claimed) {
             return abort(403, "The invitation link is invalid or has expired.");
         }
-        return redirect()->route(
-            'register'
-        )->with( ['token' => $token]);
+        $user = User::where(['email' => $invite->email])->first();
+        $authUser = Auth::user();
+        if ($authUser && $user && $user->id === $authUser->id) {
+            $community = Community::where(['id' => $invite->community_id])->first();
+            UserCommunity::create([
+                'user_id' => $user->id,
+                'community_id' => $community->id,
+                'role' => $invite->role
+            ]);
+            return redirect()->route(
+                'minisite.admin', ['community' => $community]
+            )->with( ['token' => $token]);
+        } else if ($authUser) {
+            abort(401, "You are not authorized to accept this invite.");
+        } else {
+            return redirect()->route(
+                'register'
+            )->with( ['token' => $token]);
+        }
+        
     }
 
+    protected function members(Community $community) {
+        $this->authorize('update', $community);
+
+        return view('communitymanager::members.view', ['community' => $community, 'members' => $community->members]);
+    }
     
+    protected function member(Community $community, User $user) {
+        $this->authorize('update', $community);
+
+        return view('communitymanager::members.show', ['community' => $community, 'member' => $user]);
+    }
+
+    protected function updateMember(Community $community, User $user, Request $request) {
+        $this->authorize('update', $community);
+
+        if ($request->input('admin') && $request->input('admin') === 'on') {
+            $userCommunity = $user->getCommunityRelation($community);
+            $userCommunity->role = UserCommunity::ROLE_ADMIN;
+            $userCommunity->update();
+        } else {
+            $userCommunity = $user->getCommunityRelation($community);
+            $userCommunity->role = UserCommunity::ROLE_MEMBER;
+            $userCommunity->update();
+        }
+            
+        return redirect()->route(
+            'community.members', ['community' => $community]
+        );
+    }
+
+    protected function inviteMembers(Community $community) {
+        return view('communitymanager::members.invite', ['community' => $community]);
+
+    }
+    //@todo make it async email
+    protected function sendInvites(Community $community, Request $request) {
+        $this->authorize('update', $community);
+
+        $user = Auth::user();
+        if (!$community->owner($user)){
+            abort(401);
+        }
+        $validatedData = $request->validate([
+            'emails' => ['required', 'string'],
+            'message' => ['required', 'string', 'max:255']
+        ]);
+        $emails = explode(",", $validatedData['emails']);
+        foreach ($emails as $email) {
+            $token = (string) Str::uuid();
+            $invite = Invite::create([
+                'role' => UserCommunity::ROLE_MEMBER,
+                'token' => $token,
+                'email' => trim($email),
+                'generated_by' => $user->id,
+                'community_id' => $community->id
+            ]);
+            $invite->save();
+            Mail::to(trim($email))
+                ->send(
+                    new SendSiteEmail(
+                        $request->input('email'),
+                        $request->input('message'),
+                        route('joinFromInvite', ['token' => $token])
+                    )
+                );
+        }
+        return redirect()->route(
+            'community.members', ['community' => $community]
+        );
+    }
 }

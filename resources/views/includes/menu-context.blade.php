@@ -60,6 +60,7 @@
             <a class="mdc-list-item" href="{{route('minisite.admin' , ['community' => session('selectedCommunitySlug') ])}}" aria-current="page">
                 <span class="mdc-list-item__text"> < {{session('selectedCommunityName')}} > </span>
             </a>
+            @if (session('selectedCommunityRole') === 'admin' || session('selectedCommunityRole') === 'owner' )
             <a class="mdc-list-item" href="{{ route('blockTypes', ['community' => session('selectedCommunitySlug')]) }}" aria-current="page">
                 <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                 <span class="mdc-list-item__text">Add Blocks</span>
@@ -68,14 +69,17 @@
                 <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                 <span class="mdc-list-item__text">Reorder Blocks</span>
             </a>
-            {{-- <a class="mdc-list-item" href="/manage-members">
+            @endif
+            @if (session('selectedCommunityRole') === 'owner' )
+            <a class="mdc-list-item" href="{{ route('community.members', ['community' => session('selectedCommunitySlug')]) }}">
                 <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                 <span class="mdc-list-item__text">Manage Members</span>
-            </a> --}}
+            </a>
             <a class="mdc-list-item" href="{{ route('communityEdit', ['community' => session('selectedCommunitySlug')]) }}">
                 <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                 <span class="mdc-list-item__text">Site Settings</span>
             </a>
+            @endif
         @endif
         @if(Auth::user())
             <hr class="mdc-list-divider">

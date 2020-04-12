@@ -99,7 +99,7 @@ https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers
 
 # Deploy
 php artisan down;
-git pull origin refactor;
+git pull origin master;
 ~/composer.phar install;
 php artisan migrate;
 sudo chown -R www-data:www-data storage/;
