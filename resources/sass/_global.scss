@@ -172,3 +172,10 @@ p {
 .p-0 {
     padding: 0;
 }
+footer {
+    padding: 4px;
+    background-color: $theme-primary;
+}
+.invalid-feedback {
+    color: $mdc-theme-error;
+}

@@ -15,7 +15,7 @@
                 @endforeach
             </div>
         </div>
-        @include('includes.create-community')
+        @include('mahallahlanding::includes.create-community')
     </div>
 </div>
 @endsection

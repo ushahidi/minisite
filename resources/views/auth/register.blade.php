@@ -16,13 +16,13 @@
                                 class="mdc-text-field__input @error('name') is-invalid @enderror" name="name"
                                 aria-labelledby="name" autocomplete="name" autofocus required>
                             <div class="mdc-line-ripple"></div>
-                            <label for="name" class="mdc-floating-label">Name</label>
-                            @error('email')
+                            <label for="name" class="mdc-floating-label">Name</label> 
+                        </div>
+                        @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
@@ -33,12 +33,12 @@
                                 required>
                             <div class="mdc-line-ripple"></div>
                             <label for="email" class="mdc-floating-label">@lang('auth.emailAddress')</label>
-                            @error('email')
+                        </div>
+                        @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
@@ -48,12 +48,12 @@
                                 aria-labelledby="password" autocomplete="current-password" required>
                             <div class="mdc-line-ripple"></div>
                             <label for="password" class="mdc-floating-label">@lang('auth.password')</label>
-                            @error('password')
+                        </div>
+                        @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
@@ -63,12 +63,12 @@
                                 aria-labelledby="password" autocomplete="current-password" required>
                             <div class="mdc-line-ripple"></div>
                             <label for="password_confirmation " class="mdc-floating-label">Confirm @lang('auth.password')</label>
-                            @error('password')
+                        </div>
+                        @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
 
                     <div class="grid-cell">

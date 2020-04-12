@@ -12,7 +12,6 @@
     </head>
     <body>
         @yield('content')
-
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/mahallahlanding.js') }}"></script> --}}
     </body>

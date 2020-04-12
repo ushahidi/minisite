@@ -21,12 +21,12 @@
                                 required>
                             <div class="mdc-line-ripple"></div>
                             <label for="email" class="mdc-floating-label">@lang('auth.emailAddress')</label>
-                            @error('email')
+                        </div>
+                        @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
-                        </div>
+                        @enderror
                     </div>
                     <div class="grid-cell">
                         <button class="mdc-button mdc-button--unelevated theme-secondary-bg" type="submit">

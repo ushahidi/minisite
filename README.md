@@ -108,3 +108,9 @@ php artisan config:cache;
 php artisan view:cache;
 ~/composer.phar dumpautoload;
 php artisan up;
+
+
+# Route naming
+shortModuleName.action[.submit|.store]
+ie: 
+landing.search.submit for MahallahLanding.search.submit

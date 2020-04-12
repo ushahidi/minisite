@@ -3,38 +3,42 @@
 @section('content')
 <div class="community">
     <div class="mdc-layout-grid__inner">   
-        <div class="mdc-layout-grid__cell--span-12">
-            <div class="mdc-card">
-                <div class="mdc-layout-grid__inner">
-                    <div class="mdc-layout-grid__cell--span-12">
-                        <i class="fas fa-th-large icon-small"></i>
-                    </div>
+        @if ($role === 'admin' || $role === 'owner')
+            <div class="mdc-layout-grid__cell--span-12">
+                <div class="mdc-card">
+                    <div class="mdc-layout-grid__inner">
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <i class="fas fa-th-large icon-small"></i>
+                        </div>
 
-                    <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                        <p>Blocks represent different types of content that you can add to your home page.</p>
-                    </div>
+                        <div class="mdc-layout-grid__cell--span-12 theme-primary">
+                            <p>Blocks represent different types of content that you can add to your home page.</p>
+                        </div>
 
-                    <div class="mdc-layout-grid__cell--span-12">
-                        <div class="button-group">
-                            <div class="mdc-layout-grid__inner">
-                                <div class="grid-cell">
-                                    <a href="{{ route('blockTypes', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
-                                        <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">@lang('minisite.addBlock')</span>
-                                    </a>
-                                </div>
-                                <div class="grid-cell">
-                                    <a href="{{ route('minisite.admin.reorder', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
-                                        <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">@lang('minisite.reorderBlocks')</span>
-                                    </a>
+                        <div class="mdc-layout-grid__cell--span-12">
+                            <div class="button-group">
+                                <div class="mdc-layout-grid__inner">
+                                    <div class="grid-cell">
+                                        <a href="{{ route('blockTypes', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                            <div class="mdc-button__ripple"></div>
+                                            <span class="mdc-button__label">@lang('minisite.addBlock')</span>
+                                        </a>
+                                    </div>
+                                    <div class="grid-cell">
+                                        <a href="{{ route('minisite.admin.reorder', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                            <div class="mdc-button__ripple"></div>
+                                            <span class="mdc-button__label">@lang('minisite.reorderBlocks')</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
+        @if ($role === 'admin' || $role === 'owner')
+
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
                 <div class="mdc-layout-grid__inner">
@@ -42,7 +46,7 @@
                         <i class="fas fa-info icon"></i>
                     </div>
                     <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                        <p> You can share <strong><a href="{{route('minisitePublic', ['minisite'=>$community])}}" target="_blank">this site's public content</a></strong> with others who aren't part of your community.</p>
+                        <p> You can share <strong><a href="{{route('minisite.admin', ['community'=>$community])}}" target="_blank">this site's public content</a></strong> with others who aren't part of your community.</p>
                         <p>Based on your community's visibility preferences, your community can be seen by: @lang("minisite.visibleTo.$community->visibility")
                     </div>
                     <div class="mdc-layout-grid__cell--span-12">
@@ -60,6 +64,9 @@
                 </div>
             </div>
         </div>
+        @endif
+        @if ($role === 'admin' || $role === 'owner')
+
         <!-- this section seems to be gone from the designs now? I don't get it. Hidden while I discover why :| --->
         <div class="mdc-layout-grid__cell--span-12" style="display:none">
             <div class="mdc-card">
@@ -97,10 +104,39 @@
                 </div>
             </div>
         </div>
+        @endif
+        {{-- retrieve only enabled blocks and pre-filter by authorization --}}
         @foreach ($community->blocks as $index => $block)
+        
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="mdc-card heading-card blocks-js">
-                    <p class="theme-primary">{{$block->name}}</p>
+                    <p class="theme-primary">
+                        @if (isset($block) && $block->type === 'Page header' && isset($block->content->Title))
+                            <x-page-header :block='$block'></x-page-header>
+                        @endif
+                        @if (isset($block) && $block->type === 'Pinned item')
+                            <x-pinned-information :block='$block'></x-pinned-information>
+                        @endif
+                        @if (isset($block) && $block->type === 'WhatsApp Group Link')
+                            <x-whats-app-group :block='$block'></x-whats-app-group>
+                        @endif
+                        @if (isset($block) && $block->type === 'RSS Feed')
+                            <x-rss-feed :block='$block'></x-rss-feed>
+                        @endif
+                        @if(isset($block) && $block->type === 'Featured Youtube Video')      
+                            <x-featured-youtube-video :block='$block'></x-featured-youtube-video>
+                        @endif
+                        @if(isset($block) && $block->type === 'Free form')  
+                            <x-free-form :block='$block'></x-free-form>
+                        @endif   
+                        @if(isset($block) && $block->type === 'Ushahidi Platform Map')
+                            <x-ushahidi-platform-map :block='$block'></x-ushahidi-platform-map>
+                        @endif
+                        @if(isset($block) && $block->type === 'Email Form')
+                            <x-email-form :minisite='$community' :block='$block'></x-email-form>
+                        @endif
+                    </p>
+                    @if ($role === 'admin' || $role === 'owner')
                     <div class="more-options">
                         <button data-menu-index="{{$index}}" class="menu-button mdc-icon-button mdc-card__action mdc-card__action--icon
                             mdc-ripple-upgraded--unbounded
@@ -126,12 +162,13 @@
                             </div>
                         </div>
                     </div>
-                    <h5>{{$block->description}}</h5>
+                    @endif
                 </div>
             </div>
         @endforeach
-
     </div>
+    @if ($role === 'admin' || $role === 'owner')
+
     <div class="mdc-layout-grid__cell--span-12">
         <div class="mdc-card">
             <div class="mdc-layout-grid__inner">
@@ -165,6 +202,8 @@
             </div>
         </div>
     </div>
+    @endif
+    @if ($role === 'admin' || $role === 'owner')
     <div class="mdc-layout-grid__cell--span-12">
         <div class="mdc-card">
             <div class="mdc-layout-grid__inner">
@@ -189,6 +228,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 </div>
 @endsection

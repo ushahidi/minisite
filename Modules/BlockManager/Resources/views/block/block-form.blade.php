@@ -65,7 +65,7 @@
     <div class="">
         <div class="mdc-form-field">
             <div class="mdc-radio">
-                <input class="mdc-radio__native-control" type="radio" name="visibility" value="community" class="form-control @error('visibility') is-invalid @enderror" checked>
+                <input {{$block->visibility === 'community' ? 'checked' : ''}}  class="mdc-radio__native-control" type="radio" name="visibility" value="community" class="form-control @error('visibility') is-invalid @enderror" checked>
                 <div class="mdc-radio__background">
                 <div class="mdc-radio__outer-circle"></div>
                 <div class="mdc-radio__inner-circle"></div>
@@ -77,7 +77,7 @@
         
         <div class="mdc-form-field">
             <div class="mdc-radio">
-                <input class="mdc-radio__native-control" type="radio" name="visibility" value="public" class="form-control @error('visibility') is-invalid @enderror">
+                <input {{$block->visibility === 'public' ? 'checked' : ''}}  class="mdc-radio__native-control" type="radio" name="visibility" value="public" class="form-control @error('visibility') is-invalid @enderror">
                 <div class="mdc-radio__background">
                 <div class="mdc-radio__outer-circle"></div>
                 <div class="mdc-radio__inner-circle"></div>

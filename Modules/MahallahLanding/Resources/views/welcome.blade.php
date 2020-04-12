@@ -8,7 +8,7 @@
         </div>
         <div class="mdc-layout-grid__cell--span-12">
             <p>Mahalla is an open community tool for neighbourhoods – a bulletin board that enables your community
-                to create share and maintain locally relevant information.
+                to create, share and maintain locally relevant information.
             </p>
         </div>
         <div class="mdc-layout-grid__cell--span-12">
@@ -16,9 +16,9 @@
             <div class="button-group">
                 <div class="mdc-layout-grid__inner">
                     <div class="grid-cell">
-                        <a href="/search" class="mdc-button mdc-button--raised">
+                        <a href="{{route('landing.search')}}" class="mdc-button mdc-button--raised">
                             <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Search</span>
+                            <span class="mdc-button__label">@lang('general.search')</span>
                         </a>
                     </div>
                     <div class="grid-cell">
@@ -35,7 +35,7 @@
             <h4>Things you can do</h4>
             <div class="mdc-card">
                 <i class="fas fa-user-circle icon"></i>
-                <h6>Tackle Misinformation</h6>
+                <h6>TACKLE MISINFORMATION</h6>
                 <p>Crowdsource and publish validated info with help from your community. Information like local
                     news,
                     emergency contacts, local resources, best practices and more.

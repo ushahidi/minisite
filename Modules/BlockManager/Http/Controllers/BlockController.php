@@ -7,7 +7,7 @@ use Illuminate\Validation\Validator;
 use Modules\BlockManager\Block;
 use Modules\BlockManager\BlockType;
 use Modules\BlockManager\BlockTypeFields;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller ;
 
 class BlockController extends Controller
 {
@@ -28,6 +28,8 @@ class BlockController extends Controller
      */
     public function create(Community $community, Request $request)
     {
+        $this->authorize('update', $community);
+
         return view('blockmanager::block.create-block', 
             [
                 'community' => $community,
@@ -44,6 +46,8 @@ class BlockController extends Controller
      */
     public function getTypes(Community $community)
     {
+        $this->authorize('update', $community);
+
         return view('blockmanager::block.create', 
             [
                 'community' => $community,
@@ -60,7 +64,9 @@ class BlockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Community $community)
-    {
+    {        
+        $this->authorize('update', $community);
+
         $fields = $request->input('fields') ?? [];
         $freeFormContent = null;
         if ($request->input('blockType') === 'Free form') {
@@ -108,6 +114,7 @@ class BlockController extends Controller
      */
     public function edit(Community $community, Block $block)
     {
+        $this->authorize('update', $community);
         $newBlock = $block;
         $initialContent = null;
         if ($block->type === 'Free form') {
@@ -144,6 +151,7 @@ class BlockController extends Controller
      */
     public function update(Request $request, Community $community, Block $block)
     {
+        $this->authorize('update', $community);
 
         $fields = $request->input('fields') ?? [];
         $freeFormContent = null;
@@ -177,7 +185,9 @@ class BlockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Community $community, Block $block)
-    {
+    {        
+        $this->authorize('delete', $community);
+
         $block->delete();
         
         return redirect()->route(
