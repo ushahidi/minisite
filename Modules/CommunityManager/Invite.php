@@ -20,5 +20,5 @@ class Invite extends Model
      *
      * @var array
      */
-    protected $fillable = ['generated_by', 'token', 'community_id'];
+    protected $fillable = ['generated_by', 'token', 'community_id', 'role', 'email'];
 }

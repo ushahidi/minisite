@@ -43,7 +43,7 @@
             @endisset
         </div>
         <div class="row justify-content-center">
-            @foreach ($community->communityMembers as $member )
+            @foreach ($community->members as $member )
                 <div class="card">
                     <div class="card-header">@lang('community.yourCommunity')</div>
                     <div class="card-body">

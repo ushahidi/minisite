@@ -30,5 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/{community}/location', 'CommunityManagerController@storeLocation')->name('communitySetLocation');
         Route::get('/', 'CommunityManagerController@show')->name('communityShow');    
         Route::get('/{id}', 'CommunityManagerController@show')->name('communityShow');    
+        Route::get('/{community}/members', 'CommunityManagerController@members')->name('community.members');
+        Route::get('/{community}/members/invite', 'CommunityManagerController@inviteMembers')->name('community.members.invite');
+        Route::post('/{community}/members/invite', 'CommunityManagerController@sendInvites')->name('community.members.invite.send');
+        Route::get('/{community}/members/{user}', 'CommunityManagerController@member')->name('community.member');
+        Route::put('/{community}/members/{user}', 'CommunityManagerController@updateMember')->name('community.member.update');
+
     });
 });

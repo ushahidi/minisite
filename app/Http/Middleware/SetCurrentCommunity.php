@@ -17,13 +17,19 @@ class SetCurrentCommunity
      */
     public function handle($request, Closure $next)
     {
-        if ($request->route()->community && Auth::user()) {
+        $user = Auth::user();
+        $community = $request->route()->community;
+        
+        if ($community && $user) {
             session(['selectedCommunityName' => $request->route()->community->name]);
             session(['selectedCommunitySlug' => $request->route()->community->slug]);
+            session(['selectedCommunityRole' => $user->getRole($community)]);
+            
         }
-        if (session('selectedCommunityName') && !Auth::user()) {
+        if (session('selectedCommunityName') && !$user) {
             session(['selectedCommunityName' => null ]);
             session(['selectedCommunitySlug' => null ]);
+            session(['selectedCommunityRole' => null ]);
         }
         return $next($request);
     }

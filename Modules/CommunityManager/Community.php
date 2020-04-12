@@ -49,7 +49,7 @@ class Community extends Model implements Searchable
     /**
      * Get the community members for the community.
      */
-    public function communityMembers()
+    public function members()
     {
        return $this->users();
     }
@@ -62,7 +62,7 @@ class Community extends Model implements Searchable
     {
         return $this->belongsToMany('App\User', 'user_communities');
     }
-    
+
     public function member($user) {
         return DB::table('user_communities')->where(
             [
