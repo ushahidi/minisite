@@ -4,8 +4,7 @@
 <div class="search">
     <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
-            <p>Enter the name of community or city that you are interested in. We will show you communities that
-                exist in your location of interest.</p>
+            <p>@lang('search.explainer')</p>
         </div>
         <div class="mdc-layout-grid__cell--span-12">
             <form action="{{ route('landing.search.submit') }}" method="POST">
@@ -14,7 +13,7 @@
                     <i class="material-icons mdc-text-field__icon">search</i>
                     <input id="community-name" class="mdc-text-field__input" name="query" required>
                     <div class="mdc-line-ripple"></div>
-                    <label for="community-name" class="mdc-floating-label">Name of community or city</label>
+                    <label for="community-name" class="mdc-floating-label">@lang('search.communityOrCity')</label>
                 </div>
             </form>
         </div>

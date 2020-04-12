@@ -14,5 +14,7 @@ return [
 
     'resultsFound'   => 'results found for',
     'communities'  => 'Communities',
-    'search'         => 'Search'
+    'search'         => 'Search',
+    'explainer' => 'Enter the name of community or city that you are interested in. We will show you communities that exist in your location of interest.',
+    'communityOrCity' => 'Name of the community or city'
 ];

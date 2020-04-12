@@ -18,7 +18,7 @@
                     <div class="grid-cell">
                         <a href="{{route('landing.search')}}" class="mdc-button mdc-button--raised">
                             <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Search</span>
+                            <span class="mdc-button__label">@lang('general.search')</span>
                         </a>
                     </div>
                     <div class="grid-cell">

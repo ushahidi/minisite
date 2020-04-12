@@ -1,7 +1,7 @@
-@if (Request::is('search'))
-<a href="{{ url()->previous() }}" class="js-burger-back-button material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</a>
+@if (Route::is('landing.search') || Route::is('landing.search.submit'))
+<a href="{{  url()->previous() ? url()->previous() : route('landing') }}" class="js-burger-back-button material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">arrow_back</a>
 <span class="mdc-top-app-bar__title">
-    Search
+    @lang('general.search')
 </span>
 
 {{-- Create Mahalla --}}
