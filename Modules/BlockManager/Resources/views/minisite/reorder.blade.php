@@ -20,7 +20,7 @@
                             <div class="grid-cell">
                                 <button type="submit" class="mdc-button mdc-button--raised theme-secondary-bg">
                                     <div class="mdc-button__ripple"></div>
-                                    <span class="mdc-button__label">Save Block Order</span>
+                                    <span class="mdc-button__label">@lang('minisite.saveBlockOrder')</span>
                                 </button>
                             </div>
                         </div>

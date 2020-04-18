@@ -29,5 +29,6 @@ return [
     'yourNeighborhoodLocation' => 'Location (neighborhood or address)',
     'describeYourSite' => 'Describe your community page',
     'welcomeMessage' => 'Welcome message',
-    'reorderBlocks' => 'Save Block Order'
+    'reorderBlocks' => 'Reorder Blocks',
+    'saveBlockOrder' => 'Save Block Order'
 ];

@@ -29,5 +29,6 @@ return [
     'yourNeighborhoodLocation' => 'Localidad (barrio o dirección)',
     'describeYourSite' => 'Describe el sitio de tu communidad',
     'welcomeMessage' => 'Mensaje de bienvenida',
-    'reorderBlocks' => 'Guarder el orden de los bloques'
+    'reorderBlocks' => 'Reordenar bloques',
+    'saveBlockOrder' => 'Guarder el orden de los bloques'
 ];
