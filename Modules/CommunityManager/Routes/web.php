@@ -15,6 +15,7 @@ Route::prefix('communitymanager')->group(function() {
     Route::get('/user/invited/{token}', 'CommunityManagerController@joinFromInvite')->name('joinFromInvite');
 
 });
+Route::post('/{community}/{block}/email', 'CommunityManagerController@email')->name('sendSiteEmail');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'CommunityManagerController@all')->name('home');

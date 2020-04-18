@@ -357,4 +357,28 @@ class CommunityManagerController extends Controller
             'community.members', ['community' => $community]
         );
     }
+    
+    public function email(Community $community, Block $block, Request $request)
+    {
+        $errors = null;
+        $success = null;
+        $content = $block->content;
+        $email = null;
+        foreach ($content as $field_key => $field_value) {
+            $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
+            if ($fieldDefinition->name === 'Recipient') {
+                $email = $field_value;
+            }        
+        }
+        Mail::to($email)->send(new SendSiteEmail($block, $request->input('email'), $request->input('message')));
+        if(count(Mail::failures()) > 0){
+            $errors = 'Failed to send password reset email, please try again.';
+        } else {
+            $success = 'Sucessfully sent email.';
+        }
+        return redirect()->route(
+            'minisite.admin',
+            ['community' => $community] )->with( ['success' => $success, 'errors'=> $errors]
+        );
+    }
 }

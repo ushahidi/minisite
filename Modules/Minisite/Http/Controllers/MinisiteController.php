@@ -53,29 +53,6 @@ class MinisiteController extends Controller
         return view('minisite::public', ['minisite' => $minisite, 'returnBlocks' => $collection->sortBy('position')]);
     }
 
-    public function email(Community $minisite, Block $block, Request $request)
-    {
-        $errors = null;
-        $success = null;
-        $content = $block->content;
-        $email = null;
-        foreach ($content as $field_key => $field_value) {
-            $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
-            if ($fieldDefinition->name === 'Recipient') {
-                $email = $field_value;
-            }        
-        }
-        Mail::to($email)->send(new SendSiteEmail($block, $request->input('email'), $request->input('message')));
-        if(count(Mail::failures()) > 0){
-            $errors = 'Failed to send password reset email, please try again.';
-        } else {
-            $success = 'Sucessfully sent email.';
-        }
-        return redirect()->route(
-            'minisitePublic',
-            ['minisite' => $minisite] )->with( ['success' => $success, 'errors'=> $errors]
-        );
-    }
     /**
      * Block $block
      * BlockTypeFields $fieldDefinition
