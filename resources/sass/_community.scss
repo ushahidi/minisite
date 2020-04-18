@@ -11,4 +11,12 @@
             @include mdc-layout-grid-cell(desktop, 4, 3);
         }
   }
+  
+  .ushahidi-map {
+    iframe {
+        width: 100%;
+        height: 480px;
+        border: none;
+    }
+  }
 }

@@ -30,5 +30,7 @@ return [
     'describeYourSite' => 'Describe el sitio de tu communidad',
     'welcomeMessage' => 'Mensaje de bienvenida',
     'reorderBlocks' => 'Reordenar bloques',
-    'saveBlockOrder' => 'Guarder el orden de los bloques'
+    'saveBlockOrder' => 'Guarder el orden de los bloques',
+    'viewFullscreen' => 'Ver en pantalla completa',
+    'ushahidiMap' => 'Mapa Ushahidi'
 ];

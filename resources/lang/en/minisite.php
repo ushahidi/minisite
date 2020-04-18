@@ -30,5 +30,7 @@ return [
     'describeYourSite' => 'Describe your community page',
     'welcomeMessage' => 'Welcome message',
     'reorderBlocks' => 'Reorder Blocks',
-    'saveBlockOrder' => 'Save Block Order'
+    'saveBlockOrder' => 'Save Block Order',
+    'viewFullscreen' => 'View Fullscreen',
+    'ushahidiMap' => 'Ushahidi Map'
 ];

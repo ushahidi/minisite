@@ -9179,6 +9179,12 @@ footer {
 }
 }
 
+.community .ushahidi-map iframe {
+  width: 100%;
+  height: 480px;
+  border: none;
+}
+
 .mahallas .grid-cell {
   width: calc(50% - 3);
   width: calc(50% - var(--mdc-layout-grid-gutter-phone, 3));

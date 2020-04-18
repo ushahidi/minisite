@@ -109,7 +109,7 @@
         @foreach ($community->blocks as $index => $block)
         
             <div class="mdc-layout-grid__cell--span-12">
-                <div class="mdc-card heading-card blocks-js">
+                <div class="mdc-card heading-card blocks-js {{ isset($block) && $block->type === "Ushahidi Platform Map" ? 'ushahidi-map' : '' }}">
                     <p class="theme-primary">
                         @if (isset($block) && $block->type === 'Page header' && isset($block->content->Title))
                             <x-page-header :block='$block'></x-page-header>
