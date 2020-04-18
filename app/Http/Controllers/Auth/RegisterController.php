@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Modules\CommunityManager\Invite;
 use Modules\CommunityManager\UserCommunity;
-
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -68,7 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $invite = Invite::where('token', $data['invitation_token'])->first();
+        $invite = Invite::where('token', session('invitationToken'))->first();
         $userData = [
             'name' => $data['name'],
             'email' => $data['email'],
@@ -80,8 +79,8 @@ class RegisterController extends Controller
         if (isset($invite) && $invite->claimed){
             return abort(403);
         } else if (isset($invite)){
-            $community_id = Invite::where('token', $data['invitation_token'])->first()->community_id;
-            Invite::where('token', $data['invitation_token'])->update(['claimed' => Carbon::now()]);
+            $community_id = $invite->community_id;
+            Invite::where('token', session('invitationToken'))->update(['claimed' => Carbon::now()]);
             UserCommunity::create(['user_id' => $user->id, 'community_id' => $community_id, 'role' => $invite->role]);
         }
         return $user;

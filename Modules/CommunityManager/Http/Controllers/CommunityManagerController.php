@@ -26,12 +26,24 @@ use Geocoder\Query\ReverseQuery;
 use App\Mail\SendSiteEmail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-
+use Carbon\Carbon;
 class CommunityManagerController extends Controller
 {
-
     
-
+    private function joinInvite(User $user) {
+        if (!$user) {
+            return false;
+        }
+        $invite = Invite::where('token', session('invitationToken'))->first();
+        $community_id = null;
+        if (isset($invite) && !$invite->claimed){
+            Invite::where('token', (string) session('invitationToken'))->update(['claimed' => (string) Carbon::now()]);
+            //check that they were not already in the community
+            UserCommunity::create(['user_id' => $user->id, 'community_id' => $invite->community_id, 'role' => $invite->role]);
+            session(['invitationToken' => null ]);
+        }
+        return $user;
+    }
     /**
      * Show the application dashboard.
      *
@@ -40,6 +52,7 @@ class CommunityManagerController extends Controller
     public function all()
     {
         $user = Auth::user();
+        $this->joinInvite($user);
         return view('communitymanager::index', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
     }
     
@@ -261,10 +274,10 @@ class CommunityManagerController extends Controller
     }
     public function joinFromInvite($token) {
         $invite = Invite::where('token', $token)->first();
-
         if ($invite->claimed) {
             return abort(403, "The invitation link is invalid or has expired.");
         }
+        session(['invitationToken' => $token]);
         $user = User::where(['email' => $invite->email])->first();
         $authUser = Auth::user();
         if ($authUser && $user && $user->id === $authUser->id) {
@@ -276,13 +289,13 @@ class CommunityManagerController extends Controller
             ]);
             return redirect()->route(
                 'minisite.admin', ['community' => $community]
-            )->with( ['token' => $token]);
+            );
         } else if ($authUser) {
             abort(401, "You are not authorized to accept this invite.");
         } else {
             return redirect()->route(
                 'register'
-            )->with( ['token' => $token]);
+            );
         }
         
     }

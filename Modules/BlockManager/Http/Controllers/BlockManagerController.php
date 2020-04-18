@@ -9,12 +9,29 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Modules\CommunityManager\Community;
 use Modules\BlockManager\Block;
+use Modules\CommunityManager\Invite;
+use Modules\CommunityManager\UserCommunity;
 
+use Carbon\Carbon;
 use Modules\BlockManager\BlockTypeFields;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class BlockManagerController extends Controller
 {
+
+    private function joinInvite(User $user) {
+        if (!$user) {
+            return false;
+        }
+        $invite = Invite::where('token', session('invitationToken'))->first();
+        $community_id = null;
+        if (isset($invite) && !$invite->claimed){
+            Invite::where('token', session('invitationToken'))->update(['claimed' => (string) Carbon::now()]);
+            UserCommunity::create(['user_id' => $user->id, 'community_id' => $invite->community_id, 'role' => $invite->role]);
+            session(['invitationToken' => null ]);
+        }
+        return $user;
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -24,6 +41,8 @@ class BlockManagerController extends Controller
     public function index(Community $community)
     {
         $user = Auth::user();
+        
+        $this->joinInvite($user);
         // if (!$community->owner($user)){
         //     abort("401", "You are not authorized to edit this page");
         // }
@@ -37,6 +56,7 @@ class BlockManagerController extends Controller
         } else if ($user && $community->member($user)) {
             $role = 'member';
         }
+        
 
         $returnBlocks = [];
         foreach($community->blocks as $block) {

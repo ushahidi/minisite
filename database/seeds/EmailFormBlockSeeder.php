@@ -15,7 +15,7 @@ class EmailFormBlockSeeder extends Seeder
         BlockType::create([
             'id' => 'Email Form',
             'description' => 'An email form so that visitors can send emails from the site.',
-            'where_is_placed' => 'Use it to highlight trustworthy news sources, or announcements from authorities that have a RSS feed.',
+            'where_is_placed' => 'Use it so that your community can get in touch with you through email.',
             'image_url' => '/img/form.png'
         ])->save();
         
