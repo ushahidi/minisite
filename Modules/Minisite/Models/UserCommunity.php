@@ -28,4 +28,8 @@ class UserCommunity extends Model
         $query->where('user_id', '=', $this->user_id)->where('community_id', '=', $this->community_id);
         return $query;
     }
+
+    public function getCommunity() {
+        return Community::where('id', $this->community_id)->first() ?? null;
+    }
 }

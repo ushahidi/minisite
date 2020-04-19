@@ -259,23 +259,22 @@ class CommunityManagerController extends Controller
     }
     public function joinFromInvite($token) {
         $invite = Invite::where('token', $token)->first();
-        if ($invite->claimed) {
-            return abort(403, "The invitation link is invalid or has expired.");
-        }
         session(['invitationToken' => $token]);
-        $user = User::where(['email' => $invite->email])->first();
-        $authUser = Auth::user();
-        if ($authUser && $user && $user->id === $authUser->id) {
-            $community = Community::where(['id' => $invite->community_id])->first();
-            UserCommunity::create([
-                'user_id' => $user->id,
-                'community_id' => $community->id,
-                'role' => $invite->role
-            ]);
-            return redirect()->route(
-                'minisite.admin', ['community' => $community]
-            );
-        } else if ($authUser) {
+        $user = Auth::user();
+        if ($user && $user->email === $invite->email && $token) {
+            $user_community = Invite::claimBy($user, $token);
+            session(['invitationToken' => null ]);
+            if (!$user_community) {
+                return redirect()->route(
+                    'home'
+                );
+            } else {
+                return redirect()->route(
+                    'minisite.admin', 
+                    ['community' => $user_community->getCommunity()]
+                );
+            }
+        } else if ($user) {
             abort(401, "You are not authorized to accept this invite.");
         } else {
             return redirect()->route(
