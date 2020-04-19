@@ -43,6 +43,14 @@ import { MDCNotchedOutline } from "@material/notched-outline";
 import { MDCTextFieldCharacterCounter } from "@material/textfield/character-counter";
 import { MDCTextField } from "@material/textfield";
 
+
+// // Import images directly that got missed via the CSS imports above.
+// import 'leaflet/dist/images/marker-icon-2x.png';
+// import 'leaflet/dist/images/marker-shadow.png';
+
+// Import JS from Leaflet and plugins.
+import Leaflet from 'leaflet'
+
 const navigationDrawer = () => {
     // Drawer Menu
     const drawer = MDCDrawer.attachTo(document.querySelector(".mdc-drawer"));
@@ -152,8 +160,8 @@ const setupMap = (mapElement, info) => {
         enabledMap.remove();
         enabledMap._container.style.display = 'none';
     }
-    enabledMap = L.map(mapElement.dataset.osmId).setView([info.latitude, info.longitude], 13);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    enabledMap = Leaflet.map(mapElement.dataset.osmId).setView([info.latitude, info.longitude], 13);
+    Leaflet.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         minZoom: 4,
         id: 'rowasc/ck8rs2pcn0hdc1imppdvz3cv1',

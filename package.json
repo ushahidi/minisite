@@ -31,6 +31,7 @@
     },
     "dependencies": {
         "bootstrap-material-design": "^4.1.1",
+        "leaflet": "^1.6.0",
         "material-components-web": "^5.1.0",
         "tiptap": "^1.26.6",
         "tiptap-extensions": "^1.28.6",

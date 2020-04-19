@@ -40,10 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{community}/location', 'CommunityManagerController@getLocationOptions')->name('getLocationOptions');
         Route::post('/{community}/location', 'CommunityManagerController@storeLocation')->name('communitySetLocation');
         Route::get('/create', 'CommunityManagerController@create')->name('communityCreate');
-        Route::put('/{community}', 'MinisiteController@update')->name('communityUpdate');
+        Route::put('/{community}', 'CommunityManagerController@update')->name('communityUpdate');
         Route::post('/', 'CommunityManagerController@store')->name('communityStore');
-
-
     });
 });
 
