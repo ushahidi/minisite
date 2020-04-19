@@ -30,6 +30,7 @@
         "willdurand/negotiation": "^2.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.3",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "laravel/homestead": "^10.6",
