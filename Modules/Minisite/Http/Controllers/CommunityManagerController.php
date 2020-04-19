@@ -30,21 +30,6 @@ use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 class CommunityManagerController extends Controller
 {
-    
-    private function joinInvite(User $user) {
-        if (!$user) {
-            return false;
-        }
-        $invite = Invite::where('token', session('invitationToken'))->first();
-        $community_id = null;
-        if (isset($invite) && !$invite->claimed){
-            Invite::where('token', (string) session('invitationToken'))->update(['claimed' => (string) Carbon::now()]);
-            //check that they were not already in the community
-            UserCommunity::create(['user_id' => $user->id, 'community_id' => $invite->community_id, 'role' => $invite->role]);
-            session(['invitationToken' => null ]);
-        }
-        return $user;
-    }
     /**
      * Show the application dashboard.
      *
@@ -53,7 +38,6 @@ class CommunityManagerController extends Controller
     public function all()
     {
         $user = Auth::user();
-        $this->joinInvite($user);
         return view('minisite::all', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
     }
     

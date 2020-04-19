@@ -67,22 +67,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $invite = Invite::where('token', session('invitationToken'))->first();
         $userData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ];
         $user = User::create($userData);
-
-        $community_id = null;
-        if (isset($invite) && $invite->claimed){
-            return abort(403);
-        } else if (isset($invite)){
-            $community_id = $invite->community_id;
-            Invite::where('token', session('invitationToken'))->update(['claimed' => Carbon::now()]);
-            UserCommunity::create(['user_id' => $user->id, 'community_id' => $community_id, 'role' => $invite->role]);
-        }
         return $user;
     }
 }
