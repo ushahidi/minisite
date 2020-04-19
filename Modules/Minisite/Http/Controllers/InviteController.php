@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\CommunityManager\Http\Controllers;
+namespace Modules\Minisite\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\CommunityManager\Invite;
-use Modules\CommunityManager\Community;
+use Modules\Minisite\Models\Invite;
+use Modules\Minisite\Models\Community;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Validator;

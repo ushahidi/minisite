@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\BlockManager\Providers;
+namespace Modules\Minisite\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class BlockManagerServiceProvider extends ServiceProvider
+class MinisiteServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'BlockManager';
+    protected $moduleName = 'Minisite';
 
     /**
      * @var string $moduleNameLower

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BlockManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +23,6 @@ class BlockType extends Model
     protected $keyType = 'string';
 
     protected function fields() {
-        return $this->hasMany('Modules\BlockManager\BlockTypeFields', 'block_type', 'id');
+        return $this->hasMany('Modules\Minisite\Models\BlockTypeFields', 'block_type', 'id');
     }
 }

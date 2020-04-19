@@ -12,8 +12,8 @@ use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
 
 use App\User;
-use Modules\CommunityManager\Community;
-use Modules\CommunityManager\CommunityLocation;
+use Modules\Minisite\Models\Community;
+use Modules\Minisite\Models\CommunityLocation;
 use Illuminate\Support\Facades\DB;
 class MahallahLandingController extends Controller
 {
@@ -59,7 +59,7 @@ class MahallahLandingController extends Controller
     
     private function activeCommunities() {
         $communities = 
-                \Modules\CommunityManager\Community::where('visibility', 'public')
+                \Modules\Minisite\Models\Community::where('visibility', 'public')
                 ->orderBy('created_at', 'desc')
                 ->take(5)
                 ->get();

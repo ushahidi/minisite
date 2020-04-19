@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CommunityManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,7 +27,7 @@ class CommunityLocation extends Model
     
     public function community()
     {
-        return $this->hasOne('Modules\CommunityManager\Community', 'community_id');
+        return $this->hasOne('Modules\Minisite\Models\Community', 'community_id');
     }
     
 }

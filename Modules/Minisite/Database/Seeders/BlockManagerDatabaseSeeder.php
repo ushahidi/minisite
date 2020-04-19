@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\BlockManager\Database\Seeders;
+namespace Modules\Minisite\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class BlockManagerDatabaseSeeder extends Seeder
+class MinisiteDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

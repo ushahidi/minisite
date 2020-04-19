@@ -15,7 +15,7 @@
         </div>
     @endif
     <div class="mdc-layout-grid__inner">
-        @include('blockmanager::block.block-form')
+        @include('minisite::block.block-form')
         <div class="mdc-layout-grid__cell--span-4">
         <div class="button-group">
             <div class="mdc-layout-grid__inner">

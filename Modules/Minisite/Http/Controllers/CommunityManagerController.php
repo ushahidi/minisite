@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CommunityManager\Http\Controllers;
+namespace Modules\Minisite\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Session;
 use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
 
-use Modules\CommunityManager\Invite;
+use Modules\Minisite\Models\Invite;
 use App\User;
-use Modules\CommunityManager\Community;
-use Modules\CommunityManager\CommunityLocation;
-use Modules\BlockManager\Block;
-use Modules\BlockManager\BlockTypeFields;
-use Modules\CommunityManager\UserCommunity;
+use Modules\Minisite\Models\Community;
+use Modules\Minisite\Models\CommunityLocation;
+use Modules\Minisite\Models\Block;
+use Modules\Minisite\Models\BlockTypeFields;
+use Modules\Minisite\Models\UserCommunity;
 use Illuminate\Support\Facades\Validator;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Validation\Rule;
@@ -53,7 +53,7 @@ class CommunityManagerController extends Controller
     {
         $user = Auth::user();
         $this->joinInvite($user);
-        return view('communitymanager::index', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
+        return view('minisite::all', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
     }
     
     /**

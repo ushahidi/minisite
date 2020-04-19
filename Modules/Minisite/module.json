@@ -1,11 +1,11 @@
 {
-    "name": "BlockManager",
-    "alias": "blockmanager",
+    "name": "Minisite",
+    "alias": "minisite",
     "description": "",
     "keywords": [],
     "order": 0,
     "providers": [
-        "Modules\\BlockManager\\Providers\\BlockManagerServiceProvider"
+        "Modules\\Minisite\\Providers\\MinisiteServiceProvider"
     ],
     "aliases": {},
     "files": [],

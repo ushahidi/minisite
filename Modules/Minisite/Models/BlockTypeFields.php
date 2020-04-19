@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BlockManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +17,6 @@ class BlockTypeFields extends Model
 
     public function blockType()
     {
-        return $this->belongsTo('Modules\BlockManager\BlockType', 'block_type');
+        return $this->belongsTo('Modules\Minisite\Models\BlockType', 'block_type');
     }
 }

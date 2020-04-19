@@ -1,5 +1,5 @@
 {
-    "name": "ushahidi/blockmanager",
+    "name": "ushahidi/minisitemanager",
     "description": "",
     "authors": [
         {
@@ -10,7 +10,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\BlockManager\\Providers\\BlockManagerServiceProvider"
+                "Modules\\Minisite\\Providers\\MinisiteServiceProvider"
             ],
             "aliases": {
 
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\BlockManager\\": ""
+            "Modules\\Minisite\\": ""
         }
     },
     "require": {

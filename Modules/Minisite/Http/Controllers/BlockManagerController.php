@@ -1,19 +1,19 @@
 <?php
 
-namespace Modules\BlockManager\Http\Controllers;
+namespace Modules\Minisite\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller ;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-use Modules\CommunityManager\Community;
-use Modules\BlockManager\Block;
-use Modules\CommunityManager\Invite;
-use Modules\CommunityManager\UserCommunity;
+use Modules\Minisite\Models\Community;
+use Modules\Minisite\Models\Block;
+use Modules\Minisite\Models\Invite;
+use Modules\Minisite\Models\UserCommunity;
 
 use Carbon\Carbon;
-use Modules\BlockManager\BlockTypeFields;
+use Modules\Minisite\Models\BlockTypeFields;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class BlockManagerController extends Controller
@@ -92,7 +92,7 @@ class BlockManagerController extends Controller
         $collection = collect($returnBlocks);
         $blocks = $collection->sortBy('position');
         $community->blocks = $blocks;
-        return view('blockmanager::minisite.admin', ['community' => $community, 'blocks' => $blocks, 'role' => $role]);
+        return view('minisite::minisite.admin', ['community' => $community, 'blocks' => $blocks, 'role' => $role]);
     }
 
     /**
@@ -126,7 +126,7 @@ class BlockManagerController extends Controller
   
         $blocks = $community->blocks->sortBy('position');
         $sorted = json_encode($blocks->values()->all());
-        return view('blockmanager::minisite.reorder', ['community' => $community, 'sorted' => $sorted]);
+        return view('minisite::minisite.reorder', ['community' => $community, 'sorted' => $sorted]);
     }
     
     public function saveOrder(Request $request, Community $community) {

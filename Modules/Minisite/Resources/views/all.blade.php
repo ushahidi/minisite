@@ -10,7 +10,7 @@
             <div class="mdc-layout-grid__inner">
                 @foreach ($communities as $community)
                     <div class="grid-cell">                     
-                        @include('communitymanager::includes.community-card-admin', ['community' => $community])
+                        @include('minisite::includes.community-card-admin', ['community' => $community])
                     </div>
                 @endforeach
             </div>

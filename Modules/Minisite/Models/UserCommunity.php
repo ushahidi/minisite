@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CommunityManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

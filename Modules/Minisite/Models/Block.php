@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\BlockManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\CommunityManager\Community;
+use Modules\Minisite\Models\Community;
 use App\User;
 
 class Block extends Model

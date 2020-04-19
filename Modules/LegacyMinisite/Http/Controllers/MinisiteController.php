@@ -12,9 +12,9 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Mail;
 
 use App\User;
-use Modules\BlockManager\Block;
-use Modules\BlockManager\BlockTypeFields;
-use Modules\CommunityManager\Community;
+use Modules\Minisite\Models\Block;
+use Modules\Minisite\Models\BlockTypeFields;
+use Modules\Minisite\Models\Community;
 use App\Mail\SendSiteEmail;
 
 class MinisiteController extends Controller

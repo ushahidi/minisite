@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\CommunityManager;
+namespace Modules\Minisite\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Modules\CommunityManager\UserCommunity;
+use Modules\Minisite\Models\UserCommunity;
 use Illuminate\Support\Facades\DB;
 class Community extends Model implements Searchable
 {
@@ -117,12 +117,12 @@ class Community extends Model implements Searchable
 
     public function blocks()
     {
-        return $this->hasMany('Modules\BlockManager\Block');
+        return $this->hasMany('Modules\Minisite\Models\Block');
     }
 
     public function communityLocation()
     {
-        return $this->belongsTo('Modules\CommunityManager\CommunityLocation', 'location_id');
+        return $this->belongsTo('Modules\Minisite\Models\CommunityLocation', 'location_id');
     }
     
     /**

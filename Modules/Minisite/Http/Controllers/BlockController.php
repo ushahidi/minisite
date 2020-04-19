@@ -1,26 +1,16 @@
 <?php
 
-namespace Modules\BlockManager\Http\Controllers;
-use Modules\CommunityManager\Community;
+namespace Modules\Minisite\Http\Controllers;
+use Modules\Minisite\Models\Community;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
-use Modules\BlockManager\Block;
-use Modules\BlockManager\BlockType;
-use Modules\BlockManager\BlockTypeFields;
+use Modules\Minisite\Models\Block;
+use Modules\Minisite\Models\BlockType;
+use Modules\Minisite\Models\BlockTypeFields;
 use App\Http\Controllers\Controller ;
 
 class BlockController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -30,7 +20,7 @@ class BlockController extends Controller
     {
         $this->authorize('update', $community);
 
-        return view('blockmanager::block.create-block', 
+        return view('minisite::block.create-block', 
             [
                 'community' => $community,
                 'content' => '{}',
@@ -48,7 +38,7 @@ class BlockController extends Controller
     {
         $this->authorize('update', $community);
 
-        return view('blockmanager::block.create', 
+        return view('minisite::block.create', 
             [
                 'community' => $community,
                 'content' => '{}',
@@ -129,7 +119,7 @@ class BlockController extends Controller
             }
         }
 
-        return view('blockmanager::block.edit-block', 
+        return view('minisite::block.edit-block', 
         [
                 'community' => $community,
                 'content' => '{}',
