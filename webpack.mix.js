@@ -18,6 +18,7 @@ mix.sass(
         includePaths: ["node_modules"]
     }
 ).version();
+
 mix.js("resources/js/withvue.js", "public/js").version();
 ;
 
