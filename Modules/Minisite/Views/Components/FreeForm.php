@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Minisite\View\Components;
+namespace Modules\Minisite\Views\Components;
 
 use Illuminate\View\Component;
 
