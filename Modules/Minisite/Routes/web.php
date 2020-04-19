@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('community')->group(function () {
         Route::get('/create', 'CommunityManagerController@create')->name('communityCreate');
         Route::get('/{community}/edit', 'CommunityManagerController@edit')->name('communityEdit');
-        
+
         Route::post('/', 'CommunityManagerController@store')->name('communityStore');
         Route::put('/{community}', 'CommunityManagerController@update')->name('communityUpdate');
 
@@ -51,12 +51,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'CommunityManagerController@show')->name('communityShow');    
         Route::get('/{id}', 'CommunityManagerController@show')->name('communityShow');
 
-        Route::get('/{community}/members', 'CommunityManagerController@members')->name('community.members');
-        Route::get('/{community}/members/{user}', 'CommunityManagerController@member')->name('community.member');
-        Route::put('/{community}/members/{user}', 'CommunityManagerController@updateMember')->name('community.member.update');
 
         //invite mgmt
         Route::get('/{community}/members/invite', 'InviteController@inviteMembers')->name('community.members.invite');
         Route::post('/{community}/members/invite', 'InviteController@sendInvites')->name('community.members.invite.send');
+        
+        // membership management 
+        Route::get('/{community}/members', 'MembershipManagerController@members')->name('community.members');
+        Route::get('/{community}/members/{user}', 'MembershipManagerController@member')->name('community.member');
+        Route::put('/{community}/members/{user}', 'MembershipManagerController@updateMember')->name('community.member.update');
+
     });
 });

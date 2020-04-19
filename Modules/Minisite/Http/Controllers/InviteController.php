@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Minisite\Models\Invite;
 use Modules\Minisite\Models\Community;
-use Illuminate\Routing\Controller;
-
+use Modules\Minisite\Models\UserCommunity;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendInviteEmail;
+
 class InviteController extends Controller
 {
     
@@ -42,7 +45,7 @@ class InviteController extends Controller
             $invite->save();
             Mail::to(trim($email))
                 ->send(
-                    new SendSiteEmail(
+                    new SendInviteEmail(
                         $request->input('email'),
                         $request->input('message'),
                         route('joinFromInvite', ['token' => $token])

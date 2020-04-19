@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller ;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\AuthAuth;
 use Illuminate\Support\Facades\Session;
 use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
+use Illuminate\Support\Facades\Auth;
 
 use Modules\Minisite\Models\Invite;
 use App\User;

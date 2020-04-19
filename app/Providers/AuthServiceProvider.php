@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'Modules\Minisite\Models\Block' => 'App\Policies\BlockPolicy',
         'Modules\Minisite\Models\Community' => 'App\Policies\CommunityPolicy',
+        'Modules\Minisite\Models\Invite' => 'App\Policies\InvitePolicy',
     ];
 
     /**

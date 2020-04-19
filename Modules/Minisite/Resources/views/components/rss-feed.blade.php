@@ -5,7 +5,7 @@
         <ul class="col-12">
             @foreach ($block->content->Url->item as $item)
                 <li>
-                    <a href="{{$item->link}}"target="_blank">{{$item->title}}</a>
+                    <a href="{{$item->link}}" target="_blank">{{$item->title}}</a>
                 </li>
             @endforeach
         </ul>
