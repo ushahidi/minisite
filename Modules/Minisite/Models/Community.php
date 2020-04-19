@@ -65,6 +65,7 @@ class Community extends Model implements Searchable
 
     
     public function getRole($user) {
+        if (!$user) return 'guest';
         return DB::table('user_communities')->where(
             [
                 ['user_id', '=', $user->id],
