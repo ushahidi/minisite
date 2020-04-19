@@ -17,7 +17,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Icons -->
-    <script src="https://kit.fontawesome.com/856c74694a.js" crossorigin="anonymous" defer></script>
+    <script src="{{ mix('js/856c74694a.js') }}" crossorigin="anonymous" defer></script>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" defer>
