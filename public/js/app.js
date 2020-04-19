@@ -73600,7 +73600,9 @@ var render = function() {
           [
             _c("span", { staticClass: "mdc-list-item__text" }, [
               _vm._v(
-                "\r\n                " + _vm._s(item.name) + "\r\n            "
+                "\r\n                " +
+                  _vm._s(_vm.$I18n.trans("block." + item.name)) +
+                  "\r\n            "
               )
             ]),
             _vm._v(" "),
@@ -73621,7 +73623,7 @@ var render = function() {
                   _c("div", { staticClass: "mdc-button__ripple" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "mdc-button__label" }, [
-                    _vm._v("Up")
+                    _vm._v(_vm._s(_vm.$I18n.trans("block.up")))
                   ])
                 ]
               ),
@@ -73644,7 +73646,7 @@ var render = function() {
                   _c("div", { staticClass: "mdc-button__ripple" }),
                   _vm._v(" "),
                   _c("span", { staticClass: "mdc-button__label" }, [
-                    _vm._v("Down")
+                    _vm._v(_vm._s(_vm.$I18n.trans("block.down")))
                   ])
                 ]
               )

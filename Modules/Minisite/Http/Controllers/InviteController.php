@@ -12,20 +12,45 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class InviteController extends Controller
 {
-    protected function generate($communityId, Request $request) {
-        $generatedBy = Auth::user()->id;
-        $token = (string) Str::uuid();
-        //@change
-        $canGenerateLink = Community::find($communityId)->captain_id === $generatedBy;
-        $invite = Invite::create([
-            'token' => $token,
-            'generated_by' => $generatedBy,
-            'community_id' => $communityId
+    
+    protected function inviteMembers(Community $community) {
+        return view('minisite::members.invite', ['community' => $community]);
+    }
+    
+    //@todo make it async email
+    protected function sendInvites(Community $community, Request $request) {
+        $this->authorize('update', $community);
+
+        $user = Auth::user();
+        if (!$community->owner($user)){
+            abort(401);
+        }
+        $validatedData = $request->validate([
+            'emails' => ['required', 'string'],
+            'message' => ['required', 'string', 'max:255']
         ]);
-        $invite->save();
+        $emails = explode(",", $validatedData['emails']);
+        foreach ($emails as $email) {
+            $token = (string) Str::uuid();
+            $invite = Invite::create([
+                'role' => UserCommunity::ROLE_MEMBER,
+                'token' => $token,
+                'email' => trim($email),
+                'generated_by' => $user->id,
+                'community_id' => $community->id
+            ]);
+            $invite->save();
+            Mail::to(trim($email))
+                ->send(
+                    new SendSiteEmail(
+                        $request->input('email'),
+                        $request->input('message'),
+                        route('joinFromInvite', ['token' => $token])
+                    )
+                );
+        }
         return redirect()->route(
-            'communityShow',
-            ['id' => $communityId] )->with( ['token' => $invite->token, 'id' => $communityId]
+            'community.members', ['community' => $community]
         );
     }
 }

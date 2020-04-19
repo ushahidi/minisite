@@ -6,7 +6,7 @@
     @csrf
         <div class="mdc-layout-grid__inner">
             <div class="mdc-layout-grid__cell--span-12">
-                <p>Change the order in which blocks appear on your homepage by clicking on Up or Down buttons.</p>
+                <p>@lang('minisite.changeOrderBlocksExplainer')</p>
             </div>
 
             <div class="mdc-layout-grid__cell--span-12">

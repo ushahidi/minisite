@@ -25,4 +25,6 @@ return [
     'Free form' => 'Free form content',
     'rssFeed' => 'RSS Feed',
     'RSS Feed' => 'RSS Feed',
+    'up' => 'Up',
+    'down' => 'Down',
 ];

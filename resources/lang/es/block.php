@@ -25,4 +25,6 @@ return [
     'Free form' => 'Contenido de forma libre',
     'rssFeed' => 'Contenido RSS',
     'RSS Feed' => 'Contenido RSS',
+    'up' => 'Arriba',
+    'down' => 'Abajo',
 ];

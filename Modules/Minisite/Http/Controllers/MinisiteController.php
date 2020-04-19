@@ -16,7 +16,7 @@ use Carbon\Carbon;
 use Modules\Minisite\Models\BlockTypeFields;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-class BlockManagerController extends Controller
+class MinisiteController extends Controller
 {
 
     private function joinInvite(User $user) {

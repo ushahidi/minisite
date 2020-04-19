@@ -32,5 +32,9 @@ return [
     'reorderBlocks' => 'Reorder Blocks',
     'saveBlockOrder' => 'Save Block Order',
     'viewFullscreen' => 'View Fullscreen',
-    'ushahidiMap' => 'Ushahidi Map'
+    'ushahidiMap' => 'Ushahidi Map',
+    'inviteMembers' => 'Invite members',
+    'inviteMembersExplainer' => 'Invite members to this community or select existing members to manage them.',
+    'selectMember' => 'Select any existing member to manage them.',
+    'changeOrderBlocksExplainer' => 'Change the order in which blocks appear on your homepage by clicking on Up or Down buttons.'
 ];

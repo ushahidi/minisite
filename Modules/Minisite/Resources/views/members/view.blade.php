@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12 theme-primary">
-                        <p>Invite members to this community or select existing members to manage them.</p>
+                        <p>@lang('minisite.inviteMembersExplainer')</p>
                     </div>
 
                     <div class="mdc-layout-grid__cell--span-12">
@@ -19,7 +19,7 @@
                                 <div class="grid-cell">
                                     <a href="{{route('community.members.invite', ['community' => $community])}}" class="mdc-button mdc-button--raised theme-secondary-bg">
                                         <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Invite Members</span>
+                                        <span class="mdc-button__label">@lang('minisite.inviteMembers')</span>
                                     </a>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="mdc-layout-grid__cell--span-12">
-            <p>Selecting any existing member to manage them.</p>
+            <p>@lang('minisite.selectMember')</p>
         </div>
 
         <div class="mdc-layout-grid__cell--span-12">

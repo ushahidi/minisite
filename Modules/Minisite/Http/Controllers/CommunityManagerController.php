@@ -66,7 +66,7 @@ class CommunityManagerController extends Controller
     {
         $user = Auth::user();
 
-        return view('communitymanager::community.create', ['user' => $user]);
+        return view('minisite::community.create', ['user' => $user]);
     }
 
     /**
@@ -80,7 +80,7 @@ class CommunityManagerController extends Controller
         $this->authorize('update', $community);
 
         $user = Auth::user();
-        return view('communitymanager::community.edit', ['user' => $user, 'community' => $community]);
+        return view('minisite::community.edit', ['user' => $user, 'community' => $community]);
     }
     /**
      * Show the community for the given user.
@@ -96,7 +96,7 @@ class CommunityManagerController extends Controller
         if (!$community) {
             abort(404, 'You don\'t belong to any community yet');
         }
-        return view('communitymanager::community.show', ['community' => Community::findOrFail($community->id)]);
+        return view('minisite::community.show', ['community' => Community::findOrFail($community->id)]);
     }
     
     /**
@@ -218,7 +218,7 @@ class CommunityManagerController extends Controller
     protected function getLocationOptions(Community $community, Request $request) {
         $this->authorize('update', $community);
         if (!$request->input('location_string')) {
-            return view('communitymanager::community.set-location', ['community' => $community, 'locations' => []]);
+            return view('minisite::community.set-location', ['community' => $community, 'locations' => []]);
         }
         $location_string = $request->input('location');
         $httpClient = new \Http\Adapter\Guzzle6\Client();
@@ -240,14 +240,14 @@ class CommunityManagerController extends Controller
             ];
             $locations[] = array_merge($geoCoderBase, $nominatim);
         }
-        return view('communitymanager::community.set-location', ['community' => $community, 'locations' => $locations]);
+        return view('minisite::community.set-location', ['community' => $community, 'locations' => $locations]);
     }
 
     protected function storeLocation(Community $community, Request $request) {
         $this->authorize('update', $community);
         $locationJSON = json_decode($request->input("location"));
         if (!$locationJSON) {
-            return view('communitymanager::community.set-location', ['community' => $community, 'locations' => []]);
+            return view('minisite::community.set-location', ['community' => $community, 'locations' => []]);
         }
         $communityLocation = CommunityLocation::create(
             [
@@ -303,13 +303,13 @@ class CommunityManagerController extends Controller
     protected function members(Community $community) {
         $this->authorize('update', $community);
 
-        return view('communitymanager::members.view', ['community' => $community, 'members' => $community->members]);
+        return view('minisite::members.view', ['community' => $community, 'members' => $community->members]);
     }
     
     protected function member(Community $community, User $user) {
         $this->authorize('update', $community);
 
-        return view('communitymanager::members.show', ['community' => $community, 'member' => $user]);
+        return view('minisite::members.show', ['community' => $community, 'member' => $user]);
     }
 
     protected function updateMember(Community $community, User $user, Request $request) {
@@ -330,47 +330,6 @@ class CommunityManagerController extends Controller
         );
     }
 
-    protected function inviteMembers(Community $community) {
-        return view('communitymanager::members.invite', ['community' => $community]);
-
-    }
-    //@todo make it async email
-    protected function sendInvites(Community $community, Request $request) {
-        $this->authorize('update', $community);
-
-        $user = Auth::user();
-        if (!$community->owner($user)){
-            abort(401);
-        }
-        $validatedData = $request->validate([
-            'emails' => ['required', 'string'],
-            'message' => ['required', 'string', 'max:255']
-        ]);
-        $emails = explode(",", $validatedData['emails']);
-        foreach ($emails as $email) {
-            $token = (string) Str::uuid();
-            $invite = Invite::create([
-                'role' => UserCommunity::ROLE_MEMBER,
-                'token' => $token,
-                'email' => trim($email),
-                'generated_by' => $user->id,
-                'community_id' => $community->id
-            ]);
-            $invite->save();
-            Mail::to(trim($email))
-                ->send(
-                    new SendSiteEmail(
-                        $request->input('email'),
-                        $request->input('message'),
-                        route('joinFromInvite', ['token' => $token])
-                    )
-                );
-        }
-        return redirect()->route(
-            'community.members', ['community' => $community]
-        );
-    }
-    
     public function email(Community $community, Block $block, Request $request)
     {
         $errors = null;
