@@ -4,7 +4,15 @@ namespace Modules\Minisite\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-
+use Illuminate\Support\Facades\Blade;
+use Modules\Minisite\View\Components\EmailForm;
+use Modules\Minisite\View\Components\FeaturedYoutubeVideo;
+use Modules\Minisite\View\Components\FreeForm;
+use Modules\Minisite\View\Components\PageHeader;
+use Modules\Minisite\View\Components\PinnedInformation;
+use Modules\Minisite\View\Components\RSSFeed;
+use Modules\Minisite\View\Components\UshahidiPlatformMap;
+use Modules\Minisite\View\Components\WhatsAppGroup;
 class MinisiteServiceProvider extends ServiceProvider
 {
     /**
@@ -15,7 +23,7 @@ class MinisiteServiceProvider extends ServiceProvider
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'blockmanager';
+    protected $moduleNameLower = 'minisite';
 
     /**
      * Boot the application events.
@@ -24,11 +32,20 @@ class MinisiteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::component('email-form', EmailForm::class);
+        Blade::component('featured-youtube-video', FeaturedYoutubeVideo::class);
+        Blade::component('free-form', FreeForm::class);
+        Blade::component('page-header', PageHeader::class);
+        Blade::component('pinned-information', PinnedInformation::class);
+        Blade::component('rss-feed', RSSFeed::class);
+        Blade::component('ushahidi-platform-map', UshahidiPlatformMap::class);
+        Blade::component('whats-app-group', WhatsAppGroup::class);
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
     }
 
     /**
