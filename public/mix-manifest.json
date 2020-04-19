@@ -1,6 +1,9 @@
 {
-    "/js/app.js": "/js/app.js?id=5bb55f320ee311148703",
-    "/js/withleaflet.js": "/js/withleaflet.js?id=7c067e075bcf1a3b0a7e",
-    "/js/withvue.js": "/js/withvue.js?id=413727f0fdfb0ecb3b25",
-    "/css/app.css": "/css/app.css?id=58c0d213edc630fb49b2"
+    "/js/856c74694a.js": "/js/856c74694a.js",
+    "/js/app.js": "/js/app.js",
+    "/js/withleaflet.js": "/js/withleaflet.js",
+    "/js/withvue.js": "/js/withvue.js",
+    "/css/Roboto300-400-500.css": "/css/Roboto300-400-500.css?id=6c249d3515315a09963d",
+    "/css/MaterialIcons.css": "/css/MaterialIcons.css?id=10bfd61f227a2cbd7c6d",
+    "/css/app.css": "/css/app.css"
 }
