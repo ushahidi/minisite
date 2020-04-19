@@ -56,7 +56,7 @@
                                 <div class="grid-cell">
                                     <a href="{{route('communityEdit', ['community' => $community])}}" class="mdc-button mdc-button--raised theme-secondary-bg">
                                         <div class="mdc-button__ripple"></div>
-                                        <span class="mdc-button__label">Edit your site preferences</span>
+                                        <span class="mdc-button__label">Edit site preferences</span>
                                     </a>
                                 </div>
                             </div>
