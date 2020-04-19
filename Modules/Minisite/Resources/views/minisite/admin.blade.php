@@ -38,8 +38,6 @@
             </div>
         @endif
         @if (session('selectedCommunityRole') === 'owner' )
-
-
         <div class="mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
                 <div class="mdc-layout-grid__inner">

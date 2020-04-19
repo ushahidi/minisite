@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.withvue')
 
 @section('content')
 <div class="add-block">

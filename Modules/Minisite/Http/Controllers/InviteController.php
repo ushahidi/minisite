@@ -25,7 +25,7 @@ class InviteController extends Controller
         $this->authorize('update', $community);
 
         $user = Auth::user();
-        if (!$community->owner($user)){
+        if (!$community->getRole($user) === UserCommunity::ROLE_OWNER){
             abort(401);
         }
         $validatedData = $request->validate([
