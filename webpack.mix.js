@@ -17,10 +17,11 @@ mix.sass(
     {
         includePaths: ["node_modules"]
     }
-);
-mix.js("resources/js/withvue.js", "public/js");
+).version();
+mix.js("resources/js/withvue.js", "public/js").version();
+;
 
-mix.js("resources/js/app.js", "public/js");
+mix.js("resources/js/app.js", "public/js").version();
 
 // https://browsersync.io/docs/options
 mix.browserSync({
