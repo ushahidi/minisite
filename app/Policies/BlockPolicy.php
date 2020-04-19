@@ -4,6 +4,8 @@ namespace App\Policies;
 
 use Modules\Minisite\Models\Block;
 use Modules\Minisite\Models\Community;
+use Modules\Minisite\Models\UserCommunity;
+
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -54,7 +56,7 @@ class BlockPolicy
      */
     public function update(User $user, Community $community)
     {
-        return $community->owner($user) || $community->admin($user);
+        return $community->getRole($user) === UserCommunity::ROLE_OWNER || $community->getRole($user) === UserCommunity::ROLE_ADMIN;
     }
 
     /**
@@ -66,12 +68,12 @@ class BlockPolicy
      */
     public function delete(User $user, Block $block, Community $community)
     {
-        return $community->owner($user);
+        return $community->getRole($user) === UserCommunity::ROLE_OWNER;
     }
 
     public function getLocationOptions(User $user, Block $block, Community $community)
     {
-        return $community->owner($user);
+        return $community->getRole($user) === UserCommunity::ROLE_OWNER;
     }
     /**
      * Determine whether the user can restore the modules block manager block.
@@ -82,7 +84,7 @@ class BlockPolicy
      */
     public function restore(User $user, Block $block, Community $community)
     {
-        return $community->owner($user) || $community->admin($user);
+        return $community->getRole($user) === UserCommunity::ROLE_OWNER || $community->getRole($user) === UserCommunity::ROLE_ADMIN;
     }
 
     /**
@@ -94,6 +96,6 @@ class BlockPolicy
      */
     public function forceDelete(User $user, Block $block, Community $community)
     {
-        return $community->owner($user);
+        return $community->getRole($user) === UserCommunity::ROLE_OWNER;
     }
 }

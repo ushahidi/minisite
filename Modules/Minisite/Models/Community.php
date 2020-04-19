@@ -63,57 +63,19 @@ class Community extends Model implements Searchable
         return $this->belongsToMany('App\User', 'user_communities');
     }
 
-    public function member($user) {
+    
+    public function getRole($user) {
         return DB::table('user_communities')->where(
             [
                 ['user_id', '=', $user->id],
-                ['community_id', '=', $this->id],
-                ['role', '=', UserCommunity::ROLE_MEMBER]
+                ['community_id', '=', $this->id]
             ]
-        )->first() ?? null;            
-    }
-
-    public function admin($user) {
-        return DB::table('user_communities')->where(
-            [
-                ['user_id', '=', $user->id],
-                ['community_id', '=', $this->id],
-                ['role', '=', UserCommunity::ROLE_ADMIN]
-            ]
-        )->first() ?? null;            
-    }
-
-    public function owner($user) {
-
-        return DB::table('user_communities')->where(
-            [
-                ['user_id', '=', $user->id],
-                ['community_id', '=', $this->id],
-                ['role', '=', UserCommunity::ROLE_OWNER]
-            ]
-        )->first() ?? null;
+        )->first()->role ?? 'guest';            
     }
 
     public function containsUser($user) {
         return UserCommunity::where('user_id', $user->id)->where('community_id', $this->id)->get() ?? null;
     }
-
-    // //@change
-    // public function captain()
-    // {
-    //     return $this->belongsTo('App\User', 'captain_id');
-    // }
-
-    // public function getSearchResult(): SearchResult
-    // {
-    //    $url = route('communityShow', $this->id);
-    
-    //     return new \Spatie\Searchable\SearchResult(
-    //        $this,
-    //        $this->name,
-    //        $url
-    //     );
-    // }
 
     public function blocks()
     {

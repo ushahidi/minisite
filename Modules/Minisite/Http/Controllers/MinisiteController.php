@@ -28,20 +28,7 @@ class MinisiteController extends Controller
     {
         $user = Auth::user();
 
-        // if (!$community->owner($user)){
-        //     abort("401", "You are not authorized to edit this page");
-        // }
-        // @todo refactor to just grab the role :shrugs: this is bad
-        // @todo super gross if I'm an owener in SOME site I'm suddenly an owner in all of them wtf
-        $role = 'guest';
-        if ($user && $community->owner($user)) {
-            $role = 'owner';
-        } else if ($user && $community->admin($user)) {
-            $role = 'admin';
-        } else if ($user && $community->member($user)) {
-            $role = 'member';
-        }
-        
+        $role = $community->getRole($user);
 
         $returnBlocks = [];
         foreach($community->blocks as $block) {
