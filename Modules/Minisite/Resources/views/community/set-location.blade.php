@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.withleaflet')
 
 @section('content')
 <div class="create">
