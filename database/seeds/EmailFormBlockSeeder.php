@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Modules\BlockManager\BlockTypeFields;
-use Modules\BlockManager\BlockType;
+use Modules\Minisite\Models\BlockTypeFields;
+use Modules\Minisite\Models\BlockType;
 class EmailFormBlockSeeder extends Seeder
 {
     /**

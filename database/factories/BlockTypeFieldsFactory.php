@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Modules\BlockManager\BlockTypeFields;
+use Modules\Minisite\Models\BlockTypeFields;
 use Faker\Generator as Faker;
 
 $factory->define(BlockTypeFields::class, function (Faker $faker) {

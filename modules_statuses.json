@@ -1,6 +1,4 @@
 {
-    "BlockManager": true,
-    "CommunityManager": true,
     "Minisite": true,
     "Core": true,
     "MahallahLanding": true
