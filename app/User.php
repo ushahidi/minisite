@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Modules\CommunityManager\Community;
-use Modules\CommunityManager\UserCommunity;
+use Modules\Minisite\Models\Community;
+use Modules\Minisite\Models\UserCommunity;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,7 +40,7 @@ class User extends Authenticatable
     
     public function communities()
     {
-        return $this->belongsToMany('Modules\CommunityManager\Community', 'user_communities');
+        return $this->belongsToMany('Modules\Minisite\Models\Community', 'user_communities');
     }
     public function getRole(Community $community)
     {

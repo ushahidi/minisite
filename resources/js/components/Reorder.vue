@@ -5,16 +5,16 @@
     <ul class="mdc-list reorder-list">
         <li  v-bind:key="item.id" v-for="(item, index) in items" class="mdc-list-item" tabindex="0">
             <span class="mdc-list-item__text">
-                {{ item.name }}
+                {{ $I18n.trans('block.' +  item.name ) }}
             </span>
             <div class="reorder-buttons">
                 <button type="button" class="mdc-button mdc-button--raised theme-neutral-bg theme-black" @click="move(index,index-1)" :disabled="index==0">
                     <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">Up</span>
+                    <span class="mdc-button__label">{{ $I18n.trans('block.up') }}</span>
                 </button>
                 <button type="button" class="mdc-button mdc-button--raised theme-neutral-bg"  @click="move(index,index+1)"  :disabled="index==(items.length-1)">
                     <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">Down</span>
+                    <span class="mdc-button__label">{{ $I18n.trans('block.down') }}</span>
                 </button>
             </div>
         </li>

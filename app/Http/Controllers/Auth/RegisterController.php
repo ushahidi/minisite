@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Modules\CommunityManager\Invite;
-use Modules\CommunityManager\UserCommunity;
-
+use Modules\Minisite\Models\Invite;
+use Modules\Minisite\Models\UserCommunity;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -68,22 +67,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $invite = Invite::where('token', $data['invitation_token'])->first();
         $userData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ];
         $user = User::create($userData);
-
-        $community_id = null;
-        if (isset($invite) && $invite->claimed){
-            return abort(403);
-        } else if (isset($invite)){
-            $community_id = Invite::where('token', $data['invitation_token'])->first()->community_id;
-            Invite::where('token', $data['invitation_token'])->update(['claimed' => Carbon::now()]);
-            UserCommunity::create(['user_id' => $user->id, 'community_id' => $community_id, 'role' => $invite->role]);
-        }
         return $user;
     }
 }

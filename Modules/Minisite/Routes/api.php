@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/minisite', function (Request $request) {
+// Route::middleware('auth:api')->get('/blockmanager', function (Request $request) {
 //     return $request->user();
 // });

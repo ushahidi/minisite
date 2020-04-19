@@ -6,9 +6,6 @@
         <div class="mdc-layout-grid__cell--span-12">
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-                <input id="invitation_token" type="text" name="invitation_token" value="{{ Session::get('token') }}"
-                    hidden>
-
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="mdc-text-field">

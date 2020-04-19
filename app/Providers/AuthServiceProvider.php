@@ -13,8 +13,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Modules\BlockManager\Block' => 'App\Policies\BlockPolicy',
-        'Modules\CommunityManager\Community' => 'App\Policies\CommunityPolicy',
+        'Modules\Minisite\Models\Block' => 'App\Policies\BlockPolicy',
+        'Modules\Minisite\Models\Community' => 'App\Policies\CommunityPolicy',
+        'Modules\Minisite\Models\Invite' => 'App\Policies\InvitePolicy',
     ];
 
     /**

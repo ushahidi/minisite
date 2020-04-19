@@ -7,13 +7,13 @@
         <title>Module Minisite</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/minisite.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="{{ mix('css/blockmanager.css') }}"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/minisite.js') }}"></script> --}}
+        {{-- <script src="{{ mix('js/blockmanager.js') }}"></script> --}}
     </body>
 </html>

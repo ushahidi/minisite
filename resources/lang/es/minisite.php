@@ -30,7 +30,11 @@ return [
     'describeYourSite' => 'Describe el sitio de tu communidad',
     'welcomeMessage' => 'Mensaje de bienvenida',
     'reorderBlocks' => 'Reordenar bloques',
-    'saveBlockOrder' => 'Guarder el orden de los bloques',
+    'saveBlockOrder' => 'Guardar el orden de los bloques',
     'viewFullscreen' => 'Ver en pantalla completa',
-    'ushahidiMap' => 'Mapa Ushahidi'
+    'ushahidiMap' => 'Mapa Ushahidi',
+    'inviteMembers' => 'Invita a tu comunidad.',
+    'inviteMembersExplainer' => 'Invita miembros a tu comunidad o selecciona a un miembro de tu comunidad para manejarlo.',
+    'selectMember' => 'Selecciona a un miembro de tu comunidad para manejarlo.',
+    'changeOrderBlocksExplainer' => 'Cambia el orden en el que los bloques aparecen en tu sitio haciendo click en el boton de Arriba o Abajo.'
 ];

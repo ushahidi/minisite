@@ -6,7 +6,6 @@
         <div class="mdc-layout-grid__cell--span-12">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="mdc-text-field">

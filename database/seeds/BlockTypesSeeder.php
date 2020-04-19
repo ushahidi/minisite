@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Modules\BlockManager\BlockType;
+use Modules\Minisite\Models\BlockType;
 class BlockTypeSeeder extends Seeder
 {
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use Modules\BlockManager\Block;
-use Modules\CommunityManager\Community;
+use Modules\Minisite\Models\Block;
+use Modules\Minisite\Models\Community;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -26,7 +26,7 @@ class BlockPolicy
      * Determine whether the user can view the modules block manager block.
      *
      * @param  \App\User  $user
-     * @param  \App\ModulesBlockManagerBlock  $modulesBlockManagerBlock
+     * @param  \App\ModulesMinisiteBlock  $modulesMinisiteBlock
      * @return mixed
      */
     public function view(User $user, Block $block)
@@ -49,7 +49,7 @@ class BlockPolicy
      * Determine whether the user can update the modules block manager block.
      *
      * @param  \App\User  $user
-     * @param  \App\ModulesBlockManagerBlock  $modulesBlockManagerBlock
+     * @param  \App\ModulesMinisiteBlock  $modulesMinisiteBlock
      * @return mixed
      */
     public function update(User $user, Community $community)
@@ -61,7 +61,7 @@ class BlockPolicy
      * Determine whether the user can delete the modules block manager block.
      *
      * @param  \App\User  $user
-     * @param  \App\ModulesBlockManagerBlock  $modulesBlockManagerBlock
+     * @param  \App\ModulesMinisiteBlock  $modulesMinisiteBlock
      * @return mixed
      */
     public function delete(User $user, Block $block, Community $community)
@@ -77,7 +77,7 @@ class BlockPolicy
      * Determine whether the user can restore the modules block manager block.
      *
      * @param  \App\User  $user
-     * @param  \App\ModulesBlockManagerBlock  $modulesBlockManagerBlock
+     * @param  \App\ModulesMinisiteBlock  $modulesMinisiteBlock
      * @return mixed
      */
     public function restore(User $user, Block $block, Community $community)
@@ -89,7 +89,7 @@ class BlockPolicy
      * Determine whether the user can permanently delete the modules block manager block.
      *
      * @param  \App\User  $user
-     * @param  \App\ModulesBlockManagerBlock  $modulesBlockManagerBlock
+     * @param  \App\ModulesMinisiteBlock  $modulesMinisiteBlock
      * @return mixed
      */
     public function forceDelete(User $user, Block $block, Community $community)
