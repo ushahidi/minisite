@@ -13,3 +13,5 @@
 Route::get('/', 'MahallahLandingController@index')->name('landing');
 Route::get('/search', 'MahallahLandingController@searchPage')->name('landing.search');
 Route::post('/search', 'MahallahLandingController@search')->name('landing.search.submit');
+Route::get('/privacy-policy', 'MahallahLandingController@privacy')->name('landing.privacy');
+Route::get('/terms-of-service', 'MahallahLandingController@tos')->name('landing.tos');

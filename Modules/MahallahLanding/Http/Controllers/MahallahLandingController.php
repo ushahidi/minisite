@@ -17,6 +17,14 @@ use Modules\Minisite\Models\CommunityLocation;
 use Illuminate\Support\Facades\DB;
 class MahallahLandingController extends Controller
 {
+
+    public function privacy() {
+        return view('mahallahlanding::privacy');
+    }
+    
+    public function tos() {
+        return view('mahallahlanding::tos');
+    }
     /**
      * Display a listing of the resource.
      * @return Response
