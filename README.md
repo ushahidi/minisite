@@ -1,5 +1,6 @@
 
 
+# Mahallah minisites creator
 # Setup
 - Install virtualbox 6.x (or other virtualizer like parallels/vmware) https://www.virtualbox.org/wiki/Downloads
 - Install vagrant https://www.vagrantup.com/downloads.html 
@@ -47,12 +48,13 @@ hostname: minisite
 - you should be able to access `minisite.homestead.test` in your machine's browser
 
 # Adding new block components
+### TODO add better dev experience post-launch since this all got a bit too cumbersome a couple of weeks ago 
 - Add a new seeder for the new block. Example with WhatsappGroupBlock: `php artisan make:seeder WhatsappGroupBlock` 
 - Add it to `database\seeds\DatabaseSeeder.php`
 - To create the block details and fields, follow the example in the database\seeds\WhatsappGroupBlock.php file
 - run the seeder. Example: `php artisan db:seed --class="WhatsappGroupBlock"`
-- Add a component for the block. Example `php artisan make:component WhatsAppGroup`
-- Go to the component's class. You can find it in app\View\Components. Example: app\View\Components\WhatsAppGroup.php
+- Add a component for the block in Modules\Minisite\View\Components (you can use a pre existing one as an example for the moment)
+- Go to the component's class you created. Example: Modules\Minisite\View\Components\WhatsAppGroup.php
 - Add the $block field to the class constructor and class properties. Example:
 ``````
      public $block;
@@ -66,7 +68,7 @@ hostname: minisite
           $this->block = $block;
      }
 ``````
-- Go to resources\views\site\public.blade.php to add the block into the website layout. 
+- Go to Modules\Minisite\Resources\views\site\public.blade.php to add the block into the website layout. 
      - Example of using the component (notice the x and the name of the block)
      ``````
           <x-whatsapp-group :block='$block'></x-whatsapp-group>
@@ -79,38 +81,22 @@ hostname: minisite
 - I get an error that a class cannot be found, but I am sure the correct path and namespace 
     - Run  `composer dump-autoload;` to update path maps 
 - I want to start over with my database
-    - composer dump-autoload; php artisan db:wipe; php artisan migrate; php artisan db:seed; 
-
-
-
-#geocode notes
-- User to write down neighborhood
-- Pick up first result from OSM
-- Show it to them, let them put a pin somewhere (or take the center/default if they don't pick one)
-- Confirm we got the right neighrbohood
-- Save Neighborhood, City, blablabla, but not necessarily lat/lon at this point
-- 
-
-https://github.com/thephpleague/geotools
-https://github.com/geocoder-php/Geocoder#special-geocoders-and-providers
-
-
-
-
-# Deploy
-php artisan down;
-git pull origin master;
-~/composer.phar install;
-php artisan migrate --database=migrate;
-sudo chown -R www-data:www-data storage/;
-npm run production;
-php artisan config:cache;
-php artisan view:cache;
-~/composer.phar dumpautoload;
-php artisan up;
+    - composer dump-autoload; php artisan db:wipe; php artisan migrate --database=migrate; php artisan db:seed; 
 
 
 # Route naming
 shortModuleName.action[.submit|.store]
 ie: 
 landing.search.submit for MahallahLanding.search.submit
+
+
+# Contributing
+
+This is very much a fast changing project, as we're heavily iterating on everything.  In practice that means that structure may still change a lot, and conflicts will arise very often :) 
+
+All suggestions and pull requests welcome. 
+We ask that you follow and abide by our code of conduct at all times, which you can find at https://docs.ushahidi.com/platform-developer-documentation/code-of-conduct
+
+# Security
+Please email security@ushahidi.com for any security issues and reports. 
+Refer to our http://ushahidi.com/security page if you have any questions about our policies. 
