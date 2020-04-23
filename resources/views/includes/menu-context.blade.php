@@ -3,7 +3,14 @@
         <div class="mdc-layout-grid__inner">
             @if (Request::is('/', 'login', 'register'))
             <div class="mdc-layout-grid__cell--span-12">
-                <h3 class="mdc-drawer__title"><img src="{{asset('img/mahalla-logo@2x.png')}}"/></h3>
+                <h3 class="mdc-drawer__title">
+                    <a  href="/">
+                        <div>
+                            <img src="{{asset('img/mahalla-logo@2x.png')}}" style="width: 140px;
+                    margin-top: 6px;" alt="{{ config('app.name', 'Mahalla') }}"/>
+                        </div>
+                    </a>
+                </h3>
             </div>
             @endif
             @if (!Auth::user())
@@ -36,7 +43,7 @@
                         <h2 class="mdc-card__title mdc-typography mdc-typography--headline6 p-0">
                             {{ Auth::user() ? Auth::user()->name : '' }}
                         </h2>
-                        
+
                         <span class="mdc-card__subtitle mdc-typography mdc-typography--subtitle2">
                             {{ Auth::user() ? Auth::user()->email : '' }}
                             <i class="fas fa-caret-down icon"></i>
