@@ -78,7 +78,7 @@ background-color: #f6f6f6;
                                 </td>
 								</tr>
                                 <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; line-height: 1.2em; vertical-align: top; margin: 0; padding: 0 0 5px;" valign="top">
-                                        Join the community (community name as link) by clicking on the link provided below.
+                                        Join the community <a href="{{$communityUrl}}">{{$communityName}}</a> by clicking on the link provided below.
                                 </td>
                                 </tr>
                 <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px; line-height: 1.2em;" valign="top">
