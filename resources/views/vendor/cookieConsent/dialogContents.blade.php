@@ -1,4 +1,11 @@
-<div class="mdc-dialog js-cookie-consent cookie-consent">
+<div class="mdc-dialog js-cookie-consent cookie-consent"
+    style="position: fixed;
+    background: #f5f5f5;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface"
       role="alertdialog"
