@@ -9912,6 +9912,7 @@ footer {
 .welcome h1 {
   font-size: 32px;
   color: #47B7AD;
+  line-height: 1.1em;
 }
 
 .welcome h4 {
