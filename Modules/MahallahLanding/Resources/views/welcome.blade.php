@@ -34,7 +34,7 @@
         <div class="mdc-layout-grid__cell--span-12">
             <h4>Things you can do</h4>
             <div class="mdc-card">
-                <i class="fas fa-user-circle icon"></i>
+                <i class="fas fa-bullhorn icon" style="color:#47B7AD"></i>
                 <h6>TACKLE MISINFORMATION</h6>
                 <p>Crowdsource and publish validated info with help from your community. Information like local
                     news,
@@ -43,19 +43,19 @@
             </div>
 
             <div class="mdc-card">
-                <i class="fas fa-user-circle icon"></i>
+                <i class="fas fa-bell icon" style="color:#EF6292"></i>
                 <h6>POST LOCAL ALERTS</h6>
                 <p>Post alerts that are locally relevant</p>
             </div>
 
             <div class="mdc-card">
-                <i class="fas fa-user-circle icon"></i>
-                <h6>LOCAL RESOURCES</h6>
+                <i class="fas fa-map-marker icon" style="color:#47B7AD"></i>
+                <h6>SHARE LOCAL RESOURCES</h6>
                 <p>Share & maintain information on shops and establishments open during COVID-19 lockdown</p>
             </div>
 
             <div class="mdc-card">
-                <i class="fas fa-user-circle icon"></i>
+                <i class="fas fa-heartbeat icon" style="color:#EF6292"></i>
                 <h6>HELP EACH OTHER</h6>
                 <p>Find someone to help you with a task</p>
             </div>
@@ -64,7 +64,7 @@
         <div class="mdc-layout-grid__cell--span-12">
             <h4>Active Communities</h4>
             @foreach ($activeCommunities as $community)
-                @include('mahallahlanding::includes.community-card', ['community' => $community])    
+                @include('mahallahlanding::includes.community-card', ['community' => $community])
             @endforeach
             <div class="mdc-card">
                 <h6 class="theme-primary tal">MAHALLA</h6>
