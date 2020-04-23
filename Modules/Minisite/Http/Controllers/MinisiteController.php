@@ -29,7 +29,9 @@ class MinisiteController extends Controller
         $user = Auth::user();
 
         $role = $community->getRole($user);
-
+        if (!$user && $community->visibility !== Community::VISIBILITY_PUBLIC){
+            abort(401);
+        }
         $returnBlocks = [];
         foreach($community->blocks as $block) {
             $content = $block->content;
