@@ -51,9 +51,7 @@
             </div>
         </div>
     </div>
-    <footer>
-        &nbsp;
-    </footer>
+    @include('includes.footer')
     @include('includes.simpleanalytics')
 </body>
 

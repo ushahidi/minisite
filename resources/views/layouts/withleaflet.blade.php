@@ -46,6 +46,7 @@
             </div>
         </div>
     </div>
+    @include('includes.footer')
     @include('includes.simpleanalytics')
 </body>
 
