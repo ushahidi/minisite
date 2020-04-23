@@ -47,6 +47,7 @@
         </div>
     </div>
     @include('cookieConsent::index') 
+    @include('includes.footer')
     @include('includes.simpleanalytics')
 </body>
 
