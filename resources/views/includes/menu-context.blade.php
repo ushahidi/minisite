@@ -3,7 +3,7 @@
         <div class="mdc-layout-grid__inner">
             @if (Request::is('/', 'login', 'register'))
             <div class="mdc-layout-grid__cell--span-12">
-                <h3 class="mdc-drawer__title">Mahallah.org</h3>
+                <h3 class="mdc-drawer__title"><img src="{{asset('img/mahalla-logo@2x.png')}}"/></h3>
             </div>
             @endif
             @if (!Auth::user())
