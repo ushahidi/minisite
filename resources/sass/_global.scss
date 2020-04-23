@@ -174,7 +174,8 @@ p {
 }
 footer {
     padding: 4px;
-    background-color: $theme-primary;
+    background-color: $theme-secondary;
+    font-size: 14px;
 }
 .invalid-feedback {
     color: $mdc-theme-error;
