@@ -1,6 +1,10 @@
 
+[logo]: https://github.com/ushahidi/minisite/raw/master/public/img/mahalla-logo@2x.png "Mahallah"
 
 # Mahallah minisites creator
+
+![Mahallah Logo][logo]
+
 # Setup
 - Install virtualbox 6.x (or other virtualizer like parallels/vmware) https://www.virtualbox.org/wiki/Downloads
 - Install vagrant https://www.vagrantup.com/downloads.html 
