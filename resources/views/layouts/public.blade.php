@@ -51,6 +51,8 @@
             </div>
         </div>
     </div>
+    @include('cookieConsent::index')
+
     <footer>
         &nbsp;
     </footer>

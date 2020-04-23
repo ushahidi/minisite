@@ -24,6 +24,7 @@
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.8",
         "scrumpy/prosemirror-to-html": "^0.8.0",
+        "spatie/laravel-cookie-consent": "^2.12",
         "spatie/laravel-html": "^2.25",
         "spatie/laravel-searchable": "^1.6",
         "thepinecode/i18n": "^0.8.0",
