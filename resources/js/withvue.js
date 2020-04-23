@@ -7,6 +7,8 @@
 require("./bootstrap");
 require("./material-ui-custom");
 import I18n from "./vendor/I18n";
+import SvgVue from 'svg-vue';
+
 window.I18n = I18n;
 window.Vue = require("vue");
 window.Vue.prototype.$I18n = new I18n();
@@ -24,7 +26,7 @@ window.Vue.prototype.$I18n = new I18n();
 
 Vue.component("editor", require("./components/tiptap/Editor.vue").default)
 Vue.component("reorder", require("./components/Reorder.vue").default)
-
+Vue.use(SvgVue);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

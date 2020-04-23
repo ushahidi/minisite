@@ -9161,6 +9161,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     name: {},
@@ -13710,10 +13712,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/lib/loader.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15080,7 +15082,7 @@ https://highlightjs.org/
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.4.1
+ * jQuery JavaScript Library v3.5.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -15090,7 +15092,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-05-01T21:04Z
+ * Date: 2020-04-10T15:07Z
  */
 ( function( global, factory ) {
 
@@ -15128,13 +15130,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 var arr = [];
 
-var document = window.document;
-
 var getProto = Object.getPrototypeOf;
 
 var slice = arr.slice;
 
-var concat = arr.concat;
+var flat = arr.flat ? function( array ) {
+	return arr.flat.call( array );
+} : function( array ) {
+	return arr.concat.apply( [], array );
+};
+
 
 var push = arr.push;
 
@@ -15166,6 +15171,8 @@ var isWindow = function isWindow( obj ) {
 		return obj != null && obj === obj.window;
 	};
 
+
+var document = window.document;
 
 
 
@@ -15223,7 +15230,7 @@ function toType( obj ) {
 
 
 var
-	version = "3.4.1",
+	version = "3.5.0",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -15231,11 +15238,7 @@ var
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
 		return new jQuery.fn.init( selector, context );
-	},
-
-	// Support: Android <=4.0 only
-	// Make sure we trim BOM and NBSP
-	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+	};
 
 jQuery.fn = jQuery.prototype = {
 
@@ -15299,6 +15302,18 @@ jQuery.fn = jQuery.prototype = {
 
 	last: function() {
 		return this.eq( -1 );
+	},
+
+	even: function() {
+		return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+			return ( i + 1 ) % 2;
+		} ) );
+	},
+
+	odd: function() {
+		return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+			return i % 2;
+		} ) );
 	},
 
 	eq: function( i ) {
@@ -15434,9 +15449,10 @@ jQuery.extend( {
 		return true;
 	},
 
-	// Evaluates a script in a global context
-	globalEval: function( code, options ) {
-		DOMEval( code, { nonce: options && options.nonce } );
+	// Evaluates a script in a provided context; falls back to the global one
+	// if not specified.
+	globalEval: function( code, options, doc ) {
+		DOMEval( code, { nonce: options && options.nonce }, doc );
 	},
 
 	each: function( obj, callback ) {
@@ -15458,13 +15474,6 @@ jQuery.extend( {
 		}
 
 		return obj;
-	},
-
-	// Support: Android <=4.0 only
-	trim: function( text ) {
-		return text == null ?
-			"" :
-			( text + "" ).replace( rtrim, "" );
 	},
 
 	// results is for internal usage only
@@ -15553,7 +15562,7 @@ jQuery.extend( {
 		}
 
 		// Flatten any nested arrays
-		return concat.apply( [], ret );
+		return flat( ret );
 	},
 
 	// A global GUID counter for objects
@@ -15570,7 +15579,7 @@ if ( typeof Symbol === "function" ) {
 
 // Populate the class2type map
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
-function( i, name ) {
+function( _i, name ) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 } );
 
@@ -15592,17 +15601,16 @@ function isArrayLike( obj ) {
 }
 var Sizzle =
 /*!
- * Sizzle CSS Selector Engine v2.3.4
+ * Sizzle CSS Selector Engine v2.3.5
  * https://sizzlejs.com/
  *
  * Copyright JS Foundation and other contributors
  * Released under the MIT license
  * https://js.foundation/
  *
- * Date: 2019-04-08
+ * Date: 2020-03-14
  */
-(function( window ) {
-
+( function( window ) {
 var i,
 	support,
 	Expr,
@@ -15642,59 +15650,70 @@ var i,
 	},
 
 	// Instance methods
-	hasOwn = ({}).hasOwnProperty,
+	hasOwn = ( {} ).hasOwnProperty,
 	arr = [],
 	pop = arr.pop,
-	push_native = arr.push,
+	pushNative = arr.push,
 	push = arr.push,
 	slice = arr.slice,
+
 	// Use a stripped-down indexOf as it's faster than native
 	// https://jsperf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
 			len = list.length;
 		for ( ; i < len; i++ ) {
-			if ( list[i] === elem ) {
+			if ( list[ i ] === elem ) {
 				return i;
 			}
 		}
 		return -1;
 	},
 
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" +
+		"ismap|loop|multiple|open|readonly|required|scoped",
 
 	// Regular expressions
 
 	// http://www.w3.org/TR/css3-selectors/#whitespace
 	whitespace = "[\\x20\\t\\r\\n\\f]",
 
-	// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
-	identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
+	// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
+	identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace +
+		"?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
 
 	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
 	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
+
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
-		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
-		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
-		"*\\]",
+
+		// "Attribute values must be CSS identifiers [capture 5]
+		// or strings [capture 3 or capture 4]"
+		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" +
+		whitespace + "*\\]",
 
 	pseudos = ":(" + identifier + ")(?:\\((" +
+
 		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
 		// 1. quoted (capture 3; capture 4 or capture 5)
 		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
+
 		// 2. simple (capture 6)
 		"((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" +
+
 		// 3. anything else (capture 2)
 		".*" +
 		")\\)|)",
 
 	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
 	rwhitespace = new RegExp( whitespace + "+", "g" ),
-	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
+	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" +
+		whitespace + "+$", "g" ),
 
 	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
-	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*" ),
+	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace +
+		"*" ),
 	rdescend = new RegExp( whitespace + "|>" ),
 
 	rpseudo = new RegExp( pseudos ),
@@ -15706,14 +15725,16 @@ var i,
 		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
 		"ATTR": new RegExp( "^" + attributes ),
 		"PSEUDO": new RegExp( "^" + pseudos ),
-		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
-			"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
-			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
+		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" +
+			whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" +
+			whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
 		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
+
 		// For use in libraries implementing .is()
 		// We use this for POS matching in `select`
-		"needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
-			whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
+		"needsContext": new RegExp( "^" + whitespace +
+			"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace +
+			"*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 	},
 
 	rhtml = /HTML$/i,
@@ -15729,18 +15750,21 @@ var i,
 
 	// CSS escapes
 	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
-	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
-	funescape = function( _, escaped, escapedWhitespace ) {
-		var high = "0x" + escaped - 0x10000;
-		// NaN means non-codepoint
-		// Support: Firefox<24
-		// Workaround erroneous numeric interpretation of +"0x"
-		return high !== high || escapedWhitespace ?
-			escaped :
+	runescape = new RegExp( "\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\([^\\r\\n\\f])", "g" ),
+	funescape = function( escape, nonHex ) {
+		var high = "0x" + escape.slice( 1 ) - 0x10000;
+
+		return nonHex ?
+
+			// Strip the backslash prefix from a non-hex escape sequence
+			nonHex :
+
+			// Replace a hexadecimal escape sequence with the encoded Unicode code point
+			// Support: IE <=11+
+			// For values outside the Basic Multilingual Plane (BMP), manually construct a
+			// surrogate pair
 			high < 0 ?
-				// BMP codepoint
 				String.fromCharCode( high + 0x10000 ) :
-				// Supplemental Plane codepoint (surrogate pair)
 				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
 	},
 
@@ -15756,7 +15780,8 @@ var i,
 			}
 
 			// Control characters and (dependent upon position) numbers get escaped as code points
-			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
+			return ch.slice( 0, -1 ) + "\\" +
+				ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
 		}
 
 		// Other potentially-special ASCII characters get backslash-escaped
@@ -15781,18 +15806,20 @@ var i,
 // Optimize for push.apply( _, NodeList )
 try {
 	push.apply(
-		(arr = slice.call( preferredDoc.childNodes )),
+		( arr = slice.call( preferredDoc.childNodes ) ),
 		preferredDoc.childNodes
 	);
+
 	// Support: Android<4.0
 	// Detect silently failing push.apply
+	// eslint-disable-next-line no-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
 	push = { apply: arr.length ?
 
 		// Leverage slice if possible
 		function( target, els ) {
-			push_native.apply( target, slice.call(els) );
+			pushNative.apply( target, slice.call( els ) );
 		} :
 
 		// Support: IE<9
@@ -15800,8 +15827,9 @@ try {
 		function( target, els ) {
 			var j = target.length,
 				i = 0;
+
 			// Can't trust NodeList.length
-			while ( (target[j++] = els[i++]) ) {}
+			while ( ( target[ j++ ] = els[ i++ ] ) ) {}
 			target.length = j - 1;
 		}
 	};
@@ -15825,24 +15853,21 @@ function Sizzle( selector, context, results, seed ) {
 
 	// Try to shortcut find operations (as opposed to filters) in HTML documents
 	if ( !seed ) {
-
-		if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
-			setDocument( context );
-		}
+		setDocument( context );
 		context = context || document;
 
 		if ( documentIsHTML ) {
 
 			// If the selector is sufficiently simple, try using a "get*By*" DOM method
 			// (excepting DocumentFragment context, where the methods don't exist)
-			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
+			if ( nodeType !== 11 && ( match = rquickExpr.exec( selector ) ) ) {
 
 				// ID selector
-				if ( (m = match[1]) ) {
+				if ( ( m = match[ 1 ] ) ) {
 
 					// Document context
 					if ( nodeType === 9 ) {
-						if ( (elem = context.getElementById( m )) ) {
+						if ( ( elem = context.getElementById( m ) ) ) {
 
 							// Support: IE, Opera, Webkit
 							// TODO: identify versions
@@ -15861,7 +15886,7 @@ function Sizzle( selector, context, results, seed ) {
 						// Support: IE, Opera, Webkit
 						// TODO: identify versions
 						// getElementById can match elements by name instead of ID
-						if ( newContext && (elem = newContext.getElementById( m )) &&
+						if ( newContext && ( elem = newContext.getElementById( m ) ) &&
 							contains( context, elem ) &&
 							elem.id === m ) {
 
@@ -15871,12 +15896,12 @@ function Sizzle( selector, context, results, seed ) {
 					}
 
 				// Type selector
-				} else if ( match[2] ) {
+				} else if ( match[ 2 ] ) {
 					push.apply( results, context.getElementsByTagName( selector ) );
 					return results;
 
 				// Class selector
-				} else if ( (m = match[3]) && support.getElementsByClassName &&
+				} else if ( ( m = match[ 3 ] ) && support.getElementsByClassName &&
 					context.getElementsByClassName ) {
 
 					push.apply( results, context.getElementsByClassName( m ) );
@@ -15887,11 +15912,11 @@ function Sizzle( selector, context, results, seed ) {
 			// Take advantage of querySelectorAll
 			if ( support.qsa &&
 				!nonnativeSelectorCache[ selector + " " ] &&
-				(!rbuggyQSA || !rbuggyQSA.test( selector )) &&
+				( !rbuggyQSA || !rbuggyQSA.test( selector ) ) &&
 
 				// Support: IE 8 only
 				// Exclude object elements
-				(nodeType !== 1 || context.nodeName.toLowerCase() !== "object") ) {
+				( nodeType !== 1 || context.nodeName.toLowerCase() !== "object" ) ) {
 
 				newSelector = selector;
 				newContext = context;
@@ -15900,27 +15925,36 @@ function Sizzle( selector, context, results, seed ) {
 				// descendant combinators, which is not what we want.
 				// In such cases, we work around the behavior by prefixing every selector in the
 				// list with an ID selector referencing the scope context.
+				// The technique has to be used as well when a leading combinator is used
+				// as such selectors are not recognized by querySelectorAll.
 				// Thanks to Andrew Dupont for this technique.
-				if ( nodeType === 1 && rdescend.test( selector ) ) {
+				if ( nodeType === 1 &&
+					( rdescend.test( selector ) || rcombinators.test( selector ) ) ) {
 
-					// Capture the context ID, setting it first if necessary
-					if ( (nid = context.getAttribute( "id" )) ) {
-						nid = nid.replace( rcssescape, fcssescape );
-					} else {
-						context.setAttribute( "id", (nid = expando) );
+					// Expand context for sibling selectors
+					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
+						context;
+
+					// We can use :scope instead of the ID hack if the browser
+					// supports it & if we're not changing the context.
+					if ( newContext !== context || !support.scope ) {
+
+						// Capture the context ID, setting it first if necessary
+						if ( ( nid = context.getAttribute( "id" ) ) ) {
+							nid = nid.replace( rcssescape, fcssescape );
+						} else {
+							context.setAttribute( "id", ( nid = expando ) );
+						}
 					}
 
 					// Prefix every selector in the list
 					groups = tokenize( selector );
 					i = groups.length;
 					while ( i-- ) {
-						groups[i] = "#" + nid + " " + toSelector( groups[i] );
+						groups[ i ] = ( nid ? "#" + nid : ":scope" ) + " " +
+							toSelector( groups[ i ] );
 					}
 					newSelector = groups.join( "," );
-
-					// Expand context for sibling selectors
-					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
-						context;
 				}
 
 				try {
@@ -15953,12 +15987,14 @@ function createCache() {
 	var keys = [];
 
 	function cache( key, value ) {
+
 		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
+
 			// Only keep the most recent entries
 			delete cache[ keys.shift() ];
 		}
-		return (cache[ key + " " ] = value);
+		return ( cache[ key + " " ] = value );
 	}
 	return cache;
 }
@@ -15977,17 +16013,19 @@ function markFunction( fn ) {
  * @param {Function} fn Passed the created element and returns a boolean result
  */
 function assert( fn ) {
-	var el = document.createElement("fieldset");
+	var el = document.createElement( "fieldset" );
 
 	try {
 		return !!fn( el );
-	} catch (e) {
+	} catch ( e ) {
 		return false;
 	} finally {
+
 		// Remove from its parent by default
 		if ( el.parentNode ) {
 			el.parentNode.removeChild( el );
 		}
+
 		// release memory in IE
 		el = null;
 	}
@@ -15999,11 +16037,11 @@ function assert( fn ) {
  * @param {Function} handler The method that will be applied
  */
 function addHandle( attrs, handler ) {
-	var arr = attrs.split("|"),
+	var arr = attrs.split( "|" ),
 		i = arr.length;
 
 	while ( i-- ) {
-		Expr.attrHandle[ arr[i] ] = handler;
+		Expr.attrHandle[ arr[ i ] ] = handler;
 	}
 }
 
@@ -16025,7 +16063,7 @@ function siblingCheck( a, b ) {
 
 	// Check if b follows a
 	if ( cur ) {
-		while ( (cur = cur.nextSibling) ) {
+		while ( ( cur = cur.nextSibling ) ) {
 			if ( cur === b ) {
 				return -1;
 			}
@@ -16053,7 +16091,7 @@ function createInputPseudo( type ) {
 function createButtonPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
-		return (name === "input" || name === "button") && elem.type === type;
+		return ( name === "input" || name === "button" ) && elem.type === type;
 	};
 }
 
@@ -16096,7 +16134,7 @@ function createDisabledPseudo( disabled ) {
 					// Where there is no isDisabled, check manually
 					/* jshint -W018 */
 					elem.isDisabled !== !disabled &&
-						inDisabledFieldset( elem ) === disabled;
+					inDisabledFieldset( elem ) === disabled;
 			}
 
 			return elem.disabled === disabled;
@@ -16118,21 +16156,21 @@ function createDisabledPseudo( disabled ) {
  * @param {Function} fn
  */
 function createPositionalPseudo( fn ) {
-	return markFunction(function( argument ) {
+	return markFunction( function( argument ) {
 		argument = +argument;
-		return markFunction(function( seed, matches ) {
+		return markFunction( function( seed, matches ) {
 			var j,
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
 
 			// Match elements found at the specified indexes
 			while ( i-- ) {
-				if ( seed[ (j = matchIndexes[i]) ] ) {
-					seed[j] = !(matches[j] = seed[j]);
+				if ( seed[ ( j = matchIndexes[ i ] ) ] ) {
+					seed[ j ] = !( matches[ j ] = seed[ j ] );
 				}
 			}
-		});
-	});
+		} );
+	} );
 }
 
 /**
@@ -16154,7 +16192,7 @@ support = Sizzle.support = {};
  */
 isXML = Sizzle.isXML = function( elem ) {
 	var namespace = elem.namespaceURI,
-		docElem = (elem.ownerDocument || elem).documentElement;
+		docElem = ( elem.ownerDocument || elem ).documentElement;
 
 	// Support: IE <=8
 	// Assume HTML when documentElement doesn't yet exist, such as inside loading iframes
@@ -16172,7 +16210,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 		doc = node ? node.ownerDocument || node : preferredDoc;
 
 	// Return early if doc is invalid or already selected
-	if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( doc == document || doc.nodeType !== 9 || !doc.documentElement ) {
 		return document;
 	}
 
@@ -16181,10 +16223,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 	docElem = document.documentElement;
 	documentIsHTML = !isXML( document );
 
-	// Support: IE 9-11, Edge
+	// Support: IE 9 - 11+, Edge 12 - 18+
 	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
-	if ( preferredDoc !== document &&
-		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( preferredDoc != document &&
+		( subWindow = document.defaultView ) && subWindow.top !== subWindow ) {
 
 		// Support: IE 11, Edge
 		if ( subWindow.addEventListener ) {
@@ -16196,25 +16242,36 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 	}
 
+	// Support: IE 8 - 11+, Edge 12 - 18+, Chrome <=16 - 25 only, Firefox <=3.6 - 31 only,
+	// Safari 4 - 5 only, Opera <=11.6 - 12.x only
+	// IE/Edge & older browsers don't support the :scope pseudo-class.
+	// Support: Safari 6.0 only
+	// Safari 6.0 supports :scope but it's an alias of :root there.
+	support.scope = assert( function( el ) {
+		docElem.appendChild( el ).appendChild( document.createElement( "div" ) );
+		return typeof el.querySelectorAll !== "undefined" &&
+			!el.querySelectorAll( ":scope fieldset div" ).length;
+	} );
+
 	/* Attributes
 	---------------------------------------------------------------------- */
 
 	// Support: IE<8
 	// Verify that getAttribute really returns attributes and not properties
 	// (excepting IE8 booleans)
-	support.attributes = assert(function( el ) {
+	support.attributes = assert( function( el ) {
 		el.className = "i";
-		return !el.getAttribute("className");
-	});
+		return !el.getAttribute( "className" );
+	} );
 
 	/* getElement(s)By*
 	---------------------------------------------------------------------- */
 
 	// Check if getElementsByTagName("*") returns only elements
-	support.getElementsByTagName = assert(function( el ) {
-		el.appendChild( document.createComment("") );
-		return !el.getElementsByTagName("*").length;
-	});
+	support.getElementsByTagName = assert( function( el ) {
+		el.appendChild( document.createComment( "" ) );
+		return !el.getElementsByTagName( "*" ).length;
+	} );
 
 	// Support: IE<9
 	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
@@ -16223,38 +16280,38 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
-	support.getById = assert(function( el ) {
+	support.getById = assert( function( el ) {
 		docElem.appendChild( el ).id = expando;
 		return !document.getElementsByName || !document.getElementsByName( expando ).length;
-	});
+	} );
 
 	// ID filter and find
 	if ( support.getById ) {
-		Expr.filter["ID"] = function( id ) {
+		Expr.filter[ "ID" ] = function( id ) {
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
-				return elem.getAttribute("id") === attrId;
+				return elem.getAttribute( "id" ) === attrId;
 			};
 		};
-		Expr.find["ID"] = function( id, context ) {
+		Expr.find[ "ID" ] = function( id, context ) {
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var elem = context.getElementById( id );
 				return elem ? [ elem ] : [];
 			}
 		};
 	} else {
-		Expr.filter["ID"] =  function( id ) {
+		Expr.filter[ "ID" ] =  function( id ) {
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
 				var node = typeof elem.getAttributeNode !== "undefined" &&
-					elem.getAttributeNode("id");
+					elem.getAttributeNode( "id" );
 				return node && node.value === attrId;
 			};
 		};
 
 		// Support: IE 6 - 7 only
 		// getElementById is not reliable as a find shortcut
-		Expr.find["ID"] = function( id, context ) {
+		Expr.find[ "ID" ] = function( id, context ) {
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var node, i, elems,
 					elem = context.getElementById( id );
@@ -16262,7 +16319,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				if ( elem ) {
 
 					// Verify the id attribute
-					node = elem.getAttributeNode("id");
+					node = elem.getAttributeNode( "id" );
 					if ( node && node.value === id ) {
 						return [ elem ];
 					}
@@ -16270,8 +16327,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 					// Fall back on getElementsByName
 					elems = context.getElementsByName( id );
 					i = 0;
-					while ( (elem = elems[i++]) ) {
-						node = elem.getAttributeNode("id");
+					while ( ( elem = elems[ i++ ] ) ) {
+						node = elem.getAttributeNode( "id" );
 						if ( node && node.value === id ) {
 							return [ elem ];
 						}
@@ -16284,7 +16341,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	}
 
 	// Tag
-	Expr.find["TAG"] = support.getElementsByTagName ?
+	Expr.find[ "TAG" ] = support.getElementsByTagName ?
 		function( tag, context ) {
 			if ( typeof context.getElementsByTagName !== "undefined" ) {
 				return context.getElementsByTagName( tag );
@@ -16299,12 +16356,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			var elem,
 				tmp = [],
 				i = 0,
+
 				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
 				results = context.getElementsByTagName( tag );
 
 			// Filter out possible comments
 			if ( tag === "*" ) {
-				while ( (elem = results[i++]) ) {
+				while ( ( elem = results[ i++ ] ) ) {
 					if ( elem.nodeType === 1 ) {
 						tmp.push( elem );
 					}
@@ -16316,7 +16374,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		};
 
 	// Class
-	Expr.find["CLASS"] = support.getElementsByClassName && function( className, context ) {
+	Expr.find[ "CLASS" ] = support.getElementsByClassName && function( className, context ) {
 		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
 			return context.getElementsByClassName( className );
 		}
@@ -16337,10 +16395,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// See https://bugs.jquery.com/ticket/13378
 	rbuggyQSA = [];
 
-	if ( (support.qsa = rnative.test( document.querySelectorAll )) ) {
+	if ( ( support.qsa = rnative.test( document.querySelectorAll ) ) ) {
+
 		// Build QSA regex
 		// Regex strategy adopted from Diego Perini
-		assert(function( el ) {
+		assert( function( el ) {
+
+			var input;
+
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
 			// setting a boolean content attribute,
@@ -16354,78 +16416,98 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Nothing should be selected when empty strings follow ^= or $= or *=
 			// The test attribute must be unknown in Opera but "safe" for WinRT
 			// https://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
-			if ( el.querySelectorAll("[msallowcapture^='']").length ) {
+			if ( el.querySelectorAll( "[msallowcapture^='']" ).length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
 			}
 
 			// Support: IE8
 			// Boolean attributes and "value" are not treated correctly
-			if ( !el.querySelectorAll("[selected]").length ) {
+			if ( !el.querySelectorAll( "[selected]" ).length ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
 			}
 
 			// Support: Chrome<29, Android<4.4, Safari<7.0+, iOS<7.0+, PhantomJS<1.9.8+
 			if ( !el.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
-				rbuggyQSA.push("~=");
+				rbuggyQSA.push( "~=" );
+			}
+
+			// Support: IE 11+, Edge 15 - 18+
+			// IE 11/Edge don't find elements on a `[name='']` query in some cases.
+			// Adding a temporary attribute to the document before the selection works
+			// around the issue.
+			// Interestingly, IE 10 & older don't seem to have the issue.
+			input = document.createElement( "input" );
+			input.setAttribute( "name", "" );
+			el.appendChild( input );
+			if ( !el.querySelectorAll( "[name='']" ).length ) {
+				rbuggyQSA.push( "\\[" + whitespace + "*name" + whitespace + "*=" +
+					whitespace + "*(?:''|\"\")" );
 			}
 
 			// Webkit/Opera - :checked should return selected option elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			// IE8 throws error here and will not see later tests
-			if ( !el.querySelectorAll(":checked").length ) {
-				rbuggyQSA.push(":checked");
+			if ( !el.querySelectorAll( ":checked" ).length ) {
+				rbuggyQSA.push( ":checked" );
 			}
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
 			// In-page `selector#id sibling-combinator selector` fails
 			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
-				rbuggyQSA.push(".#.+[+~]");
+				rbuggyQSA.push( ".#.+[+~]" );
 			}
-		});
 
-		assert(function( el ) {
+			// Support: Firefox <=3.6 - 5 only
+			// Old Firefox doesn't throw on a badly-escaped identifier.
+			el.querySelectorAll( "\\\f" );
+			rbuggyQSA.push( "[\\r\\n\\f]" );
+		} );
+
+		assert( function( el ) {
 			el.innerHTML = "<a href='' disabled='disabled'></a>" +
 				"<select disabled='disabled'><option/></select>";
 
 			// Support: Windows 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
-			var input = document.createElement("input");
+			var input = document.createElement( "input" );
 			input.setAttribute( "type", "hidden" );
 			el.appendChild( input ).setAttribute( "name", "D" );
 
 			// Support: IE8
 			// Enforce case-sensitivity of name attribute
-			if ( el.querySelectorAll("[name=d]").length ) {
+			if ( el.querySelectorAll( "[name=d]" ).length ) {
 				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
 			}
 
 			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
 			// IE8 throws error here and will not see later tests
-			if ( el.querySelectorAll(":enabled").length !== 2 ) {
+			if ( el.querySelectorAll( ":enabled" ).length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
 			// Support: IE9-11+
 			// IE's :disabled selector does not pick up the children of disabled fieldsets
 			docElem.appendChild( el ).disabled = true;
-			if ( el.querySelectorAll(":disabled").length !== 2 ) {
+			if ( el.querySelectorAll( ":disabled" ).length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
+			// Support: Opera 10 - 11 only
 			// Opera 10-11 does not throw on post-comma invalid pseudos
-			el.querySelectorAll("*,:x");
-			rbuggyQSA.push(",.*:");
-		});
+			el.querySelectorAll( "*,:x" );
+			rbuggyQSA.push( ",.*:" );
+		} );
 	}
 
-	if ( (support.matchesSelector = rnative.test( (matches = docElem.matches ||
+	if ( ( support.matchesSelector = rnative.test( ( matches = docElem.matches ||
 		docElem.webkitMatchesSelector ||
 		docElem.mozMatchesSelector ||
 		docElem.oMatchesSelector ||
-		docElem.msMatchesSelector) )) ) {
+		docElem.msMatchesSelector ) ) ) ) {
 
-		assert(function( el ) {
+		assert( function( el ) {
+
 			// Check to see if it's possible to do matchesSelector
 			// on a disconnected node (IE 9)
 			support.disconnectedMatch = matches.call( el, "*" );
@@ -16434,11 +16516,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Gecko does not error, returns false instead
 			matches.call( el, "[s!='']:x" );
 			rbuggyMatches.push( "!=", pseudos );
-		});
+		} );
 	}
 
-	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
-	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join("|") );
+	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join( "|" ) );
+	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join( "|" ) );
 
 	/* Contains
 	---------------------------------------------------------------------- */
@@ -16455,11 +16537,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 				adown.contains ?
 					adown.contains( bup ) :
 					a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
-			));
+			) );
 		} :
 		function( a, b ) {
 			if ( b ) {
-				while ( (b = b.parentNode) ) {
+				while ( ( b = b.parentNode ) ) {
 					if ( b === a ) {
 						return true;
 					}
@@ -16488,7 +16570,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 
 		// Calculate position if both inputs belong to the same document
-		compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
+		// Support: IE 11+, Edge 17 - 18+
+		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+		// two documents; shallow comparisons work.
+		// eslint-disable-next-line eqeqeq
+		compare = ( a.ownerDocument || a ) == ( b.ownerDocument || b ) ?
 			a.compareDocumentPosition( b ) :
 
 			// Otherwise we know they are disconnected
@@ -16496,13 +16582,24 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Disconnected nodes
 		if ( compare & 1 ||
-			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
+			( !support.sortDetached && b.compareDocumentPosition( a ) === compare ) ) {
 
 			// Choose the first element that is related to our preferred document
-			if ( a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a) ) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ( a == document || a.ownerDocument == preferredDoc &&
+				contains( preferredDoc, a ) ) {
 				return -1;
 			}
-			if ( b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b) ) {
+
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ( b == document || b.ownerDocument == preferredDoc &&
+				contains( preferredDoc, b ) ) {
 				return 1;
 			}
 
@@ -16515,6 +16612,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		return compare & 4 ? -1 : 1;
 	} :
 	function( a, b ) {
+
 		// Exit early if the nodes are identical
 		if ( a === b ) {
 			hasDuplicate = true;
@@ -16530,8 +16628,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Parentless nodes are either documents or disconnected
 		if ( !aup || !bup ) {
-			return a === document ? -1 :
-				b === document ? 1 :
+
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			/* eslint-disable eqeqeq */
+			return a == document ? -1 :
+				b == document ? 1 :
+				/* eslint-enable eqeqeq */
 				aup ? -1 :
 				bup ? 1 :
 				sortInput ?
@@ -16545,26 +16649,32 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Otherwise we need full lists of their ancestors for comparison
 		cur = a;
-		while ( (cur = cur.parentNode) ) {
+		while ( ( cur = cur.parentNode ) ) {
 			ap.unshift( cur );
 		}
 		cur = b;
-		while ( (cur = cur.parentNode) ) {
+		while ( ( cur = cur.parentNode ) ) {
 			bp.unshift( cur );
 		}
 
 		// Walk down the tree looking for a discrepancy
-		while ( ap[i] === bp[i] ) {
+		while ( ap[ i ] === bp[ i ] ) {
 			i++;
 		}
 
 		return i ?
+
 			// Do a sibling check if the nodes have a common ancestor
-			siblingCheck( ap[i], bp[i] ) :
+			siblingCheck( ap[ i ], bp[ i ] ) :
 
 			// Otherwise nodes in our document sort first
-			ap[i] === preferredDoc ? -1 :
-			bp[i] === preferredDoc ? 1 :
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			/* eslint-disable eqeqeq */
+			ap[ i ] == preferredDoc ? -1 :
+			bp[ i ] == preferredDoc ? 1 :
+			/* eslint-enable eqeqeq */
 			0;
 	};
 
@@ -16576,10 +16686,7 @@ Sizzle.matches = function( expr, elements ) {
 };
 
 Sizzle.matchesSelector = function( elem, expr ) {
-	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
-		setDocument( elem );
-	}
+	setDocument( elem );
 
 	if ( support.matchesSelector && documentIsHTML &&
 		!nonnativeSelectorCache[ expr + " " ] &&
@@ -16591,12 +16698,13 @@ Sizzle.matchesSelector = function( elem, expr ) {
 
 			// IE 9's matchesSelector returns false on disconnected nodes
 			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
-					// fragment in IE 9
-					elem.document && elem.document.nodeType !== 11 ) {
+
+				// As well, disconnected nodes are said to be in a document
+				// fragment in IE 9
+				elem.document && elem.document.nodeType !== 11 ) {
 				return ret;
 			}
-		} catch (e) {
+		} catch ( e ) {
 			nonnativeSelectorCache( expr, true );
 		}
 	}
@@ -16605,20 +16713,31 @@ Sizzle.matchesSelector = function( elem, expr ) {
 };
 
 Sizzle.contains = function( context, elem ) {
+
 	// Set document vars if needed
-	if ( ( context.ownerDocument || context ) !== document ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( ( context.ownerDocument || context ) != document ) {
 		setDocument( context );
 	}
 	return contains( context, elem );
 };
 
 Sizzle.attr = function( elem, name ) {
+
 	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
+	// Support: IE 11+, Edge 17 - 18+
+	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+	// two documents; shallow comparisons work.
+	// eslint-disable-next-line eqeqeq
+	if ( ( elem.ownerDocument || elem ) != document ) {
 		setDocument( elem );
 	}
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
+
 		// Don't get fooled by Object.prototype properties (jQuery #13807)
 		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
@@ -16628,13 +16747,13 @@ Sizzle.attr = function( elem, name ) {
 		val :
 		support.attributes || !documentIsHTML ?
 			elem.getAttribute( name ) :
-			(val = elem.getAttributeNode(name)) && val.specified ?
+			( val = elem.getAttributeNode( name ) ) && val.specified ?
 				val.value :
 				null;
 };
 
 Sizzle.escape = function( sel ) {
-	return (sel + "").replace( rcssescape, fcssescape );
+	return ( sel + "" ).replace( rcssescape, fcssescape );
 };
 
 Sizzle.error = function( msg ) {
@@ -16657,7 +16776,7 @@ Sizzle.uniqueSort = function( results ) {
 	results.sort( sortOrder );
 
 	if ( hasDuplicate ) {
-		while ( (elem = results[i++]) ) {
+		while ( ( elem = results[ i++ ] ) ) {
 			if ( elem === results[ i ] ) {
 				j = duplicates.push( i );
 			}
@@ -16685,17 +16804,21 @@ getText = Sizzle.getText = function( elem ) {
 		nodeType = elem.nodeType;
 
 	if ( !nodeType ) {
+
 		// If no nodeType, this is expected to be an array
-		while ( (node = elem[i++]) ) {
+		while ( ( node = elem[ i++ ] ) ) {
+
 			// Do not traverse comment nodes
 			ret += getText( node );
 		}
 	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+
 		// Use textContent for elements
 		// innerText usage removed for consistency of new lines (jQuery #11153)
 		if ( typeof elem.textContent === "string" ) {
 			return elem.textContent;
 		} else {
+
 			// Traverse its children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				ret += getText( elem );
@@ -16704,6 +16827,7 @@ getText = Sizzle.getText = function( elem ) {
 	} else if ( nodeType === 3 || nodeType === 4 ) {
 		return elem.nodeValue;
 	}
+
 	// Do not include comment or processing instruction nodes
 
 	return ret;
@@ -16731,19 +16855,21 @@ Expr = Sizzle.selectors = {
 
 	preFilter: {
 		"ATTR": function( match ) {
-			match[1] = match[1].replace( runescape, funescape );
+			match[ 1 ] = match[ 1 ].replace( runescape, funescape );
 
 			// Move the given value to match[3] whether quoted or unquoted
-			match[3] = ( match[3] || match[4] || match[5] || "" ).replace( runescape, funescape );
+			match[ 3 ] = ( match[ 3 ] || match[ 4 ] ||
+				match[ 5 ] || "" ).replace( runescape, funescape );
 
-			if ( match[2] === "~=" ) {
-				match[3] = " " + match[3] + " ";
+			if ( match[ 2 ] === "~=" ) {
+				match[ 3 ] = " " + match[ 3 ] + " ";
 			}
 
 			return match.slice( 0, 4 );
 		},
 
 		"CHILD": function( match ) {
+
 			/* matches from matchExpr["CHILD"]
 				1 type (only|nth|...)
 				2 what (child|of-type)
@@ -16754,22 +16880,25 @@ Expr = Sizzle.selectors = {
 				7 sign of y-component
 				8 y of y-component
 			*/
-			match[1] = match[1].toLowerCase();
+			match[ 1 ] = match[ 1 ].toLowerCase();
 
-			if ( match[1].slice( 0, 3 ) === "nth" ) {
+			if ( match[ 1 ].slice( 0, 3 ) === "nth" ) {
+
 				// nth-* requires argument
-				if ( !match[3] ) {
-					Sizzle.error( match[0] );
+				if ( !match[ 3 ] ) {
+					Sizzle.error( match[ 0 ] );
 				}
 
 				// numeric x and y parameters for Expr.filter.CHILD
 				// remember that false/true cast respectively to 0/1
-				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
-				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
+				match[ 4 ] = +( match[ 4 ] ?
+					match[ 5 ] + ( match[ 6 ] || 1 ) :
+					2 * ( match[ 3 ] === "even" || match[ 3 ] === "odd" ) );
+				match[ 5 ] = +( ( match[ 7 ] + match[ 8 ] ) || match[ 3 ] === "odd" );
 
-			// other types prohibit arguments
-			} else if ( match[3] ) {
-				Sizzle.error( match[0] );
+				// other types prohibit arguments
+			} else if ( match[ 3 ] ) {
+				Sizzle.error( match[ 0 ] );
 			}
 
 			return match;
@@ -16777,26 +16906,28 @@ Expr = Sizzle.selectors = {
 
 		"PSEUDO": function( match ) {
 			var excess,
-				unquoted = !match[6] && match[2];
+				unquoted = !match[ 6 ] && match[ 2 ];
 
-			if ( matchExpr["CHILD"].test( match[0] ) ) {
+			if ( matchExpr[ "CHILD" ].test( match[ 0 ] ) ) {
 				return null;
 			}
 
 			// Accept quoted arguments as-is
-			if ( match[3] ) {
-				match[2] = match[4] || match[5] || "";
+			if ( match[ 3 ] ) {
+				match[ 2 ] = match[ 4 ] || match[ 5 ] || "";
 
 			// Strip excess characters from unquoted arguments
 			} else if ( unquoted && rpseudo.test( unquoted ) &&
+
 				// Get excess from tokenize (recursively)
-				(excess = tokenize( unquoted, true )) &&
+				( excess = tokenize( unquoted, true ) ) &&
+
 				// advance to the next closing parenthesis
-				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
+				( excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length ) ) {
 
 				// excess is a negative index
-				match[0] = match[0].slice( 0, excess );
-				match[2] = unquoted.slice( 0, excess );
+				match[ 0 ] = match[ 0 ].slice( 0, excess );
+				match[ 2 ] = unquoted.slice( 0, excess );
 			}
 
 			// Return only captures needed by the pseudo filter method (type and argument)
@@ -16809,7 +16940,9 @@ Expr = Sizzle.selectors = {
 		"TAG": function( nodeNameSelector ) {
 			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
 			return nodeNameSelector === "*" ?
-				function() { return true; } :
+				function() {
+					return true;
+				} :
 				function( elem ) {
 					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
 				};
@@ -16819,10 +16952,16 @@ Expr = Sizzle.selectors = {
 			var pattern = classCache[ className + " " ];
 
 			return pattern ||
-				(pattern = new RegExp( "(^|" + whitespace + ")" + className + "(" + whitespace + "|$)" )) &&
-				classCache( className, function( elem ) {
-					return pattern.test( typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "" );
-				});
+				( pattern = new RegExp( "(^|" + whitespace +
+					")" + className + "(" + whitespace + "|$)" ) ) && classCache(
+						className, function( elem ) {
+							return pattern.test(
+								typeof elem.className === "string" && elem.className ||
+								typeof elem.getAttribute !== "undefined" &&
+									elem.getAttribute( "class" ) ||
+								""
+							);
+				} );
 		},
 
 		"ATTR": function( name, operator, check ) {
@@ -16838,6 +16977,8 @@ Expr = Sizzle.selectors = {
 
 				result += "";
 
+				/* eslint-disable max-len */
+
 				return operator === "=" ? result === check :
 					operator === "!=" ? result !== check :
 					operator === "^=" ? check && result.indexOf( check ) === 0 :
@@ -16846,10 +16987,12 @@ Expr = Sizzle.selectors = {
 					operator === "~=" ? ( " " + result.replace( rwhitespace, " " ) + " " ).indexOf( check ) > -1 :
 					operator === "|=" ? result === check || result.slice( 0, check.length + 1 ) === check + "-" :
 					false;
+				/* eslint-enable max-len */
+
 			};
 		},
 
-		"CHILD": function( type, what, argument, first, last ) {
+		"CHILD": function( type, what, _argument, first, last ) {
 			var simple = type.slice( 0, 3 ) !== "nth",
 				forward = type.slice( -4 ) !== "last",
 				ofType = what === "of-type";
@@ -16861,7 +17004,7 @@ Expr = Sizzle.selectors = {
 					return !!elem.parentNode;
 				} :
 
-				function( elem, context, xml ) {
+				function( elem, _context, xml ) {
 					var cache, uniqueCache, outerCache, node, nodeIndex, start,
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
@@ -16875,7 +17018,7 @@ Expr = Sizzle.selectors = {
 						if ( simple ) {
 							while ( dir ) {
 								node = elem;
-								while ( (node = node[ dir ]) ) {
+								while ( ( node = node[ dir ] ) ) {
 									if ( ofType ?
 										node.nodeName.toLowerCase() === name :
 										node.nodeType === 1 ) {
@@ -16883,6 +17026,7 @@ Expr = Sizzle.selectors = {
 										return false;
 									}
 								}
+
 								// Reverse direction for :only-* (if we haven't yet done so)
 								start = dir = type === "only" && !start && "nextSibling";
 							}
@@ -16898,22 +17042,22 @@ Expr = Sizzle.selectors = {
 
 							// ...in a gzip-friendly way
 							node = parent;
-							outerCache = node[ expando ] || (node[ expando ] = {});
+							outerCache = node[ expando ] || ( node[ expando ] = {} );
 
 							// Support: IE <9 only
 							// Defend against cloned attroperties (jQuery gh-1709)
 							uniqueCache = outerCache[ node.uniqueID ] ||
-								(outerCache[ node.uniqueID ] = {});
+								( outerCache[ node.uniqueID ] = {} );
 
 							cache = uniqueCache[ type ] || [];
 							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 							diff = nodeIndex && cache[ 2 ];
 							node = nodeIndex && parent.childNodes[ nodeIndex ];
 
-							while ( (node = ++nodeIndex && node && node[ dir ] ||
+							while ( ( node = ++nodeIndex && node && node[ dir ] ||
 
 								// Fallback to seeking `elem` from the start
-								(diff = nodeIndex = 0) || start.pop()) ) {
+								( diff = nodeIndex = 0 ) || start.pop() ) ) {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
@@ -16923,16 +17067,18 @@ Expr = Sizzle.selectors = {
 							}
 
 						} else {
+
 							// Use previously-cached element index if available
 							if ( useCache ) {
+
 								// ...in a gzip-friendly way
 								node = elem;
-								outerCache = node[ expando ] || (node[ expando ] = {});
+								outerCache = node[ expando ] || ( node[ expando ] = {} );
 
 								// Support: IE <9 only
 								// Defend against cloned attroperties (jQuery gh-1709)
 								uniqueCache = outerCache[ node.uniqueID ] ||
-									(outerCache[ node.uniqueID ] = {});
+									( outerCache[ node.uniqueID ] = {} );
 
 								cache = uniqueCache[ type ] || [];
 								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
@@ -16942,9 +17088,10 @@ Expr = Sizzle.selectors = {
 							// xml :nth-child(...)
 							// or :nth-last-child(...) or :nth(-last)?-of-type(...)
 							if ( diff === false ) {
+
 								// Use the same loop as above to seek `elem` from the start
-								while ( (node = ++nodeIndex && node && node[ dir ] ||
-									(diff = nodeIndex = 0) || start.pop()) ) {
+								while ( ( node = ++nodeIndex && node && node[ dir ] ||
+									( diff = nodeIndex = 0 ) || start.pop() ) ) {
 
 									if ( ( ofType ?
 										node.nodeName.toLowerCase() === name :
@@ -16953,12 +17100,13 @@ Expr = Sizzle.selectors = {
 
 										// Cache the index of each encountered element
 										if ( useCache ) {
-											outerCache = node[ expando ] || (node[ expando ] = {});
+											outerCache = node[ expando ] ||
+												( node[ expando ] = {} );
 
 											// Support: IE <9 only
 											// Defend against cloned attroperties (jQuery gh-1709)
 											uniqueCache = outerCache[ node.uniqueID ] ||
-												(outerCache[ node.uniqueID ] = {});
+												( outerCache[ node.uniqueID ] = {} );
 
 											uniqueCache[ type ] = [ dirruns, diff ];
 										}
@@ -16979,6 +17127,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"PSEUDO": function( pseudo, argument ) {
+
 			// pseudo-class names are case-insensitive
 			// http://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
@@ -16998,15 +17147,15 @@ Expr = Sizzle.selectors = {
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
 				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
-					markFunction(function( seed, matches ) {
+					markFunction( function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
 							i = matched.length;
 						while ( i-- ) {
-							idx = indexOf( seed, matched[i] );
-							seed[ idx ] = !( matches[ idx ] = matched[i] );
+							idx = indexOf( seed, matched[ i ] );
+							seed[ idx ] = !( matches[ idx ] = matched[ i ] );
 						}
-					}) :
+					} ) :
 					function( elem ) {
 						return fn( elem, 0, args );
 					};
@@ -17017,8 +17166,10 @@ Expr = Sizzle.selectors = {
 	},
 
 	pseudos: {
+
 		// Potentially complex pseudos
-		"not": markFunction(function( selector ) {
+		"not": markFunction( function( selector ) {
+
 			// Trim the selector passed to compile
 			// to avoid treating leading and trailing
 			// spaces as combinators
@@ -17027,39 +17178,40 @@ Expr = Sizzle.selectors = {
 				matcher = compile( selector.replace( rtrim, "$1" ) );
 
 			return matcher[ expando ] ?
-				markFunction(function( seed, matches, context, xml ) {
+				markFunction( function( seed, matches, _context, xml ) {
 					var elem,
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
 
 					// Match elements unmatched by `matcher`
 					while ( i-- ) {
-						if ( (elem = unmatched[i]) ) {
-							seed[i] = !(matches[i] = elem);
+						if ( ( elem = unmatched[ i ] ) ) {
+							seed[ i ] = !( matches[ i ] = elem );
 						}
 					}
-				}) :
-				function( elem, context, xml ) {
-					input[0] = elem;
+				} ) :
+				function( elem, _context, xml ) {
+					input[ 0 ] = elem;
 					matcher( input, null, xml, results );
+
 					// Don't keep the element (issue #299)
-					input[0] = null;
+					input[ 0 ] = null;
 					return !results.pop();
 				};
-		}),
+		} ),
 
-		"has": markFunction(function( selector ) {
+		"has": markFunction( function( selector ) {
 			return function( elem ) {
 				return Sizzle( selector, elem ).length > 0;
 			};
-		}),
+		} ),
 
-		"contains": markFunction(function( text ) {
+		"contains": markFunction( function( text ) {
 			text = text.replace( runescape, funescape );
 			return function( elem ) {
 				return ( elem.textContent || getText( elem ) ).indexOf( text ) > -1;
 			};
-		}),
+		} ),
 
 		// "Whether an element is represented by a :lang() selector
 		// is based solely on the element's language value
@@ -17069,25 +17221,26 @@ Expr = Sizzle.selectors = {
 		// The identifier C does not have to be a valid language name."
 		// http://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
+
 			// lang value must be a valid identifier
-			if ( !ridentifier.test(lang || "") ) {
+			if ( !ridentifier.test( lang || "" ) ) {
 				Sizzle.error( "unsupported lang: " + lang );
 			}
 			lang = lang.replace( runescape, funescape ).toLowerCase();
 			return function( elem ) {
 				var elemLang;
 				do {
-					if ( (elemLang = documentIsHTML ?
+					if ( ( elemLang = documentIsHTML ?
 						elem.lang :
-						elem.getAttribute("xml:lang") || elem.getAttribute("lang")) ) {
+						elem.getAttribute( "xml:lang" ) || elem.getAttribute( "lang" ) ) ) {
 
 						elemLang = elemLang.toLowerCase();
 						return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
 					}
-				} while ( (elem = elem.parentNode) && elem.nodeType === 1 );
+				} while ( ( elem = elem.parentNode ) && elem.nodeType === 1 );
 				return false;
 			};
-		}),
+		} ),
 
 		// Miscellaneous
 		"target": function( elem ) {
@@ -17100,7 +17253,9 @@ Expr = Sizzle.selectors = {
 		},
 
 		"focus": function( elem ) {
-			return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
+			return elem === document.activeElement &&
+				( !document.hasFocus || document.hasFocus() ) &&
+				!!( elem.type || elem.href || ~elem.tabIndex );
 		},
 
 		// Boolean properties
@@ -17108,16 +17263,20 @@ Expr = Sizzle.selectors = {
 		"disabled": createDisabledPseudo( true ),
 
 		"checked": function( elem ) {
+
 			// In CSS3, :checked should return both checked and selected elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
-			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
+			return ( nodeName === "input" && !!elem.checked ) ||
+				( nodeName === "option" && !!elem.selected );
 		},
 
 		"selected": function( elem ) {
+
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
 			if ( elem.parentNode ) {
+				// eslint-disable-next-line no-unused-expressions
 				elem.parentNode.selectedIndex;
 			}
 
@@ -17126,6 +17285,7 @@ Expr = Sizzle.selectors = {
 
 		// Contents
 		"empty": function( elem ) {
+
 			// http://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
@@ -17139,7 +17299,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"parent": function( elem ) {
-			return !Expr.pseudos["empty"]( elem );
+			return !Expr.pseudos[ "empty" ]( elem );
 		},
 
 		// Element/input types
@@ -17163,39 +17323,40 @@ Expr = Sizzle.selectors = {
 
 				// Support: IE<8
 				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
+				( ( attr = elem.getAttribute( "type" ) ) == null ||
+					attr.toLowerCase() === "text" );
 		},
 
 		// Position-in-collection
-		"first": createPositionalPseudo(function() {
+		"first": createPositionalPseudo( function() {
 			return [ 0 ];
-		}),
+		} ),
 
-		"last": createPositionalPseudo(function( matchIndexes, length ) {
+		"last": createPositionalPseudo( function( _matchIndexes, length ) {
 			return [ length - 1 ];
-		}),
+		} ),
 
-		"eq": createPositionalPseudo(function( matchIndexes, length, argument ) {
+		"eq": createPositionalPseudo( function( _matchIndexes, length, argument ) {
 			return [ argument < 0 ? argument + length : argument ];
-		}),
+		} ),
 
-		"even": createPositionalPseudo(function( matchIndexes, length ) {
+		"even": createPositionalPseudo( function( matchIndexes, length ) {
 			var i = 0;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"odd": createPositionalPseudo(function( matchIndexes, length ) {
+		"odd": createPositionalPseudo( function( matchIndexes, length ) {
 			var i = 1;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"lt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+		"lt": createPositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ?
 				argument + length :
 				argument > length ?
@@ -17205,19 +17366,19 @@ Expr = Sizzle.selectors = {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		}),
+		} ),
 
-		"gt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+		"gt": createPositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ? argument + length : argument;
 			for ( ; ++i < length; ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
-		})
+		} )
 	}
 };
 
-Expr.pseudos["nth"] = Expr.pseudos["eq"];
+Expr.pseudos[ "nth" ] = Expr.pseudos[ "eq" ];
 
 // Add button/input type pseudos
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
@@ -17248,37 +17409,39 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	while ( soFar ) {
 
 		// Comma and first run
-		if ( !matched || (match = rcomma.exec( soFar )) ) {
+		if ( !matched || ( match = rcomma.exec( soFar ) ) ) {
 			if ( match ) {
+
 				// Don't consume trailing commas as valid
-				soFar = soFar.slice( match[0].length ) || soFar;
+				soFar = soFar.slice( match[ 0 ].length ) || soFar;
 			}
-			groups.push( (tokens = []) );
+			groups.push( ( tokens = [] ) );
 		}
 
 		matched = false;
 
 		// Combinators
-		if ( (match = rcombinators.exec( soFar )) ) {
+		if ( ( match = rcombinators.exec( soFar ) ) ) {
 			matched = match.shift();
-			tokens.push({
+			tokens.push( {
 				value: matched,
+
 				// Cast descendant combinators to space
-				type: match[0].replace( rtrim, " " )
-			});
+				type: match[ 0 ].replace( rtrim, " " )
+			} );
 			soFar = soFar.slice( matched.length );
 		}
 
 		// Filters
 		for ( type in Expr.filter ) {
-			if ( (match = matchExpr[ type ].exec( soFar )) && (!preFilters[ type ] ||
-				(match = preFilters[ type ]( match ))) ) {
+			if ( ( match = matchExpr[ type ].exec( soFar ) ) && ( !preFilters[ type ] ||
+				( match = preFilters[ type ]( match ) ) ) ) {
 				matched = match.shift();
-				tokens.push({
+				tokens.push( {
 					value: matched,
 					type: type,
 					matches: match
-				});
+				} );
 				soFar = soFar.slice( matched.length );
 			}
 		}
@@ -17295,6 +17458,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 		soFar.length :
 		soFar ?
 			Sizzle.error( selector ) :
+
 			// Cache the tokens
 			tokenCache( selector, groups ).slice( 0 );
 };
@@ -17304,7 +17468,7 @@ function toSelector( tokens ) {
 		len = tokens.length,
 		selector = "";
 	for ( ; i < len; i++ ) {
-		selector += tokens[i].value;
+		selector += tokens[ i ].value;
 	}
 	return selector;
 }
@@ -17317,9 +17481,10 @@ function addCombinator( matcher, combinator, base ) {
 		doneName = done++;
 
 	return combinator.first ?
+
 		// Check against closest ancestor/preceding element
 		function( elem, context, xml ) {
-			while ( (elem = elem[ dir ]) ) {
+			while ( ( elem = elem[ dir ] ) ) {
 				if ( elem.nodeType === 1 || checkNonElements ) {
 					return matcher( elem, context, xml );
 				}
@@ -17334,7 +17499,7 @@ function addCombinator( matcher, combinator, base ) {
 
 			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
 			if ( xml ) {
-				while ( (elem = elem[ dir ]) ) {
+				while ( ( elem = elem[ dir ] ) ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
 						if ( matcher( elem, context, xml ) ) {
 							return true;
@@ -17342,27 +17507,29 @@ function addCombinator( matcher, combinator, base ) {
 					}
 				}
 			} else {
-				while ( (elem = elem[ dir ]) ) {
+				while ( ( elem = elem[ dir ] ) ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
-						outerCache = elem[ expando ] || (elem[ expando ] = {});
+						outerCache = elem[ expando ] || ( elem[ expando ] = {} );
 
 						// Support: IE <9 only
 						// Defend against cloned attroperties (jQuery gh-1709)
-						uniqueCache = outerCache[ elem.uniqueID ] || (outerCache[ elem.uniqueID ] = {});
+						uniqueCache = outerCache[ elem.uniqueID ] ||
+							( outerCache[ elem.uniqueID ] = {} );
 
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
 							elem = elem[ dir ] || elem;
-						} else if ( (oldCache = uniqueCache[ key ]) &&
+						} else if ( ( oldCache = uniqueCache[ key ] ) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
 							// Assign to newCache so results back-propagate to previous elements
-							return (newCache[ 2 ] = oldCache[ 2 ]);
+							return ( newCache[ 2 ] = oldCache[ 2 ] );
 						} else {
+
 							// Reuse newcache so results back-propagate to previous elements
 							uniqueCache[ key ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
-							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
+							if ( ( newCache[ 2 ] = matcher( elem, context, xml ) ) ) {
 								return true;
 							}
 						}
@@ -17378,20 +17545,20 @@ function elementMatcher( matchers ) {
 		function( elem, context, xml ) {
 			var i = matchers.length;
 			while ( i-- ) {
-				if ( !matchers[i]( elem, context, xml ) ) {
+				if ( !matchers[ i ]( elem, context, xml ) ) {
 					return false;
 				}
 			}
 			return true;
 		} :
-		matchers[0];
+		matchers[ 0 ];
 }
 
 function multipleContexts( selector, contexts, results ) {
 	var i = 0,
 		len = contexts.length;
 	for ( ; i < len; i++ ) {
-		Sizzle( selector, contexts[i], results );
+		Sizzle( selector, contexts[ i ], results );
 	}
 	return results;
 }
@@ -17404,7 +17571,7 @@ function condense( unmatched, map, filter, context, xml ) {
 		mapped = map != null;
 
 	for ( ; i < len; i++ ) {
-		if ( (elem = unmatched[i]) ) {
+		if ( ( elem = unmatched[ i ] ) ) {
 			if ( !filter || filter( elem, context, xml ) ) {
 				newUnmatched.push( elem );
 				if ( mapped ) {
@@ -17424,14 +17591,18 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 	if ( postFinder && !postFinder[ expando ] ) {
 		postFinder = setMatcher( postFinder, postSelector );
 	}
-	return markFunction(function( seed, results, context, xml ) {
+	return markFunction( function( seed, results, context, xml ) {
 		var temp, i, elem,
 			preMap = [],
 			postMap = [],
 			preexisting = results.length,
 
 			// Get initial elements from seed or context
-			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
+			elems = seed || multipleContexts(
+				selector || "*",
+				context.nodeType ? [ context ] : context,
+				[]
+			),
 
 			// Prefilter to get matcher input, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
@@ -17439,6 +17610,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				elems,
 
 			matcherOut = matcher ?
+
 				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
 				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
 
@@ -17462,8 +17634,8 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			// Un-match failing elements by moving them back to matcherIn
 			i = temp.length;
 			while ( i-- ) {
-				if ( (elem = temp[i]) ) {
-					matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
+				if ( ( elem = temp[ i ] ) ) {
+					matcherOut[ postMap[ i ] ] = !( matcherIn[ postMap[ i ] ] = elem );
 				}
 			}
 		}
@@ -17471,25 +17643,27 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 		if ( seed ) {
 			if ( postFinder || preFilter ) {
 				if ( postFinder ) {
+
 					// Get the final matcherOut by condensing this intermediate into postFinder contexts
 					temp = [];
 					i = matcherOut.length;
 					while ( i-- ) {
-						if ( (elem = matcherOut[i]) ) {
+						if ( ( elem = matcherOut[ i ] ) ) {
+
 							// Restore matcherIn since elem is not yet a final match
-							temp.push( (matcherIn[i] = elem) );
+							temp.push( ( matcherIn[ i ] = elem ) );
 						}
 					}
-					postFinder( null, (matcherOut = []), temp, xml );
+					postFinder( null, ( matcherOut = [] ), temp, xml );
 				}
 
 				// Move matched elements from seed to results to keep them synchronized
 				i = matcherOut.length;
 				while ( i-- ) {
-					if ( (elem = matcherOut[i]) &&
-						(temp = postFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
+					if ( ( elem = matcherOut[ i ] ) &&
+						( temp = postFinder ? indexOf( seed, elem ) : preMap[ i ] ) > -1 ) {
 
-						seed[temp] = !(results[temp] = elem);
+						seed[ temp ] = !( results[ temp ] = elem );
 					}
 				}
 			}
@@ -17507,14 +17681,14 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				push.apply( results, matcherOut );
 			}
 		}
-	});
+	} );
 }
 
 function matcherFromTokens( tokens ) {
 	var checkContext, matcher, j,
 		len = tokens.length,
-		leadingRelative = Expr.relative[ tokens[0].type ],
-		implicitRelative = leadingRelative || Expr.relative[" "],
+		leadingRelative = Expr.relative[ tokens[ 0 ].type ],
+		implicitRelative = leadingRelative || Expr.relative[ " " ],
 		i = leadingRelative ? 1 : 0,
 
 		// The foundational matcher ensures that elements are reachable from top-level context(s)
@@ -17526,38 +17700,43 @@ function matcherFromTokens( tokens ) {
 		}, implicitRelative, true ),
 		matchers = [ function( elem, context, xml ) {
 			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
-				(checkContext = context).nodeType ?
+				( checkContext = context ).nodeType ?
 					matchContext( elem, context, xml ) :
 					matchAnyContext( elem, context, xml ) );
+
 			// Avoid hanging onto element (issue #299)
 			checkContext = null;
 			return ret;
 		} ];
 
 	for ( ; i < len; i++ ) {
-		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
-			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
+		if ( ( matcher = Expr.relative[ tokens[ i ].type ] ) ) {
+			matchers = [ addCombinator( elementMatcher( matchers ), matcher ) ];
 		} else {
-			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
+			matcher = Expr.filter[ tokens[ i ].type ].apply( null, tokens[ i ].matches );
 
 			// Return special upon seeing a positional matcher
 			if ( matcher[ expando ] ) {
+
 				// Find the next relative operator (if any) for proper handling
 				j = ++i;
 				for ( ; j < len; j++ ) {
-					if ( Expr.relative[ tokens[j].type ] ) {
+					if ( Expr.relative[ tokens[ j ].type ] ) {
 						break;
 					}
 				}
 				return setMatcher(
 					i > 1 && elementMatcher( matchers ),
 					i > 1 && toSelector(
-						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
-						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
+
+					// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+					tokens
+						.slice( 0, i - 1 )
+						.concat( { value: tokens[ i - 2 ].type === " " ? "*" : "" } )
 					).replace( rtrim, "$1" ),
 					matcher,
 					i < j && matcherFromTokens( tokens.slice( i, j ) ),
-					j < len && matcherFromTokens( (tokens = tokens.slice( j )) ),
+					j < len && matcherFromTokens( ( tokens = tokens.slice( j ) ) ),
 					j < len && toSelector( tokens )
 				);
 			}
@@ -17578,28 +17757,40 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				unmatched = seed && [],
 				setMatched = [],
 				contextBackup = outermostContext,
+
 				// We must always have either seed elements or outermost context
-				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
+				elems = seed || byElement && Expr.find[ "TAG" ]( "*", outermost ),
+
 				// Use integer dirruns iff this is the outermost matcher
-				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
+				dirrunsUnique = ( dirruns += contextBackup == null ? 1 : Math.random() || 0.1 ),
 				len = elems.length;
 
 			if ( outermost ) {
-				outermostContext = context === document || context || outermost;
+
+				// Support: IE 11+, Edge 17 - 18+
+				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+				// two documents; shallow comparisons work.
+				// eslint-disable-next-line eqeqeq
+				outermostContext = context == document || context || outermost;
 			}
 
 			// Add elements passing elementMatchers directly to results
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
-			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
+			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
 				if ( byElement && elem ) {
 					j = 0;
-					if ( !context && elem.ownerDocument !== document ) {
+
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					if ( !context && elem.ownerDocument != document ) {
 						setDocument( elem );
 						xml = !documentIsHTML;
 					}
-					while ( (matcher = elementMatchers[j++]) ) {
-						if ( matcher( elem, context || document, xml) ) {
+					while ( ( matcher = elementMatchers[ j++ ] ) ) {
+						if ( matcher( elem, context || document, xml ) ) {
 							results.push( elem );
 							break;
 						}
@@ -17611,8 +17802,9 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 				// Track unmatched elements for set filters
 				if ( bySet ) {
+
 					// They will have gone through all possible matchers
-					if ( (elem = !matcher && elem) ) {
+					if ( ( elem = !matcher && elem ) ) {
 						matchedCount--;
 					}
 
@@ -17636,16 +17828,17 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			// numerically zero.
 			if ( bySet && i !== matchedCount ) {
 				j = 0;
-				while ( (matcher = setMatchers[j++]) ) {
+				while ( ( matcher = setMatchers[ j++ ] ) ) {
 					matcher( unmatched, setMatched, context, xml );
 				}
 
 				if ( seed ) {
+
 					// Reintegrate element matches to eliminate the need for sorting
 					if ( matchedCount > 0 ) {
 						while ( i-- ) {
-							if ( !(unmatched[i] || setMatched[i]) ) {
-								setMatched[i] = pop.call( results );
+							if ( !( unmatched[ i ] || setMatched[ i ] ) ) {
+								setMatched[ i ] = pop.call( results );
 							}
 						}
 					}
@@ -17686,13 +17879,14 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		cached = compilerCache[ selector + " " ];
 
 	if ( !cached ) {
+
 		// Generate a function of recursive functions that can be used to check each element
 		if ( !match ) {
 			match = tokenize( selector );
 		}
 		i = match.length;
 		while ( i-- ) {
-			cached = matcherFromTokens( match[i] );
+			cached = matcherFromTokens( match[ i ] );
 			if ( cached[ expando ] ) {
 				setMatchers.push( cached );
 			} else {
@@ -17701,7 +17895,10 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		}
 
 		// Cache the compiled function
-		cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+		cached = compilerCache(
+			selector,
+			matcherFromGroupMatchers( elementMatchers, setMatchers )
+		);
 
 		// Save selector and tokenization
 		cached.selector = selector;
@@ -17721,7 +17918,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 select = Sizzle.select = function( selector, context, results, seed ) {
 	var i, tokens, token, type, find,
 		compiled = typeof selector === "function" && selector,
-		match = !seed && tokenize( (selector = compiled.selector || selector) );
+		match = !seed && tokenize( ( selector = compiled.selector || selector ) );
 
 	results = results || [];
 
@@ -17730,11 +17927,12 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	if ( match.length === 1 ) {
 
 		// Reduce context if the leading compound selector is an ID
-		tokens = match[0] = match[0].slice( 0 );
-		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[1].type ] ) {
+		tokens = match[ 0 ] = match[ 0 ].slice( 0 );
+		if ( tokens.length > 2 && ( token = tokens[ 0 ] ).type === "ID" &&
+			context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[ 1 ].type ] ) {
 
-			context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
+			context = ( Expr.find[ "ID" ]( token.matches[ 0 ]
+				.replace( runescape, funescape ), context ) || [] )[ 0 ];
 			if ( !context ) {
 				return results;
 
@@ -17747,20 +17945,22 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 
 		// Fetch a seed set for right-to-left matching
-		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
+		i = matchExpr[ "needsContext" ].test( selector ) ? 0 : tokens.length;
 		while ( i-- ) {
-			token = tokens[i];
+			token = tokens[ i ];
 
 			// Abort if we hit a combinator
-			if ( Expr.relative[ (type = token.type) ] ) {
+			if ( Expr.relative[ ( type = token.type ) ] ) {
 				break;
 			}
-			if ( (find = Expr.find[ type ]) ) {
+			if ( ( find = Expr.find[ type ] ) ) {
+
 				// Search, expanding context for leading sibling combinators
-				if ( (seed = find(
-					token.matches[0].replace( runescape, funescape ),
-					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
-				)) ) {
+				if ( ( seed = find(
+					token.matches[ 0 ].replace( runescape, funescape ),
+					rsibling.test( tokens[ 0 ].type ) && testContext( context.parentNode ) ||
+						context
+				) ) ) {
 
 					// If seed is empty or no tokens remain, we can return early
 					tokens.splice( i, 1 );
@@ -17791,7 +17991,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 // One-time assignments
 
 // Sort stability
-support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
+support.sortStable = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
 
 // Support: Chrome 14-35+
 // Always assume duplicates if they aren't passed to the comparison function
@@ -17802,58 +18002,59 @@ setDocument();
 
 // Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
 // Detached nodes confoundingly follow *each other*
-support.sortDetached = assert(function( el ) {
+support.sortDetached = assert( function( el ) {
+
 	// Should return 1, but returns 4 (following)
-	return el.compareDocumentPosition( document.createElement("fieldset") ) & 1;
-});
+	return el.compareDocumentPosition( document.createElement( "fieldset" ) ) & 1;
+} );
 
 // Support: IE<8
 // Prevent attribute/property "interpolation"
 // https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
-if ( !assert(function( el ) {
+if ( !assert( function( el ) {
 	el.innerHTML = "<a href='#'></a>";
-	return el.firstChild.getAttribute("href") === "#" ;
-}) ) {
+	return el.firstChild.getAttribute( "href" ) === "#";
+} ) ) {
 	addHandle( "type|href|height|width", function( elem, name, isXML ) {
 		if ( !isXML ) {
 			return elem.getAttribute( name, name.toLowerCase() === "type" ? 1 : 2 );
 		}
-	});
+	} );
 }
 
 // Support: IE<9
 // Use defaultValue in place of getAttribute("value")
-if ( !support.attributes || !assert(function( el ) {
+if ( !support.attributes || !assert( function( el ) {
 	el.innerHTML = "<input/>";
 	el.firstChild.setAttribute( "value", "" );
 	return el.firstChild.getAttribute( "value" ) === "";
-}) ) {
-	addHandle( "value", function( elem, name, isXML ) {
+} ) ) {
+	addHandle( "value", function( elem, _name, isXML ) {
 		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
 			return elem.defaultValue;
 		}
-	});
+	} );
 }
 
 // Support: IE<9
 // Use getAttributeNode to fetch booleans when getAttribute lies
-if ( !assert(function( el ) {
-	return el.getAttribute("disabled") == null;
-}) ) {
+if ( !assert( function( el ) {
+	return el.getAttribute( "disabled" ) == null;
+} ) ) {
 	addHandle( booleans, function( elem, name, isXML ) {
 		var val;
 		if ( !isXML ) {
 			return elem[ name ] === true ? name.toLowerCase() :
-					(val = elem.getAttributeNode( name )) && val.specified ?
+				( val = elem.getAttributeNode( name ) ) && val.specified ?
 					val.value :
-				null;
+					null;
 		}
-	});
+	} );
 }
 
 return Sizzle;
 
-})( window );
+} )( window );
 
 
 
@@ -18222,7 +18423,7 @@ jQuery.each( {
 	parents: function( elem ) {
 		return dir( elem, "parentNode" );
 	},
-	parentsUntil: function( elem, i, until ) {
+	parentsUntil: function( elem, _i, until ) {
 		return dir( elem, "parentNode", until );
 	},
 	next: function( elem ) {
@@ -18237,10 +18438,10 @@ jQuery.each( {
 	prevAll: function( elem ) {
 		return dir( elem, "previousSibling" );
 	},
-	nextUntil: function( elem, i, until ) {
+	nextUntil: function( elem, _i, until ) {
 		return dir( elem, "nextSibling", until );
 	},
-	prevUntil: function( elem, i, until ) {
+	prevUntil: function( elem, _i, until ) {
 		return dir( elem, "previousSibling", until );
 	},
 	siblings: function( elem ) {
@@ -18250,7 +18451,13 @@ jQuery.each( {
 		return siblings( elem.firstChild );
 	},
 	contents: function( elem ) {
-		if ( typeof elem.contentDocument !== "undefined" ) {
+		if ( elem.contentDocument != null &&
+
+			// Support: IE 11+
+			// <object> elements with no `data` attribute has an object
+			// `contentDocument` with a `null` prototype.
+			getProto( elem.contentDocument ) ) {
+
 			return elem.contentDocument;
 		}
 
@@ -18593,7 +18800,7 @@ jQuery.extend( {
 					var fns = arguments;
 
 					return jQuery.Deferred( function( newDefer ) {
-						jQuery.each( tuples, function( i, tuple ) {
+						jQuery.each( tuples, function( _i, tuple ) {
 
 							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
 							var fn = isFunction( fns[ tuple[ 4 ] ] ) && fns[ tuple[ 4 ] ];
@@ -19046,7 +19253,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 			// ...except when executing function values
 			} else {
 				bulk = fn;
-				fn = function( elem, key, value ) {
+				fn = function( elem, _key, value ) {
 					return bulk.call( jQuery( elem ), value );
 				};
 			}
@@ -19081,7 +19288,7 @@ var rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([a-z])/g;
 
 // Used by camelCase as callback to replace()
-function fcamelCase( all, letter ) {
+function fcamelCase( _all, letter ) {
 	return letter.toUpperCase();
 }
 
@@ -19120,7 +19327,7 @@ Data.prototype = {
 
 		// If not, create one
 		if ( !value ) {
-			value = {};
+			value = Object.create( null );
 
 			// We can accept data for non-element nodes in modern browsers,
 			// but we should not, see #8335.
@@ -19609,27 +19816,6 @@ var isHiddenWithinTree = function( elem, el ) {
 			jQuery.css( elem, "display" ) === "none";
 	};
 
-var swap = function( elem, options, callback, args ) {
-	var ret, name,
-		old = {};
-
-	// Remember the old values, and insert the new ones
-	for ( name in options ) {
-		old[ name ] = elem.style[ name ];
-		elem.style[ name ] = options[ name ];
-	}
-
-	ret = callback.apply( elem, args || [] );
-
-	// Revert the old values
-	for ( name in options ) {
-		elem.style[ name ] = old[ name ];
-	}
-
-	return ret;
-};
-
-
 
 
 function adjustCSS( elem, prop, valueParts, tween ) {
@@ -19800,11 +19986,40 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 
 
 
-// We have to close these tags to support XHTML (#13200)
-var wrapMap = {
+( function() {
+	var fragment = document.createDocumentFragment(),
+		div = fragment.appendChild( document.createElement( "div" ) ),
+		input = document.createElement( "input" );
+
+	// Support: Android 4.0 - 4.3 only
+	// Check state lost if the name is set (#11217)
+	// Support: Windows Web Apps (WWA)
+	// `name` and `type` must use .setAttribute for WWA (#14901)
+	input.setAttribute( "type", "radio" );
+	input.setAttribute( "checked", "checked" );
+	input.setAttribute( "name", "t" );
+
+	div.appendChild( input );
+
+	// Support: Android <=4.1 only
+	// Older WebKit doesn't clone checked state correctly in fragments
+	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
+
+	// Support: IE <=11 only
+	// Make sure textarea (and checkbox) defaultValue is properly cloned
+	div.innerHTML = "<textarea>x</textarea>";
+	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
 
 	// Support: IE <=9 only
-	option: [ 1, "<select multiple='multiple'>", "</select>" ],
+	// IE <=9 replaces <option> tags with their contents when inserted outside of
+	// the select element.
+	div.innerHTML = "<option></option>";
+	support.option = !!div.lastChild;
+} )();
+
+
+// We have to close these tags to support XHTML (#13200)
+var wrapMap = {
 
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
@@ -19817,11 +20032,13 @@ var wrapMap = {
 	_default: [ 0, "", "" ]
 };
 
-// Support: IE <=9 only
-wrapMap.optgroup = wrapMap.option;
-
 wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
+
+// Support: IE <=9 only
+if ( !support.option ) {
+	wrapMap.optgroup = wrapMap.option = [ 1, "<select multiple='multiple'>", "</select>" ];
+}
 
 
 function getAll( context, tag ) {
@@ -19955,32 +20172,6 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 }
 
 
-( function() {
-	var fragment = document.createDocumentFragment(),
-		div = fragment.appendChild( document.createElement( "div" ) ),
-		input = document.createElement( "input" );
-
-	// Support: Android 4.0 - 4.3 only
-	// Check state lost if the name is set (#11217)
-	// Support: Windows Web Apps (WWA)
-	// `name` and `type` must use .setAttribute for WWA (#14901)
-	input.setAttribute( "type", "radio" );
-	input.setAttribute( "checked", "checked" );
-	input.setAttribute( "name", "t" );
-
-	div.appendChild( input );
-
-	// Support: Android <=4.1 only
-	// Older WebKit doesn't clone checked state correctly in fragments
-	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
-
-	// Support: IE <=11 only
-	// Make sure textarea (and checkbox) defaultValue is properly cloned
-	div.innerHTML = "<textarea>x</textarea>";
-	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
-} )();
-
-
 var
 	rkeyEvent = /^key/,
 	rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
@@ -20089,8 +20280,8 @@ jQuery.event = {
 			special, handlers, type, namespaces, origType,
 			elemData = dataPriv.get( elem );
 
-		// Don't attach events to noData or text/comment nodes (but allow plain objects)
-		if ( !elemData ) {
+		// Only attach events to objects that accept data
+		if ( !acceptData( elem ) ) {
 			return;
 		}
 
@@ -20114,7 +20305,7 @@ jQuery.event = {
 
 		// Init the element's event structure and main handler, if this is the first
 		if ( !( events = elemData.events ) ) {
-			events = elemData.events = {};
+			events = elemData.events = Object.create( null );
 		}
 		if ( !( eventHandle = elemData.handle ) ) {
 			eventHandle = elemData.handle = function( e ) {
@@ -20272,12 +20463,15 @@ jQuery.event = {
 
 	dispatch: function( nativeEvent ) {
 
-		// Make a writable jQuery.Event from the native event object
-		var event = jQuery.event.fix( nativeEvent );
-
 		var i, j, ret, matched, handleObj, handlerQueue,
 			args = new Array( arguments.length ),
-			handlers = ( dataPriv.get( this, "events" ) || {} )[ event.type ] || [],
+
+			// Make a writable jQuery.Event from the native event object
+			event = jQuery.event.fix( nativeEvent ),
+
+			handlers = (
+					dataPriv.get( this, "events" ) || Object.create( null )
+				)[ event.type ] || [],
 			special = jQuery.event.special[ event.type ] || {};
 
 		// Use the fix-ed jQuery.Event rather than the (read-only) native event
@@ -20852,13 +21046,6 @@ jQuery.fn.extend( {
 
 var
 
-	/* eslint-disable max-len */
-
-	// See https://github.com/eslint/eslint/issues/3229
-	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-
-	/* eslint-enable */
-
 	// Support: IE <=10 - 11, Edge 12 - 13 only
 	// In IE/Edge using regex groups here causes severe slowdowns.
 	// See https://connect.microsoft.com/IE/feedback/details/1736512/
@@ -20895,7 +21082,7 @@ function restoreScript( elem ) {
 }
 
 function cloneCopyEvent( src, dest ) {
-	var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
+	var i, l, type, pdataOld, udataOld, udataCur, events;
 
 	if ( dest.nodeType !== 1 ) {
 		return;
@@ -20903,13 +21090,11 @@ function cloneCopyEvent( src, dest ) {
 
 	// 1. Copy private data: events, handlers, etc.
 	if ( dataPriv.hasData( src ) ) {
-		pdataOld = dataPriv.access( src );
-		pdataCur = dataPriv.set( dest, pdataOld );
+		pdataOld = dataPriv.get( src );
 		events = pdataOld.events;
 
 		if ( events ) {
-			delete pdataCur.handle;
-			pdataCur.events = {};
+			dataPriv.remove( dest, "handle events" );
 
 			for ( type in events ) {
 				for ( i = 0, l = events[ type ].length; i < l; i++ ) {
@@ -20945,7 +21130,7 @@ function fixInput( src, dest ) {
 function domManip( collection, args, callback, ignored ) {
 
 	// Flatten any nested arrays
-	args = concat.apply( [], args );
+	args = flat( args );
 
 	var fragment, first, scripts, hasScripts, node, doc,
 		i = 0,
@@ -21020,7 +21205,7 @@ function domManip( collection, args, callback, ignored ) {
 							if ( jQuery._evalUrl && !node.noModule ) {
 								jQuery._evalUrl( node.src, {
 									nonce: node.nonce || node.getAttribute( "nonce" )
-								} );
+								}, doc );
 							}
 						} else {
 							DOMEval( node.textContent.replace( rcleanScript, "" ), node, doc );
@@ -21057,7 +21242,7 @@ function remove( elem, selector, keepData ) {
 
 jQuery.extend( {
 	htmlPrefilter: function( html ) {
-		return html.replace( rxhtmlTag, "<$1></$2>" );
+		return html;
 	},
 
 	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
@@ -21319,6 +21504,27 @@ var getStyles = function( elem ) {
 		return view.getComputedStyle( elem );
 	};
 
+var swap = function( elem, options, callback ) {
+	var ret, name,
+		old = {};
+
+	// Remember the old values, and insert the new ones
+	for ( name in options ) {
+		old[ name ] = elem.style[ name ];
+		elem.style[ name ] = options[ name ];
+	}
+
+	ret = callback.call( elem );
+
+	// Revert the old values
+	for ( name in options ) {
+		elem.style[ name ] = old[ name ];
+	}
+
+	return ret;
+};
+
+
 var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 
 
@@ -21376,7 +21582,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 	}
 
 	var pixelPositionVal, boxSizingReliableVal, scrollboxSizeVal, pixelBoxStylesVal,
-		reliableMarginLeftVal,
+		reliableTrDimensionsVal, reliableMarginLeftVal,
 		container = document.createElement( "div" ),
 		div = document.createElement( "div" );
 
@@ -21411,6 +21617,35 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		scrollboxSize: function() {
 			computeStyleTests();
 			return scrollboxSizeVal;
+		},
+
+		// Support: IE 9 - 11+, Edge 15 - 18+
+		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// set in CSS while `offset*` properties report correct values.
+		// Behavior in IE 9 is more subtle than in newer versions & it passes
+		// some versions of this test; make sure not to make it pass there!
+		reliableTrDimensions: function() {
+			var table, tr, trChild, trStyle;
+			if ( reliableTrDimensionsVal == null ) {
+				table = document.createElement( "table" );
+				tr = document.createElement( "tr" );
+				trChild = document.createElement( "div" );
+
+				table.style.cssText = "position:absolute;left:-11111px";
+				tr.style.height = "1px";
+				trChild.style.height = "9px";
+
+				documentElement
+					.appendChild( table )
+					.appendChild( tr )
+					.appendChild( trChild );
+
+				trStyle = window.getComputedStyle( tr );
+				reliableTrDimensionsVal = parseInt( trStyle.height ) > 3;
+
+				documentElement.removeChild( table );
+			}
+			return reliableTrDimensionsVal;
 		}
 	} );
 } )();
@@ -21535,7 +21770,7 @@ var
 		fontWeight: "400"
 	};
 
-function setPositiveNumber( elem, value, subtract ) {
+function setPositiveNumber( _elem, value, subtract ) {
 
 	// Any relative (+/-) values have already been
 	// normalized at this point
@@ -21640,17 +21875,26 @@ function getWidthOrHeight( elem, dimension, extra ) {
 	}
 
 
-	// Fall back to offsetWidth/offsetHeight when value is "auto"
-	// This happens for inline elements with no explicit setting (gh-3571)
-	// Support: Android <=4.1 - 4.3 only
-	// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
-	// Support: IE 9-11 only
-	// Also use offsetWidth/offsetHeight for when box sizing is unreliable
-	// We use getClientRects() to check for hidden/disconnected.
-	// In those cases, the computed value can be trusted to be border-box
+	// Support: IE 9 - 11 only
+	// Use offsetWidth/offsetHeight for when box sizing is unreliable.
+	// In those cases, the computed value can be trusted to be border-box.
 	if ( ( !support.boxSizingReliable() && isBorderBox ||
+
+		// Support: IE 10 - 11+, Edge 15 - 18+
+		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// set in CSS while `offset*` properties report correct values.
+		// Interestingly, in some cases IE 9 doesn't suffer from this issue.
+		!support.reliableTrDimensions() && nodeName( elem, "tr" ) ||
+
+		// Fall back to offsetWidth/offsetHeight when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
 		val === "auto" ||
+
+		// Support: Android <=4.1 - 4.3 only
+		// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
 		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) &&
+
+		// Make sure the element is visible & connected
 		elem.getClientRects().length ) {
 
 		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
@@ -21845,7 +22089,7 @@ jQuery.extend( {
 	}
 } );
 
-jQuery.each( [ "height", "width" ], function( i, dimension ) {
+jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 	jQuery.cssHooks[ dimension ] = {
 		get: function( elem, computed, extra ) {
 			if ( computed ) {
@@ -22618,7 +22862,7 @@ jQuery.fn.extend( {
 			clearQueue = type;
 			type = undefined;
 		}
-		if ( clearQueue && type !== false ) {
+		if ( clearQueue ) {
 			this.queue( type || "fx", [] );
 		}
 
@@ -22701,7 +22945,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-jQuery.each( [ "toggle", "show", "hide" ], function( i, name ) {
+jQuery.each( [ "toggle", "show", "hide" ], function( _i, name ) {
 	var cssFn = jQuery.fn[ name ];
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
@@ -22922,7 +23166,7 @@ boolHook = {
 	}
 };
 
-jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) {
+jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( _i, name ) {
 	var getter = attrHandle[ name ] || jQuery.find.attr;
 
 	attrHandle[ name ] = function( elem, name, isXML ) {
@@ -23546,7 +23790,9 @@ jQuery.extend( jQuery.event, {
 				special.bindType || type;
 
 			// jQuery handler
-			handle = ( dataPriv.get( cur, "events" ) || {} )[ event.type ] &&
+			handle = (
+					dataPriv.get( cur, "events" ) || Object.create( null )
+				)[ event.type ] &&
 				dataPriv.get( cur, "handle" );
 			if ( handle ) {
 				handle.apply( cur, data );
@@ -23657,7 +23903,10 @@ if ( !support.focusin ) {
 
 		jQuery.event.special[ fix ] = {
 			setup: function() {
-				var doc = this.ownerDocument || this,
+
+				// Handle: regular nodes (via `this.ownerDocument`), window
+				// (via `this.document`) & document (via `this`).
+				var doc = this.ownerDocument || this.document || this,
 					attaches = dataPriv.access( doc, fix );
 
 				if ( !attaches ) {
@@ -23666,7 +23915,7 @@ if ( !support.focusin ) {
 				dataPriv.access( doc, fix, ( attaches || 0 ) + 1 );
 			},
 			teardown: function() {
-				var doc = this.ownerDocument || this,
+				var doc = this.ownerDocument || this.document || this,
 					attaches = dataPriv.access( doc, fix ) - 1;
 
 				if ( !attaches ) {
@@ -23682,7 +23931,7 @@ if ( !support.focusin ) {
 }
 var location = window.location;
 
-var nonce = Date.now();
+var nonce = { guid: Date.now() };
 
 var rquery = ( /\?/ );
 
@@ -23814,7 +24063,7 @@ jQuery.fn.extend( {
 				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
 				( this.checked || !rcheckableType.test( type ) );
 		} )
-		.map( function( i, elem ) {
+		.map( function( _i, elem ) {
 			var val = jQuery( this ).val();
 
 			if ( val == null ) {
@@ -24427,7 +24676,8 @@ jQuery.extend( {
 			// Add or update anti-cache param if needed
 			if ( s.cache === false ) {
 				cacheURL = cacheURL.replace( rantiCache, "$1" );
-				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce++ ) + uncached;
+				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce.guid++ ) +
+					uncached;
 			}
 
 			// Put hash and anti-cache on the URL that will be requested (gh-1732)
@@ -24560,6 +24810,11 @@ jQuery.extend( {
 				response = ajaxHandleResponses( s, jqXHR, responses );
 			}
 
+			// Use a noop converter for missing script
+			if ( !isSuccess && jQuery.inArray( "script", s.dataTypes ) > -1 ) {
+				s.converters[ "text script" ] = function() {};
+			}
+
 			// Convert no matter what (that way responseXXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
@@ -24650,7 +24905,7 @@ jQuery.extend( {
 	}
 } );
 
-jQuery.each( [ "get", "post" ], function( i, method ) {
+jQuery.each( [ "get", "post" ], function( _i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
 
 		// Shift arguments if data argument was omitted
@@ -24671,8 +24926,17 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 	};
 } );
 
+jQuery.ajaxPrefilter( function( s ) {
+	var i;
+	for ( i in s.headers ) {
+		if ( i.toLowerCase() === "content-type" ) {
+			s.contentType = s.headers[ i ] || "";
+		}
+	}
+} );
 
-jQuery._evalUrl = function( url, options ) {
+
+jQuery._evalUrl = function( url, options, doc ) {
 	return jQuery.ajax( {
 		url: url,
 
@@ -24690,7 +24954,7 @@ jQuery._evalUrl = function( url, options ) {
 			"text script": function() {}
 		},
 		dataFilter: function( response ) {
-			jQuery.globalEval( response, options );
+			jQuery.globalEval( response, options, doc );
 		}
 	} );
 };
@@ -25012,7 +25276,7 @@ var oldCallbacks = [],
 jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
+		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce.guid++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
@@ -25229,23 +25493,6 @@ jQuery.fn.load = function( url, params, callback ) {
 
 
 
-// Attach a bunch of functions for handling common AJAX events
-jQuery.each( [
-	"ajaxStart",
-	"ajaxStop",
-	"ajaxComplete",
-	"ajaxError",
-	"ajaxSuccess",
-	"ajaxSend"
-], function( i, type ) {
-	jQuery.fn[ type ] = function( fn ) {
-		return this.on( type, fn );
-	};
-} );
-
-
-
-
 jQuery.expr.pseudos.animated = function( elem ) {
 	return jQuery.grep( jQuery.timers, function( fn ) {
 		return elem === fn.elem;
@@ -25302,6 +25549,12 @@ jQuery.offset = {
 			options.using.call( elem, props );
 
 		} else {
+			if ( typeof props.top === "number" ) {
+				props.top += "px";
+			}
+			if ( typeof props.left === "number" ) {
+				props.left += "px";
+			}
 			curElem.css( props );
 		}
 	}
@@ -25452,7 +25705,7 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 // Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
 // getComputedStyle returns percent when specified for top/left/bottom/right;
 // rather than make the css module depend on the offset module, just check for it here
-jQuery.each( [ "top", "left" ], function( i, prop ) {
+jQuery.each( [ "top", "left" ], function( _i, prop ) {
 	jQuery.cssHooks[ prop ] = addGetHookIf( support.pixelPosition,
 		function( elem, computed ) {
 			if ( computed ) {
@@ -25515,23 +25768,17 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 } );
 
 
-jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
-	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
-	function( i, name ) {
-
-	// Handle event binding
-	jQuery.fn[ name ] = function( data, fn ) {
-		return arguments.length > 0 ?
-			this.on( name, null, data, fn ) :
-			this.trigger( name );
+jQuery.each( [
+	"ajaxStart",
+	"ajaxStop",
+	"ajaxComplete",
+	"ajaxError",
+	"ajaxSuccess",
+	"ajaxSend"
+], function( _i, type ) {
+	jQuery.fn[ type ] = function( fn ) {
+		return this.on( type, fn );
 	};
-} );
-
-jQuery.fn.extend( {
-	hover: function( fnOver, fnOut ) {
-		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
-	}
 } );
 
 
@@ -25555,8 +25802,32 @@ jQuery.fn.extend( {
 		return arguments.length === 1 ?
 			this.off( selector, "**" ) :
 			this.off( types, selector || "**", fn );
+	},
+
+	hover: function( fnOver, fnOut ) {
+		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 	}
 } );
+
+jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
+	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
+	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
+	function( _i, name ) {
+
+		// Handle event binding
+		jQuery.fn[ name ] = function( data, fn ) {
+			return arguments.length > 0 ?
+				this.on( name, null, data, fn ) :
+				this.trigger( name );
+		};
+	} );
+
+
+
+
+// Support: Android <=4.0 only
+// Make sure we trim BOM and NBSP
+var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
 
 // Bind a function to a context, optionally partially applying any
 // arguments.
@@ -25620,6 +25891,11 @@ jQuery.isNumeric = function( obj ) {
 		!isNaN( obj - parseFloat( obj ) );
 };
 
+jQuery.trim = function( text ) {
+	return text == null ?
+		"" :
+		( text + "" ).replace( rtrim, "" );
+};
 
 
 
@@ -25669,7 +25945,7 @@ jQuery.noConflict = function( deep ) {
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
-if ( !noGlobal ) {
+if ( typeof noGlobal === "undefined" ) {
 	window.jQuery = window.$ = jQuery;
 }
 
@@ -47015,12 +47291,16 @@ function textblockAt(node, side) {
 // deletion at the selected point.
 function selectNodeBackward(state, dispatch, view) {
   var ref = state.selection;
-  var $cursor = ref.$cursor;
-  if (!$cursor || (view ? !view.endOfTextblock("backward", state)
-                        : $cursor.parentOffset > 0))
-    { return false }
+  var $head = ref.$head;
+  var empty = ref.empty;
+  var $cut = $head;
+  if (!empty) { return false }
 
-  var $cut = findCutBefore($cursor), node = $cut && $cut.nodeBefore;
+  if ($head.parent.isTextblock) {
+    if (view ? !view.endOfTextblock("backward", state) : $head.parentOffset > 0) { return false }
+    $cut = findCutBefore($head);
+  }
+  var node = $cut && $cut.nodeBefore;
   if (!node || !prosemirror_state__WEBPACK_IMPORTED_MODULE_2__["NodeSelection"].isSelectable(node)) { return false }
   if (dispatch)
     { dispatch(state.tr.setSelection(prosemirror_state__WEBPACK_IMPORTED_MODULE_2__["NodeSelection"].create(state.doc, $cut.pos - node.nodeSize)).scrollIntoView()); }
@@ -47088,12 +47368,16 @@ function joinForward(state, dispatch, view) {
 // allow deletion at the selected point.
 function selectNodeForward(state, dispatch, view) {
   var ref = state.selection;
-  var $cursor = ref.$cursor;
-  if (!$cursor || (view ? !view.endOfTextblock("forward", state)
-                        : $cursor.parentOffset < $cursor.parent.content.size))
-    { return false }
-
-  var $cut = findCutAfter($cursor), node = $cut && $cut.nodeAfter;
+  var $head = ref.$head;
+  var empty = ref.empty;
+  var $cut = $head;
+  if (!empty) { return false }
+  if ($head.parent.isTextblock) {
+    if (view ? !view.endOfTextblock("forward", state) : $head.parentOffset < $head.parent.content.size)
+      { return false }
+    $cut = findCutAfter($head);
+  }
+  var node = $cut && $cut.nodeAfter;
   if (!node || !prosemirror_state__WEBPACK_IMPORTED_MODULE_2__["NodeSelection"].isSelectable(node)) { return false }
   if (dispatch)
     { dispatch(state.tr.setSelection(prosemirror_state__WEBPACK_IMPORTED_MODULE_2__["NodeSelection"].create(state.doc, $cut.pos)).scrollIntoView()); }
@@ -47173,6 +47457,15 @@ function newlineInCode(state, dispatch) {
   return true
 }
 
+function defaultBlockAt(match) {
+  for (var i = 0; i < match.edgeCount; i++) {
+    var ref = match.edge(i);
+    var type = ref.type;
+    if (type.isTextblock && !type.hasRequiredAttrs()) { return type }
+  }
+  return null
+}
+
 // :: (EditorState, ?(tr: Transaction)) → bool
 // When the selection is in a node with a truthy
 // [`code`](#model.NodeSpec.code) property in its spec, create a
@@ -47182,7 +47475,7 @@ function exitCode(state, dispatch) {
   var $head = ref.$head;
   var $anchor = ref.$anchor;
   if (!$head.parent.type.spec.code || !$head.sameParent($anchor)) { return false }
-  var above = $head.node(-1), after = $head.indexAfter(-1), type = above.contentMatchAt(after).defaultType;
+  var above = $head.node(-1), after = $head.indexAfter(-1), type = defaultBlockAt(above.contentMatchAt(after));
   if (!above.canReplaceWith(after, after, type)) { return false }
   if (dispatch) {
     var pos = $head.after(), tr = state.tr.replaceWith(pos, pos, type.createAndFill());
@@ -47200,7 +47493,7 @@ function createParagraphNear(state, dispatch) {
   var $from = ref.$from;
   var $to = ref.$to;
   if ($from.parent.inlineContent || $to.parent.inlineContent) { return false }
-  var type = $from.parent.contentMatchAt($to.indexAfter()).defaultType;
+  var type = defaultBlockAt($from.parent.contentMatchAt($to.indexAfter()));
   if (!type || !type.isTextblock) { return false }
   if (dispatch) {
     var side = (!$from.parentOffset && $to.index() < $to.parent.childCount ? $from : $to).pos;
@@ -47250,7 +47543,7 @@ function splitBlock(state, dispatch) {
     var atEnd = $to.parentOffset == $to.parent.content.size;
     var tr = state.tr;
     if (state.selection instanceof prosemirror_state__WEBPACK_IMPORTED_MODULE_2__["TextSelection"]) { tr.deleteSelection(); }
-    var deflt = $from.depth == 0 ? null : $from.node(-1).contentMatchAt($from.indexAfter(-1)).defaultType;
+    var deflt = $from.depth == 0 ? null : defaultBlockAt($from.node(-1).contentMatchAt($from.indexAfter(-1)));
     var types = atEnd && deflt ? [{type: deflt}] : null;
     var can = Object(prosemirror_transform__WEBPACK_IMPORTED_MODULE_0__["canSplit"])(tr.doc, tr.mapping.map($from.pos), 1, types);
     if (!types && !can && Object(prosemirror_transform__WEBPACK_IMPORTED_MODULE_0__["canSplit"])(tr.doc, tr.mapping.map($from.pos), 1, deflt && [{type: deflt}])) {
@@ -47793,33 +48086,42 @@ var GapCursor = /*@__PURE__*/(function (Selection) {
   };
 
   GapCursor.findFrom = function findFrom ($pos, dir, mustMove) {
-    if (!mustMove && GapCursor.valid($pos)) { return $pos }
-
-    var pos = $pos.pos, next = null;
-    // Scan up from this position
-    for (var d = $pos.depth;; d--) {
-      var parent = $pos.node(d);
-      if (dir > 0 ? $pos.indexAfter(d) < parent.childCount : $pos.index(d) > 0) {
-        next = parent.maybeChild(dir > 0 ? $pos.indexAfter(d) : $pos.index(d) - 1);
-        break
-      } else if (d == 0) {
-        return null
+    search: for (;;) {
+      if (!mustMove && GapCursor.valid($pos)) { return $pos }
+      var pos = $pos.pos, next = null;
+      // Scan up from this position
+      for (var d = $pos.depth;; d--) {
+        var parent = $pos.node(d);
+        if (dir > 0 ? $pos.indexAfter(d) < parent.childCount : $pos.index(d) > 0) {
+          next = parent.child(dir > 0 ? $pos.indexAfter(d) : $pos.index(d) - 1);
+          break
+        } else if (d == 0) {
+          return null
+        }
+        pos += dir;
+        var $cur = $pos.doc.resolve(pos);
+        if (GapCursor.valid($cur)) { return $cur }
       }
-      pos += dir;
-      var $cur = $pos.doc.resolve(pos);
-      if (GapCursor.valid($cur)) { return $cur }
-    }
 
-    // And then down into the next node
-    for (;;) {
-      next = dir > 0 ? next.firstChild : next.lastChild;
-      if (!next) { break }
-      pos += dir;
-      var $cur$1 = $pos.doc.resolve(pos);
-      if (GapCursor.valid($cur$1)) { return $cur$1 }
-    }
+      // And then down into the next node
+      for (;;) {
+        var inside = dir > 0 ? next.firstChild : next.lastChild;
+        if (!inside) {
+          if (next.isAtom && !next.isText && !prosemirror_state__WEBPACK_IMPORTED_MODULE_1__["NodeSelection"].isSelectable(next)) {
+            $pos = $pos.doc.resolve(pos + next.nodeSize * dir);
+            mustMove = false;
+            continue search
+          }
+          break
+        }
+        next = inside;
+        pos += dir;
+        var $cur$1 = $pos.doc.resolve(pos);
+        if (GapCursor.valid($cur$1)) { return $cur$1 }
+      }
 
-    return null
+      return null
+    }
   };
 
   return GapCursor;
@@ -47903,7 +48205,7 @@ function arrow(axis, dir) {
     var sel = state.selection;
     var $start = dir > 0 ? sel.$to : sel.$from, mustMove = sel.empty;
     if (sel instanceof prosemirror_state__WEBPACK_IMPORTED_MODULE_1__["TextSelection"]) {
-      if (!view.endOfTextblock(dirStr)) { return false }
+      if (!view.endOfTextblock(dirStr) || $start.depth == 0) { return false }
       mustMove = false;
       $start = state.doc.resolve(dir > 0 ? $start.after() : $start.before());
     }
@@ -48076,7 +48378,7 @@ Branch.prototype.remapping = function remapping (from, to) {
   var maps = new prosemirror_transform__WEBPACK_IMPORTED_MODULE_1__["Mapping"];
   this.items.forEach(function (item, i) {
     var mirrorPos = item.mirrorOffset != null && i - item.mirrorOffset >= from
-        ? mirrorPos = maps.maps.length - item.mirrorOffset : null;
+        ? maps.maps.length - item.mirrorOffset : null;
     maps.appendMap(item.map, mirrorPos);
   }, from, to);
   return maps
@@ -48237,8 +48539,8 @@ function applyTransaction(history, state, tr, options) {
                               null, history.prevTime) }
   } else if (tr.getMeta("addToHistory") !== false && !(appended && appended.getMeta("addToHistory") === false)) {
     // Group transforms that occur in quick succession into one event.
-    var newGroup = !appended && (history.prevTime < (tr.time || 0) - options.newGroupDelay ||
-                                 !isAdjacentTo(tr, history.prevRanges));
+    var newGroup = history.prevTime == 0 || !appended && (history.prevTime < (tr.time || 0) - options.newGroupDelay ||
+                                                          !isAdjacentTo(tr, history.prevRanges));
     var prevRanges = appended ? mapRanges(history.prevRanges, tr.mapping) : rangesFor(tr.mapping.maps[tr.steps.length - 1]);
     return new HistoryState(history.done.addTransform(tr, newGroup ? state.selection.getBookmark() : null,
                                                       options, mustPreserveItems(state)),
@@ -50060,11 +50362,6 @@ Node.prototype.canAppend = function canAppend (other) {
   else { return this.type.compatibleContent(other.type) }
 };
 
-// Unused. Left for backwards compatibility.
-Node.prototype.defaultContentType = function defaultContentType (at) {
-  return this.contentMatchAt(at).defaultType
-};
-
 // :: ()
 // Check whether this node and its descendants conform to the
 // schema, and raise error when they do not.
@@ -50673,9 +50970,10 @@ prototypeAccessors$5.isLeaf.get = function () { return this.contentMatch == Cont
 // directly editable content.
 prototypeAccessors$5.isAtom.get = function () { return this.isLeaf || this.spec.atom };
 
-NodeType.prototype.hasRequiredAttrs = function hasRequiredAttrs (ignore) {
-  for (var n in this.attrs)
-    { if (this.attrs[n].isRequired && (!ignore || !(n in ignore))) { return true } }
+// :: () → bool
+// Tells you whether this node type has any required attributes.
+NodeType.prototype.hasRequiredAttrs = function hasRequiredAttrs () {
+  for (var n in this.attrs) { if (this.attrs[n].isRequired) { return true } }
   return false
 };
 
@@ -51433,15 +51731,19 @@ function wsOptionsFor(preserveWhitespace) {
   return (preserveWhitespace ? OPT_PRESERVE_WS : 0) | (preserveWhitespace === "full" ? OPT_PRESERVE_WS_FULL : 0)
 }
 
-var NodeContext = function NodeContext(type, attrs, marks, solid, match, options) {
+var NodeContext = function NodeContext(type, attrs, marks, pendingMarks, solid, match, options) {
   this.type = type;
   this.attrs = attrs;
   this.solid = solid;
   this.match = match || (options & OPT_OPEN_LEFT ? null : type.contentMatch);
   this.options = options;
   this.content = [];
+  // Marks applied to this node itself
   this.marks = marks;
+  // Marks applied to its children
   this.activeMarks = Mark.none;
+  // Marks that can't apply here, but will be used in children if possible
+  this.pendingMarks = pendingMarks;
 };
 
 NodeContext.prototype.findWrapping = function findWrapping (node) {
@@ -51477,22 +51779,32 @@ NodeContext.prototype.finish = function finish (openEnd) {
   return this.type ? this.type.create(this.attrs, content, this.marks) : content
 };
 
+NodeContext.prototype.applyPending = function applyPending (nextType) {
+  for (var i = 0, pending = this.pendingMarks; i < pending.length; i++) {
+    var mark = pending[i];
+    if ((this.type ? this.type.allowsMarkType(mark.type) : markMayApply(mark.type, nextType)) &&
+        !mark.isInSet(this.activeMarks)) {
+      this.activeMarks = mark.addToSet(this.activeMarks);
+      this.pendingMarks = mark.removeFromSet(this.pendingMarks);
+    }
+  }
+};
+
 var ParseContext = function ParseContext(parser, options, open) {
   // : DOMParser The parser we are using.
   this.parser = parser;
   // : Object The options passed to this parse.
   this.options = options;
   this.isOpen = open;
-  this.pendingMarks = [];
   var topNode = options.topNode, topContext;
   var topOptions = wsOptionsFor(options.preserveWhitespace) | (open ? OPT_OPEN_LEFT : 0);
   if (topNode)
-    { topContext = new NodeContext(topNode.type, topNode.attrs, Mark.none, true,
+    { topContext = new NodeContext(topNode.type, topNode.attrs, Mark.none, Mark.none, true,
                                  options.topMatch || topNode.type.contentMatch, topOptions); }
   else if (open)
-    { topContext = new NodeContext(null, null, Mark.none, true, null, topOptions); }
+    { topContext = new NodeContext(null, null, Mark.none, Mark.none, true, null, topOptions); }
   else
-    { topContext = new NodeContext(parser.schema.topNodeType, null, Mark.none, true, null, topOptions); }
+    { topContext = new NodeContext(parser.schema.topNodeType, null, Mark.none, Mark.none, true, null, topOptions); }
   this.nodes = [topContext];
   // : [Mark] The current set of marks
   this.open = 0;
@@ -51515,10 +51827,10 @@ ParseContext.prototype.addDOM = function addDOM (dom) {
     this.addTextNode(dom);
   } else if (dom.nodeType == 1) {
     var style = dom.getAttribute("style");
-    var marks = style ? this.readStyles(parseStyles(style)) : null;
+    var marks = style ? this.readStyles(parseStyles(style)) : null, top = this.top;
     if (marks != null) { for (var i = 0; i < marks.length; i++) { this.addPendingMark(marks[i]); } }
     this.addElement(dom);
-    if (marks != null) { for (var i$1 = 0; i$1 < marks.length; i$1++) { this.removePendingMark(marks[i$1]); } }
+    if (marks != null) { for (var i$1 = 0; i$1 < marks.length; i$1++) { this.removePendingMark(marks[i$1], top); } }
   }
 };
 
@@ -51632,7 +51944,7 @@ ParseContext.prototype.addElementByRule = function addElementByRule (dom, rule) 
     this.addAll(contentDOM, sync);
   }
   if (sync) { this.sync(startIn); this.open--; }
-  if (mark) { this.removePendingMark(mark); }
+  if (mark) { this.removePendingMark(mark, startIn); }
 };
 
 // : (dom.Node, ?NodeBuilder, ?number, ?number)
@@ -51684,7 +51996,7 @@ ParseContext.prototype.insertNode = function insertNode (node) {
   if (this.findPlace(node)) {
     this.closeExtra();
     var top = this.top;
-    this.applyPendingMarks(top);
+    top.applyPending(node.type);
     if (top.match) { top.match = top.match.matchType(node.type); }
     var marks = top.activeMarks;
     for (var i = 0; i < node.marks.length; i++)
@@ -51696,25 +52008,12 @@ ParseContext.prototype.insertNode = function insertNode (node) {
   return false
 };
 
-ParseContext.prototype.applyPendingMarks = function applyPendingMarks (top) {
-  for (var i = 0; i < this.pendingMarks.length; i++) {
-    var mark = this.pendingMarks[i];
-    if ((!top.type || top.type.allowsMarkType(mark.type)) && !mark.isInSet(top.activeMarks)) {
-      top.activeMarks = mark.addToSet(top.activeMarks);
-      this.pendingMarks.splice(i--, 1);
-    }
-  }
-};
-
 // : (NodeType, ?Object) → bool
 // Try to start a node of the given type, adjusting the context when
 // necessary.
 ParseContext.prototype.enter = function enter (type, attrs, preserveWS) {
   var ok = this.findPlace(type.create(attrs));
-  if (ok) {
-    this.applyPendingMarks(this.top);
-    this.enterInner(type, attrs, true, preserveWS);
-  }
+  if (ok) { this.enterInner(type, attrs, true, preserveWS); }
   return ok
 };
 
@@ -51722,10 +52021,11 @@ ParseContext.prototype.enter = function enter (type, attrs, preserveWS) {
 ParseContext.prototype.enterInner = function enterInner (type, attrs, solid, preserveWS) {
   this.closeExtra();
   var top = this.top;
+  top.applyPending(type);
   top.match = top.match && top.match.matchType(type, attrs);
   var options = preserveWS == null ? top.options & ~OPT_OPEN_LEFT : wsOptionsFor(preserveWS);
   if ((top.options & OPT_OPEN_LEFT) && top.content.length == 0) { options |= OPT_OPEN_LEFT; }
-  this.nodes.push(new NodeContext(type, attrs, top.activeMarks, solid, null, options));
+  this.nodes.push(new NodeContext(type, attrs, top.activeMarks, top.pendingMarks, solid, null, options));
   this.open++;
 };
 
@@ -51750,20 +52050,6 @@ ParseContext.prototype.sync = function sync (to) {
     this.open = i;
     return
   } }
-};
-
-ParseContext.prototype.addPendingMark = function addPendingMark (mark) {
-  this.pendingMarks.push(mark);
-};
-
-ParseContext.prototype.removePendingMark = function removePendingMark (mark) {
-  var found = this.pendingMarks.lastIndexOf(mark);
-  if (found > -1) {
-    this.pendingMarks.splice(found, 1);
-  } else {
-    var top = this.top;
-    top.activeMarks = mark.removeFromSet(top.activeMarks);
-  }
 };
 
 prototypeAccessors$6.currentPos.get = function () {
@@ -51856,6 +52142,20 @@ ParseContext.prototype.textblockFromContext = function textblockFromContext () {
   }
 };
 
+ParseContext.prototype.addPendingMark = function addPendingMark (mark) {
+  this.top.pendingMarks = mark.addToSet(this.top.pendingMarks);
+};
+
+ParseContext.prototype.removePendingMark = function removePendingMark (mark, upto) {
+  for (var depth = this.open; depth >= 0; depth--) {
+    var level = this.nodes[depth];
+    var found = level.pendingMarks.lastIndexOf(mark);
+    if (found > -1) { level.pendingMarks = mark.removeFromSet(level.pendingMarks); }
+    else { level.activeMarks = mark.removeFromSet(level.activeMarks); }
+    if (level == upto) { break }
+  }
+};
+
 Object.defineProperties( ParseContext.prototype, prototypeAccessors$6 );
 
 // Kludge to work around directly nested list nodes produced by some
@@ -51894,18 +52194,46 @@ function copy(obj) {
   return copy
 }
 
+// Used when finding a mark at the top level of a fragment parse.
+// Checks whether it would be reasonable to apply a given mark type to
+// a given node, by looking at the way the mark occurs in the schema.
+function markMayApply(markType, nodeType) {
+  var nodes = nodeType.schema.nodes;
+  var loop = function ( name ) {
+    var parent = nodes[name];
+    if (!parent.allowsMarkType(markType)) { return }
+    var seen = [], scan = function (match) {
+      seen.push(match);
+      for (var i = 0; i < match.edgeCount; i++) {
+        var ref = match.edge(i);
+        var type = ref.type;
+        var next = ref.next;
+        if (type == nodeType) { return true }
+        if (seen.indexOf(next) < 0 && scan(next)) { return true }
+      }
+    };
+    if (scan(parent.contentMatch)) { return { v: true } }
+  };
+
+  for (var name in nodes) {
+    var returned = loop( name );
+
+    if ( returned ) return returned.v;
+  }
+}
+
 // DOMOutputSpec:: interface
 // A description of a DOM structure. Can be either a string, which is
 // interpreted as a text node, a DOM node, which is interpreted as
 // itself, or an array.
 //
 // An array describes a DOM element. The first value in the array
-// should be a string—the name of the DOM element. If the second
-// element is plain object, it is interpreted as a set of attributes
-// for the element. Any elements after that (including the 2nd if it's
-// not an attribute object) are interpreted as children of the DOM
-// elements, and must either be valid `DOMOutputSpec` values, or the
-// number zero.
+// should be a string—the name of the DOM element, optionally prefixed
+// by a namespace URL and a space. If the second element is plain
+// object, it is interpreted as a set of attributes for the element.
+// Any elements after that (including the 2nd if it's not an attribute
+// object) are interpreted as children of the DOM elements, and must
+// either be valid `DOMOutputSpec` values, or the number zero.
 //
 // The number zero (pronounced “hole”) is used to indicate the place
 // where a node's child nodes should be inserted. If it occurs in an
@@ -52014,18 +52342,27 @@ DOMSerializer.prototype.serializeMark = function serializeMark (mark, inline, op
 // Render an [output spec](#model.DOMOutputSpec) to a DOM node. If
 // the spec has a hole (zero) in it, `contentDOM` will point at the
 // node with the hole.
-DOMSerializer.renderSpec = function renderSpec (doc, structure) {
+DOMSerializer.renderSpec = function renderSpec (doc, structure, xmlNS) {
+    if ( xmlNS === void 0 ) xmlNS = null;
+
   if (typeof structure == "string")
     { return {dom: doc.createTextNode(structure)} }
   if (structure.nodeType != null)
     { return {dom: structure} }
-  var dom = doc.createElement(structure[0]), contentDOM = null;
+  var tagName = structure[0], space = tagName.indexOf(" ");
+  if (space > 0) {
+    xmlNS = tagName.slice(0, space);
+    tagName = tagName.slice(space + 1);
+  }
+  var contentDOM = null, dom = xmlNS ? doc.createElementNS(xmlNS, tagName) : doc.createElement(tagName);
   var attrs = structure[1], start = 1;
   if (attrs && typeof attrs == "object" && attrs.nodeType == null && !Array.isArray(attrs)) {
     start = 2;
-    for (var name in attrs) {
-      if (attrs[name] != null) { dom.setAttribute(name, attrs[name]); }
-    }
+    for (var name in attrs) { if (attrs[name] != null) {
+      var space$1 = name.indexOf(" ");
+      if (space$1 > 0) { dom.setAttributeNS(name.slice(0, space$1), name.slice(space$1 + 1), attrs[name]); }
+      else { dom.setAttribute(name, attrs[name]); }
+    } }
   }
   for (var i = start; i < structure.length; i++) {
     var child = structure[i];
@@ -52034,7 +52371,7 @@ DOMSerializer.renderSpec = function renderSpec (doc, structure) {
         { throw new RangeError("Content hole must be the only child of its parent node") }
       return {dom: dom, contentDOM: dom}
     } else {
-      var ref = DOMSerializer.renderSpec(doc, child);
+      var ref = DOMSerializer.renderSpec(doc, child, xmlNS);
         var inner = ref.dom;
         var innerContent = ref.contentDOM;
       dom.appendChild(inner);
@@ -52817,6 +53154,18 @@ var AllSelection = /*@__PURE__*/(function (Selection) {
   if ( Selection ) AllSelection.__proto__ = Selection;
   AllSelection.prototype = Object.create( Selection && Selection.prototype );
   AllSelection.prototype.constructor = AllSelection;
+
+  AllSelection.prototype.replace = function replace (tr, content) {
+    if ( content === void 0 ) content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty;
+
+    if (content == prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty) {
+      tr.delete(0, tr.doc.content.size);
+      var sel = Selection.atStart(tr.doc);
+      if (!sel.eq(tr.selection)) { tr.setSelection(sel); }
+    } else {
+      Selection.prototype.replace.call(this, tr, content);
+    }
+  };
 
   AllSelection.prototype.toJSON = function toJSON () { return {type: "all"} };
 
@@ -56917,19 +57266,7 @@ function replaceStep(doc, from, to, slice) {
   var $from = doc.resolve(from), $to = doc.resolve(to);
   // Optimization -- avoid work if it's obvious that it's not needed.
   if (fitsTrivially($from, $to, slice)) { return new ReplaceStep(from, to, slice) }
-  var placed = placeSlice($from, slice);
-
-  var fittedLeft = fitLeft($from, placed);
-  var fitted = fitRight($from, $to, fittedLeft);
-  if (!fitted) { return null }
-  if (fittedLeft.size != fitted.size && canMoveText($from, $to, fittedLeft)) {
-    var d = $to.depth, after = $to.after(d);
-    while (d > 1 && after == $to.end(--d)) { ++after; }
-    var fittedAfter = fitRight($from, doc.resolve(after), fittedLeft);
-    if (fittedAfter)
-      { return new ReplaceAroundStep(from, after, to, $to.end(), fittedAfter, fittedLeft.size) }
-  }
-  return fitted.size || from != to ? new ReplaceStep(from, to, fitted) : null
+  return new Fitter($from, $to, slice).fit()
 }
 
 // :: (number, ?number, ?Slice) → this
@@ -56963,155 +57300,9 @@ Transform.prototype.insert = function(pos, content) {
   return this.replaceWith(pos, pos, content)
 };
 
-
-
-function fitLeftInner($from, depth, placed, placedBelow) {
-  var content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, openEnd = 0, placedHere = placed[depth];
-  if ($from.depth > depth) {
-    var inner = fitLeftInner($from, depth + 1, placed, placedBelow || placedHere);
-    openEnd = inner.openEnd + 1;
-    content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($from.node(depth + 1).copy(inner.content));
-  }
-
-  if (placedHere) {
-    content = content.append(placedHere.content);
-    openEnd = placedHere.openEnd;
-  }
-  if (placedBelow) {
-    content = content.append($from.node(depth).contentMatchAt($from.indexAfter(depth)).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true));
-    openEnd = 0;
-  }
-
-  return {content: content, openEnd: openEnd}
-}
-
-function fitLeft($from, placed) {
-  var ref = fitLeftInner($from, 0, placed, false);
-  var content = ref.content;
-  var openEnd = ref.openEnd;
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, $from.depth, openEnd || 0)
-}
-
-function fitRightJoin(content, parent, $from, $to, depth, openStart, openEnd) {
-  var match, count = content.childCount, matchCount = count - (openEnd > 0 ? 1 : 0);
-  var parentNode = openStart < 0 ? parent : $from.node(depth);
-  if (openStart < 0)
-    { match = parentNode.contentMatchAt(matchCount); }
-  else if (count == 1 && openEnd > 0)
-    { match = parentNode.contentMatchAt(openStart ? $from.index(depth) : $from.indexAfter(depth)); }
-  else
-    { match = parentNode.contentMatchAt($from.indexAfter(depth))
-      .matchFragment(content, count > 0 && openStart ? 1 : 0, matchCount); }
-
-  var toNode = $to.node(depth);
-  if (openEnd > 0 && depth < $to.depth) {
-    var after = toNode.content.cutByIndex($to.indexAfter(depth)).addToStart(content.lastChild);
-    var joinable$1 = match.fillBefore(after, true);
-    // Can't insert content if there's a single node stretched across this gap
-    if (joinable$1 && joinable$1.size && openStart > 0 && count == 1) { joinable$1 = null; }
-
-    if (joinable$1) {
-      var inner = fitRightJoin(content.lastChild.content, content.lastChild, $from, $to,
-                               depth + 1, count == 1 ? openStart - 1 : -1, openEnd - 1);
-      if (inner) {
-        var last = content.lastChild.copy(inner);
-        if (joinable$1.size)
-          { return content.cutByIndex(0, count - 1).append(joinable$1).addToEnd(last) }
-        else
-          { return content.replaceChild(count - 1, last) }
-      }
-    }
-  }
-  if (openEnd > 0)
-    { match = match.matchType((count == 1 && openStart > 0 ? $from.node(depth + 1) : content.lastChild).type); }
-
-  // If we're here, the next level can't be joined, so we see what
-  // happens if we leave it open.
-  var toIndex = $to.index(depth);
-  if (toIndex == toNode.childCount && !toNode.type.compatibleContent(parent.type)) { return null }
-  var joinable = match.fillBefore(toNode.content, true, toIndex);
-  for (var i = toIndex; joinable && i < toNode.content.childCount; i++)
-    { if (!parentNode.type.allowsMarks(toNode.content.child(i).marks)) { joinable = null; } }
-  if (!joinable) { return null }
-
-  if (openEnd > 0) {
-    var closed = fitRightClosed(content.lastChild, openEnd - 1, $from, depth + 1,
-                                count == 1 ? openStart - 1 : -1);
-    content = content.replaceChild(count - 1, closed);
-  }
-  content = content.append(joinable);
-  if ($to.depth > depth)
-    { content = content.addToEnd(fitRightSeparate($to, depth + 1)); }
-  return content
-}
-
-function fitRightClosed(node, openEnd, $from, depth, openStart) {
-  var match, content = node.content, count = content.childCount;
-  if (openStart >= 0)
-    { match = $from.node(depth).contentMatchAt($from.indexAfter(depth))
-      .matchFragment(content, openStart > 0 ? 1 : 0, count); }
-  else
-    { match = node.contentMatchAt(count); }
-
-  if (openEnd > 0) {
-    var closed = fitRightClosed(content.lastChild, openEnd - 1, $from, depth + 1,
-                                count == 1 ? openStart - 1 : -1);
-    content = content.replaceChild(count - 1, closed);
-  }
-
-  return node.copy(content.append(match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true)))
-}
-
-function fitRightSeparate($to, depth) {
-  var node = $to.node(depth);
-  var fill = node.contentMatchAt(0).fillBefore(node.content, true, $to.index(depth));
-  if ($to.depth > depth) { fill = fill.addToEnd(fitRightSeparate($to, depth + 1)); }
-  return node.copy(fill)
-}
-
-function normalizeSlice(content, openStart, openEnd) {
-  while (openStart > 0 && openEnd > 0 && content.childCount == 1) {
-    content = content.firstChild.content;
-    openStart--;
-    openEnd--;
-  }
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, openStart, openEnd)
-}
-
-// : (ResolvedPos, ResolvedPos, number, Slice) → Slice
-function fitRight($from, $to, slice) {
-  var fitted = fitRightJoin(slice.content, $from.node(0), $from, $to, 0, slice.openStart, slice.openEnd);
-  if (!fitted) { return null }
-  return normalizeSlice(fitted, slice.openStart, $to.depth)
-}
-
 function fitsTrivially($from, $to, slice) {
   return !slice.openStart && !slice.openEnd && $from.start() == $to.start() &&
     $from.parent.canReplace($from.index(), $to.index(), slice.content)
-}
-
-function canMoveText($from, $to, slice) {
-  if (!$to.parent.isTextblock) { return false }
-
-  var parent = slice.openEnd ? nodeRight(slice.content, slice.openEnd)
-      : $from.node($from.depth - (slice.openStart - slice.openEnd));
-  if (!parent.isTextblock) { return false }
-  for (var i = $to.index(); i < $to.parent.childCount; i++)
-    { if (!parent.type.allowsMarks($to.parent.child(i).marks)) { return false } }
-  var match;
-  if (slice.openEnd) {
-    match = parent.contentMatchAt(parent.childCount);
-  } else {
-    match = parent.contentMatchAt(parent.childCount);
-    if (slice.size) { match = match.matchFragment(slice.content, slice.openStart ? 1 : 0); }
-  }
-  match = match.matchFragment($to.parent.content, $to.index());
-  return match && match.validEnd
-}
-
-function nodeRight(content, depth) {
-  for (var i = 1; i < depth; i++) { content = content.lastChild.content; }
-  return content.lastChild
 }
 
 // Algorithm for 'placing' the elements of a slice into a gap:
@@ -57121,182 +57312,302 @@ function nodeRight(content, depth) {
 // paragraph on the left is open, "foo" can be placed (somewhere on
 // the left side of the replacement gap) independently from p("bar").
 //
-// So placeSlice splits up a slice into a number of sub-slices,
-// along with information on where they can be placed on the given
-// left-side edge. It works by walking the open side of the slice,
-// from the inside out, and trying to find a landing spot for each
-// element, by simultaneously scanning over the gap side. When no
-// place is found for an open node's content, it is left in that node.
+// This class tracks the state of the placement progress in the
+// following properties:
+//
+//  - `frontier` holds a stack of `{type, match}` objects that
+//    represent the open side of the replacement. It starts at
+//    `$from`, then moves forward as content is placed, and is finally
+//    reconciled with `$to`.
+//
+//  - `unplaced` is a slice that represents the content that hasn't
+//    been placed yet.
+//
+//  - `placed` is a fragment of placed content. Its open-start value
+//    is implicit in `$from`, and its open-end value in `frontier`.
+var Fitter = function Fitter($from, $to, slice) {
+  this.$to = $to;
+  this.$from = $from;
+  this.unplaced = slice;
 
-// : (ResolvedPos, Slice) → [{content: Fragment, openEnd: number, depth: number}]
-function placeSlice($from, slice) {
-  var frontier = new Frontier($from);
-  for (var pass = 1; slice.size && pass <= 3; pass++) {
-    var value = frontier.placeSlice(slice.content, slice.openStart, slice.openEnd, pass);
-    if (pass == 3 && value != slice && value.size) { pass = 0; } // Restart if the 3rd pass made progress but left content
-    slice = value;
+  this.frontier = [];
+  for (var i = 0; i <= $from.depth; i++) {
+    var node = $from.node(i);
+    this.frontier.push({
+      type: node.type,
+      match: node.contentMatchAt($from.indexAfter(i))
+    });
   }
-  while (frontier.open.length) { frontier.closeNode(); }
-  return frontier.placed
+
+  this.placed = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty;
+  for (var i$1 = $from.depth; i$1 > 0; i$1--)
+    { this.placed = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($from.node(i$1).copy(this.placed)); }
+};
+
+var prototypeAccessors$1 = { depth: { configurable: true } };
+
+prototypeAccessors$1.depth.get = function () { return this.frontier.length - 1 };
+
+Fitter.prototype.fit = function fit () {
+  // As long as there's unplaced content, try to place some of it.
+  // If that fails, either increase the open score of the unplaced
+  // slice, or drop nodes from it, and then try again.
+  while (this.unplaced.size) {
+    var fit = this.findFittable();
+    if (fit) { this.placeNodes(fit); }
+    else { this.openMore() || this.dropNode(); }
+  }
+  // When there's inline content directly after the frontier _and_
+  // directly after `this.$to`, we must generate a `ReplaceAround`
+  // step that pulls that content into the node after the frontier.
+  // That means the fitting must be done to the end of the textblock
+  // node after `this.$to`, not `this.$to` itself.
+  var moveInline = this.mustMoveInline(), placedSize = this.placed.size - this.depth - this.$from.depth;
+  var $from = this.$from, $to = moveInline < 0 ? this.$to : $from.doc.resolve(moveInline);
+  if (this.close($to)) { // If closing to `$to` succeeded, create a step
+    var content = this.placed, openStart = $from.depth, openEnd = $to.depth;
+    while (openStart && openEnd && content.childCount == 1) { // Normalize by dropping open parent nodes
+      content = content.firstChild.content;
+      openStart--; openEnd--;
+    }
+    var slice = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, openStart, openEnd);
+    if (moveInline > -1)
+      { return new ReplaceAroundStep($from.pos, moveInline, this.$to.pos, this.$to.end(), slice, placedSize) }
+    if (slice.size || $from.pos != this.$to.pos) // Don't generate no-op steps
+      { return new ReplaceStep($from.pos, $to.pos, slice) }
+  }
+  return null
+};
+
+// Find a position on the start spine of `this.unplaced` that has
+// content that can be moved somewhere on the frontier. Returns two
+// depths, one for the slice and one for the frontier.
+Fitter.prototype.findFittable = function findFittable () {
+  // Only try wrapping nodes (pass 2) after finding a place without
+  // wrapping failed.
+  for (var pass = 1; pass <= 2; pass++) {
+    for (var sliceDepth = this.unplaced.openStart; sliceDepth >= 0; sliceDepth--) {
+      var fragment = (void 0), parent = (void 0);
+      if (sliceDepth) {
+        parent = contentAt(this.unplaced.content, sliceDepth - 1).firstChild;
+        fragment = parent.content;
+      } else {
+        fragment = this.unplaced.content;
+      }
+      var first = fragment.firstChild;
+      for (var frontierDepth = this.depth; frontierDepth >= 0; frontierDepth--) {
+        var ref = this.frontier[frontierDepth];
+          var type = ref.type;
+          var match = ref.match;
+          var wrap = (void 0), inject = (void 0);
+        // In pass 1, if the next node matches, or there is no next
+        // node but the parents look compatible, we've found a
+        // place.
+        if (pass == 1 && (first ? match.matchType(first.type) || (inject = match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(first), false))
+                          : type.compatibleContent(parent.type)))
+          { return {sliceDepth: sliceDepth, frontierDepth: frontierDepth, parent: parent, inject: inject} }
+        // In pass 2, look for a set of wrapping nodes that make
+        // `first` fit here.
+        else if (pass == 2 && first && (wrap = match.findWrapping(first.type)))
+          { return {sliceDepth: sliceDepth, frontierDepth: frontierDepth, parent: parent, wrap: wrap} }
+        // Don't continue looking further up if the parent node
+        // would fit here.
+        if (parent && match.matchType(parent.type)) { break }
+      }
+    }
+  }
+};
+
+Fitter.prototype.openMore = function openMore () {
+  var ref = this.unplaced;
+    var content = ref.content;
+    var openStart = ref.openStart;
+    var openEnd = ref.openEnd;
+  var inner = contentAt(content, openStart);
+  if (!inner.childCount || inner.firstChild.isLeaf) { return false }
+  this.unplaced = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, openStart + 1,
+                            Math.max(openEnd, inner.size + openStart >= content.size - openEnd ? openStart + 1 : 0));
+  return true
+};
+
+Fitter.prototype.dropNode = function dropNode () {
+  var ref = this.unplaced;
+    var content = ref.content;
+    var openStart = ref.openStart;
+    var openEnd = ref.openEnd;
+  var inner = contentAt(content, openStart);
+  if (inner.childCount <= 1 && openStart > 0) {
+    var openAtEnd = content.size - openStart <= openStart + inner.size;
+    this.unplaced = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](dropFromFragment(content, openStart - 1, 1), openStart - 1,
+                              openAtEnd ? openStart - 1 : openEnd);
+  } else {
+    this.unplaced = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](dropFromFragment(content, openStart, 1), openStart, openEnd);
+  }
+};
+
+// : ({sliceDepth: number, frontierDepth: number, parent: ?Node, wrap: ?[NodeType], inject: ?Fragment})
+// Move content from the unplaced slice at `sliceDepth` to the
+// frontier node at `frontierDepth`. Close that frontier node when
+// applicable.
+Fitter.prototype.placeNodes = function placeNodes (ref) {
+    var sliceDepth = ref.sliceDepth;
+    var frontierDepth = ref.frontierDepth;
+    var parent = ref.parent;
+    var inject = ref.inject;
+    var wrap = ref.wrap;
+
+  while (this.depth > frontierDepth) { this.closeFrontierNode(); }
+  if (wrap) { for (var i = 0; i < wrap.length; i++) { this.openFrontierNode(wrap[i]); } }
+
+  var slice = this.unplaced, fragment = parent ? parent.content : slice.content;
+  var openStart = slice.openStart - sliceDepth;
+  var taken = 0, add = [];
+  var ref$1 = this.frontier[frontierDepth];
+    var match = ref$1.match;
+    var type = ref$1.type;
+  if (inject) {
+    for (var i$1 = 0; i$1 < inject.childCount; i$1++) { add.push(inject.child(i$1)); }
+    match = match.matchFragment(inject);
+  }
+  // Computes the amount of (end) open nodes at the end of the
+  // fragment. When 0, the parent is open, but no more. When
+  // negative, nothing is open.
+  var openEndCount = (fragment.size + sliceDepth) - (slice.content.size - slice.openEnd);
+  // Scan over the fragment, fitting as many child nodes as
+  // possible.
+  while (taken < fragment.childCount) {
+    var next = fragment.child(taken), matches = match.matchType(next.type);
+    if (!matches) { break }
+    taken++;
+    if (taken > 1 || openStart == 0 || next.content.size) { // Drop empty open nodes
+      match = matches;
+      add.push(closeNodeStart(next.mark(type.allowedMarks(next.marks)), taken == 1 ? openStart : 0,
+                              taken == fragment.childCount ? openEndCount : -1));
+    }
+  }
+  var toEnd = taken == fragment.childCount;
+  if (!toEnd) { openEndCount = -1; }
+
+  // If the parent types match, and the entire node was moved, and
+  // it's not open, close this frontier node right away.
+  if (toEnd && openEndCount < 0 && parent && parent.type == this.frontier[this.depth].type) { this.closeFrontierNode(); }
+  else { this.frontier[frontierDepth].match = match; }
+
+  // Add new frontier nodes for any open nodes at the end.
+  for (var i$2 = 0, cur = fragment; i$2 < openEndCount; i$2++) {
+    var node = cur.lastChild;
+    this.frontier.push({type: node.type, match: node.contentMatchAt(node.childCount)});
+    cur = node.content;
+  }
+
+  // Update `this.unplaced`. Drop the entire node from which we
+  // placed it we got to its end, otherwise just drop the placed
+  // nodes.
+  this.unplaced = !toEnd ? new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](dropFromFragment(slice.content, sliceDepth, taken), slice.openStart, slice.openEnd)
+    : sliceDepth == 0 ? prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty
+    : new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](dropFromFragment(slice.content, sliceDepth - 1, 1),
+                sliceDepth - 1, openEndCount < 0 ? slice.openEnd : sliceDepth - 1);
+  this.placed = addToFragment(this.placed, frontierDepth, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(add));
+};
+
+Fitter.prototype.mustMoveInline = function mustMoveInline () {
+  if (!this.$to.parent.isTextblock) { return -1 }
+  var top = this.frontier[this.depth], level;
+  if (!top.type.isTextblock || !contentAfterFits(this.$to, this.$to.depth, top.type, top.match, false) ||
+      (this.$to.depth == this.depth && (level = this.findCloseLevel(this.$to)) && level.depth == this.depth)) { return -1 }
+
+  var ref = this.$to;
+    var depth = ref.depth;
+    var after = this.$to.after(depth);
+  while (depth > 1 && after == this.$to.end(--depth)) { ++after; }
+  return after
+};
+
+Fitter.prototype.findCloseLevel = function findCloseLevel ($to) {
+  scan: for (var i = Math.min(this.depth, $to.depth); i >= 0; i--) {
+    var ref = this.frontier[i];
+      var match = ref.match;
+      var type = ref.type;
+    var fit = contentAfterFits($to, i, type, match, false);
+    if (!fit) { continue }
+    for (var d = i - 1; d >= 0; d--) {
+      var ref$1 = this.frontier[d];
+        var match$1 = ref$1.match;
+        var type$1 = ref$1.type;
+      var matches = contentAfterFits($to, d, type$1, match$1, true);
+      if (!matches || matches.childCount) { continue scan }
+    }
+    return {depth: i, fit: fit}
+  }
+};
+
+Fitter.prototype.close = function close ($to) {
+  var close = this.findCloseLevel($to);
+  if (!close) { return false }
+
+  while (this.depth > close.depth) { this.closeFrontierNode(); }
+  if (close.fit.childCount) { this.placed = addToFragment(this.placed, close.depth, close.fit); }
+  for (var d = close.depth + 1; d <= $to.depth; d++) {
+    var node = $to.node(d), add = node.type.contentMatch.fillBefore(node.content, true, $to.index(d));
+    this.openFrontierNode(node.type, node.attrs, add);
+  }
+  return true
+};
+
+Fitter.prototype.openFrontierNode = function openFrontierNode (type, attrs, content) {
+  var top = this.frontier[this.depth];
+  top.match = top.match.matchType(type);
+  this.placed = addToFragment(this.placed, this.depth, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(type.create(attrs, content)));
+  this.frontier.push({type: type, match: type.contentMatch});
+};
+
+Fitter.prototype.closeFrontierNode = function closeFrontierNode () {
+  var open = this.frontier.pop();
+  var add = open.match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true);
+  if (add.childCount) { this.placed = addToFragment(this.placed, this.frontier.length, add); }
+};
+
+Object.defineProperties( Fitter.prototype, prototypeAccessors$1 );
+
+function dropFromFragment(fragment, depth, count) {
+  if (depth == 0) { return fragment.cutByIndex(count) }
+  return fragment.replaceChild(0, fragment.firstChild.copy(dropFromFragment(fragment.firstChild.content, depth - 1, count)))
 }
 
-// Helper class that models the open side of the insert position,
-// keeping track of the content match and already inserted content
-// at each depth.
-var Frontier = function Frontier($pos) {
-  // : [{parent: Node, match: ContentMatch, content: Fragment, wrapper: bool, openEnd: number, depth: number}]
-  this.open = [];
-  for (var d = 0; d <= $pos.depth; d++) {
-    var parent = $pos.node(d), match = parent.contentMatchAt($pos.indexAfter(d));
-    this.open.push({parent: parent, match: match, content: prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, wrapper: false, openEnd: 0, depth: d});
-  }
-  this.placed = [];
-};
+function addToFragment(fragment, depth, content) {
+  if (depth == 0) { return fragment.append(content) }
+  return fragment.replaceChild(fragment.childCount - 1,
+                               fragment.lastChild.copy(addToFragment(fragment.lastChild.content, depth - 1, content)))
+}
 
-// : (Fragment, number, number, number, ?Node) → Slice
-// Tries to place the content of the given slice, and returns a
-// slice containing unplaced content.
-//
-// pass 1: try to fit directly
-// pass 2: allow wrapper nodes to be introduced
-// pass 3: allow unwrapping of nodes that aren't open
-Frontier.prototype.placeSlice = function placeSlice (fragment, openStart, openEnd, pass, parent) {
-  if (openStart > 0) {
-    var first = fragment.firstChild;
-    var inner = this.placeSlice(first.content, Math.max(0, openStart - 1),
-                                openEnd && fragment.childCount == 1 ? openEnd - 1 : 0,
-                                pass, first);
-    if (inner.content != first.content) {
-      if (inner.content.size) {
-        fragment = fragment.replaceChild(0, first.copy(inner.content));
-        openStart = inner.openStart + 1;
-      } else {
-        if (fragment.childCount == 1) { openEnd = 0; }
-        fragment = fragment.cutByIndex(1);
-        openStart = 0;
-      }
-    }
-  }
-  var result = this.placeContent(fragment, openStart, openEnd, pass, parent);
-  if (pass > 2 && result.size && openStart == 0) {
-    var child = result.content.firstChild, single = result.content.childCount == 1;
-    this.placeContent(child.content, 0, openEnd && single ? openEnd - 1 : 0, pass, child);
-    result = single ? prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty : new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](result.content.cutByIndex(1), 0, openEnd);
-  }
-  return result
-};
-
-Frontier.prototype.placeContent = function placeContent (fragment, openStart, openEnd, pass, parent) {
-  var i = 0;
-  // Go over the fragment's children
-  for (; i < fragment.childCount; i++) {
-    var child = fragment.child(i), placed = false, last = i == fragment.childCount - 1;
-    // Try each open node in turn, starting from the innermost
-    for (var d = this.open.length - 1; d >= 0; d--) {
-      var open = this.open[d], wrap = (void 0);
-
-      // If pass > 1, it is allowed to wrap the node to help find a
-      // fit, so if findWrapping returns something, we add open
-      // nodes to the frontier for that wrapping.
-      if (pass > 1 && (wrap = open.match.findWrapping(child.type)) &&
-          !(parent && wrap.length && wrap[wrap.length - 1] == parent.type)) {
-        while (this.open.length - 1 > d) { this.closeNode(); }
-        for (var w = 0; w < wrap.length; w++) {
-          open.match = open.match.matchType(wrap[w]);
-          d++;
-          open = {parent: wrap[w].create(),
-                  match: wrap[w].contentMatch,
-                  content: prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, wrapper: true, openEnd: 0, depth: d + w};
-          this.open.push(open);
-        }
-      }
-
-      // See if the child fits here
-      var match = open.match.matchType(child.type);
-      if (!match) {
-        var fill = open.match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(child));
-        if (fill) {
-          for (var j = 0; j < fill.childCount; j++) {
-            var ch = fill.child(j);
-            this.addNode(open, ch, 0);
-            match = open.match.matchFragment(ch);
-          }
-        } else if (parent && open.match.matchType(parent.type)) {
-          // Don't continue looking further up if the parent node
-          // would fit here.
-          break
-        } else {
-          continue
-        }
-      }
-
-      // Close open nodes above this one, since we're starting to
-      // add to this.
-      while (this.open.length - 1 > d) { this.closeNode(); }
-      // Strip marks from the child or close its start when necessary
-      child = child.mark(open.parent.type.allowedMarks(child.marks));
-      if (openStart) {
-        child = closeNodeStart(child, openStart, last ? openEnd : 0);
-        openStart = 0;
-      }
-      // Add the child to this open node and adjust its metadata
-      this.addNode(open, child, last ? openEnd : 0);
-      open.match = match;
-      if (last) { openEnd = 0; }
-      placed = true;
-      break
-    }
-    // As soon as we've failed to place a node we stop looking at
-    // later nodes
-    if (!placed) { break }
-  }
-  // Close the current open node if it's not the the root and we
-  // either placed up to the end of the node or the the current
-  // slice depth's node type matches the open node's type
-  if (this.open.length > 1 &&
-      (i > 0 && i == fragment.childCount ||
-       parent && this.open[this.open.length - 1].parent.type == parent.type))
-    { this.closeNode(); }
-
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](fragment.cutByIndex(i), openStart, openEnd)
-};
-
-Frontier.prototype.addNode = function addNode (open, node, openEnd) {
-  open.content = closeFragmentEnd(open.content, open.openEnd).addToEnd(node);
-  open.openEnd = openEnd;
-};
-
-Frontier.prototype.closeNode = function closeNode () {
-  var open = this.open.pop();
-  if (open.content.size == 0) ; else if (open.wrapper) {
-    this.addNode(this.open[this.open.length - 1], open.parent.copy(open.content), open.openEnd + 1);
-  } else {
-    this.placed[open.depth] = {depth: open.depth, content: open.content, openEnd: open.openEnd};
-  }
-};
+function contentAt(fragment, depth) {
+  for (var i = 0; i < depth; i++) { fragment = fragment.firstChild.content; }
+  return fragment
+}
 
 function closeNodeStart(node, openStart, openEnd) {
-  var content = node.content;
-  if (openStart > 1) {
-    var first = closeNodeStart(node.firstChild, openStart - 1, node.childCount == 1 ? openEnd - 1 : 0);
-    content = node.content.replaceChild(0, first);
+  if (openStart <= 0) { return node }
+  var frag = node.content;
+  if (openStart > 1)
+    { frag = frag.replaceChild(0, closeNodeStart(frag.firstChild, openStart - 1, frag.childCount == 1 ? openEnd - 1 : 0)); }
+  if (openStart > 0) {
+    frag = node.type.contentMatch.fillBefore(frag).append(frag);
+    if (openEnd <= 0) { frag = frag.append(node.type.contentMatch.matchFragment(frag).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true)); }
   }
-  var fill = node.type.contentMatch.fillBefore(content, openEnd == 0);
-  return node.copy(fill.append(content))
+  return node.copy(frag)
 }
 
-function closeNodeEnd(node, depth) {
-  var content = node.content;
-  if (depth > 1) {
-    var last = closeNodeEnd(node.lastChild, depth - 1);
-    content = node.content.replaceChild(node.childCount - 1, last);
-  }
-  var fill = node.contentMatchAt(node.childCount).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true);
-  return node.copy(content.append(fill))
+function contentAfterFits($to, depth, type, match, open) {
+  var node = $to.node(depth), index = open ? $to.indexAfter(depth) : $to.index(depth);
+  if (index == node.childCount && !type.compatibleContent(node.type)) { return null }
+  var fit = match.fillBefore(node.content, true, index);
+  return fit && !invalidMarks(type, node.content, index) ? fit : null
 }
 
-function closeFragmentEnd(fragment, depth) {
-  return depth ? fragment.replaceChild(fragment.childCount - 1, closeNodeEnd(fragment.lastChild, depth)) : fragment
+function invalidMarks(type, fragment, start) {
+  for (var i = start; i < fragment.childCount; i++)
+    { if (!type.allowsMarks(fragment.child(i).marks)) { return true } }
+  return false
 }
 
 // :: (number, number, Slice) → this
@@ -59778,7 +60089,7 @@ if (typeof navigator != "undefined" && typeof document != "undefined") {
   result.chrome_version = chrome && +chrome[1];
   result.ios = !ie && /AppleWebKit/.test(navigator.userAgent) && /Mobile\/\w+/.test(navigator.userAgent);
   result.android = /Android \d/.test(navigator.userAgent);
-  result.webkit = !ie && 'WebkitAppearance' in document.documentElement.style;
+  result.webkit = "webkitFontSmoothing" in document.documentElement.style;
   result.safari = /Apple Computer/.test(navigator.vendor);
   result.webkit_version = result.webkit && +(/\bAppleWebKit\/(\d+)/.exec(navigator.userAgent) || [0, 0])[1];
 }
@@ -59823,6 +60134,7 @@ function scanFor(node, off, targetNode, targetOff, dir) {
       node = parent;
     } else if (node.nodeType == 1) {
       node = node.childNodes[off + (dir < 0 ? -1 : 0)];
+      if (node.contentEditable == "false") { return false }
       off = dir < 0 ? nodeSize(node) : 0;
     } else {
       return false
@@ -59832,6 +60144,17 @@ function scanFor(node, off, targetNode, targetOff, dir) {
 
 function nodeSize(node) {
   return node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length
+}
+
+function isOnEdge(node, offset, parent) {
+  for (var atStart = offset == 0, atEnd = offset == nodeSize(node); atStart || atEnd;) {
+    if (node == parent) { return true }
+    var index = domIndex(node);
+    node = node.parentNode;
+    if (!node) { return false }
+    atStart = atStart && index == 0;
+    atEnd = atEnd && index == nodeSize(node);
+  }
 }
 
 function hasBlockDesc(dom) {
@@ -59887,8 +60210,11 @@ function scrollRectIntoView(view, rect, startDOM) {
       if (atTop) {
         win.scrollBy(moveX, moveY);
       } else {
+        var startX = parent.scrollLeft, startY = parent.scrollTop;
         if (moveY) { parent.scrollTop += moveY; }
         if (moveX) { parent.scrollLeft += moveX; }
+        var dX = parent.scrollLeft - startX, dY = parent.scrollTop - startY;
+        rect = {left: rect.left - dX, top: rect.top - dY, right: rect.right - dX, bottom: rect.bottom - dY};
       }
     }
     if (atTop) { break }
@@ -60150,16 +60476,17 @@ function coordsAtPos(view, pos) {
   var offset = ref.offset;
 
   // These browsers support querying empty text ranges
-  if (node.nodeType == 3 && (result.chrome || result.gecko)) {
+  if (node.nodeType == 3 && (result.webkit || result.gecko)) {
     var rect = singleRect(textRange(node, offset, offset), 0);
     // Firefox returns bad results (the position before the space)
     // when querying a position directly after line-broken
     // whitespace. Detect this situation and and kludge around it
     if (result.gecko && offset && /\s/.test(node.nodeValue[offset - 1]) && offset < node.nodeValue.length) {
       var rectBefore = singleRect(textRange(node, offset - 1, offset - 1), -1);
-      if (Math.abs(rectBefore.left - rect.left) < 1 && rectBefore.top == rect.top) {
+      if (rectBefore.top == rect.top) {
         var rectAfter = singleRect(textRange(node, offset, offset + 1), -1);
-        return flattenV(rectAfter, rectAfter.left < rectBefore.left)
+        if (rectAfter.top != rect.top)
+          { return flattenV(rectAfter, rectAfter.left < rectBefore.left) }
       }
     }
     return rect
@@ -60519,8 +60846,11 @@ ViewDesc.prototype.nearestDesc = function nearestDesc (dom, onlyNodes) {
     var desc = this.getDesc(cur);
     if (desc && (!onlyNodes || desc.node)) {
       // If dom is outside of this desc's nodeDOM, don't count it.
-      if (first && desc.nodeDOM && !(desc.nodeDOM.nodeType == 1 ? desc.nodeDOM.contains(dom) : desc.nodeDOM == dom)) { first = false; }
-      else { return desc }
+      if (first && desc.nodeDOM &&
+          !(desc.nodeDOM.nodeType == 1 ? desc.nodeDOM.contains(dom.nodeType == 1 ? dom : dom.parentNode) : desc.nodeDOM == dom))
+        { first = false; }
+      else
+        { return desc }
     }
   }
 };
@@ -60648,7 +60978,8 @@ ViewDesc.prototype.setSelection = function setSelection (anchor, head, root, for
   }
 
   var anchorDOM = this.domFromPos(anchor), headDOM = this.domFromPos(head);
-  var domSel = root.getSelection(), range = document.createRange();
+  var domSel = root.getSelection();
+
   if (!force &&
       isEquivalentPosition(anchorDOM.node, anchorDOM.offset, domSel.anchorNode, domSel.anchorOffset) &&
       isEquivalentPosition(headDOM.node, headDOM.offset, domSel.focusNode, domSel.focusOffset))
@@ -60657,23 +60988,35 @@ ViewDesc.prototype.setSelection = function setSelection (anchor, head, root, for
   // Selection.extend can be used to create an 'inverted' selection
   // (one where the focus is before the anchor), but not all
   // browsers support it yet.
-  if (domSel.extend) {
-    range.setEnd(anchorDOM.node, anchorDOM.offset);
-    range.collapse(false);
-  } else {
+  var domSelExtended = false;
+  if (domSel.extend || anchor == head) {
+    domSel.collapse(anchorDOM.node, anchorDOM.offset);
+    try {
+      if (anchor != head) { domSel.extend(headDOM.node, headDOM.offset); }
+      domSelExtended = true;
+    } catch (err) {
+      // In some cases with Chrome the selection is empty after calling
+      // collapse, even when it should be valid. This appears to be a bug, but
+      // it is difficult to isolate. If this happens fallback to the old path
+      // without using extend.
+      if (!(err instanceof DOMException)) {
+        throw err;
+      }
+    }
+  }
+  if (!domSelExtended) {
     if (anchor > head) { var tmp = anchorDOM; anchorDOM = headDOM; headDOM = tmp; }
+    var range = document.createRange();
     range.setEnd(headDOM.node, headDOM.offset);
     range.setStart(anchorDOM.node, anchorDOM.offset);
+    domSel.removeAllRanges();
+    domSel.addRange(range);
   }
-  domSel.removeAllRanges();
-  domSel.addRange(range);
-  if (domSel.extend)
-    { domSel.extend(headDOM.node, headDOM.offset); }
 };
 
 // : (dom.MutationRecord) → bool
-ViewDesc.prototype.ignoreMutation = function ignoreMutation (_mutation) {
-  return !this.contentDOM
+ViewDesc.prototype.ignoreMutation = function ignoreMutation (mutation) {
+  return !this.contentDOM && mutation.type != "selection"
 };
 
 prototypeAccessors.contentLost.get = function () {
@@ -60703,8 +61046,9 @@ ViewDesc.prototype.markDirty = function markDirty (from, to) {
 };
 
 ViewDesc.prototype.markParentsDirty = function markParentsDirty () {
-  for (var node = this.parent; node; node = node.parent) {
-    var dirty =  CONTENT_DIRTY ;
+  var level = 1;
+  for (var node = this.parent; node; node = node.parent, level++) {
+    var dirty = level == 1 ? CONTENT_DIRTY : CHILD_DIRTY;
     if (node.dirty < dirty) { node.dirty = dirty; }
   }
 };
@@ -60757,6 +61101,10 @@ var WidgetViewDesc = /*@__PURE__*/(function (ViewDesc) {
   WidgetViewDesc.prototype.stopEvent = function stopEvent (event) {
     var stop = this.widget.spec.stopEvent;
     return stop ? stop(event) : false
+  };
+
+  WidgetViewDesc.prototype.ignoreMutation = function ignoreMutation (mutation) {
+    return mutation.type != "selection" || this.widget.spec.ignoreSelection
   };
 
   Object.defineProperties( WidgetViewDesc.prototype, prototypeAccessors$1 );
@@ -60946,10 +61294,10 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
     var inline = this.node.inlineContent, off = pos;
     var composition = inline && view.composing && this.localCompositionNode(view, pos);
     var updater = new ViewTreeUpdater(this, composition && composition.node);
-    iterDeco(this.node, this.innerDeco, function (widget, i) {
+    iterDeco(this.node, this.innerDeco, function (widget, i, insideNode) {
       if (widget.spec.marks)
         { updater.syncToMarks(widget.spec.marks, inline, view); }
-      else if (widget.type.side >= 0)
+      else if (widget.type.side >= 0 && !insideNode)
         { updater.syncToMarks(i == this$1.node.childCount ? prosemirror_model__WEBPACK_IMPORTED_MODULE_1__["Mark"].none : this$1.node.child(i).marks, inline, view); }
       // If the next node is a desc matching this widget, reuse it,
       // otherwise insert the widget as a new view desc.
@@ -61069,7 +61417,7 @@ var NodeViewDesc = /*@__PURE__*/(function (ViewDesc) {
   // Remove selected node marking from this node.
   NodeViewDesc.prototype.deselectNode = function deselectNode () {
     this.nodeDOM.classList.remove("ProseMirror-selectednode");
-    if (this.contentDOM || !this.node.type.spec.draggable) { this.dom.draggable = false; }
+    if (this.contentDOM || !this.node.type.spec.draggable) { this.dom.removeAttribute("draggable"); }
   };
 
   Object.defineProperties( NodeViewDesc.prototype, prototypeAccessors$3 );
@@ -61275,11 +61623,12 @@ function patchOuterDeco(outerDOM, nodeDOM, prevComputed, curComputed) {
     if (i) {
       var parent = (void 0);
       if (prev && prev.nodeName == deco.nodeName && curDOM != outerDOM &&
-          (parent = nodeDOM.parentNode) && parent.tagName.toLowerCase() == deco.nodeName) {
+          (parent = curDOM.parentNode) && parent.tagName.toLowerCase() == deco.nodeName) {
         curDOM = parent;
       } else {
         parent = document.createElement(deco.nodeName);
         parent.appendChild(curDOM);
+        prev = noDeco[0];
         curDOM = parent;
       }
     }
@@ -61307,7 +61656,7 @@ function patchAttributes(dom, prev, cur) {
     if (prev.style) {
       var prop = /\s*([\w\-\xa1-\uffff]+)\s*:(?:"(?:\\.|[^"])*"|'(?:\\.|[^'])*'|\(.*?\)|[^;])*/g, m;
       while (m = prop.exec(prev.style))
-        { dom.style[m[1].toLowerCase()] = ""; }
+        { dom.style.removeProperty(m[1]); }
     }
     if (cur.style)
       { dom.style.cssText += cur.style; }
@@ -61435,23 +61784,26 @@ ViewTreeUpdater.prototype.findNodeMatch = function findNodeMatch (node, outerDec
 // Try to update the next node, if any, to the given data. Checks
 // pre-matches to avoid overwriting nodes that could still be used.
 ViewTreeUpdater.prototype.updateNextNode = function updateNextNode (node, outerDeco, innerDeco, view, index) {
-  if (this.index == this.top.children.length) { return false }
-  var next = this.top.children[this.index];
-  if (next instanceof NodeViewDesc) {
-    var preMatch = this.preMatched.indexOf(next);
-    if (preMatch > -1 && preMatch + this.preMatchOffset != index) { return false }
-    var nextDOM = next.dom;
+  for (var i = this.index; i < this.top.children.length; i++) {
+    var next = this.top.children[i];
+    if (next instanceof NodeViewDesc) {
+      var preMatch = this.preMatched.indexOf(next);
+      if (preMatch > -1 && preMatch + this.preMatchOffset != index) { return false }
+      var nextDOM = next.dom;
 
-    // Can't update if nextDOM is or contains this.lock, except if
-    // it's a text node whose content already matches the new text
-    // and whose decorations match the new ones.
-    var locked = this.lock && (nextDOM == this.lock || nextDOM.nodeType == 1 && nextDOM.contains(this.lock.parentNode)) &&
-        !(node.isText && next.node && next.node.isText && next.nodeDOM.nodeValue == node.text &&
-          next.dirty != NODE_DIRTY && sameOuterDeco(outerDeco, next.outerDeco));
-    if (!locked && next.update(node, outerDeco, innerDeco, view)) {
-      if (next.dom != nextDOM) { this.changed = true; }
-      this.index++;
-      return true
+      // Can't update if nextDOM is or contains this.lock, except if
+      // it's a text node whose content already matches the new text
+      // and whose decorations match the new ones.
+      var locked = this.lock && (nextDOM == this.lock || nextDOM.nodeType == 1 && nextDOM.contains(this.lock.parentNode)) &&
+          !(node.isText && next.node && next.node.isText && next.nodeDOM.nodeValue == node.text &&
+            next.dirty != NODE_DIRTY && sameOuterDeco(outerDeco, next.outerDeco));
+      if (!locked && next.update(node, outerDeco, innerDeco, view)) {
+        this.destroyBetween(this.index, i);
+        if (next.dom != nextDOM) { this.changed = true; }
+        this.index++;
+        return true
+      }
+      break
     }
   }
   return false
@@ -61538,9 +61890,9 @@ function iterDeco(parent, deco, onWidget, onNode) {
         { (widgets || (widgets = [widget])).push(locals[decoIndex++]); }
       if (widgets) {
         widgets.sort(compareSide);
-        for (var i$1 = 0; i$1 < widgets.length; i$1++) { onWidget(widgets[i$1], parentIndex); }
+        for (var i$1 = 0; i$1 < widgets.length; i$1++) { onWidget(widgets[i$1], parentIndex, !!restNode); }
       } else {
-        onWidget(widget, parentIndex);
+        onWidget(widget, parentIndex, !!restNode);
       }
     }
 
@@ -61607,23 +61959,22 @@ function nearbyTextNode(node, offset) {
 
 // Find a piece of text in an inline fragment, overlapping from-to
 function findTextInFragment(frag, text, from, to) {
-  for (var str = "", i = 0, childPos = 0; i < frag.childCount; i++) {
-    var child = frag.child(i), end = childPos + child.nodeSize;
-    if (child.isText) {
-      str += child.text;
-      if (end >= to) {
-        var strStart = end - str.length, found = str.lastIndexOf(text);
-        while (found > -1 && strStart + found > from) { found = str.lastIndexOf(text, found - 1); }
-        if (found > -1 && strStart + found + text.length >= to) {
-          return strStart + found
-        } else if (end > to) {
-          break
-        }
-      }
-    } else {
-      str = "";
+  for (var i = 0, pos = 0; i < frag.childCount && pos <= to;) {
+    var child = frag.child(i++), childStart = pos;
+    pos += child.nodeSize;
+    if (!child.isText) { continue }
+    var str = child.text;
+    while (i < frag.childCount) {
+      var next = frag.child(i++);
+      pos += next.nodeSize;
+      if (!next.isText) { break }
+      str += next.text;
     }
-    childPos = end;
+    if (pos >= from) {
+      var found = str.lastIndexOf(text, to - childStart);
+      if (found >= 0 && found + text.length + childStart >= from)
+        { return childStart + found }
+    }
   }
   return -1
 }
@@ -61926,7 +62277,8 @@ function selectionFromDOM(view, origin) {
   if (selectionCollapsed(domSel)) {
     $anchor = $head;
     while (nearestDesc && !nearestDesc.node) { nearestDesc = nearestDesc.parent; }
-    if (nearestDesc && nearestDesc.node.isAtom && prosemirror_state__WEBPACK_IMPORTED_MODULE_0__["NodeSelection"].isSelectable(nearestDesc.node) && nearestDesc.parent) {
+    if (nearestDesc && nearestDesc.node.isAtom && prosemirror_state__WEBPACK_IMPORTED_MODULE_0__["NodeSelection"].isSelectable(nearestDesc.node) && nearestDesc.parent
+        && !(nearestDesc.node.isInline && isOnEdge(domSel.focusNode, domSel.focusOffset, nearestDesc.dom))) {
       var pos = nearestDesc.posBefore;
       selection = new prosemirror_state__WEBPACK_IMPORTED_MODULE_0__["NodeSelection"](head == pos ? $head : doc.resolve(pos));
     }
@@ -61963,12 +62315,12 @@ function selectionToDOM(view, force) {
     }
     view.docView.setSelection(anchor, head, view.root, force);
     if (brokenSelectBetweenUneditable) {
-      if (resetEditableFrom) { resetEditableFrom.contentEditable = "false"; }
-      if (resetEditableTo) { resetEditableTo.contentEditable = "false"; }
+      if (resetEditableFrom) { resetEditable(resetEditableFrom); }
+      if (resetEditableTo) { resetEditable(resetEditableTo); }
     }
     if (sel.visible) {
       view.dom.classList.remove("ProseMirror-hideselection");
-    } else if (anchor != head) {
+    } else {
       view.dom.classList.add("ProseMirror-hideselection");
       if ("onselectionchange" in document) { removeClassOnSelectionChange(view); }
     }
@@ -61990,15 +62342,22 @@ function temporarilyEditableNear(view, pos) {
   var offset = ref.offset;
   var after = offset < node.childNodes.length ? node.childNodes[offset] : null;
   var before = offset ? node.childNodes[offset - 1] : null;
+  if (result.safari && after && after.contentEditable == "false") { return setEditable(after) }
   if ((!after || after.contentEditable == "false") && (!before || before.contentEditable == "false")) {
-    if (after) {
-      after.contentEditable = "true";
-      return after
-    } else if (before) {
-      before.contentEditable = "true";
-      return before
-    }
+    if (after) { return setEditable(after) }
+    else if (before) { return setEditable(before) }
   }
+}
+
+function setEditable(element) {
+  element.contentEditable = "true";
+  if (result.safari && element.draggable) { element.draggable = false; element.wasDraggable = true; }
+  return element
+}
+
+function resetEditable(element) {
+  element.contentEditable = "false";
+  if (element.wasDraggable) { element.draggable = true; element.wasDraggable = null; }
 }
 
 function removeClassOnSelectionChange(view) {
@@ -62127,7 +62486,7 @@ function parseBetween(view, from_, to_) {
     preserveWhitespace: $from.parent.type.spec.code ? "full" : true,
     editableContent: true,
     findPositions: find,
-    ruleFromNode: ruleFromNode(parser, $from),
+    ruleFromNode: ruleFromNode,
     context: $from
   });
   if (find && find[0].pos != null) {
@@ -62138,26 +62497,27 @@ function parseBetween(view, from_, to_) {
   return {doc: doc, sel: sel, from: from, to: to}
 }
 
-function ruleFromNode(parser, context) {
-  return function (dom) {
-    var desc = dom.pmViewDesc;
-    if (desc) {
-      return desc.parseRule()
-    } else if (dom.nodeName == "BR" && dom.parentNode) {
-      // Safari replaces the list item or table cell with a BR
-      // directly in the list node (?!) if you delete the last
-      // character in a list item or table cell (#708, #862)
-      if (result.safari && /^(ul|ol)$/i.test(dom.parentNode.nodeName))
-        { return parser.matchTag(document.createElement("li"), context) }
-      else if (dom.parentNode.lastChild == dom || result.safari && /^(tr|table)$/i.test(dom.parentNode.nodeName))
-        { return {ignore: true} }
-    } else if (dom.nodeName == "IMG" && dom.getAttribute("mark-placeholder")) {
+function ruleFromNode(dom) {
+  var desc = dom.pmViewDesc;
+  if (desc) {
+    return desc.parseRule()
+  } else if (dom.nodeName == "BR" && dom.parentNode) {
+    // Safari replaces the list item or table cell with a BR
+    // directly in the list node (?!) if you delete the last
+    // character in a list item or table cell (#708, #862)
+    if (result.safari && /^(ul|ol)$/i.test(dom.parentNode.nodeName)) {
+      var skip = document.createElement("div");
+      skip.appendChild(document.createElement("li"));
+      return {skip: skip}
+    } else if (dom.parentNode.lastChild == dom || result.safari && /^(tr|table)$/i.test(dom.parentNode.nodeName)) {
       return {ignore: true}
     }
+  } else if (dom.nodeName == "IMG" && dom.getAttribute("mark-placeholder")) {
+    return {ignore: true}
   }
 }
 
-function readDOMChange(view, from, to, typeOver) {
+function readDOMChange(view, from, to, typeOver, addedNodes) {
   if (from < 0) {
     var origin = view.lastSelectionTime > Date.now() - 50 ? view.lastSelectionOrigin : null;
     var newSel = selectionFromDOM(view, origin);
@@ -62232,13 +62592,17 @@ function readDOMChange(view, from, to, typeOver) {
   var $from = parse.doc.resolveNoCache(change.start - parse.from);
   var $to = parse.doc.resolveNoCache(change.endB - parse.from);
   var nextSel;
-  // If this looks like the effect of pressing Enter, just dispatch an
-  // Enter key instead.
-  if (!$from.sameParent($to) && $from.pos < parse.doc.content.size &&
-      (nextSel = prosemirror_state__WEBPACK_IMPORTED_MODULE_0__["Selection"].findFrom(parse.doc.resolve($from.pos + 1), 1, true)) &&
-      nextSel.head == $to.pos &&
-      view.someProp("handleKeyDown", function (f) { return f(view, keyEvent(13, "Enter")); }))
-    { return }
+  // If this looks like the effect of pressing Enter (or was recorded
+  // as being an iOS enter press), just dispatch an Enter key instead.
+  if (((result.ios && view.lastIOSEnter > Date.now() - 100 &&
+        (!$from.sameParent($to) || addedNodes.some(function (n) { return n.nodeName == "DIV"; }))) ||
+       (!$from.sameParent($to) && $from.pos < parse.doc.content.size &&
+        (nextSel = prosemirror_state__WEBPACK_IMPORTED_MODULE_0__["Selection"].findFrom(parse.doc.resolve($from.pos + 1), 1, true)) &&
+        nextSel.head == $to.pos)) &&
+      view.someProp("handleKeyDown", function (f) { return f(view, keyEvent(13, "Enter")); })) {
+    view.lastIOSEnter = 0;
+    return
+  }
   // Same for backspace
   if (view.state.selection.anchor > change.start &&
       looksLikeJoin(doc, change.start, change.endA, $from, $to) &&
@@ -62285,7 +62649,8 @@ function readDOMChange(view, from, to, typeOver) {
     // happening, don't update the selection.
     // Edge just doesn't move the cursor forward when you start typing
     // in an empty block or between br nodes.
-    if (sel$2 && !(result.chrome && result.android && view.composing && sel$2.empty && sel$2.head == chFrom ||
+    if (sel$2 && !(result.chrome && result.android && view.composing && sel$2.empty &&
+                   (sel$2.head == chFrom || sel$2.head == tr.mapping.map(chTo) - 1) ||
                  result.ie && sel$2.empty && sel$2.head == chFrom))
       { tr.setSelection(sel$2); }
   }
@@ -62546,8 +62911,17 @@ function closeSlice(slice, openStart, openEnd) {
 // Trick from jQuery -- some elements must be wrapped in other
 // elements for innerHTML to work. I.e. if you do `div.innerHTML =
 // "<td>..</td>"` the table cells are ignored.
-var wrapMap = {thead: ["table"], colgroup: ["table"], col: ["table", "colgroup"],
-                 tr: ["table", "tbody"], td: ["table", "tbody", "tr"], th: ["table", "tbody", "tr"]};
+var wrapMap = {
+  thead: ["table"],
+  tbody: ["table"],
+  tfoot: ["table"],
+  caption: ["table"],
+  colgroup: ["table"],
+  col: ["table", "colgroup"],
+  tr: ["table", "tbody"],
+  td: ["table", "tbody", "tr"],
+  th: ["table", "tbody", "tr"]
+};
 
 var _detachedDoc = null;
 function detachedDoc() {
@@ -62616,7 +62990,7 @@ var DOMObserver = function DOMObserver(view, handleDOMChange) {
   this.view = view;
   this.handleDOMChange = handleDOMChange;
   this.queue = [];
-  this.flushingSoon = false;
+  this.flushingSoon = -1;
   this.observer = window.MutationObserver &&
     new window.MutationObserver(function (mutations) {
       for (var i = 0; i < mutations.length; i++) { this$1.queue.push(mutations[i]); }
@@ -62645,9 +63019,15 @@ var DOMObserver = function DOMObserver(view, handleDOMChange) {
 DOMObserver.prototype.flushSoon = function flushSoon () {
     var this$1 = this;
 
-  if (!this.flushingSoon) {
-    this.flushingSoon = true;
-    window.setTimeout(function () { this$1.flushingSoon = false; this$1.flush(); }, 20);
+  if (this.flushingSoon < 0)
+    { this.flushingSoon = window.setTimeout(function () { this$1.flushingSoon = -1; this$1.flush(); }, 20); }
+};
+
+DOMObserver.prototype.forceFlush = function forceFlush () {
+  if (this.flushingSoon > -1) {
+    window.clearTimeout(this.flushingSoon);
+    this.flushingSoon = -1;
+    this.flush();
   }
 };
 
@@ -62712,11 +63092,14 @@ DOMObserver.prototype.ignoreSelectionChange = function ignoreSelectionChange (se
   if (sel.rangeCount == 0) { return true }
   var container = sel.getRangeAt(0).commonAncestorContainer;
   var desc = this.view.docView.nearestDesc(container);
-  return desc && desc.ignoreMutation({type: "selection", target: container.nodeType == 3 ? container.parentNode : container})
+  if (desc && desc.ignoreMutation({type: "selection", target: container.nodeType == 3 ? container.parentNode : container})) {
+    this.setCurSelection();
+    return true
+  }
 };
 
 DOMObserver.prototype.flush = function flush () {
-  if (!this.view.docView || this.flushingSoon) { return }
+  if (!this.view.docView || this.flushingSoon > -1) { return }
   var mutations = this.observer ? this.observer.takeRecords() : [];
   if (this.queue.length) {
     mutations = this.queue.concat(mutations);
@@ -62729,12 +63112,22 @@ DOMObserver.prototype.flush = function flush () {
   var from = -1, to = -1, typeOver = false, added = [];
   if (this.view.editable) {
     for (var i = 0; i < mutations.length; i++) {
-      var result = this.registerMutation(mutations[i], added);
-      if (result) {
-        from = from < 0 ? result.from : Math.min(result.from, from);
-        to = to < 0 ? result.to : Math.max(result.to, to);
-        if (result.typeOver && !this.view.composing) { typeOver = true; }
+      var result$1 = this.registerMutation(mutations[i], added);
+      if (result$1) {
+        from = from < 0 ? result$1.from : Math.min(result$1.from, from);
+        to = to < 0 ? result$1.to : Math.max(result$1.to, to);
+        if (result$1.typeOver) { typeOver = true; }
       }
+    }
+  }
+
+  if (result.gecko && added.length > 1) {
+    var brs = added.filter(function (n) { return n.nodeName == "BR"; });
+    if (brs.length == 2) {
+      var a = brs[0];
+        var b = brs[1];
+      if (a.parentNode && a.parentNode.parentNode == b.parentNode) { b.remove(); }
+      else { a.remove(); }
     }
   }
 
@@ -62743,7 +63136,7 @@ DOMObserver.prototype.flush = function flush () {
       this.view.docView.markDirty(from, to);
       checkCSS(this.view);
     }
-    this.handleDOMChange(from, to, typeOver);
+    this.handleDOMChange(from, to, typeOver, added);
     if (this.view.docView.dirty) { this.view.updateState(this.view.state); }
     else if (!this.currentSelection.eq(sel)) { selectionToDOM(this.view); }
   }
@@ -62818,12 +63211,14 @@ function initInput(view) {
   view.lastSelectionOrigin = null;
   view.lastSelectionTime = 0;
 
+  view.lastIOSEnter = 0;
+
   view.composing = false;
   view.composingTimeout = null;
   view.compositionNodes = [];
   view.compositionEndedAt = -2e8;
 
-  view.domObserver = new DOMObserver(view, function (from, to, typeOver) { return readDOMChange(view, from, to, typeOver); });
+  view.domObserver = new DOMObserver(view, function (from, to, typeOver, added) { return readDOMChange(view, from, to, typeOver, added); });
   view.domObserver.start();
   // Used by hacks like the beforeinput handler to check whether anything happened in the DOM
   view.domChangeCount = 0;
@@ -62892,12 +63287,27 @@ function dispatchEvent(view, event) {
 editHandlers.keydown = function (view, event) {
   view.shiftKey = event.keyCode == 16 || event.shiftKey;
   if (inOrNearComposition(view, event)) { return }
+  view.domObserver.forceFlush();
   view.lastKeyCode = event.keyCode;
   view.lastKeyCodeTime = Date.now();
-  if (view.someProp("handleKeyDown", function (f) { return f(view, event); }) || captureKeyDown(view, event))
-    { event.preventDefault(); }
-  else
-    { setSelectionOrigin(view, "key"); }
+  // On iOS, if we preventDefault enter key presses, the virtual
+  // keyboard gets confused. So the hack here is to set a flag that
+  // makes the DOM change code recognize that what just happens should
+  // be replaced by whatever the Enter key handlers do.
+  if (result.ios && event.keyCode == 13 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+    var now = Date.now();
+    view.lastIOSEnter = now;
+    setTimeout(function () {
+      if (view.lastIOSEnter == now) {
+        view.someProp("handleKeyDown", function (f) { return f(view, keyEvent(13, "Enter")); });
+        view.lastIOSEnter = 0;
+      }
+    }, 50);
+  } else if (view.someProp("handleKeyDown", function (f) { return f(view, event); }) || captureKeyDown(view, event)) {
+    event.preventDefault();
+  } else {
+    setSelectionOrigin(view, "key");
+  }
 };
 
 editHandlers.keyup = function (view, e) {
@@ -63109,7 +63519,7 @@ MouseDown.prototype.done = function done () {
   this.view.root.removeEventListener("mousemove", this.move);
   if (this.mightDrag && this.target) {
     this.view.domObserver.stop();
-    if (this.mightDrag.addAttr) { this.target.draggable = false; }
+    if (this.mightDrag.addAttr) { this.target.removeAttribute("draggable"); }
     if (this.mightDrag.setUneditable) { this.target.removeAttribute("contentEditable"); }
     this.view.domObserver.start();
   }
@@ -63202,6 +63612,7 @@ editHandlers.compositionstart = editHandlers.compositionupdate = function (view)
         var sel = view.root.getSelection();
         for (var node = sel.focusNode, offset = sel.focusOffset; node && node.nodeType == 1 && offset != 0;) {
           var before = offset < 0 ? node.lastChild : node.childNodes[offset - 1];
+          if (!before) { break }
           if (before.nodeType == 3) {
             sel.collapse(before, before.nodeValue.length);
             break
@@ -63231,10 +63642,13 @@ function scheduleComposeEnd(view, delay) {
 }
 
 function endComposition(view, forceUpdate) {
+  view.domObserver.forceFlush();
   view.composing = false;
   while (view.compositionNodes.length > 0) { view.compositionNodes.pop().markParentsDirty(); }
   if (forceUpdate || view.docView.dirty) {
-    view.updateState(view.state);
+    var sel = selectionFromDOM(view);
+    if (!sel.eq(view.state.selection)) { view.dispatch(view.state.tr.setSelection(sel)); }
+    else { view.updateState(view.state); }
     return true
   }
   return false
@@ -63377,10 +63791,13 @@ editHandlers.drop = function (view, e) {
   var slice = dragging && dragging.slice ||
       parseFromClipboard(view, e.dataTransfer.getData(brokenClipboardAPI ? "Text" : "text/plain"),
                          brokenClipboardAPI ? null : e.dataTransfer.getData("text/html"), false, $mouse);
+  if (view.someProp("handleDrop", function (f) { return f(view, e, slice || prosemirror_model__WEBPACK_IMPORTED_MODULE_1__["Slice"].empty, dragging && dragging.move); })) {
+    e.preventDefault();
+    return
+  }
   if (!slice) { return }
 
   e.preventDefault();
-  if (view.someProp("handleDrop", function (f) { return f(view, e, slice, dragging && dragging.move); })) { return }
   var insertPos = slice ? Object(prosemirror_transform__WEBPACK_IMPORTED_MODULE_2__["dropPoint"])(view.state.doc, $mouse.pos, slice) : $mouse.pos;
   if (insertPos == null) { insertPos = $mouse.pos; }
 
@@ -63412,6 +63829,10 @@ handlers.focus = function (view) {
     view.dom.classList.add("ProseMirror-focused");
     view.domObserver.start();
     view.focused = true;
+    setTimeout(function () {
+      if (view.docView && view.hasFocus() && !view.domObserver.currentSelection.eq(view.root.getSelection()))
+        { selectionToDOM(view); }
+    }, 20);
   }
 };
 
@@ -63546,8 +63967,10 @@ Decoration.prototype.copy = function copy (from, to) {
   return new Decoration(from, to, this.type)
 };
 
-Decoration.prototype.eq = function eq (other) {
-  return this.type.eq(other.type) && this.from == other.from && this.to == other.to
+Decoration.prototype.eq = function eq (other, offset) {
+    if ( offset === void 0 ) offset = 0;
+
+  return this.type.eq(other.type) && this.from + offset == other.from && this.to + offset == other.to
 };
 
 Decoration.prototype.map = function map (mapping, offset, oldOffset) {
@@ -63587,6 +64010,11 @@ Decoration.prototype.map = function map (mapping, offset, oldOffset) {
 //   stopEvent:: ?(event: dom.Event) → bool
 //   Can be used to control which DOM events, when they bubble out
 //   of this widget, the editor view should ignore.
+//
+//   ignoreSelection:: ?bool
+//   When set (defaults to false), selection changes inside the
+//   widget are ignored, and don't cause ProseMirror to try and
+//   re-sync the selection with its selection state.
 //
 //   key:: ?string
 //   When comparing decorations of this type (in order to decide
@@ -63794,7 +64222,7 @@ DecorationSet.prototype.removeInner = function removeInner (decorations, offset)
     }
   }
   if (local.length) { for (var i$1 = 0, span$1 = (void 0); i$1 < decorations.length; i$1++) { if (span$1 = decorations[i$1]) {
-    for (var j$1 = 0; j$1 < local.length; j$1++) { if (local[j$1].type.eq(span$1.type)) {
+    for (var j$1 = 0; j$1 < local.length; j$1++) { if (local[j$1].eq(span$1, offset)) {
       if (local == this.local) { local = this.local.slice(); }
       local.splice(j$1--, 1);
     } }
@@ -63931,7 +64359,7 @@ function mapChildren(oldChildren, newLocal, mapping, node, offset, oldOffset, op
       if (end == -1 || oldStart > end + oldOffset) { continue }
       if (oldEnd >= children[i] + oldOffset) {
         children[i + 1] = -1;
-      } else if (dSize = (newEnd - newStart) - (oldEnd - oldStart) + (oldOffset - offset)) {
+      } else if (newStart >= offset && (dSize = (newEnd - newStart) - (oldEnd - oldStart))) {
         children[i] += dSize;
         children[i + 1] += dSize;
       }
@@ -64239,25 +64667,21 @@ EditorView.prototype.updateStateInner = function updateStateInner (state, reconf
 
   if (updateSel) {
     this.domObserver.stop();
-    var forceSelUpdate = false;
+    // Work around an issue in Chrome, IE, and Edge where changing
+    // the DOM around an active selection puts it into a broken
+    // state where the thing the user sees differs from the
+    // selection reported by the Selection object (#710, #973,
+    // #1011, #1013, #1035).
+    var forceSelUpdate = updateDoc && (result.ie || result.chrome) && !this.composing &&
+        !prev.selection.empty && !state.selection.empty && selectionContextChanged(prev.selection, state.selection);
     if (updateDoc) {
-      // Work around an issue in Chrome where changing the DOM
-      // around the active selection puts it into a broken state
-      // where the thing the user sees differs from the selection
-      // reported by the Selection object (#710)
-      var startSelContext = result.chrome && selectionContext(this.root);
+      var selContext = result.chrome && selectionContext(this.root);
       if (redraw || !this.docView.update(state.doc, outerDeco, innerDeco, this)) {
+        this.docView.updateOuterDeco([]);
         this.docView.destroy();
         this.docView = docViewDesc(state.doc, outerDeco, innerDeco, this.dom, this);
       }
-      if (startSelContext)
-        { forceSelUpdate = !this.composing && needChromeSelectionForce(startSelContext, this.root); }
-      // IE11 will sometimes _report_ the selection as being in the
-      // right place but actually draw/use a different selection
-      // after a deletion (#973).
-      if (result.ie && result.ie_version <= 11 && !prev.selection.empty && state.selection.empty &&
-          state.doc.content.size < prev.doc.content.size)
-        { forceSelUpdate = true; }
+      if (selContext && needChromeSelectionReset(selContext, this.root)) { forceSelUpdate = true; }
     }
     // Work around for an issue where an update arriving right between
     // a DOM selection change and the "selectionchange" event for it
@@ -64350,8 +64774,10 @@ EditorView.prototype.focus = function focus () {
 prototypeAccessors$2.root.get = function () {
   var cached = this._root;
   if (cached == null) { for (var search = this.dom.parentNode; search; search = search.parentNode) {
-    if (search.nodeType == 9 || (search.nodeType == 11 && search.host))
-      { return this._root = search }
+    if (search.nodeType == 9 || (search.nodeType == 11 && search.host)) {
+      if (!search.getSelection) { Object.getPrototypeOf(search).getSelection = function () { return document.getSelection(); }; }
+      return this._root = search
+    }
   } }
   return cached || document
 };
@@ -64484,27 +64910,12 @@ function computeDocDeco(view) {
 }
 
 function updateCursorWrapper(view) {
-  var ref = view.state.selection;
-  var $head = ref.$head;
-  var $anchor = ref.$anchor;
-  var visible = ref.visible;
   if (view.markCursor) {
     var dom = document.createElement("img");
     dom.setAttribute("mark-placeholder", "true");
-    view.cursorWrapper = {dom: dom, deco: Decoration.widget($head.pos, dom, {raw: true, marks: view.markCursor})};
-  } else if (visible || $head.pos != $anchor.pos) {
-    view.cursorWrapper = null;
+    view.cursorWrapper = {dom: dom, deco: Decoration.widget(view.state.selection.head, dom, {raw: true, marks: view.markCursor})};
   } else {
-    var dom$1;
-    if (!view.cursorWrapper || view.cursorWrapper.dom.childNodes.length) {
-      dom$1 = document.createElement("div");
-      dom$1.style.position = "absolute";
-      dom$1.style.left = "-100000px";
-    } else if (view.cursorWrapper.deco.pos != $head.pos) {
-      dom$1 = view.cursorWrapper.dom;
-    }
-    if (dom$1)
-      { view.cursorWrapper = {dom: dom$1, deco: Decoration.widget($head.pos, dom$1, {raw: true})}; }
+    view.cursorWrapper = null;
   }
 }
 
@@ -64512,21 +64923,9 @@ function getEditable(view) {
   return !view.someProp("editable", function (value) { return value(view.state) === false; })
 }
 
-function selectionContext(root) {
-  var ref = root.getSelection();
-  var offset = ref.focusOffset;
-  var node = ref.focusNode;
-  if (!node || node.nodeType == 3) { return null }
-  return [node, offset,
-          node.nodeType == 1 ? node.childNodes[offset - 1] : null,
-          node.nodeType == 1 ? node.childNodes[offset] : null]
-}
-
-function needChromeSelectionForce(context, root) {
-  var newContext = selectionContext(root);
-  if (!newContext || newContext[0].nodeType == 3) { return false }
-  for (var i = 0; i < context.length; i++) { if (newContext[i] != context[i]) { return true } }
-  return false
+function selectionContextChanged(sel1, sel2) {
+  var depth = Math.min(sel1.$anchor.sharedDepth(sel1.head), sel2.$anchor.sharedDepth(sel2.head));
+  return sel1.$anchor.start(depth) != sel2.$anchor.start(depth)
 }
 
 function buildNodeViews(view) {
@@ -64546,6 +64945,20 @@ function changedNodeViews(a, b) {
   }
   for (var _ in b) { nB++; }
   return nA != nB
+}
+
+function selectionContext(root) {
+  var ref = root.getSelection();
+  var offset = ref.focusOffset;
+  var node = ref.focusNode;
+  return node && node.nodeType == 1 ? [node, offset, node.childNodes[offset - 1], node.childNodes[offset]] : null
+}
+
+function needChromeSelectionReset(context, root) {
+  var newContext = selectionContext(root);
+  if (!newContext || newContext[0].nodeType == 3) { return false }
+  for (var i = 0; i < context.length; i++) { if (newContext[i] != context[i]) { return true } }
+  return false
 }
 
 // EditorProps:: interface
@@ -64604,7 +65017,7 @@ function changedNodeViews(a, b) {
 //   handleTripleClick:: ?(view: EditorView, pos: number, event: dom.MouseEvent) → bool
 //   Called when the editor is triple-clicked, after `handleTripleClickOn`.
 //
-//   handlePaste:: ?(view: EditorView, event: dom.Event, slice: Slice) → bool
+//   handlePaste:: ?(view: EditorView, event: dom.ClipboardEvent, slice: Slice) → bool
 //   Can be used to override the behavior of pasting. `slice` is the
 //   pasted content parsed by the editor, but you can directly access
 //   the event to get at the raw content.
@@ -65152,15 +65565,15 @@ var ropeSequence = RopeSequence;
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/lib/loader.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/lib/loader.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -65721,6 +66134,21 @@ module.exports = function (css) {
 
 /***/ }),
 
+/***/ "./node_modules/svg-vue/dist/svg-vue.esm.js":
+/*!**************************************************!*\
+  !*** ./node_modules/svg-vue/dist/svg-vue.esm.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {var e=function(e,t,n,i,o,s,r,a,l,d){"boolean"!=typeof r&&(l=a,a=r,r=!1);var c,u="function"==typeof n?n.options:n;if(e&&e.render&&(u.render=e.render,u.staticRenderFns=e.staticRenderFns,u._compiled=!0,o&&(u.functional=!0)),i&&(u._scopeId=i),s?(c=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),t&&t.call(this,l(e)),e&&e._registeredComponents&&e._registeredComponents.add(s)},u._ssrRegister=c):t&&(c=r?function(){t.call(this,d(this.$root.$options.shadowRoot))}:function(e){t.call(this,a(e))}),c)if(u.functional){var g=u.render;u.render=function(e,t){return c.call(t),g(e,t)}}else{var v=u.beforeCreate;u.beforeCreate=v?[].concat(v,c):[c]}return n}({render:function(){var e=this.$createElement;return(this._self._c||e)("svg",{attrs:{viewBox:this.svgViewBoxValues,xmlns:"http://www.w3.org/2000/svg"},domProps:{innerHTML:this._s(this.svgContent)}})},staticRenderFns:[]},void 0,{props:{icon:String},data:function(){return{svgString:__webpack_require__("./resources/svg sync recursive ^\\.\\/.*$")("./"+this.iconPath).default}},computed:{iconPath:{cache:!1,get:function(){return this.icon.replace(new RegExp(".".replace(/([.*+?^=!:${}()|\[\]\/\\])/g,"\\$1"),"g"),"/")+".svg"}},svgViewBoxValues:function(){return this.svgString?(/viewBox="([^"]+)"/.exec(this.svgString)||"")[1]:null},svgContent:function(){return this.svgString?this.svgString.replace(/^<svg[^>]*>|<\/svg>$/g,""):null}}},void 0,!1,void 0,void 0,void 0);function t(n){t.installed||(t.installed=!0,n.component("SvgVue",e))}var n={install:t},i=null;"undefined"!=typeof window?i=window.Vue:"undefined"!=typeof global&&(i=global.Vue),i&&i.use(n),e.install=t;/* harmony default export */ __webpack_exports__["default"] = (e);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -65890,8 +66318,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prosemirror_utils__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prosemirror_utils__WEBPACK_IMPORTED_MODULE_6__);
 
     /*!
-    * tiptap-commands v1.12.4
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-commands v1.13.0
+    * (c) 2020 Scrumpy UG (limited liability)
     * @license MIT
     */
   
@@ -65917,23 +66345,36 @@ function insertText () {
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
 }
 
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function getMarksBetween(start, end, state) {
@@ -66053,7 +66494,7 @@ function pasteRule (regexp, type, getAttrs) {
 }
 
 function markPasteRule (regexp, type, getAttrs) {
-  var handler = function handler(fragment) {
+  var handler = function handler(fragment, parent) {
     var nodes = [];
     fragment.forEach(function (child) {
       if (child.isText) {
@@ -66066,7 +66507,7 @@ function markPasteRule (regexp, type, getAttrs) {
         })[0]; // eslint-disable-next-line
 
         while (!isLink && (match = regexp.exec(text)) !== null) {
-          if (match[1]) {
+          if (parent.type.allowsMarkType(type) && match[1]) {
             var start = match.index;
             var end = start + match[0].length;
             var textStart = start + match[0].indexOf(match[1]);
@@ -66088,7 +66529,7 @@ function markPasteRule (regexp, type, getAttrs) {
           nodes.push(child.cut(pos));
         }
       } else {
-        nodes.push(child.copy(handler(child.content)));
+        nodes.push(child.copy(handler(child.content, child)));
       }
     });
     return prosemirror_model__WEBPACK_IMPORTED_MODULE_4__["Fragment"].fromArray(nodes);
@@ -66410,13 +66851,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prosemirror_state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prosemirror-state */ "./node_modules/prosemirror-state/dist/index.es.js");
 /* harmony import */ var prosemirror_tables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prosemirror-tables */ "./node_modules/prosemirror-tables/dist/index.es.js");
 /* harmony import */ var tiptap_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tiptap-utils */ "./node_modules/tiptap-utils/dist/utils.esm.js");
-/* harmony import */ var prosemirror_transform__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prosemirror-transform */ "./node_modules/tiptap-extensions/node_modules/prosemirror-transform/dist/index.es.js");
+/* harmony import */ var prosemirror_transform__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prosemirror-transform */ "./node_modules/prosemirror-transform/dist/index.es.js");
 /* harmony import */ var prosemirror_collab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! prosemirror-collab */ "./node_modules/prosemirror-collab/dist/index.es.js");
 /* harmony import */ var prosemirror_history__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prosemirror-history */ "./node_modules/prosemirror-history/dist/index.es.js");
 
     /*!
-    * tiptap-extensions v1.28.5
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-extensions v1.29.0
+    * (c) 2020 Scrumpy UG (limited liability)
     * @license MIT
     */
   
@@ -66534,6 +66975,19 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -66550,20 +67004,33 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _createSuper(Derived) {
+  return function () {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (_isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _arrayWithHoles(arr) {
@@ -66571,14 +67038,11 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -66604,23 +67068,40 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-var Blockquote =
-/*#__PURE__*/
-function (_Node) {
+var Blockquote = /*#__PURE__*/function (_Node) {
   _inherits(Blockquote, _Node);
+
+  var _super = _createSuper(Blockquote);
 
   function Blockquote() {
     _classCallCheck(this, Blockquote);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Blockquote).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Blockquote, [{
@@ -66672,15 +67153,15 @@ function (_Node) {
   return Blockquote;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var BulletList =
-/*#__PURE__*/
-function (_Node) {
+var BulletList = /*#__PURE__*/function (_Node) {
   _inherits(BulletList, _Node);
+
+  var _super = _createSuper(BulletList);
 
   function BulletList() {
     _classCallCheck(this, BulletList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(BulletList).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(BulletList, [{
@@ -66731,15 +67212,15 @@ function (_Node) {
   return BulletList;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var CodeBlock =
-/*#__PURE__*/
-function (_Node) {
+var CodeBlock = /*#__PURE__*/function (_Node) {
   _inherits(CodeBlock, _Node);
+
+  var _super = _createSuper(CodeBlock);
 
   function CodeBlock() {
     _classCallCheck(this, CodeBlock);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CodeBlock).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(CodeBlock, [{
@@ -66857,13 +67338,19 @@ function HighlightPlugin(_ref2) {
           name: name
         });
       },
-      apply: function apply(transaction, decorationSet, oldState, state) {
+      apply: function apply(transaction, decorationSet, oldState, newState) {
         // TODO: find way to cache decorations
-        // see: https://discuss.prosemirror.net/t/how-to-update-multiple-inline-decorations-on-node-change/1493
-        var nodeName = state.selection.$head.parent.type.name;
-        var previousNodeName = oldState.selection.$head.parent.type.name;
+        // https://discuss.prosemirror.net/t/how-to-update-multiple-inline-decorations-on-node-change/1493
+        var oldNodeName = oldState.selection.$head.parent.type.name;
+        var newNodeName = newState.selection.$head.parent.type.name;
+        var oldNodes = Object(prosemirror_utils__WEBPACK_IMPORTED_MODULE_4__["findBlockNodes"])(oldState.doc).filter(function (item) {
+          return item.node.type.name === name;
+        });
+        var newNodes = Object(prosemirror_utils__WEBPACK_IMPORTED_MODULE_4__["findBlockNodes"])(newState.doc).filter(function (item) {
+          return item.node.type.name === name;
+        }); // Apply decorations if selection includes named node, or transaction changes named node.
 
-        if (transaction.docChanged && [nodeName, previousNodeName].includes(name)) {
+        if (transaction.docChanged && ([oldNodeName, newNodeName].includes(name) || newNodes.length !== oldNodes.length)) {
           return getDecorations({
             doc: transaction.doc,
             name: name
@@ -66881,10 +67368,10 @@ function HighlightPlugin(_ref2) {
   });
 }
 
-var CodeBlockHighlight =
-/*#__PURE__*/
-function (_Node) {
+var CodeBlockHighlight = /*#__PURE__*/function (_Node) {
   _inherits(CodeBlockHighlight, _Node);
+
+  var _super = _createSuper(CodeBlockHighlight);
 
   function CodeBlockHighlight() {
     var _this;
@@ -66893,7 +67380,7 @@ function (_Node) {
 
     _classCallCheck(this, CodeBlockHighlight);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CodeBlockHighlight).call(this, options));
+    _this = _super.call(this, options);
 
     try {
       Object.entries(_this.options.languages).forEach(function (_ref) {
@@ -66976,15 +67463,15 @@ function (_Node) {
   return CodeBlockHighlight;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var HardBreak =
-/*#__PURE__*/
-function (_Node) {
+var HardBreak = /*#__PURE__*/function (_Node) {
   _inherits(HardBreak, _Node);
+
+  var _super = _createSuper(HardBreak);
 
   function HardBreak() {
     _classCallCheck(this, HardBreak);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(HardBreak).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(HardBreak, [{
@@ -67025,15 +67512,15 @@ function (_Node) {
   return HardBreak;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var Heading =
-/*#__PURE__*/
-function (_Node) {
+var Heading = /*#__PURE__*/function (_Node) {
   _inherits(Heading, _Node);
+
+  var _super = _createSuper(Heading);
 
   function Heading() {
     _classCallCheck(this, Heading);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Heading).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Heading, [{
@@ -67110,15 +67597,15 @@ function (_Node) {
   return Heading;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var HorizontalRule =
-/*#__PURE__*/
-function (_Node) {
+var HorizontalRule = /*#__PURE__*/function (_Node) {
   _inherits(HorizontalRule, _Node);
+
+  var _super = _createSuper(HorizontalRule);
 
   function HorizontalRule() {
     _classCallCheck(this, HorizontalRule);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(HorizontalRule).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(HorizontalRule, [{
@@ -67171,15 +67658,15 @@ function (_Node) {
 
 var IMAGE_INPUT_REGEX = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
 
-var Image =
-/*#__PURE__*/
-function (_Node) {
+var Image = /*#__PURE__*/function (_Node) {
   _inherits(Image, _Node);
+
+  var _super = _createSuper(Image);
 
   function Image() {
     _classCallCheck(this, Image);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Image).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Image, [{
@@ -67299,15 +67786,15 @@ function (_Node) {
   return Image;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var ListItem =
-/*#__PURE__*/
-function (_Node) {
+var ListItem = /*#__PURE__*/function (_Node) {
   _inherits(ListItem, _Node);
+
+  var _super = _createSuper(ListItem);
 
   function ListItem() {
     _classCallCheck(this, ListItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ListItem).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(ListItem, [{
@@ -67607,15 +68094,15 @@ function SuggestionsPlugin(_ref2) {
   });
 }
 
-var Mention =
-/*#__PURE__*/
-function (_Node) {
+var Mention = /*#__PURE__*/function (_Node) {
   _inherits(Mention, _Node);
+
+  var _super = _createSuper(Mention);
 
   function Mention() {
     _classCallCheck(this, Mention);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Mention).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Mention, [{
@@ -67707,15 +68194,15 @@ function (_Node) {
   return Mention;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var OrderedList =
-/*#__PURE__*/
-function (_Node) {
+var OrderedList = /*#__PURE__*/function (_Node) {
   _inherits(OrderedList, _Node);
+
+  var _super = _createSuper(OrderedList);
 
   function OrderedList() {
     _classCallCheck(this, OrderedList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(OrderedList).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(OrderedList, [{
@@ -67805,15 +68292,15 @@ var TableNodes = Object(prosemirror_tables__WEBPACK_IMPORTED_MODULE_6__["tableNo
   }
 });
 
-var Table =
-/*#__PURE__*/
-function (_Node) {
+var Table = /*#__PURE__*/function (_Node) {
   _inherits(Table, _Node);
+
+  var _super = _createSuper(Table);
 
   function Table() {
     _classCallCheck(this, Table);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Table).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Table, [{
@@ -67924,15 +68411,15 @@ function (_Node) {
   return Table;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var TableHeader =
-/*#__PURE__*/
-function (_Node) {
+var TableHeader = /*#__PURE__*/function (_Node) {
   _inherits(TableHeader, _Node);
+
+  var _super = _createSuper(TableHeader);
 
   function TableHeader() {
     _classCallCheck(this, TableHeader);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TableHeader).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TableHeader, [{
@@ -67950,15 +68437,15 @@ function (_Node) {
   return TableHeader;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var TableCell =
-/*#__PURE__*/
-function (_Node) {
+var TableCell = /*#__PURE__*/function (_Node) {
   _inherits(TableCell, _Node);
+
+  var _super = _createSuper(TableCell);
 
   function TableCell() {
     _classCallCheck(this, TableCell);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TableCell).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TableCell, [{
@@ -67976,15 +68463,15 @@ function (_Node) {
   return TableCell;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var TableRow =
-/*#__PURE__*/
-function (_Node) {
+var TableRow = /*#__PURE__*/function (_Node) {
   _inherits(TableRow, _Node);
+
+  var _super = _createSuper(TableRow);
 
   function TableRow() {
     _classCallCheck(this, TableRow);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TableRow).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TableRow, [{
@@ -68002,15 +68489,15 @@ function (_Node) {
   return TableRow;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var TodoItem =
-/*#__PURE__*/
-function (_Node) {
+var TodoItem = /*#__PURE__*/function (_Node) {
   _inherits(TodoItem, _Node);
+
+  var _super = _createSuper(TodoItem);
 
   function TodoItem() {
     _classCallCheck(this, TodoItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TodoItem).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TodoItem, [{
@@ -68091,15 +68578,15 @@ function (_Node) {
   return TodoItem;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var TodoList =
-/*#__PURE__*/
-function (_Node) {
+var TodoList = /*#__PURE__*/function (_Node) {
   _inherits(TodoList, _Node);
+
+  var _super = _createSuper(TodoList);
 
   function TodoList() {
     _classCallCheck(this, TodoList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TodoList).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TodoList, [{
@@ -68146,15 +68633,15 @@ function (_Node) {
   return TodoList;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Node"]);
 
-var Bold =
-/*#__PURE__*/
-function (_Mark) {
+var Bold = /*#__PURE__*/function (_Mark) {
   _inherits(Bold, _Mark);
+
+  var _super = _createSuper(Bold);
 
   function Bold() {
     _classCallCheck(this, Bold);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Bold).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Bold, [{
@@ -68217,15 +68704,15 @@ function (_Mark) {
   return Bold;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Code =
-/*#__PURE__*/
-function (_Mark) {
+var Code = /*#__PURE__*/function (_Mark) {
   _inherits(Code, _Mark);
+
+  var _super = _createSuper(Code);
 
   function Code() {
     _classCallCheck(this, Code);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Code).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Code, [{
@@ -68279,15 +68766,15 @@ function (_Mark) {
   return Code;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Italic =
-/*#__PURE__*/
-function (_Mark) {
+var Italic = /*#__PURE__*/function (_Mark) {
   _inherits(Italic, _Mark);
+
+  var _super = _createSuper(Italic);
 
   function Italic() {
     _classCallCheck(this, Italic);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Italic).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Italic, [{
@@ -68344,15 +68831,15 @@ function (_Mark) {
   return Italic;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Link =
-/*#__PURE__*/
-function (_Mark) {
+var Link = /*#__PURE__*/function (_Mark) {
   _inherits(Link, _Mark);
+
+  var _super = _createSuper(Link);
 
   function Link() {
     _classCallCheck(this, Link);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Link).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Link, [{
@@ -68440,15 +68927,15 @@ function (_Mark) {
   return Link;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Strike =
-/*#__PURE__*/
-function (_Mark) {
+var Strike = /*#__PURE__*/function (_Mark) {
   _inherits(Strike, _Mark);
+
+  var _super = _createSuper(Strike);
 
   function Strike() {
     _classCallCheck(this, Strike);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Strike).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Strike, [{
@@ -68510,15 +68997,15 @@ function (_Mark) {
   return Strike;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Underline =
-/*#__PURE__*/
-function (_Mark) {
+var Underline = /*#__PURE__*/function (_Mark) {
   _inherits(Underline, _Mark);
+
+  var _super = _createSuper(Underline);
 
   function Underline() {
     _classCallCheck(this, Underline);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Underline).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Underline, [{
@@ -68564,15 +69051,15 @@ function (_Mark) {
   return Underline;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Mark"]);
 
-var Collaboration =
-/*#__PURE__*/
-function (_Extension) {
+var Collaboration = /*#__PURE__*/function (_Extension) {
   _inherits(Collaboration, _Extension);
+
+  var _super = _createSuper(Collaboration);
 
   function Collaboration() {
     _classCallCheck(this, Collaboration);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Collaboration).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Collaboration, [{
@@ -68669,15 +69156,15 @@ function (_Extension) {
   return Collaboration;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Extension"]);
 
-var Focus =
-/*#__PURE__*/
-function (_Extension) {
+var Focus = /*#__PURE__*/function (_Extension) {
   _inherits(Focus, _Extension);
+
+  var _super = _createSuper(Focus);
 
   function Focus() {
     _classCallCheck(this, Focus);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Focus).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Focus, [{
@@ -68739,15 +69226,15 @@ function (_Extension) {
   return Focus;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Extension"]);
 
-var History =
-/*#__PURE__*/
-function (_Extension) {
+var History = /*#__PURE__*/function (_Extension) {
   _inherits(History, _Extension);
+
+  var _super = _createSuper(History);
 
   function History() {
     _classCallCheck(this, History);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(History).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(History, [{
@@ -68804,15 +69291,15 @@ function (_Extension) {
   return History;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Extension"]);
 
-var Placeholder =
-/*#__PURE__*/
-function (_Extension) {
+var Placeholder = /*#__PURE__*/function (_Extension) {
   _inherits(Placeholder, _Extension);
+
+  var _super = _createSuper(Placeholder);
 
   function Placeholder() {
     _classCallCheck(this, Placeholder);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Placeholder).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Placeholder, [{
@@ -68829,13 +69316,6 @@ function (_Extension) {
         emptyNodeText: 'Write something …',
         showOnlyWhenEditable: true,
         showOnlyCurrent: true
-      };
-    }
-  }, {
-    key: "update",
-    get: function get() {
-      return function (view) {
-        view.updateState(view.state);
       };
     }
   }, {
@@ -68892,10 +69372,10 @@ function (_Extension) {
   return Placeholder;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Extension"]);
 
-var Search =
-/*#__PURE__*/
-function (_Extension) {
+var Search = /*#__PURE__*/function (_Extension) {
   _inherits(Search, _Extension);
+
+  var _super = _createSuper(Search);
 
   function Search() {
     var _this;
@@ -68904,7 +69384,7 @@ function (_Extension) {
 
     _classCallCheck(this, Search);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Search).call(this, options));
+    _this = _super.call(this, options);
     _this.results = [];
     _this.searchTerm = null;
     _this._updating = false;
@@ -69151,15 +69631,15 @@ function (_Extension) {
   return Search;
 }(tiptap__WEBPACK_IMPORTED_MODULE_0__["Extension"]);
 
-var TrailingNode =
-/*#__PURE__*/
-function (_Extension) {
+var TrailingNode = /*#__PURE__*/function (_Extension) {
   _inherits(TrailingNode, _Extension);
+
+  var _super = _createSuper(TrailingNode);
 
   function TrailingNode() {
     _classCallCheck(this, TrailingNode);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TrailingNode).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(TrailingNode, [{
@@ -69242,1739 +69722,18 @@ function (_Extension) {
 
 /***/ }),
 
-/***/ "./node_modules/tiptap-extensions/node_modules/prosemirror-transform/dist/index.es.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/tiptap-extensions/node_modules/prosemirror-transform/dist/index.es.js ***!
-  \********************************************************************************************/
-/*! exports provided: AddMarkStep, MapResult, Mapping, RemoveMarkStep, ReplaceAroundStep, ReplaceStep, Step, StepMap, StepResult, Transform, TransformError, canJoin, canSplit, dropPoint, findWrapping, insertPoint, joinPoint, liftTarget, replaceStep */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddMarkStep", function() { return AddMarkStep; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapResult", function() { return MapResult; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Mapping", function() { return Mapping; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveMarkStep", function() { return RemoveMarkStep; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReplaceAroundStep", function() { return ReplaceAroundStep; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReplaceStep", function() { return ReplaceStep; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Step", function() { return Step; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StepMap", function() { return StepMap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StepResult", function() { return StepResult; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Transform", function() { return Transform; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransformError", function() { return TransformError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "canJoin", function() { return canJoin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "canSplit", function() { return canSplit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dropPoint", function() { return dropPoint; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findWrapping", function() { return findWrapping; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertPoint", function() { return insertPoint; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinPoint", function() { return joinPoint; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "liftTarget", function() { return liftTarget; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceStep", function() { return replaceStep; });
-/* harmony import */ var prosemirror_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prosemirror-model */ "./node_modules/prosemirror-model/dist/index.es.js");
-
-
-// Mappable:: interface
-// There are several things that positions can be mapped through.
-// Such objects conform to this interface.
-//
-//   map:: (pos: number, assoc: ?number) → number
-//   Map a position through this object. When given, `assoc` (should
-//   be -1 or 1, defaults to 1) determines with which side the
-//   position is associated, which determines in which direction to
-//   move when a chunk of content is inserted at the mapped position.
-//
-//   mapResult:: (pos: number, assoc: ?number) → MapResult
-//   Map a position, and return an object containing additional
-//   information about the mapping. The result's `deleted` field tells
-//   you whether the position was deleted (completely enclosed in a
-//   replaced range) during the mapping. When content on only one side
-//   is deleted, the position itself is only considered deleted when
-//   `assoc` points in the direction of the deleted content.
-
-// Recovery values encode a range index and an offset. They are
-// represented as numbers, because tons of them will be created when
-// mapping, for example, a large number of decorations. The number's
-// lower 16 bits provide the index, the remaining bits the offset.
-//
-// Note: We intentionally don't use bit shift operators to en- and
-// decode these, since those clip to 32 bits, which we might in rare
-// cases want to overflow. A 64-bit float can represent 48-bit
-// integers precisely.
-
-var lower16 = 0xffff;
-var factor16 = Math.pow(2, 16);
-
-function makeRecover(index, offset) { return index + offset * factor16 }
-function recoverIndex(value) { return value & lower16 }
-function recoverOffset(value) { return (value - (value & lower16)) / factor16 }
-
-// ::- An object representing a mapped position with extra
-// information.
-var MapResult = function MapResult(pos, deleted, recover) {
-  if ( deleted === void 0 ) deleted = false;
-  if ( recover === void 0 ) recover = null;
-
-  // :: number The mapped version of the position.
-  this.pos = pos;
-  // :: bool Tells you whether the position was deleted, that is,
-  // whether the step removed its surroundings from the document.
-  this.deleted = deleted;
-  this.recover = recover;
-};
-
-// :: class extends Mappable
-// A map describing the deletions and insertions made by a step, which
-// can be used to find the correspondence between positions in the
-// pre-step version of a document and the same position in the
-// post-step version.
-var StepMap = function StepMap(ranges, inverted) {
-  if ( inverted === void 0 ) inverted = false;
-
-  this.ranges = ranges;
-  this.inverted = inverted;
-};
-
-StepMap.prototype.recover = function recover (value) {
-  var diff = 0, index = recoverIndex(value);
-  if (!this.inverted) { for (var i = 0; i < index; i++)
-    { diff += this.ranges[i * 3 + 2] - this.ranges[i * 3 + 1]; } }
-  return this.ranges[index * 3] + diff + recoverOffset(value)
-};
-
-// : (number, ?number) → MapResult
-StepMap.prototype.mapResult = function mapResult (pos, assoc) {
-  if ( assoc === void 0 ) assoc = 1;
- return this._map(pos, assoc, false) };
-
-// : (number, ?number) → number
-StepMap.prototype.map = function map (pos, assoc) {
-  if ( assoc === void 0 ) assoc = 1;
- return this._map(pos, assoc, true) };
-
-StepMap.prototype._map = function _map (pos, assoc, simple) {
-  var diff = 0, oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
-  for (var i = 0; i < this.ranges.length; i += 3) {
-    var start = this.ranges[i] - (this.inverted ? diff : 0);
-    if (start > pos) { break }
-    var oldSize = this.ranges[i + oldIndex], newSize = this.ranges[i + newIndex], end = start + oldSize;
-    if (pos <= end) {
-      var side = !oldSize ? assoc : pos == start ? -1 : pos == end ? 1 : assoc;
-      var result = start + diff + (side < 0 ? 0 : newSize);
-      if (simple) { return result }
-      var recover = makeRecover(i / 3, pos - start);
-      return new MapResult(result, assoc < 0 ? pos != start : pos != end, recover)
-    }
-    diff += newSize - oldSize;
-  }
-  return simple ? pos + diff : new MapResult(pos + diff)
-};
-
-StepMap.prototype.touches = function touches (pos, recover) {
-  var diff = 0, index = recoverIndex(recover);
-  var oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
-  for (var i = 0; i < this.ranges.length; i += 3) {
-    var start = this.ranges[i] - (this.inverted ? diff : 0);
-    if (start > pos) { break }
-    var oldSize = this.ranges[i + oldIndex], end = start + oldSize;
-    if (pos <= end && i == index * 3) { return true }
-    diff += this.ranges[i + newIndex] - oldSize;
-  }
-  return false
-};
-
-// :: ((oldStart: number, oldEnd: number, newStart: number, newEnd: number))
-// Calls the given function on each of the changed ranges included in
-// this map.
-StepMap.prototype.forEach = function forEach (f) {
-  var oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
-  for (var i = 0, diff = 0; i < this.ranges.length; i += 3) {
-    var start = this.ranges[i], oldStart = start - (this.inverted ? diff : 0), newStart = start + (this.inverted ? 0 : diff);
-    var oldSize = this.ranges[i + oldIndex], newSize = this.ranges[i + newIndex];
-    f(oldStart, oldStart + oldSize, newStart, newStart + newSize);
-    diff += newSize - oldSize;
-  }
-};
-
-// :: () → StepMap
-// Create an inverted version of this map. The result can be used to
-// map positions in the post-step document to the pre-step document.
-StepMap.prototype.invert = function invert () {
-  return new StepMap(this.ranges, !this.inverted)
-};
-
-StepMap.prototype.toString = function toString () {
-  return (this.inverted ? "-" : "") + JSON.stringify(this.ranges)
-};
-
-// :: (n: number) → StepMap
-// Create a map that moves all positions by offset `n` (which may be
-// negative). This can be useful when applying steps meant for a
-// sub-document to a larger document, or vice-versa.
-StepMap.offset = function offset (n) {
-  return n == 0 ? StepMap.empty : new StepMap(n < 0 ? [0, -n, 0] : [0, 0, n])
-};
-
-StepMap.empty = new StepMap([]);
-
-// :: class extends Mappable
-// A mapping represents a pipeline of zero or more [step
-// maps](#transform.StepMap). It has special provisions for losslessly
-// handling mapping positions through a series of steps in which some
-// steps are inverted versions of earlier steps. (This comes up when
-// ‘[rebasing](/docs/guide/#transform.rebasing)’ steps for
-// collaboration or history management.)
-var Mapping = function Mapping(maps, mirror, from, to) {
-  // :: [StepMap]
-  // The step maps in this mapping.
-  this.maps = maps || [];
-  // :: number
-  // The starting position in the `maps` array, used when `map` or
-  // `mapResult` is called.
-  this.from = from || 0;
-  // :: number
-  // The end position in the `maps` array.
-  this.to = to == null ? this.maps.length : to;
-  this.mirror = mirror;
-};
-
-// :: (?number, ?number) → Mapping
-// Create a mapping that maps only through a part of this one.
-Mapping.prototype.slice = function slice (from, to) {
-    if ( from === void 0 ) from = 0;
-    if ( to === void 0 ) to = this.maps.length;
-
-  return new Mapping(this.maps, this.mirror, from, to)
-};
-
-Mapping.prototype.copy = function copy () {
-  return new Mapping(this.maps.slice(), this.mirror && this.mirror.slice(), this.from, this.to)
-};
-
-// :: (StepMap, ?number)
-// Add a step map to the end of this mapping. If `mirrors` is
-// given, it should be the index of the step map that is the mirror
-// image of this one.
-Mapping.prototype.appendMap = function appendMap (map, mirrors) {
-  this.to = this.maps.push(map);
-  if (mirrors != null) { this.setMirror(this.maps.length - 1, mirrors); }
-};
-
-// :: (Mapping)
-// Add all the step maps in a given mapping to this one (preserving
-// mirroring information).
-Mapping.prototype.appendMapping = function appendMapping (mapping) {
-  for (var i = 0, startSize = this.maps.length; i < mapping.maps.length; i++) {
-    var mirr = mapping.getMirror(i);
-    this.appendMap(mapping.maps[i], mirr != null && mirr < i ? startSize + mirr : null);
-  }
-};
-
-// :: (number) → ?number
-// Finds the offset of the step map that mirrors the map at the
-// given offset, in this mapping (as per the second argument to
-// `appendMap`).
-Mapping.prototype.getMirror = function getMirror (n) {
-  if (this.mirror) { for (var i = 0; i < this.mirror.length; i++)
-    { if (this.mirror[i] == n) { return this.mirror[i + (i % 2 ? -1 : 1)] } } }
-};
-
-Mapping.prototype.setMirror = function setMirror (n, m) {
-  if (!this.mirror) { this.mirror = []; }
-  this.mirror.push(n, m);
-};
-
-// :: (Mapping)
-// Append the inverse of the given mapping to this one.
-Mapping.prototype.appendMappingInverted = function appendMappingInverted (mapping) {
-  for (var i = mapping.maps.length - 1, totalSize = this.maps.length + mapping.maps.length; i >= 0; i--) {
-    var mirr = mapping.getMirror(i);
-    this.appendMap(mapping.maps[i].invert(), mirr != null && mirr > i ? totalSize - mirr - 1 : null);
-  }
-};
-
-// :: () → Mapping
-// Create an inverted version of this mapping.
-Mapping.prototype.invert = function invert () {
-  var inverse = new Mapping;
-  inverse.appendMappingInverted(this);
-  return inverse
-};
-
-// : (number, ?number) → number
-// Map a position through this mapping.
-Mapping.prototype.map = function map (pos, assoc) {
-    if ( assoc === void 0 ) assoc = 1;
-
-  if (this.mirror) { return this._map(pos, assoc, true) }
-  for (var i = this.from; i < this.to; i++)
-    { pos = this.maps[i].map(pos, assoc); }
-  return pos
-};
-
-// : (number, ?number) → MapResult
-// Map a position through this mapping, returning a mapping
-// result.
-Mapping.prototype.mapResult = function mapResult (pos, assoc) {
-  if ( assoc === void 0 ) assoc = 1;
- return this._map(pos, assoc, false) };
-
-Mapping.prototype._map = function _map (pos, assoc, simple) {
-  var deleted = false, recoverables = null;
-
-  for (var i = this.from; i < this.to; i++) {
-    var map = this.maps[i], rec = recoverables && recoverables[i];
-    if (rec != null && map.touches(pos, rec)) {
-      pos = map.recover(rec);
-      continue
-    }
-
-    var result = map.mapResult(pos, assoc);
-    if (result.recover != null) {
-      var corr = this.getMirror(i);
-      if (corr != null && corr > i && corr < this.to) {
-        if (result.deleted) {
-          i = corr;
-          pos = this.maps[corr].recover(result.recover);
-          continue
-        } else {
-(recoverables || (recoverables = Object.create(null)))[corr] = result.recover;
-        }
-      }
-    }
-
-    if (result.deleted) { deleted = true; }
-    pos = result.pos;
-  }
-
-  return simple ? pos : new MapResult(pos, deleted)
-};
-
-function TransformError(message) {
-  var err = Error.call(this, message);
-  err.__proto__ = TransformError.prototype;
-  return err
-}
-
-TransformError.prototype = Object.create(Error.prototype);
-TransformError.prototype.constructor = TransformError;
-TransformError.prototype.name = "TransformError";
-
-// ::- Abstraction to build up and track an array of
-// [steps](#transform.Step) representing a document transformation.
-//
-// Most transforming methods return the `Transform` object itself, so
-// that they can be chained.
-var Transform = function Transform(doc) {
-  // :: Node
-  // The current document (the result of applying the steps in the
-  // transform).
-  this.doc = doc;
-  // :: [Step]
-  // The steps in this transform.
-  this.steps = [];
-  // :: [Node]
-  // The documents before each of the steps.
-  this.docs = [];
-  // :: Mapping
-  // A mapping with the maps for each of the steps in this transform.
-  this.mapping = new Mapping;
-};
-
-var prototypeAccessors = { before: { configurable: true },docChanged: { configurable: true } };
-
-// :: Node The starting document.
-prototypeAccessors.before.get = function () { return this.docs.length ? this.docs[0] : this.doc };
-
-// :: (step: Step) → this
-// Apply a new step in this transform, saving the result. Throws an
-// error when the step fails.
-Transform.prototype.step = function step (object) {
-  var result = this.maybeStep(object);
-  if (result.failed) { throw new TransformError(result.failed) }
-  return this
-};
-
-// :: (Step) → StepResult
-// Try to apply a step in this transformation, ignoring it if it
-// fails. Returns the step result.
-Transform.prototype.maybeStep = function maybeStep (step) {
-  var result = step.apply(this.doc);
-  if (!result.failed) { this.addStep(step, result.doc); }
-  return result
-};
-
-// :: bool
-// True when the document has been changed (when there are any
-// steps).
-prototypeAccessors.docChanged.get = function () {
-  return this.steps.length > 0
-};
-
-Transform.prototype.addStep = function addStep (step, doc) {
-  this.docs.push(this.doc);
-  this.steps.push(step);
-  this.mapping.appendMap(step.getMap());
-  this.doc = doc;
-};
-
-Object.defineProperties( Transform.prototype, prototypeAccessors );
-
-function mustOverride() { throw new Error("Override me") }
-
-var stepsByID = Object.create(null);
-
-// ::- A step object represents an atomic change. It generally applies
-// only to the document it was created for, since the positions
-// stored in it will only make sense for that document.
-//
-// New steps are defined by creating classes that extend `Step`,
-// overriding the `apply`, `invert`, `map`, `getMap` and `fromJSON`
-// methods, and registering your class with a unique
-// JSON-serialization identifier using
-// [`Step.jsonID`](#transform.Step^jsonID).
-var Step = function Step () {};
-
-Step.prototype.apply = function apply (_doc) { return mustOverride() };
-
-// :: () → StepMap
-// Get the step map that represents the changes made by this step,
-// and which can be used to transform between positions in the old
-// and the new document.
-Step.prototype.getMap = function getMap () { return StepMap.empty };
-
-// :: (doc: Node) → Step
-// Create an inverted version of this step. Needs the document as it
-// was before the step as argument.
-Step.prototype.invert = function invert (_doc) { return mustOverride() };
-
-// :: (mapping: Mappable) → ?Step
-// Map this step through a mappable thing, returning either a
-// version of that step with its positions adjusted, or `null` if
-// the step was entirely deleted by the mapping.
-Step.prototype.map = function map (_mapping) { return mustOverride() };
-
-// :: (other: Step) → ?Step
-// Try to merge this step with another one, to be applied directly
-// after it. Returns the merged step when possible, null if the
-// steps can't be merged.
-Step.prototype.merge = function merge (_other) { return null };
-
-// :: () → Object
-// Create a JSON-serializeable representation of this step. When
-// defining this for a custom subclass, make sure the result object
-// includes the step type's [JSON id](#transform.Step^jsonID) under
-// the `stepType` property.
-Step.prototype.toJSON = function toJSON () { return mustOverride() };
-
-// :: (Schema, Object) → Step
-// Deserialize a step from its JSON representation. Will call
-// through to the step class' own implementation of this method.
-Step.fromJSON = function fromJSON (schema, json) {
-  if (!json || !json.stepType) { throw new RangeError("Invalid input for Step.fromJSON") }
-  var type = stepsByID[json.stepType];
-  if (!type) { throw new RangeError(("No step type " + (json.stepType) + " defined")) }
-  return type.fromJSON(schema, json)
-};
-
-// :: (string, constructor<Step>)
-// To be able to serialize steps to JSON, each step needs a string
-// ID to attach to its JSON representation. Use this method to
-// register an ID for your step classes. Try to pick something
-// that's unlikely to clash with steps from other modules.
-Step.jsonID = function jsonID (id, stepClass) {
-  if (id in stepsByID) { throw new RangeError("Duplicate use of step JSON ID " + id) }
-  stepsByID[id] = stepClass;
-  stepClass.prototype.jsonID = id;
-  return stepClass
-};
-
-// ::- The result of [applying](#transform.Step.apply) a step. Contains either a
-// new document or a failure value.
-var StepResult = function StepResult(doc, failed) {
-  // :: ?Node The transformed document.
-  this.doc = doc;
-  // :: ?string Text providing information about a failed step.
-  this.failed = failed;
-};
-
-// :: (Node) → StepResult
-// Create a successful step result.
-StepResult.ok = function ok (doc) { return new StepResult(doc, null) };
-
-// :: (string) → StepResult
-// Create a failed step result.
-StepResult.fail = function fail (message) { return new StepResult(null, message) };
-
-// :: (Node, number, number, Slice) → StepResult
-// Call [`Node.replace`](#model.Node.replace) with the given
-// arguments. Create a successful result if it succeeds, and a
-// failed one if it throws a `ReplaceError`.
-StepResult.fromReplace = function fromReplace (doc, from, to, slice) {
-  try {
-    return StepResult.ok(doc.replace(from, to, slice))
-  } catch (e) {
-    if (e instanceof prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["ReplaceError"]) { return StepResult.fail(e.message) }
-    throw e
-  }
-};
-
-// ::- Replace a part of the document with a slice of new content.
-var ReplaceStep = /*@__PURE__*/(function (Step) {
-  function ReplaceStep(from, to, slice, structure) {
-    Step.call(this);
-    this.from = from;
-    this.to = to;
-    this.slice = slice;
-    this.structure = !!structure;
-  }
-
-  if ( Step ) ReplaceStep.__proto__ = Step;
-  ReplaceStep.prototype = Object.create( Step && Step.prototype );
-  ReplaceStep.prototype.constructor = ReplaceStep;
-
-  ReplaceStep.prototype.apply = function apply (doc) {
-    if (this.structure && contentBetween(doc, this.from, this.to))
-      { return StepResult.fail("Structure replace would overwrite content") }
-    return StepResult.fromReplace(doc, this.from, this.to, this.slice)
-  };
-
-  ReplaceStep.prototype.getMap = function getMap () {
-    return new StepMap([this.from, this.to - this.from, this.slice.size])
-  };
-
-  ReplaceStep.prototype.invert = function invert (doc) {
-    return new ReplaceStep(this.from, this.from + this.slice.size, doc.slice(this.from, this.to))
-  };
-
-  ReplaceStep.prototype.map = function map (mapping) {
-    var from = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
-    if (from.deleted && to.deleted) { return null }
-    return new ReplaceStep(from.pos, Math.max(from.pos, to.pos), this.slice)
-  };
-
-  ReplaceStep.prototype.merge = function merge (other) {
-    if (!(other instanceof ReplaceStep) || other.structure != this.structure) { return null }
-
-    if (this.from + this.slice.size == other.from && !this.slice.openEnd && !other.slice.openStart) {
-      var slice = this.slice.size + other.slice.size == 0 ? prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty
-          : new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](this.slice.content.append(other.slice.content), this.slice.openStart, other.slice.openEnd);
-      return new ReplaceStep(this.from, this.to + (other.to - other.from), slice, this.structure)
-    } else if (other.to == this.from && !this.slice.openStart && !other.slice.openEnd) {
-      var slice$1 = this.slice.size + other.slice.size == 0 ? prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty
-          : new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](other.slice.content.append(this.slice.content), other.slice.openStart, this.slice.openEnd);
-      return new ReplaceStep(other.from, this.to, slice$1, this.structure)
-    } else {
-      return null
-    }
-  };
-
-  ReplaceStep.prototype.toJSON = function toJSON () {
-    var json = {stepType: "replace", from: this.from, to: this.to};
-    if (this.slice.size) { json.slice = this.slice.toJSON(); }
-    if (this.structure) { json.structure = true; }
-    return json
-  };
-
-  ReplaceStep.fromJSON = function fromJSON (schema, json) {
-    if (typeof json.from != "number" || typeof json.to != "number")
-      { throw new RangeError("Invalid input for ReplaceStep.fromJSON") }
-    return new ReplaceStep(json.from, json.to, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].fromJSON(schema, json.slice), !!json.structure)
-  };
-
-  return ReplaceStep;
-}(Step));
-
-Step.jsonID("replace", ReplaceStep);
-
-// ::- Replace a part of the document with a slice of content, but
-// preserve a range of the replaced content by moving it into the
-// slice.
-var ReplaceAroundStep = /*@__PURE__*/(function (Step) {
-  function ReplaceAroundStep(from, to, gapFrom, gapTo, slice, insert, structure) {
-    Step.call(this);
-    this.from = from;
-    this.to = to;
-    this.gapFrom = gapFrom;
-    this.gapTo = gapTo;
-    this.slice = slice;
-    this.insert = insert;
-    this.structure = !!structure;
-  }
-
-  if ( Step ) ReplaceAroundStep.__proto__ = Step;
-  ReplaceAroundStep.prototype = Object.create( Step && Step.prototype );
-  ReplaceAroundStep.prototype.constructor = ReplaceAroundStep;
-
-  ReplaceAroundStep.prototype.apply = function apply (doc) {
-    if (this.structure && (contentBetween(doc, this.from, this.gapFrom) ||
-                           contentBetween(doc, this.gapTo, this.to)))
-      { return StepResult.fail("Structure gap-replace would overwrite content") }
-
-    var gap = doc.slice(this.gapFrom, this.gapTo);
-    if (gap.openStart || gap.openEnd)
-      { return StepResult.fail("Gap is not a flat range") }
-    var inserted = this.slice.insertAt(this.insert, gap.content);
-    if (!inserted) { return StepResult.fail("Content does not fit in gap") }
-    return StepResult.fromReplace(doc, this.from, this.to, inserted)
-  };
-
-  ReplaceAroundStep.prototype.getMap = function getMap () {
-    return new StepMap([this.from, this.gapFrom - this.from, this.insert,
-                        this.gapTo, this.to - this.gapTo, this.slice.size - this.insert])
-  };
-
-  ReplaceAroundStep.prototype.invert = function invert (doc) {
-    var gap = this.gapTo - this.gapFrom;
-    return new ReplaceAroundStep(this.from, this.from + this.slice.size + gap,
-                                 this.from + this.insert, this.from + this.insert + gap,
-                                 doc.slice(this.from, this.to).removeBetween(this.gapFrom - this.from, this.gapTo - this.from),
-                                 this.gapFrom - this.from, this.structure)
-  };
-
-  ReplaceAroundStep.prototype.map = function map (mapping) {
-    var from = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
-    var gapFrom = mapping.map(this.gapFrom, -1), gapTo = mapping.map(this.gapTo, 1);
-    if ((from.deleted && to.deleted) || gapFrom < from.pos || gapTo > to.pos) { return null }
-    return new ReplaceAroundStep(from.pos, to.pos, gapFrom, gapTo, this.slice, this.insert, this.structure)
-  };
-
-  ReplaceAroundStep.prototype.toJSON = function toJSON () {
-    var json = {stepType: "replaceAround", from: this.from, to: this.to,
-                gapFrom: this.gapFrom, gapTo: this.gapTo, insert: this.insert};
-    if (this.slice.size) { json.slice = this.slice.toJSON(); }
-    if (this.structure) { json.structure = true; }
-    return json
-  };
-
-  ReplaceAroundStep.fromJSON = function fromJSON (schema, json) {
-    if (typeof json.from != "number" || typeof json.to != "number" ||
-        typeof json.gapFrom != "number" || typeof json.gapTo != "number" || typeof json.insert != "number")
-      { throw new RangeError("Invalid input for ReplaceAroundStep.fromJSON") }
-    return new ReplaceAroundStep(json.from, json.to, json.gapFrom, json.gapTo,
-                                 prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].fromJSON(schema, json.slice), json.insert, !!json.structure)
-  };
-
-  return ReplaceAroundStep;
-}(Step));
-
-Step.jsonID("replaceAround", ReplaceAroundStep);
-
-function contentBetween(doc, from, to) {
-  var $from = doc.resolve(from), dist = to - from, depth = $from.depth;
-  while (dist > 0 && depth > 0 && $from.indexAfter(depth) == $from.node(depth).childCount) {
-    depth--;
-    dist--;
-  }
-  if (dist > 0) {
-    var next = $from.node(depth).maybeChild($from.indexAfter(depth));
-    while (dist > 0) {
-      if (!next || next.isLeaf) { return true }
-      next = next.firstChild;
-      dist--;
-    }
-  }
-  return false
-}
-
-function canCut(node, start, end) {
-  return (start == 0 || node.canReplace(start, node.childCount)) &&
-    (end == node.childCount || node.canReplace(0, end))
-}
-
-// :: (NodeRange) → ?number
-// Try to find a target depth to which the content in the given range
-// can be lifted. Will not go across
-// [isolating](#model.NodeSpec.isolating) parent nodes.
-function liftTarget(range) {
-  var parent = range.parent;
-  var content = parent.content.cutByIndex(range.startIndex, range.endIndex);
-  for (var depth = range.depth;; --depth) {
-    var node = range.$from.node(depth);
-    var index = range.$from.index(depth), endIndex = range.$to.indexAfter(depth);
-    if (depth < range.depth && node.canReplace(index, endIndex, content))
-      { return depth }
-    if (depth == 0 || node.type.spec.isolating || !canCut(node, index, endIndex)) { break }
-  }
-}
-
-// :: (NodeRange, number) → this
-// Split the content in the given range off from its parent, if there
-// is sibling content before or after it, and move it up the tree to
-// the depth specified by `target`. You'll probably want to use
-// [`liftTarget`](#transform.liftTarget) to compute `target`, to make
-// sure the lift is valid.
-Transform.prototype.lift = function(range, target) {
-  var $from = range.$from;
-  var $to = range.$to;
-  var depth = range.depth;
-
-  var gapStart = $from.before(depth + 1), gapEnd = $to.after(depth + 1);
-  var start = gapStart, end = gapEnd;
-
-  var before = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, openStart = 0;
-  for (var d = depth, splitting = false; d > target; d--)
-    { if (splitting || $from.index(d) > 0) {
-      splitting = true;
-      before = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($from.node(d).copy(before));
-      openStart++;
-    } else {
-      start--;
-    } }
-  var after = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, openEnd = 0;
-  for (var d$1 = depth, splitting$1 = false; d$1 > target; d$1--)
-    { if (splitting$1 || $to.after(d$1 + 1) < $to.end(d$1)) {
-      splitting$1 = true;
-      after = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($to.node(d$1).copy(after));
-      openEnd++;
-    } else {
-      end++;
-    } }
-
-  return this.step(new ReplaceAroundStep(start, end, gapStart, gapEnd,
-                                         new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](before.append(after), openStart, openEnd),
-                                         before.size - openStart, true))
-};
-
-// :: (NodeRange, NodeType, ?Object, ?NodeRange) → ?[{type: NodeType, attrs: ?Object}]
-// Try to find a valid way to wrap the content in the given range in a
-// node of the given type. May introduce extra nodes around and inside
-// the wrapper node, if necessary. Returns null if no valid wrapping
-// could be found. When `innerRange` is given, that range's content is
-// used as the content to fit into the wrapping, instead of the
-// content of `range`.
-function findWrapping(range, nodeType, attrs, innerRange) {
-  if ( innerRange === void 0 ) innerRange = range;
-
-  var around = findWrappingOutside(range, nodeType);
-  var inner = around && findWrappingInside(innerRange, nodeType);
-  if (!inner) { return null }
-  return around.map(withAttrs).concat({type: nodeType, attrs: attrs}).concat(inner.map(withAttrs))
-}
-
-function withAttrs(type) { return {type: type, attrs: null} }
-
-function findWrappingOutside(range, type) {
-  var parent = range.parent;
-  var startIndex = range.startIndex;
-  var endIndex = range.endIndex;
-  var around = parent.contentMatchAt(startIndex).findWrapping(type);
-  if (!around) { return null }
-  var outer = around.length ? around[0] : type;
-  return parent.canReplaceWith(startIndex, endIndex, outer) ? around : null
-}
-
-function findWrappingInside(range, type) {
-  var parent = range.parent;
-  var startIndex = range.startIndex;
-  var endIndex = range.endIndex;
-  var inner = parent.child(startIndex);
-  var inside = type.contentMatch.findWrapping(inner.type);
-  if (!inside) { return null }
-  var lastType = inside.length ? inside[inside.length - 1] : type;
-  var innerMatch = lastType.contentMatch;
-  for (var i = startIndex; innerMatch && i < endIndex; i++)
-    { innerMatch = innerMatch.matchType(parent.child(i).type); }
-  if (!innerMatch || !innerMatch.validEnd) { return null }
-  return inside
-}
-
-// :: (NodeRange, [{type: NodeType, attrs: ?Object}]) → this
-// Wrap the given [range](#model.NodeRange) in the given set of wrappers.
-// The wrappers are assumed to be valid in this position, and should
-// probably be computed with [`findWrapping`](#transform.findWrapping).
-Transform.prototype.wrap = function(range, wrappers) {
-  var content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty;
-  for (var i = wrappers.length - 1; i >= 0; i--)
-    { content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(wrappers[i].type.create(wrappers[i].attrs, content)); }
-
-  var start = range.start, end = range.end;
-  return this.step(new ReplaceAroundStep(start, end, start, end, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, 0, 0), wrappers.length, true))
-};
-
-// :: (number, ?number, NodeType, ?Object) → this
-// Set the type of all textblocks (partly) between `from` and `to` to
-// the given node type with the given attributes.
-Transform.prototype.setBlockType = function(from, to, type, attrs) {
-  var this$1 = this;
-  if ( to === void 0 ) to = from;
-
-  if (!type.isTextblock) { throw new RangeError("Type given to setBlockType should be a textblock") }
-  var mapFrom = this.steps.length;
-  this.doc.nodesBetween(from, to, function (node, pos) {
-    if (node.isTextblock && !node.hasMarkup(type, attrs) && canChangeType(this$1.doc, this$1.mapping.slice(mapFrom).map(pos), type)) {
-      // Ensure all markup that isn't allowed in the new node type is cleared
-      this$1.clearIncompatible(this$1.mapping.slice(mapFrom).map(pos, 1), type);
-      var mapping = this$1.mapping.slice(mapFrom);
-      var startM = mapping.map(pos, 1), endM = mapping.map(pos + node.nodeSize, 1);
-      this$1.step(new ReplaceAroundStep(startM, endM, startM + 1, endM - 1,
-                                      new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(type.create(attrs, null, node.marks)), 0, 0), 1, true));
-      return false
-    }
-  });
-  return this
-};
-
-function canChangeType(doc, pos, type) {
-  var $pos = doc.resolve(pos), index = $pos.index();
-  return $pos.parent.canReplaceWith(index, index + 1, type)
-}
-
-// :: (number, ?NodeType, ?Object, ?[Mark]) → this
-// Change the type, attributes, and/or marks of the node at `pos`.
-// When `type` isn't given, the existing node type is preserved,
-Transform.prototype.setNodeMarkup = function(pos, type, attrs, marks) {
-  var node = this.doc.nodeAt(pos);
-  if (!node) { throw new RangeError("No node at given position") }
-  if (!type) { type = node.type; }
-  var newNode = type.create(attrs, null, marks || node.marks);
-  if (node.isLeaf)
-    { return this.replaceWith(pos, pos + node.nodeSize, newNode) }
-
-  if (!type.validContent(node.content))
-    { throw new RangeError("Invalid content for node type " + type.name) }
-
-  return this.step(new ReplaceAroundStep(pos, pos + node.nodeSize, pos + 1, pos + node.nodeSize - 1,
-                                         new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(newNode), 0, 0), 1, true))
-};
-
-// :: (Node, number, number, ?[?{type: NodeType, attrs: ?Object}]) → bool
-// Check whether splitting at the given position is allowed.
-function canSplit(doc, pos, depth, typesAfter) {
-  if ( depth === void 0 ) depth = 1;
-
-  var $pos = doc.resolve(pos), base = $pos.depth - depth;
-  var innerType = (typesAfter && typesAfter[typesAfter.length - 1]) || $pos.parent;
-  if (base < 0 || $pos.parent.type.spec.isolating ||
-      !$pos.parent.canReplace($pos.index(), $pos.parent.childCount) ||
-      !innerType.type.validContent($pos.parent.content.cutByIndex($pos.index(), $pos.parent.childCount)))
-    { return false }
-  for (var d = $pos.depth - 1, i = depth - 2; d > base; d--, i--) {
-    var node = $pos.node(d), index$1 = $pos.index(d);
-    if (node.type.spec.isolating) { return false }
-    var rest = node.content.cutByIndex(index$1, node.childCount);
-    var after = (typesAfter && typesAfter[i]) || node;
-    if (after != node) { rest = rest.replaceChild(0, after.type.create(after.attrs)); }
-    if (!node.canReplace(index$1 + 1, node.childCount) || !after.type.validContent(rest))
-      { return false }
-  }
-  var index = $pos.indexAfter(base);
-  var baseType = typesAfter && typesAfter[0];
-  return $pos.node(base).canReplaceWith(index, index, baseType ? baseType.type : $pos.node(base + 1).type)
-}
-
-// :: (number, ?number, ?[?{type: NodeType, attrs: ?Object}]) → this
-// Split the node at the given position, and optionally, if `depth` is
-// greater than one, any number of nodes above that. By default, the
-// parts split off will inherit the node type of the original node.
-// This can be changed by passing an array of types and attributes to
-// use after the split.
-Transform.prototype.split = function(pos, depth, typesAfter) {
-  if ( depth === void 0 ) depth = 1;
-
-  var $pos = this.doc.resolve(pos), before = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, after = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty;
-  for (var d = $pos.depth, e = $pos.depth - depth, i = depth - 1; d > e; d--, i--) {
-    before = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($pos.node(d).copy(before));
-    var typeAfter = typesAfter && typesAfter[i];
-    after = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(typeAfter ? typeAfter.type.create(typeAfter.attrs, after) : $pos.node(d).copy(after));
-  }
-  return this.step(new ReplaceStep(pos, pos, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](before.append(after), depth, depth), true))
-};
-
-// :: (Node, number) → bool
-// Test whether the blocks before and after a given position can be
-// joined.
-function canJoin(doc, pos) {
-  var $pos = doc.resolve(pos), index = $pos.index();
-  return joinable($pos.nodeBefore, $pos.nodeAfter) &&
-    $pos.parent.canReplace(index, index + 1)
-}
-
-function joinable(a, b) {
-  return a && b && !a.isLeaf && a.canAppend(b)
-}
-
-// :: (Node, number, ?number) → ?number
-// Find an ancestor of the given position that can be joined to the
-// block before (or after if `dir` is positive). Returns the joinable
-// point, if any.
-function joinPoint(doc, pos, dir) {
-  if ( dir === void 0 ) dir = -1;
-
-  var $pos = doc.resolve(pos);
-  for (var d = $pos.depth;; d--) {
-    var before = (void 0), after = (void 0);
-    if (d == $pos.depth) {
-      before = $pos.nodeBefore;
-      after = $pos.nodeAfter;
-    } else if (dir > 0) {
-      before = $pos.node(d + 1);
-      after = $pos.node(d).maybeChild($pos.index(d) + 1);
-    } else {
-      before = $pos.node(d).maybeChild($pos.index(d) - 1);
-      after = $pos.node(d + 1);
-    }
-    if (before && !before.isTextblock && joinable(before, after)) { return pos }
-    if (d == 0) { break }
-    pos = dir < 0 ? $pos.before(d) : $pos.after(d);
-  }
-}
-
-// :: (number, ?number) → this
-// Join the blocks around the given position. If depth is 2, their
-// last and first siblings are also joined, and so on.
-Transform.prototype.join = function(pos, depth) {
-  if ( depth === void 0 ) depth = 1;
-
-  var step = new ReplaceStep(pos - depth, pos + depth, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty, true);
-  return this.step(step)
-};
-
-// :: (Node, number, NodeType) → ?number
-// Try to find a point where a node of the given type can be inserted
-// near `pos`, by searching up the node hierarchy when `pos` itself
-// isn't a valid place but is at the start or end of a node. Return
-// null if no position was found.
-function insertPoint(doc, pos, nodeType) {
-  var $pos = doc.resolve(pos);
-  if ($pos.parent.canReplaceWith($pos.index(), $pos.index(), nodeType)) { return pos }
-
-  if ($pos.parentOffset == 0)
-    { for (var d = $pos.depth - 1; d >= 0; d--) {
-      var index = $pos.index(d);
-      if ($pos.node(d).canReplaceWith(index, index, nodeType)) { return $pos.before(d + 1) }
-      if (index > 0) { return null }
-    } }
-  if ($pos.parentOffset == $pos.parent.content.size)
-    { for (var d$1 = $pos.depth - 1; d$1 >= 0; d$1--) {
-      var index$1 = $pos.indexAfter(d$1);
-      if ($pos.node(d$1).canReplaceWith(index$1, index$1, nodeType)) { return $pos.after(d$1 + 1) }
-      if (index$1 < $pos.node(d$1).childCount) { return null }
-    } }
-}
-
-// :: (Node, number, Slice) → ?number
-// Finds a position at or around the given position where the given
-// slice can be inserted. Will look at parent nodes' nearest boundary
-// and try there, even if the original position wasn't directly at the
-// start or end of that node. Returns null when no position was found.
-function dropPoint(doc, pos, slice) {
-  var $pos = doc.resolve(pos);
-  if (!slice.content.size) { return pos }
-  var content = slice.content;
-  for (var i = 0; i < slice.openStart; i++) { content = content.firstChild.content; }
-  for (var pass = 1; pass <= (slice.openStart == 0 && slice.size ? 2 : 1); pass++) {
-    for (var d = $pos.depth; d >= 0; d--) {
-      var bias = d == $pos.depth ? 0 : $pos.pos <= ($pos.start(d + 1) + $pos.end(d + 1)) / 2 ? -1 : 1;
-      var insertPos = $pos.index(d) + (bias > 0 ? 1 : 0);
-      if (pass == 1
-          ? $pos.node(d).canReplace(insertPos, insertPos, content)
-          : $pos.node(d).contentMatchAt(insertPos).findWrapping(content.firstChild.type))
-        { return bias == 0 ? $pos.pos : bias < 0 ? $pos.before(d + 1) : $pos.after(d + 1) }
-    }
-  }
-  return null
-}
-
-function mapFragment(fragment, f, parent) {
-  var mapped = [];
-  for (var i = 0; i < fragment.childCount; i++) {
-    var child = fragment.child(i);
-    if (child.content.size) { child = child.copy(mapFragment(child.content, f, child)); }
-    if (child.isInline) { child = f(child, parent, i); }
-    mapped.push(child);
-  }
-  return prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].fromArray(mapped)
-}
-
-// ::- Add a mark to all inline content between two positions.
-var AddMarkStep = /*@__PURE__*/(function (Step) {
-  function AddMarkStep(from, to, mark) {
-    Step.call(this);
-    this.from = from;
-    this.to = to;
-    this.mark = mark;
-  }
-
-  if ( Step ) AddMarkStep.__proto__ = Step;
-  AddMarkStep.prototype = Object.create( Step && Step.prototype );
-  AddMarkStep.prototype.constructor = AddMarkStep;
-
-  AddMarkStep.prototype.apply = function apply (doc) {
-    var this$1 = this;
-
-    var oldSlice = doc.slice(this.from, this.to), $from = doc.resolve(this.from);
-    var parent = $from.node($from.sharedDepth(this.to));
-    var slice = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](mapFragment(oldSlice.content, function (node, parent) {
-      if (!parent.type.allowsMarkType(this$1.mark.type)) { return node }
-      return node.mark(this$1.mark.addToSet(node.marks))
-    }, parent), oldSlice.openStart, oldSlice.openEnd);
-    return StepResult.fromReplace(doc, this.from, this.to, slice)
-  };
-
-  AddMarkStep.prototype.invert = function invert () {
-    return new RemoveMarkStep(this.from, this.to, this.mark)
-  };
-
-  AddMarkStep.prototype.map = function map (mapping) {
-    var from = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
-    if (from.deleted && to.deleted || from.pos >= to.pos) { return null }
-    return new AddMarkStep(from.pos, to.pos, this.mark)
-  };
-
-  AddMarkStep.prototype.merge = function merge (other) {
-    if (other instanceof AddMarkStep &&
-        other.mark.eq(this.mark) &&
-        this.from <= other.to && this.to >= other.from)
-      { return new AddMarkStep(Math.min(this.from, other.from),
-                             Math.max(this.to, other.to), this.mark) }
-  };
-
-  AddMarkStep.prototype.toJSON = function toJSON () {
-    return {stepType: "addMark", mark: this.mark.toJSON(),
-            from: this.from, to: this.to}
-  };
-
-  AddMarkStep.fromJSON = function fromJSON (schema, json) {
-    if (typeof json.from != "number" || typeof json.to != "number")
-      { throw new RangeError("Invalid input for AddMarkStep.fromJSON") }
-    return new AddMarkStep(json.from, json.to, schema.markFromJSON(json.mark))
-  };
-
-  return AddMarkStep;
-}(Step));
-
-Step.jsonID("addMark", AddMarkStep);
-
-// ::- Remove a mark from all inline content between two positions.
-var RemoveMarkStep = /*@__PURE__*/(function (Step) {
-  function RemoveMarkStep(from, to, mark) {
-    Step.call(this);
-    this.from = from;
-    this.to = to;
-    this.mark = mark;
-  }
-
-  if ( Step ) RemoveMarkStep.__proto__ = Step;
-  RemoveMarkStep.prototype = Object.create( Step && Step.prototype );
-  RemoveMarkStep.prototype.constructor = RemoveMarkStep;
-
-  RemoveMarkStep.prototype.apply = function apply (doc) {
-    var this$1 = this;
-
-    var oldSlice = doc.slice(this.from, this.to);
-    var slice = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](mapFragment(oldSlice.content, function (node) {
-      return node.mark(this$1.mark.removeFromSet(node.marks))
-    }), oldSlice.openStart, oldSlice.openEnd);
-    return StepResult.fromReplace(doc, this.from, this.to, slice)
-  };
-
-  RemoveMarkStep.prototype.invert = function invert () {
-    return new AddMarkStep(this.from, this.to, this.mark)
-  };
-
-  RemoveMarkStep.prototype.map = function map (mapping) {
-    var from = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
-    if (from.deleted && to.deleted || from.pos >= to.pos) { return null }
-    return new RemoveMarkStep(from.pos, to.pos, this.mark)
-  };
-
-  RemoveMarkStep.prototype.merge = function merge (other) {
-    if (other instanceof RemoveMarkStep &&
-        other.mark.eq(this.mark) &&
-        this.from <= other.to && this.to >= other.from)
-      { return new RemoveMarkStep(Math.min(this.from, other.from),
-                                Math.max(this.to, other.to), this.mark) }
-  };
-
-  RemoveMarkStep.prototype.toJSON = function toJSON () {
-    return {stepType: "removeMark", mark: this.mark.toJSON(),
-            from: this.from, to: this.to}
-  };
-
-  RemoveMarkStep.fromJSON = function fromJSON (schema, json) {
-    if (typeof json.from != "number" || typeof json.to != "number")
-      { throw new RangeError("Invalid input for RemoveMarkStep.fromJSON") }
-    return new RemoveMarkStep(json.from, json.to, schema.markFromJSON(json.mark))
-  };
-
-  return RemoveMarkStep;
-}(Step));
-
-Step.jsonID("removeMark", RemoveMarkStep);
-
-// :: (number, number, Mark) → this
-// Add the given mark to the inline content between `from` and `to`.
-Transform.prototype.addMark = function(from, to, mark) {
-  var this$1 = this;
-
-  var removed = [], added = [], removing = null, adding = null;
-  this.doc.nodesBetween(from, to, function (node, pos, parent) {
-    if (!node.isInline) { return }
-    var marks = node.marks;
-    if (!mark.isInSet(marks) && parent.type.allowsMarkType(mark.type)) {
-      var start = Math.max(pos, from), end = Math.min(pos + node.nodeSize, to);
-      var newSet = mark.addToSet(marks);
-
-      for (var i = 0; i < marks.length; i++) {
-        if (!marks[i].isInSet(newSet)) {
-          if (removing && removing.to == start && removing.mark.eq(marks[i]))
-            { removing.to = end; }
-          else
-            { removed.push(removing = new RemoveMarkStep(start, end, marks[i])); }
-        }
-      }
-
-      if (adding && adding.to == start)
-        { adding.to = end; }
-      else
-        { added.push(adding = new AddMarkStep(start, end, mark)); }
-    }
-  });
-
-  removed.forEach(function (s) { return this$1.step(s); });
-  added.forEach(function (s) { return this$1.step(s); });
-  return this
-};
-
-// :: (number, number, ?union<Mark, MarkType>) → this
-// Remove marks from inline nodes between `from` and `to`. When `mark`
-// is a single mark, remove precisely that mark. When it is a mark type,
-// remove all marks of that type. When it is null, remove all marks of
-// any type.
-Transform.prototype.removeMark = function(from, to, mark) {
-  var this$1 = this;
-  if ( mark === void 0 ) mark = null;
-
-  var matched = [], step = 0;
-  this.doc.nodesBetween(from, to, function (node, pos) {
-    if (!node.isInline) { return }
-    step++;
-    var toRemove = null;
-    if (mark instanceof prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["MarkType"]) {
-      var found = mark.isInSet(node.marks);
-      if (found) { toRemove = [found]; }
-    } else if (mark) {
-      if (mark.isInSet(node.marks)) { toRemove = [mark]; }
-    } else {
-      toRemove = node.marks;
-    }
-    if (toRemove && toRemove.length) {
-      var end = Math.min(pos + node.nodeSize, to);
-      for (var i = 0; i < toRemove.length; i++) {
-        var style = toRemove[i], found$1 = (void 0);
-        for (var j = 0; j < matched.length; j++) {
-          var m = matched[j];
-          if (m.step == step - 1 && style.eq(matched[j].style)) { found$1 = m; }
-        }
-        if (found$1) {
-          found$1.to = end;
-          found$1.step = step;
-        } else {
-          matched.push({style: style, from: Math.max(pos, from), to: end, step: step});
-        }
-      }
-    }
-  });
-  matched.forEach(function (m) { return this$1.step(new RemoveMarkStep(m.from, m.to, m.style)); });
-  return this
-};
-
-// :: (number, NodeType, ?ContentMatch) → this
-// Removes all marks and nodes from the content of the node at `pos`
-// that don't match the given new parent node type. Accepts an
-// optional starting [content match](#model.ContentMatch) as third
-// argument.
-Transform.prototype.clearIncompatible = function(pos, parentType, match) {
-  if ( match === void 0 ) match = parentType.contentMatch;
-
-  var node = this.doc.nodeAt(pos);
-  var delSteps = [], cur = pos + 1;
-  for (var i = 0; i < node.childCount; i++) {
-    var child = node.child(i), end = cur + child.nodeSize;
-    var allowed = match.matchType(child.type, child.attrs);
-    if (!allowed) {
-      delSteps.push(new ReplaceStep(cur, end, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty));
-    } else {
-      match = allowed;
-      for (var j = 0; j < child.marks.length; j++) { if (!parentType.allowsMarkType(child.marks[j].type))
-        { this.step(new RemoveMarkStep(cur, end, child.marks[j])); } }
-    }
-    cur = end;
-  }
-  if (!match.validEnd) {
-    var fill = match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true);
-    this.replace(cur, cur, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](fill, 0, 0));
-  }
-  for (var i$1 = delSteps.length - 1; i$1 >= 0; i$1--) { this.step(delSteps[i$1]); }
-  return this
-};
-
-// :: (Node, number, ?number, ?Slice) → ?Step
-// ‘Fit’ a slice into a given position in the document, producing a
-// [step](#transform.Step) that inserts it. Will return null if
-// there's no meaningful way to insert the slice here, or inserting it
-// would be a no-op (an empty slice over an empty range).
-function replaceStep(doc, from, to, slice) {
-  if ( to === void 0 ) to = from;
-  if ( slice === void 0 ) slice = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty;
-
-  if (from == to && !slice.size) { return null }
-
-  var $from = doc.resolve(from), $to = doc.resolve(to);
-  // Optimization -- avoid work if it's obvious that it's not needed.
-  if (fitsTrivially($from, $to, slice)) { return new ReplaceStep(from, to, slice) }
-  var placed = placeSlice($from, slice);
-
-  var fittedLeft = fitLeft($from, placed);
-  var fitted = fitRight($from, $to, fittedLeft);
-  if (!fitted) { return null }
-  if (fittedLeft.size != fitted.size && canMoveText($from, $to, fittedLeft)) {
-    var d = $to.depth, after = $to.after(d);
-    while (d > 1 && after == $to.end(--d)) { ++after; }
-    var fittedAfter = fitRight($from, doc.resolve(after), fittedLeft);
-    if (fittedAfter)
-      { return new ReplaceAroundStep(from, after, to, $to.end(), fittedAfter, fittedLeft.size) }
-  }
-  return fitted.size || from != to ? new ReplaceStep(from, to, fitted) : null
-}
-
-// :: (number, ?number, ?Slice) → this
-// Replace the part of the document between `from` and `to` with the
-// given `slice`.
-Transform.prototype.replace = function(from, to, slice) {
-  if ( to === void 0 ) to = from;
-  if ( slice === void 0 ) slice = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty;
-
-  var step = replaceStep(this.doc, from, to, slice);
-  if (step) { this.step(step); }
-  return this
-};
-
-// :: (number, number, union<Fragment, Node, [Node]>) → this
-// Replace the given range with the given content, which may be a
-// fragment, node, or array of nodes.
-Transform.prototype.replaceWith = function(from, to, content) {
-  return this.replace(from, to, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(content), 0, 0))
-};
-
-// :: (number, number) → this
-// Delete the content between the given positions.
-Transform.prototype.delete = function(from, to) {
-  return this.replace(from, to, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"].empty)
-};
-
-// :: (number, union<Fragment, Node, [Node]>) → this
-// Insert the given content at the given position.
-Transform.prototype.insert = function(pos, content) {
-  return this.replaceWith(pos, pos, content)
-};
-
-
-
-function fitLeftInner($from, depth, placed, placedBelow) {
-  var content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, openEnd = 0, placedHere = placed[depth];
-  if ($from.depth > depth) {
-    var inner = fitLeftInner($from, depth + 1, placed, placedBelow || placedHere);
-    openEnd = inner.openEnd + 1;
-    content = prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from($from.node(depth + 1).copy(inner.content));
-  }
-
-  if (placedHere) {
-    content = content.append(placedHere.content);
-    openEnd = placedHere.openEnd;
-  }
-  if (placedBelow) {
-    content = content.append($from.node(depth).contentMatchAt($from.indexAfter(depth)).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true));
-    openEnd = 0;
-  }
-
-  return {content: content, openEnd: openEnd}
-}
-
-function fitLeft($from, placed) {
-  var ref = fitLeftInner($from, 0, placed, false);
-  var content = ref.content;
-  var openEnd = ref.openEnd;
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, $from.depth, openEnd || 0)
-}
-
-function fitRightJoin(content, parent, $from, $to, depth, openStart, openEnd) {
-  var match, count = content.childCount, matchCount = count - (openEnd > 0 ? 1 : 0);
-  var parentNode = openStart < 0 ? parent : $from.node(depth);
-  if (openStart < 0)
-    { match = parentNode.contentMatchAt(matchCount); }
-  else if (count == 1 && openEnd > 0)
-    { match = parentNode.contentMatchAt(openStart ? $from.index(depth) : $from.indexAfter(depth)); }
-  else
-    { match = parentNode.contentMatchAt($from.indexAfter(depth))
-      .matchFragment(content, count > 0 && openStart ? 1 : 0, matchCount); }
-
-  var toNode = $to.node(depth);
-  if (openEnd > 0 && depth < $to.depth) {
-    var after = toNode.content.cutByIndex($to.indexAfter(depth)).addToStart(content.lastChild);
-    var joinable$1 = match.fillBefore(after, true);
-    // Can't insert content if there's a single node stretched across this gap
-    if (joinable$1 && joinable$1.size && openStart > 0 && count == 1) { joinable$1 = null; }
-
-    if (joinable$1) {
-      var inner = fitRightJoin(content.lastChild.content, content.lastChild, $from, $to,
-                               depth + 1, count == 1 ? openStart - 1 : -1, openEnd - 1);
-      if (inner) {
-        var last = content.lastChild.copy(inner);
-        if (joinable$1.size)
-          { return content.cutByIndex(0, count - 1).append(joinable$1).addToEnd(last) }
-        else
-          { return content.replaceChild(count - 1, last) }
-      }
-    }
-  }
-  if (openEnd > 0)
-    { match = match.matchType((count == 1 && openStart > 0 ? $from.node(depth + 1) : content.lastChild).type); }
-
-  // If we're here, the next level can't be joined, so we see what
-  // happens if we leave it open.
-  var toIndex = $to.index(depth);
-  if (toIndex == toNode.childCount && !toNode.type.compatibleContent(parent.type)) { return null }
-  var joinable = match.fillBefore(toNode.content, true, toIndex);
-  for (var i = toIndex; joinable && i < toNode.content.childCount; i++)
-    { if (!parentNode.type.allowsMarks(toNode.content.child(i).marks)) { joinable = null; } }
-  if (!joinable) { return null }
-
-  if (openEnd > 0) {
-    var closed = fitRightClosed(content.lastChild, openEnd - 1, $from, depth + 1,
-                                count == 1 ? openStart - 1 : -1);
-    content = content.replaceChild(count - 1, closed);
-  }
-  content = content.append(joinable);
-  if ($to.depth > depth)
-    { content = content.addToEnd(fitRightSeparate($to, depth + 1)); }
-  return content
-}
-
-function fitRightClosed(node, openEnd, $from, depth, openStart) {
-  var match, content = node.content, count = content.childCount;
-  if (openStart >= 0)
-    { match = $from.node(depth).contentMatchAt($from.indexAfter(depth))
-      .matchFragment(content, openStart > 0 ? 1 : 0, count); }
-  else
-    { match = node.contentMatchAt(count); }
-
-  if (openEnd > 0) {
-    var closed = fitRightClosed(content.lastChild, openEnd - 1, $from, depth + 1,
-                                count == 1 ? openStart - 1 : -1);
-    content = content.replaceChild(count - 1, closed);
-  }
-
-  return node.copy(content.append(match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true)))
-}
-
-function fitRightSeparate($to, depth) {
-  var node = $to.node(depth);
-  var fill = node.contentMatchAt(0).fillBefore(node.content, true, $to.index(depth));
-  if ($to.depth > depth) { fill = fill.addToEnd(fitRightSeparate($to, depth + 1)); }
-  return node.copy(fill)
-}
-
-function normalizeSlice(content, openStart, openEnd) {
-  while (openStart > 0 && openEnd > 0 && content.childCount == 1) {
-    content = content.firstChild.content;
-    openStart--;
-    openEnd--;
-  }
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](content, openStart, openEnd)
-}
-
-// : (ResolvedPos, ResolvedPos, number, Slice) → Slice
-function fitRight($from, $to, slice) {
-  var fitted = fitRightJoin(slice.content, $from.node(0), $from, $to, 0, slice.openStart, slice.openEnd);
-  if (!fitted) { return null }
-  return normalizeSlice(fitted, slice.openStart, $to.depth)
-}
-
-function fitsTrivially($from, $to, slice) {
-  return !slice.openStart && !slice.openEnd && $from.start() == $to.start() &&
-    $from.parent.canReplace($from.index(), $to.index(), slice.content)
-}
-
-function canMoveText($from, $to, slice) {
-  if (!$to.parent.isTextblock) { return false }
-
-  var parent = slice.openEnd ? nodeRight(slice.content, slice.openEnd)
-      : $from.node($from.depth - (slice.openStart - slice.openEnd));
-  if (!parent.isTextblock) { return false }
-  for (var i = $to.index(); i < $to.parent.childCount; i++)
-    { if (!parent.type.allowsMarks($to.parent.child(i).marks)) { return false } }
-  var match;
-  if (slice.openEnd) {
-    match = parent.contentMatchAt(parent.childCount);
-  } else {
-    match = parent.contentMatchAt(parent.childCount);
-    if (slice.size) { match = match.matchFragment(slice.content, slice.openStart ? 1 : 0); }
-  }
-  match = match.matchFragment($to.parent.content, $to.index());
-  return match && match.validEnd
-}
-
-function nodeRight(content, depth) {
-  for (var i = 1; i < depth; i++) { content = content.lastChild.content; }
-  return content.lastChild
-}
-
-// Algorithm for 'placing' the elements of a slice into a gap:
-//
-// We consider the content of each node that is open to the left to be
-// independently placeable. I.e. in <p("foo"), p("bar")>, when the
-// paragraph on the left is open, "foo" can be placed (somewhere on
-// the left side of the replacement gap) independently from p("bar").
-//
-// So placeSlice splits up a slice into a number of sub-slices,
-// along with information on where they can be placed on the given
-// left-side edge. It works by walking the open side of the slice,
-// from the inside out, and trying to find a landing spot for each
-// element, by simultaneously scanning over the gap side. When no
-// place is found for an open node's content, it is left in that node.
-
-// : (ResolvedPos, Slice) → [{content: Fragment, openEnd: number, depth: number}]
-function placeSlice($from, slice) {
-  var frontier = new Frontier($from);
-  for (var pass = 1; slice.size && pass <= 3; pass++) {
-    var value = frontier.placeSlice(slice.content, slice.openStart, slice.openEnd, pass);
-    if (pass == 3 && value != slice && value.size) { pass = 0; } // Restart if the 3rd pass made progress but left content
-    slice = value;
-  }
-  while (frontier.open.length) { frontier.closeNode(); }
-  return frontier.placed
-}
-
-// Helper class that models the open side of the insert position,
-// keeping track of the content match and already inserted content
-// at each depth.
-var Frontier = function Frontier($pos) {
-  // : [{parent: Node, match: ContentMatch, content: Fragment, wrapper: bool, openEnd: number, depth: number}]
-  this.open = [];
-  for (var d = 0; d <= $pos.depth; d++) {
-    var parent = $pos.node(d), match = parent.contentMatchAt($pos.indexAfter(d));
-    this.open.push({parent: parent, match: match, content: prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, wrapper: false, openEnd: 0, depth: d});
-  }
-  this.placed = [];
-};
-
-// : (Fragment, number, number, number, ?Node) → Slice
-// Tries to place the content of the given slice, and returns a
-// slice containing unplaced content.
-//
-// pass 1: try to fit directly
-// pass 2: allow wrapper nodes to be introduced
-// pass 3: allow unwrapping of nodes that aren't open
-Frontier.prototype.placeSlice = function placeSlice (fragment, openStart, openEnd, pass, parent) {
-  if (openStart > 0) {
-    var first = fragment.firstChild;
-    var inner = this.placeSlice(first.content, Math.max(0, openStart - 1),
-                                openEnd && fragment.childCount == 1 ? openEnd - 1 : 0,
-                                pass, first);
-    if (inner.content != first.content) {
-      if (inner.content.size) {
-        fragment = fragment.replaceChild(0, first.copy(inner.content));
-        openStart = inner.openStart + 1;
-      } else {
-        if (fragment.childCount == 1) { openEnd = 0; }
-        fragment = fragment.cutByIndex(1);
-        openStart = 0;
-      }
-    }
-  }
-  var result = this.placeContent(fragment, openStart, openEnd, pass, parent);
-  if (pass > 2 && result.size && openStart == 0) {
-    var child = result.content.firstChild, single = result.content.childCount == 1;
-    this.placeContent(child.content, 0, openEnd && single ? openEnd - 1 : 0, pass, child);
-    result = single ? prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty : new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](result.content.cutByIndex(1), 0, openEnd);
-  }
-  return result
-};
-
-Frontier.prototype.placeContent = function placeContent (fragment, openStart, openEnd, pass, parent) {
-  var i = 0;
-  // Go over the fragment's children
-  for (; i < fragment.childCount; i++) {
-    var child = fragment.child(i), placed = false, last = i == fragment.childCount - 1;
-    // Try each open node in turn, starting from the innermost
-    for (var d = this.open.length - 1; d >= 0; d--) {
-      var open = this.open[d], wrap = (void 0);
-
-      // If pass > 1, it is allowed to wrap the node to help find a
-      // fit, so if findWrapping returns something, we add open
-      // nodes to the frontier for that wrapping.
-      if (pass > 1 && (wrap = open.match.findWrapping(child.type)) &&
-          !(parent && wrap.length && wrap[wrap.length - 1] == parent.type)) {
-        while (this.open.length - 1 > d) { this.closeNode(); }
-        for (var w = 0; w < wrap.length; w++) {
-          open.match = open.match.matchType(wrap[w]);
-          d++;
-          open = {parent: wrap[w].create(),
-                  match: wrap[w].contentMatch,
-                  content: prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, wrapper: true, openEnd: 0, depth: d + w};
-          this.open.push(open);
-        }
-      }
-
-      // See if the child fits here
-      var match = open.match.matchType(child.type);
-      if (!match) {
-        var fill = open.match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(child));
-        if (fill) {
-          for (var j = 0; j < fill.childCount; j++) {
-            var ch = fill.child(j);
-            this.addNode(open, ch, 0);
-            match = open.match.matchFragment(ch);
-          }
-        } else if (parent && open.match.matchType(parent.type)) {
-          // Don't continue looking further up if the parent node
-          // would fit here.
-          break
-        } else {
-          continue
-        }
-      }
-
-      // Close open nodes above this one, since we're starting to
-      // add to this.
-      while (this.open.length - 1 > d) { this.closeNode(); }
-      // Strip marks from the child or close its start when necessary
-      child = child.mark(open.parent.type.allowedMarks(child.marks));
-      if (openStart) {
-        child = closeNodeStart(child, openStart, last ? openEnd : 0);
-        openStart = 0;
-      }
-      // Add the child to this open node and adjust its metadata
-      this.addNode(open, child, last ? openEnd : 0);
-      open.match = match;
-      if (last) { openEnd = 0; }
-      placed = true;
-      break
-    }
-    // As soon as we've failed to place a node we stop looking at
-    // later nodes
-    if (!placed) { break }
-  }
-  // Close the current open node if it's not the the root and we
-  // either placed up to the end of the node or the the current
-  // slice depth's node type matches the open node's type
-  if (this.open.length > 1 &&
-      (i > 0 && i == fragment.childCount ||
-       parent && this.open[this.open.length - 1].parent.type == parent.type))
-    { this.closeNode(); }
-
-  return new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](fragment.cutByIndex(i), openStart, openEnd)
-};
-
-Frontier.prototype.addNode = function addNode (open, node, openEnd) {
-  open.content = closeFragmentEnd(open.content, open.openEnd).addToEnd(node);
-  open.openEnd = openEnd;
-};
-
-Frontier.prototype.closeNode = function closeNode () {
-  var open = this.open.pop();
-  if (open.content.size == 0) ; else if (open.wrapper) {
-    this.addNode(this.open[this.open.length - 1], open.parent.copy(open.content), open.openEnd + 1);
-  } else {
-    this.placed[open.depth] = {depth: open.depth, content: open.content, openEnd: open.openEnd};
-  }
-};
-
-function closeNodeStart(node, openStart, openEnd) {
-  var content = node.content;
-  if (openStart > 1) {
-    var first = closeNodeStart(node.firstChild, openStart - 1, node.childCount == 1 ? openEnd - 1 : 0);
-    content = node.content.replaceChild(0, first);
-  }
-  var fill = node.type.contentMatch.fillBefore(content, openEnd == 0);
-  return node.copy(fill.append(content))
-}
-
-function closeNodeEnd(node, depth) {
-  var content = node.content;
-  if (depth > 1) {
-    var last = closeNodeEnd(node.lastChild, depth - 1);
-    content = node.content.replaceChild(node.childCount - 1, last);
-  }
-  var fill = node.contentMatchAt(node.childCount).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true);
-  return node.copy(content.append(fill))
-}
-
-function closeFragmentEnd(fragment, depth) {
-  return depth ? fragment.replaceChild(fragment.childCount - 1, closeNodeEnd(fragment.lastChild, depth)) : fragment
-}
-
-// :: (number, number, Slice) → this
-// Replace a range of the document with a given slice, using `from`,
-// `to`, and the slice's [`openStart`](#model.Slice.openStart) property
-// as hints, rather than fixed start and end points. This method may
-// grow the replaced area or close open nodes in the slice in order to
-// get a fit that is more in line with WYSIWYG expectations, by
-// dropping fully covered parent nodes of the replaced region when
-// they are marked [non-defining](#model.NodeSpec.defining), or
-// including an open parent node from the slice that _is_ marked as
-// [defining](#model.NodeSpec.defining).
-//
-// This is the method, for example, to handle paste. The similar
-// [`replace`](#transform.Transform.replace) method is a more
-// primitive tool which will _not_ move the start and end of its given
-// range, and is useful in situations where you need more precise
-// control over what happens.
-Transform.prototype.replaceRange = function(from, to, slice) {
-  if (!slice.size) { return this.deleteRange(from, to) }
-
-  var $from = this.doc.resolve(from), $to = this.doc.resolve(to);
-  if (fitsTrivially($from, $to, slice))
-    { return this.step(new ReplaceStep(from, to, slice)) }
-
-  var targetDepths = coveredDepths($from, this.doc.resolve(to));
-  // Can't replace the whole document, so remove 0 if it's present
-  if (targetDepths[targetDepths.length - 1] == 0) { targetDepths.pop(); }
-  // Negative numbers represent not expansion over the whole node at
-  // that depth, but replacing from $from.before(-D) to $to.pos.
-  var preferredTarget = -($from.depth + 1);
-  targetDepths.unshift(preferredTarget);
-  // This loop picks a preferred target depth, if one of the covering
-  // depths is not outside of a defining node, and adds negative
-  // depths for any depth that has $from at its start and does not
-  // cross a defining node.
-  for (var d = $from.depth, pos = $from.pos - 1; d > 0; d--, pos--) {
-    var spec = $from.node(d).type.spec;
-    if (spec.defining || spec.isolating) { break }
-    if (targetDepths.indexOf(d) > -1) { preferredTarget = d; }
-    else if ($from.before(d) == pos) { targetDepths.splice(1, 0, -d); }
-  }
-  // Try to fit each possible depth of the slice into each possible
-  // target depth, starting with the preferred depths.
-  var preferredTargetIndex = targetDepths.indexOf(preferredTarget);
-
-  var leftNodes = [], preferredDepth = slice.openStart;
-  for (var content = slice.content, i = 0;; i++) {
-    var node = content.firstChild;
-    leftNodes.push(node);
-    if (i == slice.openStart) { break }
-    content = node.content;
-  }
-  // Back up if the node directly above openStart, or the node above
-  // that separated only by a non-defining textblock node, is defining.
-  if (preferredDepth > 0 && leftNodes[preferredDepth - 1].type.spec.defining &&
-      $from.node(preferredTargetIndex).type != leftNodes[preferredDepth - 1].type)
-    { preferredDepth -= 1; }
-  else if (preferredDepth >= 2 && leftNodes[preferredDepth - 1].isTextblock && leftNodes[preferredDepth - 2].type.spec.defining &&
-           $from.node(preferredTargetIndex).type != leftNodes[preferredDepth - 2].type)
-    { preferredDepth -= 2; }
-
-  for (var j = slice.openStart; j >= 0; j--) {
-    var openDepth = (j + preferredDepth + 1) % (slice.openStart + 1);
-    var insert = leftNodes[openDepth];
-    if (!insert) { continue }
-    for (var i$1 = 0; i$1 < targetDepths.length; i$1++) {
-      // Loop over possible expansion levels, starting with the
-      // preferred one
-      var targetDepth = targetDepths[(i$1 + preferredTargetIndex) % targetDepths.length], expand = true;
-      if (targetDepth < 0) { expand = false; targetDepth = -targetDepth; }
-      var parent = $from.node(targetDepth - 1), index = $from.index(targetDepth - 1);
-      if (parent.canReplaceWith(index, index, insert.type, insert.marks))
-        { return this.replace($from.before(targetDepth), expand ? $to.after(targetDepth) : to,
-                            new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](closeFragment(slice.content, 0, slice.openStart, openDepth),
-                                      openDepth, slice.openEnd)) }
-    }
-  }
-
-  var startSteps = this.steps.length;
-  for (var i$2 = targetDepths.length - 1; i$2 >= 0; i$2--) {
-    this.replace(from, to, slice);
-    if (this.steps.length > startSteps) { break }
-    var depth = targetDepths[i$2];
-    if (i$2 < 0) { continue }
-    from = $from.before(depth); to = $to.after(depth);
-  }
-  return this
-};
-
-function closeFragment(fragment, depth, oldOpen, newOpen, parent) {
-  if (depth < oldOpen) {
-    var first = fragment.firstChild;
-    fragment = fragment.replaceChild(0, first.copy(closeFragment(first.content, depth + 1, oldOpen, newOpen, first)));
-  }
-  if (depth > newOpen) {
-    var match = parent.contentMatchAt(0);
-    var start = match.fillBefore(fragment).append(fragment);
-    fragment = start.append(match.matchFragment(start).fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].empty, true));
-  }
-  return fragment
-}
-
-// :: (number, number, Node) → this
-// Replace the given range with a node, but use `from` and `to` as
-// hints, rather than precise positions. When from and to are the same
-// and are at the start or end of a parent node in which the given
-// node doesn't fit, this method may _move_ them out towards a parent
-// that does allow the given node to be placed. When the given range
-// completely covers a parent node, this method may completely replace
-// that parent node.
-Transform.prototype.replaceRangeWith = function(from, to, node) {
-  if (!node.isInline && from == to && this.doc.resolve(from).parent.content.size) {
-    var point = insertPoint(this.doc, from, node.type);
-    if (point != null) { from = to = point; }
-  }
-  return this.replaceRange(from, to, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Slice"](prosemirror_model__WEBPACK_IMPORTED_MODULE_0__["Fragment"].from(node), 0, 0))
-};
-
-// :: (number, number) → this
-// Delete the given range, expanding it to cover fully covered
-// parent nodes until a valid replace is found.
-Transform.prototype.deleteRange = function(from, to) {
-  var $from = this.doc.resolve(from), $to = this.doc.resolve(to);
-  var covered = coveredDepths($from, $to);
-  for (var i = 0; i < covered.length; i++) {
-    var depth = covered[i], last = i == covered.length - 1;
-    if ((last && depth == 0) || $from.node(depth).type.contentMatch.validEnd)
-      { return this.delete($from.start(depth), $to.end(depth)) }
-    if (depth > 0 && (last || $from.node(depth - 1).canReplace($from.index(depth - 1), $to.indexAfter(depth - 1))))
-      { return this.delete($from.before(depth), $to.after(depth)) }
-  }
-  for (var d = 1; d <= $from.depth; d++) {
-    if (from - $from.start(d) == $from.depth - d && to > $from.end(d) && $to.end(d) - to != $to.depth - d)
-      { return this.delete($from.before(d), to) }
-  }
-  return this.delete(from, to)
-};
-
-// : (ResolvedPos, ResolvedPos) → [number]
-// Returns an array of all depths for which $from - $to spans the
-// whole content of the nodes at that depth.
-function coveredDepths($from, $to) {
-  var result = [], minDepth = Math.min($from.depth, $to.depth);
-  for (var d = minDepth; d >= 0; d--) {
-    var start = $from.start(d);
-    if (start < $from.pos - ($from.depth - d) ||
-        $to.end(d) > $to.pos + ($to.depth - d) ||
-        $from.node(d).type.spec.isolating ||
-        $to.node(d).type.spec.isolating) { break }
-    if (start == $to.start(d)) { result.push(d); }
-  }
-  return result
-}
-
-
-//# sourceMappingURL=index.es.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/tiptap-utils/dist/utils.esm.js":
 /*!*****************************************************!*\
   !*** ./node_modules/tiptap-utils/dist/utils.esm.js ***!
   \*****************************************************/
-/*! exports provided: getMarkAttrs, getMarkRange, markIsActive, nodeEqualsType, nodeIsActive */
+/*! exports provided: getMarkAttrs, getMarkRange, getNodeAttrs, markIsActive, nodeEqualsType, nodeIsActive */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMarkAttrs", function() { return getMarkAttrs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMarkRange", function() { return getMarkRange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNodeAttrs", function() { return getNodeAttrs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "markIsActive", function() { return markIsActive; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nodeEqualsType", function() { return nodeEqualsType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nodeIsActive", function() { return nodeIsActive; });
@@ -70982,31 +69741,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prosemirror_utils__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prosemirror_utils__WEBPACK_IMPORTED_MODULE_0__);
 
     /*!
-    * tiptap-utils v1.8.2
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap-utils v1.9.0
+    * (c) 2020 Scrumpy UG (limited liability)
     * @license MIT
     */
   
 
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
 }
 
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function getMarkAttrs(state, type) {
@@ -71023,6 +69844,25 @@ function getMarkAttrs(state, type) {
 
   if (mark) {
     return mark.attrs;
+  }
+
+  return {};
+}
+
+function getNodeAttrs(state, type) {
+  var _state$selection = state.selection,
+      from = _state$selection.from,
+      to = _state$selection.to;
+  var nodes = [];
+  state.doc.nodesBetween(from, to, function (node) {
+    nodes = [].concat(_toConsumableArray(nodes), [node]);
+  });
+  var node = nodes.reverse().find(function (nodeItem) {
+    return nodeItem.type.name === type.name;
+  });
+
+  if (node) {
+    return node.attrs;
   }
 
   return {};
@@ -71104,7 +69944,7 @@ function nodeIsActive(state, type) {
     return !!node;
   }
 
-  return node.node.hasMarkup(type, attrs);
+  return node.node.hasMarkup(type, _objectSpread2({}, node.node.attrs, {}, attrs));
 }
 
 
@@ -71154,8 +69994,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tiptap_commands__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tiptap-commands */ "./node_modules/tiptap-commands/dist/commands.esm.js");
 
     /*!
-    * tiptap v1.26.5
-    * (c) 2019 Scrumpy UG (limited liability)
+    * tiptap v1.27.0
+    * (c) 2020 Scrumpy UG (limited liability)
     * @license MIT
     */
   
@@ -71173,6 +70013,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -71288,6 +70130,19 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -71304,20 +70159,33 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _createSuper(Derived) {
+  return function () {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (_isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _arrayWithHoles(arr) {
@@ -71325,14 +70193,11 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -71358,12 +70223,29 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function camelCase (str) {
@@ -71372,9 +70254,7 @@ function camelCase (str) {
   }).replace(/\s+/g, '');
 }
 
-var ComponentView =
-/*#__PURE__*/
-function () {
+var ComponentView = /*#__PURE__*/function () {
   function ComponentView(component, _ref) {
     var editor = _ref.editor,
         extension = _ref.extension,
@@ -71424,6 +70304,10 @@ function () {
 
       if (typeof this.extension.setSelection === 'function') {
         this.setSelection = this.extension.setSelection;
+      }
+
+      if (typeof this.extension.update === 'function') {
+        this.update = this.extension.update;
       }
 
       this.vm = new Component({
@@ -71577,9 +70461,7 @@ function () {
   return ComponentView;
 }();
 
-var Emitter =
-/*#__PURE__*/
-function () {
+var Emitter = /*#__PURE__*/function () {
   function Emitter() {
     _classCallCheck(this, Emitter);
   }
@@ -71648,9 +70530,7 @@ function () {
   return Emitter;
 }();
 
-var Extension =
-/*#__PURE__*/
-function () {
+var Extension = /*#__PURE__*/function () {
   function Extension() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -71696,11 +70576,6 @@ function () {
       return 'extension';
     }
   }, {
-    key: "update",
-    get: function get() {
-      return function () {};
-    }
-  }, {
     key: "defaultOptions",
     get: function get() {
       return {};
@@ -71715,9 +70590,7 @@ function () {
   return Extension;
 }();
 
-var ExtensionManager =
-/*#__PURE__*/
-function () {
+var ExtensionManager = /*#__PURE__*/function () {
   function ExtensionManager() {
     var extensions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var editor = arguments.length > 1 ? arguments[1] : undefined;
@@ -71899,7 +70772,7 @@ function () {
             Object.assign(obj, _defineProperty({}, prop, value));
 
             if (changed) {
-              extension.update(view);
+              view.updateState(view.state);
             }
 
             return true;
@@ -71950,17 +70823,17 @@ function injectCSS (css) {
   }
 }
 
-var Mark =
-/*#__PURE__*/
-function (_Extension) {
+var Mark = /*#__PURE__*/function (_Extension) {
   _inherits(Mark, _Extension);
+
+  var _super = _createSuper(Mark);
 
   function Mark() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Mark);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Mark).call(this, options));
+    return _super.call(this, options);
   }
 
   _createClass(Mark, [{
@@ -71995,17 +70868,17 @@ function minMax() {
   return Math.min(Math.max(parseInt(value, 10), min), max);
 }
 
-var Node =
-/*#__PURE__*/
-function (_Extension) {
+var Node = /*#__PURE__*/function (_Extension) {
   _inherits(Node, _Extension);
+
+  var _super = _createSuper(Node);
 
   function Node() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Node);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Node).call(this, options));
+    return _super.call(this, options);
   }
 
   _createClass(Node, [{
@@ -72033,15 +70906,15 @@ function (_Extension) {
   return Node;
 }(Extension);
 
-var Doc =
-/*#__PURE__*/
-function (_Node) {
+var Doc = /*#__PURE__*/function (_Node) {
   _inherits(Doc, _Node);
+
+  var _super = _createSuper(Doc);
 
   function Doc() {
     _classCallCheck(this, Doc);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Doc).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Doc, [{
@@ -72061,15 +70934,15 @@ function (_Node) {
   return Doc;
 }(Node);
 
-var Paragraph =
-/*#__PURE__*/
-function (_Node) {
+var Paragraph = /*#__PURE__*/function (_Node) {
   _inherits(Paragraph, _Node);
+
+  var _super = _createSuper(Paragraph);
 
   function Paragraph() {
     _classCallCheck(this, Paragraph);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Paragraph).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Paragraph, [{
@@ -72105,15 +70978,15 @@ function (_Node) {
   return Paragraph;
 }(Node);
 
-var Text =
-/*#__PURE__*/
-function (_Node) {
+var Text = /*#__PURE__*/function (_Node) {
   _inherits(Text, _Node);
+
+  var _super = _createSuper(Text);
 
   function Text() {
     _classCallCheck(this, Text);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Text).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Text, [{
@@ -72135,10 +71008,10 @@ function (_Node) {
 
 var css = ".ProseMirror {\n  position: relative;\n}\n\n.ProseMirror {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  -webkit-font-variant-ligatures: none;\n  font-variant-ligatures: none;\n}\n\n.ProseMirror pre {\n  white-space: pre-wrap;\n}\n\n.ProseMirror-gapcursor {\n  display: none;\n  pointer-events: none;\n  position: absolute;\n}\n\n.ProseMirror-gapcursor:after {\n  content: \"\";\n  display: block;\n  position: absolute;\n  top: -2px;\n  width: 20px;\n  border-top: 1px solid black;\n  animation: ProseMirror-cursor-blink 1.1s steps(2, start) infinite;\n}\n\n@keyframes ProseMirror-cursor-blink {\n  to {\n    visibility: hidden;\n  }\n}\n\n.ProseMirror-hideselection *::selection {\n  background: transparent;\n}\n\n.ProseMirror-hideselection *::-moz-selection {\n  background: transparent;\n}\n\n.ProseMirror-hideselection * {\n  caret-color: transparent;\n}\n\n.ProseMirror-focused .ProseMirror-gapcursor {\n  display: block;\n}\n";
 
-var Editor =
-/*#__PURE__*/
-function (_Emitter) {
+var Editor = /*#__PURE__*/function (_Emitter) {
   _inherits(Editor, _Emitter);
+
+  var _super = _createSuper(Editor);
 
   function Editor() {
     var _this;
@@ -72147,7 +71020,7 @@ function (_Emitter) {
 
     _classCallCheck(this, Editor);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Editor).call(this));
+    _this = _super.call(this);
     _this.defaultOptions = {
       editorProps: {},
       editable: true,
@@ -72628,16 +71501,19 @@ function (_Emitter) {
       return this.activeMarkAttrs[type];
     }
   }, {
+    key: "getNodeAttrs",
+    value: function getNodeAttrs$1() {
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      return _objectSpread2({}, Object(tiptap_utils__WEBPACK_IMPORTED_MODULE_8__["getNodeAttrs"])(this.state, this.schema.nodes[type]));
+    }
+  }, {
     key: "registerPlugin",
     value: function registerPlugin() {
       var plugin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!plugin) {
-        return;
-      }
-
+      var handlePlugins = arguments.length > 1 ? arguments[1] : undefined;
+      var plugins = typeof handlePlugins === 'function' ? handlePlugins(plugin, this.state.plugins) : [plugin].concat(_toConsumableArray(this.state.plugins));
       var newState = this.state.reconfigure({
-        plugins: this.state.plugins.concat([plugin])
+        plugins: plugins
       });
       this.view.updateState(newState);
     }
@@ -72730,9 +71606,7 @@ var EditorContent = {
   }
 };
 
-var Menu =
-/*#__PURE__*/
-function () {
+var Menu = /*#__PURE__*/function () {
   function Menu(_ref) {
     var _this = this;
 
@@ -72744,15 +71618,20 @@ function () {
     this.preventHide = false; // the mousedown event is fired before blur so we can prevent it
 
     this.mousedownHandler = this.handleClick.bind(this);
-    this.options.element.addEventListener('mousedown', this.mousedownHandler);
-    this.options.editor.on('blur', function () {
+    this.options.element.addEventListener('mousedown', this.mousedownHandler, {
+      capture: true
+    });
+
+    this.blurHandler = function () {
       if (_this.preventHide) {
         _this.preventHide = false;
         return;
       }
 
       _this.options.editor.emit('menubar:focusUpdate', false);
-    });
+    };
+
+    this.options.editor.on('blur', this.blurHandler);
   }
 
   _createClass(Menu, [{
@@ -72764,6 +71643,7 @@ function () {
     key: "destroy",
     value: function destroy() {
       this.options.element.removeEventListener('mousedown', this.mousedownHandler);
+      this.options.editor.off('blur', this.blurHandler);
     }
   }]);
 
@@ -72828,7 +71708,8 @@ var EditorMenuBar = {
       focus: this.editor.focus,
       commands: this.editor.commands,
       isActive: this.editor.isActive,
-      getMarkAttrs: this.editor.getMarkAttrs.bind(this.editor)
+      getMarkAttrs: this.editor.getMarkAttrs.bind(this.editor),
+      getNodeAttrs: this.editor.getNodeAttrs.bind(this.editor)
     });
   }
 };
@@ -72889,9 +71770,7 @@ function coordsAtPos(view, pos) {
   };
 }
 
-var Menu$1 =
-/*#__PURE__*/
-function () {
+var Menu$1 = /*#__PURE__*/function () {
   function Menu(_ref) {
     var _this = this;
 
@@ -72915,13 +71794,19 @@ function () {
     this.preventHide = false; // the mousedown event is fired before blur so we can prevent it
 
     this.mousedownHandler = this.handleClick.bind(this);
-    this.options.element.addEventListener('mousedown', this.mousedownHandler);
-    this.options.editor.on('focus', function (_ref2) {
+    this.options.element.addEventListener('mousedown', this.mousedownHandler, {
+      capture: true
+    });
+
+    this.focusHandler = function (_ref2) {
       var view = _ref2.view;
 
       _this.update(view);
-    });
-    this.options.editor.on('blur', function (_ref3) {
+    };
+
+    this.options.editor.on('focus', this.focusHandler);
+
+    this.blurHandler = function (_ref3) {
       var event = _ref3.event;
 
       if (_this.preventHide) {
@@ -72930,7 +71815,9 @@ function () {
       }
 
       _this.hide(event);
-    });
+    };
+
+    this.options.editor.on('blur', this.blurHandler);
   }
 
   _createClass(Menu, [{
@@ -73000,7 +71887,7 @@ function () {
   }, {
     key: "hide",
     value: function hide(event) {
-      if (event && event.relatedTarget && this.options.element.parentNode.contains(event.relatedTarget)) {
+      if (event && event.relatedTarget && this.options.element.parentNode && this.options.element.parentNode.contains(event.relatedTarget)) {
         return;
       }
 
@@ -73011,6 +71898,8 @@ function () {
     key: "destroy",
     value: function destroy() {
       this.options.element.removeEventListener('mousedown', this.mousedownHandler);
+      this.options.editor.off('focus', this.focusHandler);
+      this.options.editor.off('blur', this.blurHandler);
     }
   }]);
 
@@ -73088,6 +71977,7 @@ var EditorMenuBubble = {
       commands: this.editor.commands,
       isActive: this.editor.isActive,
       getMarkAttrs: this.editor.getMarkAttrs.bind(this.editor),
+      getNodeAttrs: this.editor.getNodeAttrs.bind(this.editor),
       menu: this.menu
     });
   },
@@ -73096,9 +71986,7 @@ var EditorMenuBubble = {
   }
 };
 
-var Menu$2 =
-/*#__PURE__*/
-function () {
+var Menu$2 = /*#__PURE__*/function () {
   function Menu(_ref) {
     var _this = this;
 
@@ -73120,13 +72008,19 @@ function () {
     this.top = 0; // the mousedown event is fired before blur so we can prevent it
 
     this.mousedownHandler = this.handleClick.bind(this);
-    this.options.element.addEventListener('mousedown', this.mousedownHandler);
-    this.options.editor.on('focus', function (_ref2) {
+    this.options.element.addEventListener('mousedown', this.mousedownHandler, {
+      capture: true
+    });
+
+    this.focusHandler = function (_ref2) {
       var view = _ref2.view;
 
       _this.update(view);
-    });
-    this.options.editor.on('blur', function (_ref3) {
+    };
+
+    this.options.editor.on('focus', this.focusHandler);
+
+    this.blurHandler = function (_ref3) {
       var event = _ref3.event;
 
       if (_this.preventHide) {
@@ -73135,7 +72029,9 @@ function () {
       }
 
       _this.hide(event);
-    }); // sometimes we have to update the position
+    };
+
+    this.options.editor.on('blur', this.blurHandler); // sometimes we have to update the position
     // because of a loaded images for example
 
     if (this.options.resizeObserver && window.ResizeObserver) {
@@ -73200,7 +72096,7 @@ function () {
   }, {
     key: "hide",
     value: function hide(event) {
-      if (event && event.relatedTarget && this.options.element.parentNode.contains(event.relatedTarget)) {
+      if (event && event.relatedTarget && this.options.element.parentNode && this.options.element.parentNode.contains(event.relatedTarget)) {
         return;
       }
 
@@ -73215,6 +72111,9 @@ function () {
       if (this.resizeObserver) {
         this.resizeObserver.unobserve(this.editorView.dom);
       }
+
+      this.options.editor.off('focus', this.focusHandler);
+      this.options.editor.off('blur', this.blurHandler);
     }
   }]);
 
@@ -73287,6 +72186,7 @@ var EditorFloatingMenu = {
       commands: this.editor.commands,
       isActive: this.editor.isActive,
       getMarkAttrs: this.editor.getMarkAttrs.bind(this.editor),
+      getNodeAttrs: this.editor.getNodeAttrs.bind(this.editor),
       menu: this.menu
     });
   },
@@ -74005,14 +72905,8 @@ var render = function() {
         { "has-align-fix": _vm.fixAlign }
       ]
     },
-    [
-      _c("img", {
-        attrs: {
-          src: __webpack_require__("./resources/js/components/tiptap/assets/icons sync recursive ^\\.\\/.*\\.svg$")("./" + _vm.name + ".svg"),
-          alt: "" + _vm.name
-        }
-      })
-    ]
+    [_c("svg-vue", { attrs: { icon: "icons/" + _vm.name } })],
+    1
   )
 }
 var staticRenderFns = []
@@ -86119,14 +85013,14 @@ if (false) {} else {
 /*!**********************************************!*\
   !*** ./node_modules/w3c-keyname/index.es.js ***!
   \**********************************************/
-/*! exports provided: default, base, keyName, shift */
+/*! exports provided: base, shift, keyName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base", function() { return base_1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base", function() { return base; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shift", function() { return shift; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyName", function() { return keyName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shift", function() { return shift_1; });
 var base = {
   8: "Backspace",
   9: "Tab",
@@ -86181,8 +85075,7 @@ var base = {
   221: "]",
   222: "'",
   229: "q"
-};
-var base_1 = base;
+}
 
 var shift = {
   48: ")",
@@ -86195,7 +85088,7 @@ var shift = {
   55: "&",
   56: "*",
   57: "(",
-  59: ";",
+  59: ":",
   61: "+",
   173: "_",
   186: ":",
@@ -86210,58 +85103,48 @@ var shift = {
   221: "}",
   222: "\"",
   229: "Q"
-};
-var shift_1 = shift;
+}
 
-var chrome = typeof navigator != "undefined" && /Chrome\/(\d+)/.exec(navigator.userAgent);
-var safari = typeof navigator != "undefined" && /Apple Computer/.test(navigator.vendor);
-var gecko = typeof navigator != "undefined" && /Gecko\/\d+/.test(navigator.userAgent);
-var mac = typeof navigator != "undefined" && /Mac/.test(navigator.platform);
-var ie = typeof navigator != "undefined" && /MSIE \d|Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(navigator.userAgent);
-var brokenModifierNames = chrome && (mac || +chrome[1] < 57) || gecko && mac;
+var chrome = typeof navigator != "undefined" && /Chrome\/(\d+)/.exec(navigator.userAgent)
+var safari = typeof navigator != "undefined" && /Apple Computer/.test(navigator.vendor)
+var gecko = typeof navigator != "undefined" && /Gecko\/\d+/.test(navigator.userAgent)
+var mac = typeof navigator != "undefined" && /Mac/.test(navigator.platform)
+var ie = typeof navigator != "undefined" && /MSIE \d|Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(navigator.userAgent)
+var brokenModifierNames = chrome && (mac || +chrome[1] < 57) || gecko && mac
 
 // Fill in the digit keys
-for (var i = 0; i < 10; i++) base[48 + i] = base[96 + i] = String(i);
+for (var i = 0; i < 10; i++) base[48 + i] = base[96 + i] = String(i)
 
 // The function keys
-for (var i = 1; i <= 24; i++) base[i + 111] = "F" + i;
+for (var i = 1; i <= 24; i++) base[i + 111] = "F" + i
 
 // And the alphabetic keys
 for (var i = 65; i <= 90; i++) {
-  base[i] = String.fromCharCode(i + 32);
-  shift[i] = String.fromCharCode(i);
+  base[i] = String.fromCharCode(i + 32)
+  shift[i] = String.fromCharCode(i)
 }
 
 // For each code that doesn't have a shift-equivalent, copy the base name
-for (var code in base) if (!shift.hasOwnProperty(code)) shift[code] = base[code];
+for (var code in base) if (!shift.hasOwnProperty(code)) shift[code] = base[code]
 
-var keyName = function(event) {
+function keyName(event) {
   // Don't trust event.key in Chrome when there are modifiers until
   // they fix https://bugs.chromium.org/p/chromium/issues/detail?id=633838
   var ignoreKey = brokenModifierNames && (event.ctrlKey || event.altKey || event.metaKey) ||
-    (safari || ie) && event.shiftKey && event.key && event.key.length == 1;
+    (safari || ie) && event.shiftKey && event.key && event.key.length == 1
   var name = (!ignoreKey && event.key) ||
     (event.shiftKey ? shift : base)[event.keyCode] ||
-    event.key || "Unidentified";
+    event.key || "Unidentified"
   // Edge sometimes produces wrong names (Issue #3)
-  if (name == "Esc") name = "Escape";
-  if (name == "Del") name = "Delete";
+  if (name == "Esc") name = "Escape"
+  if (name == "Del") name = "Delete"
   // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8860571/
-  if (name == "Left") name = "ArrowLeft";
-  if (name == "Up") name = "ArrowUp";
-  if (name == "Right") name = "ArrowRight";
-  if (name == "Down") name = "ArrowDown";
+  if (name == "Left") name = "ArrowLeft"
+  if (name == "Up") name = "ArrowUp"
+  if (name == "Right") name = "ArrowRight"
+  if (name == "Down") name = "ArrowDown"
   return name
-};
-
-var w3cKeyname = {
-	base: base_1,
-	shift: shift_1,
-	keyName: keyName
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (w3cKeyname);
-
+}
 
 
 /***/ }),
@@ -86593,10 +85476,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/lib/loader.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tiptap/Icon.vue?vue&type=style&index=0&id=9b138fb6&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_style_index_0_id_9b138fb6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -86615,416 +85498,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Icon_vue_vue_type_template_id_9b138fb6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons sync recursive ^\\.\\/.*\\.svg$":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons sync ^\.\/.*\.svg$ ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./add_col_after.svg": "./resources/js/components/tiptap/assets/icons/add_col_after.svg",
-	"./add_col_before.svg": "./resources/js/components/tiptap/assets/icons/add_col_before.svg",
-	"./add_row_after.svg": "./resources/js/components/tiptap/assets/icons/add_row_after.svg",
-	"./add_row_before.svg": "./resources/js/components/tiptap/assets/icons/add_row_before.svg",
-	"./bold.svg": "./resources/js/components/tiptap/assets/icons/bold.svg",
-	"./checklist.svg": "./resources/js/components/tiptap/assets/icons/checklist.svg",
-	"./code.svg": "./resources/js/components/tiptap/assets/icons/code.svg",
-	"./combine_cells.svg": "./resources/js/components/tiptap/assets/icons/combine_cells.svg",
-	"./delete_col.svg": "./resources/js/components/tiptap/assets/icons/delete_col.svg",
-	"./delete_row.svg": "./resources/js/components/tiptap/assets/icons/delete_row.svg",
-	"./delete_table.svg": "./resources/js/components/tiptap/assets/icons/delete_table.svg",
-	"./github.svg": "./resources/js/components/tiptap/assets/icons/github.svg",
-	"./hr.svg": "./resources/js/components/tiptap/assets/icons/hr.svg",
-	"./image.svg": "./resources/js/components/tiptap/assets/icons/image.svg",
-	"./italic.svg": "./resources/js/components/tiptap/assets/icons/italic.svg",
-	"./link.svg": "./resources/js/components/tiptap/assets/icons/link.svg",
-	"./mention.svg": "./resources/js/components/tiptap/assets/icons/mention.svg",
-	"./ol.svg": "./resources/js/components/tiptap/assets/icons/ol.svg",
-	"./paragraph.svg": "./resources/js/components/tiptap/assets/icons/paragraph.svg",
-	"./quote.svg": "./resources/js/components/tiptap/assets/icons/quote.svg",
-	"./redo.svg": "./resources/js/components/tiptap/assets/icons/redo.svg",
-	"./remove.svg": "./resources/js/components/tiptap/assets/icons/remove.svg",
-	"./strike.svg": "./resources/js/components/tiptap/assets/icons/strike.svg",
-	"./table.svg": "./resources/js/components/tiptap/assets/icons/table.svg",
-	"./ul.svg": "./resources/js/components/tiptap/assets/icons/ul.svg",
-	"./underline.svg": "./resources/js/components/tiptap/assets/icons/underline.svg",
-	"./undo.svg": "./resources/js/components/tiptap/assets/icons/undo.svg"
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "./resources/js/components/tiptap/assets/icons sync recursive ^\\.\\/.*\\.svg$";
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/add_col_after.svg":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/add_col_after.svg ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/add_col_after.svg?a7983712fe72a40ff4e6c2e99ac9dc7b");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/add_col_before.svg":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/add_col_before.svg ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/add_col_before.svg?dfd466e071d91ee6461a8131bceedf29");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/add_row_after.svg":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/add_row_after.svg ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/add_row_after.svg?31cd69b50c86d2d67508ce1ab3206913");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/add_row_before.svg":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/add_row_before.svg ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/add_row_before.svg?c2c4683f8279a2cbd1cdc33b4e5683ff");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/bold.svg":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/bold.svg ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/bold.svg?4b885bef0a4b578ea1c785d1b9da4660");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/checklist.svg":
-/*!*******************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/checklist.svg ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/checklist.svg?fe7b8db11e97a36f4d2ab5daa43504a7");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/code.svg":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/code.svg ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/code.svg?deb0a50b4a704bd7512bc6c658541f14");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/combine_cells.svg":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/combine_cells.svg ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/combine_cells.svg?d107055669b562ec622067438c677272");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/delete_col.svg":
-/*!********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/delete_col.svg ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/delete_col.svg?83a1ada19b0157becb83c88444a3b180");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/delete_row.svg":
-/*!********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/delete_row.svg ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/delete_row.svg?97cc61ed97f689064b9a92137963405d");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/delete_table.svg":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/delete_table.svg ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/delete_table.svg?268f6cd547de4ced32dcde3df45a05d3");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/github.svg":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/github.svg ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/github.svg?e6339a0a29aff36909ef163f9e19b91d");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/hr.svg":
-/*!************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/hr.svg ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/hr.svg?2194b13e65778fcbeaf66cda65b84232");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/image.svg":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/image.svg ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/image.svg?6c1d88e9f66d5f59e474ae2d01f92cef");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/italic.svg":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/italic.svg ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/italic.svg?1030bdc5c0d35e6fca72c62756099e57");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/link.svg":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/link.svg ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/link.svg?821da12a105d3f7c7b5a7b67d32f11ac");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/mention.svg":
-/*!*****************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/mention.svg ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/mention.svg?4d1441997b03ec45dff33a8889b5c7d3");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/ol.svg":
-/*!************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/ol.svg ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/ol.svg?e004597bea2ac59ab674fc88de70c5f3");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/paragraph.svg":
-/*!*******************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/paragraph.svg ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/paragraph.svg?11dfa64b9cd73825944994d8de07e7e7");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/quote.svg":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/quote.svg ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/quote.svg?9a81753eb28454be1e37f4d05362aebe");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/redo.svg":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/redo.svg ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/redo.svg?a34cfc628e7b0f274276497cc92a6393");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/remove.svg":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/remove.svg ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/remove.svg?6e7d83051afd4cff2df95a9ac640eb93");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/strike.svg":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/strike.svg ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/strike.svg?89aaef2d57aa32ee4f55eb05b9936354");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/table.svg":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/table.svg ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/table.svg?213d97fcf61a08fb1ae23594fe41ae53");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/ul.svg":
-/*!************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/ul.svg ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/ul.svg?11b737fcacbe79696d6a45ede8d7975b");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/underline.svg":
-/*!*******************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/underline.svg ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/underline.svg?cc75de9ca94b5a8fb21d6be962058556");
-
-/***/ }),
-
-/***/ "./resources/js/components/tiptap/assets/icons/undo.svg":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/tiptap/assets/icons/undo.svg ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/images/undo.svg?2bbe6ef9c22c67baf6ff9fcf7ecef52d");
 
 /***/ }),
 
@@ -87324,6 +85797,7 @@ var I18n = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendor/I18n */ "./resources/js/vendor/I18n.js");
+/* harmony import */ var svg_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-vue */ "./node_modules/svg-vue/dist/svg-vue.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -87332,6 +85806,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./material-ui-custom */ "./resources/js/material-ui-custom.js");
+
 
 
 window.I18n = _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__["default"];
@@ -87349,6 +85824,7 @@ window.Vue.prototype.$I18n = new _vendor_I18n__WEBPACK_IMPORTED_MODULE_0__["defa
 
 Vue.component("editor", __webpack_require__(/*! ./components/tiptap/Editor.vue */ "./resources/js/components/tiptap/Editor.vue")["default"]);
 Vue.component("reorder", __webpack_require__(/*! ./components/Reorder.vue */ "./resources/js/components/Reorder.vue")["default"]);
+Vue.use(svg_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -87369,6 +85845,416 @@ var app = new Vue({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/svg sync recursive ^\\.\\/.*$":
+/*!*************************************!*\
+  !*** ./resources/svg sync ^\.\/.*$ ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./icons/add_col_after.svg": "./resources/svg/icons/add_col_after.svg",
+	"./icons/add_col_before.svg": "./resources/svg/icons/add_col_before.svg",
+	"./icons/add_row_after.svg": "./resources/svg/icons/add_row_after.svg",
+	"./icons/add_row_before.svg": "./resources/svg/icons/add_row_before.svg",
+	"./icons/bold.svg": "./resources/svg/icons/bold.svg",
+	"./icons/checklist.svg": "./resources/svg/icons/checklist.svg",
+	"./icons/code.svg": "./resources/svg/icons/code.svg",
+	"./icons/combine_cells.svg": "./resources/svg/icons/combine_cells.svg",
+	"./icons/delete_col.svg": "./resources/svg/icons/delete_col.svg",
+	"./icons/delete_row.svg": "./resources/svg/icons/delete_row.svg",
+	"./icons/delete_table.svg": "./resources/svg/icons/delete_table.svg",
+	"./icons/github.svg": "./resources/svg/icons/github.svg",
+	"./icons/hr.svg": "./resources/svg/icons/hr.svg",
+	"./icons/image.svg": "./resources/svg/icons/image.svg",
+	"./icons/italic.svg": "./resources/svg/icons/italic.svg",
+	"./icons/link.svg": "./resources/svg/icons/link.svg",
+	"./icons/mention.svg": "./resources/svg/icons/mention.svg",
+	"./icons/ol.svg": "./resources/svg/icons/ol.svg",
+	"./icons/paragraph.svg": "./resources/svg/icons/paragraph.svg",
+	"./icons/quote.svg": "./resources/svg/icons/quote.svg",
+	"./icons/redo.svg": "./resources/svg/icons/redo.svg",
+	"./icons/remove.svg": "./resources/svg/icons/remove.svg",
+	"./icons/strike.svg": "./resources/svg/icons/strike.svg",
+	"./icons/table.svg": "./resources/svg/icons/table.svg",
+	"./icons/ul.svg": "./resources/svg/icons/ul.svg",
+	"./icons/underline.svg": "./resources/svg/icons/underline.svg",
+	"./icons/undo.svg": "./resources/svg/icons/undo.svg"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./resources/svg sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "./resources/svg/icons/add_col_after.svg":
+/*!***********************************************!*\
+  !*** ./resources/svg/icons/add_col_after.svg ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 14a5 5 0 110 10 5 5 0 010-10zm2.5 5.938a.937.937 0 100-1.875H6.25a.312.312 0 01-.313-.313V16.5a.937.937 0 10-1.875 0v1.25c0 .173-.14.313-.312.313H2.5a.937.937 0 100 1.875h1.25c.173 0 .313.14.313.312v1.25a.937.937 0 101.875 0v-1.25c0-.173.14-.313.312-.313H7.5zM16 19a3 3 0 006 0V5a3 3 0 00-6 0v14zm-2 0V5a5 5 0 0110 0v14a5 5 0 01-10 0z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/add_col_before.svg":
+/*!************************************************!*\
+  !*** ./resources/svg/icons/add_col_before.svg ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 14a5 5 0 110 10 5 5 0 010-10zm2.5 5.938a.937.937 0 100-1.875h-1.25a.312.312 0 01-.313-.313V16.5a.937.937 0 10-1.875 0v1.25c0 .173-.14.313-.312.313H16.5a.937.937 0 100 1.875h1.25c.173 0 .313.14.313.312v1.25a.937.937 0 101.875 0v-1.25c0-.173.14-.313.312-.313h1.25zM2 19a3 3 0 006 0V5a3 3 0 10-6 0v14zm-2 0V5a5 5 0 1110 0v14a5 5 0 01-10 0z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/add_row_after.svg":
+/*!***********************************************!*\
+  !*** ./resources/svg/icons/add_row_after.svg ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 0a5 5 0 110 10 5 5 0 010-10zm2.5 5.938a.937.937 0 100-1.875h-1.25a.312.312 0 01-.313-.313V2.5a.937.937 0 10-1.875 0v1.25c0 .173-.14.313-.312.313H16.5a.937.937 0 100 1.875h1.25c.173 0 .313.14.313.312V7.5a.937.937 0 101.875 0V6.25c0-.173.14-.313.312-.313h1.25zM5 16a3 3 0 000 6h14a3 3 0 000-6H5zm0-2h14a5 5 0 010 10H5a5 5 0 010-10z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/add_row_before.svg":
+/*!************************************************!*\
+  !*** ./resources/svg/icons/add_row_before.svg ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 14a5 5 0 110 10 5 5 0 010-10zm2.5 5.938a.937.937 0 100-1.875h-1.25a.312.312 0 01-.313-.313V16.5a.937.937 0 10-1.875 0v1.25c0 .173-.14.313-.312.313H16.5a.937.937 0 100 1.875h1.25c.173 0 .313.14.313.312v1.25a.937.937 0 101.875 0v-1.25c0-.173.14-.313.312-.313h1.25zM5 2a3 3 0 100 6h14a3 3 0 000-6H5zm0-2h14a5 5 0 010 10H5A5 5 0 115 0z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/bold.svg":
+/*!**************************************!*\
+  !*** ./resources/svg/icons/bold.svg ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M17.194 10.962A6.271 6.271 0 0012.844.248H4.3a1.25 1.25 0 000 2.5h1.013a.25.25 0 01.25.25V21a.25.25 0 01-.25.25H4.3a1.25 1.25 0 100 2.5h9.963a6.742 6.742 0 002.93-12.786zm-4.35-8.214a3.762 3.762 0 010 7.523H8.313a.25.25 0 01-.25-.25V3a.25.25 0 01.25-.25zm1.42 18.5H8.313a.25.25 0 01-.25-.25v-7.977a.25.25 0 01.25-.25h5.951a4.239 4.239 0 010 8.477z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/checklist.svg":
+/*!*******************************************!*\
+  !*** ./resources/svg/icons/checklist.svg ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M21 0H3a3 3 0 00-3 3v18a3 3 0 003 3h18a3 3 0 003-3V3a3 3 0 00-3-3zm1 21a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1h18a1 1 0 011 1z\"/><path d=\"M11.249 4.5a1.251 1.251 0 00-1.75.25L7.365 7.6l-.482-.481a1.25 1.25 0 00-1.767 1.764l1.5 1.5a1.262 1.262 0 001.884-.134l3-4a1.25 1.25 0 00-.251-1.749zm0 9a1.251 1.251 0 00-1.75.25L7.365 16.6l-.482-.481a1.25 1.25 0 10-1.767 1.768l1.5 1.5a1.265 1.265 0 001.884-.138l3-4a1.25 1.25 0 00-.251-1.749zM18.5 7.749H14a1.25 1.25 0 000 2.5h4.5a1.25 1.25 0 000-2.5zm0 8H14a1.25 1.25 0 000 2.5h4.5a1.25 1.25 0 100-2.5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/code.svg":
+/*!**************************************!*\
+  !*** ./resources/svg/icons/code.svg ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M9.147 21.552a1.244 1.244 0 01-.895-.378L.84 13.561a2.257 2.257 0 010-3.125l7.412-7.613a1.25 1.25 0 011.791 1.744l-6.9 7.083a.5.5 0 000 .7l6.9 7.082a1.25 1.25 0 01-.9 2.122zm5.707 0a1.25 1.25 0 01-.9-2.122l6.9-7.083a.5.5 0 000-.7l-6.9-7.082a1.25 1.25 0 011.791-1.744l7.411 7.612a2.257 2.257 0 010 3.125l-7.412 7.614a1.244 1.244 0 01-.89.38zm6.514-9.373z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/combine_cells.svg":
+/*!***********************************************!*\
+  !*** ./resources/svg/icons/combine_cells.svg ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M2 19a3 3 0 003 3h14a3 3 0 003-3V5a3 3 0 00-3-3H5a3 3 0 00-3 3v14zm-2 0V5a5 5 0 015-5h14a5 5 0 015 5v14a5 5 0 01-5 5H5a5 5 0 01-5-5zm12-9a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zm0 6a1 1 0 011 1v3a1 1 0 01-2 0v-3a1 1 0 011-1zm0-13a1 1 0 011 1v3a1 1 0 01-2 0V4a1 1 0 011-1z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/delete_col.svg":
+/*!********************************************!*\
+  !*** ./resources/svg/icons/delete_col.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12.641 21.931a7.01 7.01 0 001.146 1.74A5 5 0 017 19V5a5 5 0 1110 0v7.29a6.972 6.972 0 00-2 .965V5a3 3 0 00-6 0v14a3 3 0 003.641 2.931zM19 14a5 5 0 110 10 5 5 0 010-10zm-2.5 5.938h5a.937.937 0 100-1.875h-5a.937.937 0 100 1.875z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/delete_row.svg":
+/*!********************************************!*\
+  !*** ./resources/svg/icons/delete_row.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M13.255 15a6.972 6.972 0 00-.965 2H5A5 5 0 015 7h14a5 5 0 014.671 6.787 7.01 7.01 0 00-1.74-1.146A3 3 0 0019 9H5a3 3 0 000 6h8.255zM19 14a5 5 0 110 10 5 5 0 010-10zm-2.5 5.938h5a.937.937 0 100-1.875h-5a.937.937 0 100 1.875z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/delete_table.svg":
+/*!**********************************************!*\
+  !*** ./resources/svg/icons/delete_table.svg ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M19 14a5 5 0 110 10 5 5 0 010-10zm-2.5 5.938h5a.937.937 0 100-1.875h-5a.937.937 0 100 1.875zM12.29 17H9v5h3.674c.356.75.841 1.426 1.427 2H5a5 5 0 01-5-5V5a5 5 0 015-5h14a5 5 0 015 5v2.823a.843.843 0 010 .354V14.1a7.018 7.018 0 00-2-1.427V9h-5v3.29a6.972 6.972 0 00-2 .965V9H9v6h4.255a6.972 6.972 0 00-.965 2zM17 7h5V5a3 3 0 00-3-3h-2v5zm-2 0V2H9v5h6zM7 2H5a3 3 0 00-3 3v2h5V2zM2 9v6h5V9H2zm0 8v2a3 3 0 003 3h2v-5H2z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/github.svg":
+/*!****************************************!*\
+  !*** ./resources/svg/icons/github.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M11.999.5C5.649.5.5 5.648.5 12c0 5.082 3.294 9.392 7.865 10.914.574.103.756-.236.756-.541 0-.274.006-1.037 0-1.997-3.198.694-3.861-1.515-3.861-1.515-.523-1.329-1.275-1.682-1.275-1.682-1.045-.714.077-.699.077-.699 1.153.08 1.762 1.184 1.762 1.184 1.026 1.758 2.691 1.25 3.346.956.106-.742.402-1.251.731-1.536-2.554-.292-5.238-1.277-5.238-5.686 0-1.255.448-2.281 1.184-3.086-.118-.289-.514-1.46.112-3.043 0 0 .967-.309 3.162 1.18a11.011 11.011 0 012.88-.388c.976.005 1.96.132 2.88.388 2.195-1.488 3.159-1.18 3.159-1.18.627 1.583.232 2.754.114 3.043.736.805 1.183 1.831 1.183 3.086 0 4.42-2.689 5.391-5.251 5.674.412.357.787 1.047.787 2.12v3.184c0 .308.186.647.77.536C20.209 21.389 23.5 17.08 23.5 12 23.5 5.648 18.352.5 11.999.5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/hr.svg":
+/*!************************************!*\
+  !*** ./resources/svg/icons/hr.svg ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 13a1 1 0 010-2h14a1 1 0 010 2H5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/image.svg":
+/*!***************************************!*\
+  !*** ./resources/svg/icons/image.svg ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"9.75\" cy=\"6.247\" r=\"2.25\"/><path d=\"M16.916 8.71A1.027 1.027 0 0016 8.158a1.007 1.007 0 00-.892.586l-1.558 3.434a.249.249 0 01-.422.053l-.82-1.024a1 1 0 00-.813-.376 1.007 1.007 0 00-.787.426L7.59 15.71a.5.5 0 00.41.79h12a.5.5 0 00.425-.237.5.5 0 00.022-.486z\"/><path d=\"M22 0H5.5a2 2 0 00-2 2v16.5a2 2 0 002 2H22a2 2 0 002-2V2a2 2 0 00-2-2zm-.145 18.354a.5.5 0 01-.354.146H6a.5.5 0 01-.5-.5V2.5A.5.5 0 016 2h15.5a.5.5 0 01.5.5V18a.5.5 0 01-.145.351z\"/><path d=\"M19.5 22h-17a.5.5 0 01-.5-.5v-17a1 1 0 00-2 0V22a2 2 0 002 2h17.5a1 1 0 000-2z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/italic.svg":
+/*!****************************************!*\
+  !*** ./resources/svg/icons/italic.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M22.5.248h-7.637a1.25 1.25 0 000 2.5h1.086a.25.25 0 01.211.384L4.78 21.017a.5.5 0 01-.422.231H1.5a1.25 1.25 0 000 2.5h7.637a1.25 1.25 0 000-2.5H8.051a.25.25 0 01-.211-.384L19.22 2.98a.5.5 0 01.422-.232H22.5a1.25 1.25 0 000-2.5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/link.svg":
+/*!**************************************!*\
+  !*** ./resources/svg/icons/link.svg ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12.406 14.905a1 1 0 00-.543 1.307 1 1 0 01-.217 1.09l-2.828 2.829a2 2 0 01-2.828 0L3.868 18.01a2 2 0 010-2.829L6.7 12.353a1.013 1.013 0 011.091-.217 1 1 0 00.763-1.849 3.034 3.034 0 00-3.268.652l-2.832 2.828a4.006 4.006 0 000 5.657l2.122 2.121a4 4 0 005.656 0l2.829-2.828a3.008 3.008 0 00.651-3.27 1 1 0 00-1.306-.542z\"/><path d=\"M7.757 16.241a1.011 1.011 0 001.414 0l7.779-7.778a1 1 0 00-1.414-1.414l-7.779 7.778a1 1 0 000 1.414z\"/><path d=\"M21.546 4.574l-2.121-2.121a4.006 4.006 0 00-5.657 0l-2.829 2.828a3.006 3.006 0 00-.651 3.269 1 1 0 101.849-.764 1 1 0 01.217-1.086l2.828-2.828a2 2 0 012.829 0l2.121 2.121a2 2 0 010 2.829L17.3 11.645a1.015 1.015 0 01-1.091.217 1 1 0 00-.765 1.849 3.026 3.026 0 003.27-.651l2.828-2.828a4.007 4.007 0 00.004-5.658z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/mention.svg":
+/*!*****************************************!*\
+  !*** ./resources/svg/icons/mention.svg ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 .5A11.634 11.634 0 00.262 12 11.634 11.634 0 0012 23.5a11.836 11.836 0 006.624-2 1.25 1.25 0 10-1.393-2.076A9.34 9.34 0 0112 21a9.132 9.132 0 01-9.238-9A9.132 9.132 0 0112 3a9.132 9.132 0 019.238 9v.891a1.943 1.943 0 01-3.884 0V12A5.355 5.355 0 1012 17.261a5.376 5.376 0 003.861-1.634 4.438 4.438 0 007.877-2.736V12A11.634 11.634 0 0012 .5zm0 14.261A2.763 2.763 0 1114.854 12 2.812 2.812 0 0112 14.761z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/ol.svg":
+/*!************************************!*\
+  !*** ./resources/svg/icons/ol.svg ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M7.75 4.5h15a1 1 0 000-2h-15a1 1 0 000 2zm15 6.5h-15a1 1 0 100 2h15a1 1 0 000-2zm0 8.5h-15a1 1 0 000 2h15a1 1 0 000-2zM2.212 17.248a2 2 0 00-1.933 1.484.75.75 0 101.45.386.5.5 0 11.483.63.75.75 0 100 1.5.5.5 0 11-.482.635.75.75 0 10-1.445.4 2 2 0 103.589-1.648.251.251 0 010-.278 2 2 0 00-1.662-3.111zm2.038-6.5a2 2 0 00-4 0 .75.75 0 001.5 0 .5.5 0 011 0 1.031 1.031 0 01-.227.645L.414 14.029A.75.75 0 001 15.248h2.5a.75.75 0 000-1.5h-.419a.249.249 0 01-.195-.406L3.7 12.33a2.544 2.544 0 00.55-1.582zM4 5.248h-.25A.25.25 0 013.5 5V1.623A1.377 1.377 0 002.125.248H1.5a.75.75 0 000 1.5h.25A.25.25 0 012 2v3a.25.25 0 01-.25.25H1.5a.75.75 0 000 1.5H4a.75.75 0 000-1.5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/paragraph.svg":
+/*!*******************************************!*\
+  !*** ./resources/svg/icons/paragraph.svg ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M22.5.248H7.228a6.977 6.977 0 100 13.954h2.318a.25.25 0 01.25.25V22.5a1.25 1.25 0 002.5 0V3a.25.25 0 01.25-.25h3.682a.25.25 0 01.25.25v19.5a1.25 1.25 0 002.5 0V3a.249.249 0 01.25-.25H22.5a1.25 1.25 0 000-2.5zM9.8 11.452a.25.25 0 01-.25.25H7.228a4.477 4.477 0 110-8.954h2.318A.25.25 0 019.8 3z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/quote.svg":
+/*!***************************************!*\
+  !*** ./resources/svg/icons/quote.svg ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M18.559 3.932a4.942 4.942 0 100 9.883 4.609 4.609 0 001.115-.141.25.25 0 01.276.368 6.83 6.83 0 01-5.878 3.523 1.25 1.25 0 000 2.5 9.71 9.71 0 009.428-9.95V8.873a4.947 4.947 0 00-4.941-4.941zm-12.323 0a4.942 4.942 0 000 9.883 4.6 4.6 0 001.115-.141.25.25 0 01.277.368 6.83 6.83 0 01-5.878 3.523 1.25 1.25 0 000 2.5 9.711 9.711 0 009.428-9.95V8.873a4.947 4.947 0 00-4.942-4.941z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/redo.svg":
+/*!**************************************!*\
+  !*** ./resources/svg/icons/redo.svg ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M22.608.161a.5.5 0 00-.545.108L19.472 2.86a.25.25 0 01-.292.045 12.537 12.537 0 00-12.966.865A12.259 12.259 0 006.1 23.632a1.25 1.25 0 001.476-2.018 9.759 9.759 0 01.091-15.809 10 10 0 019.466-1.1.25.25 0 01.084.409l-1.85 1.85a.5.5 0 00.354.853h6.7a.5.5 0 00.5-.5V.623a.5.5 0 00-.313-.462z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/remove.svg":
+/*!****************************************!*\
+  !*** ./resources/svg/icons/remove.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M20.485 3.511A12.01 12.01 0 1024 12a12.009 12.009 0 00-3.515-8.489zm-1.767 15.21A9.51 9.51 0 1121.5 12a9.508 9.508 0 01-2.782 6.721z\"/><path d=\"M16.987 7.01a1.275 1.275 0 00-1.8 0l-3.177 3.177L8.829 7.01a1.277 1.277 0 00-1.805 1.806l3.176 3.177-3.176 3.178a1.277 1.277 0 001.805 1.806l3.176-3.177 3.177 3.178a1.277 1.277 0 001.8-1.806l-3.176-3.178 3.176-3.177a1.278 1.278 0 00.005-1.807z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/strike.svg":
+/*!****************************************!*\
+  !*** ./resources/svg/icons/strike.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M23.75 12.952A1.25 1.25 0 0022.5 11.7h-8.936a.492.492 0 01-.282-.09c-.722-.513-1.482-.981-2.218-1.432-2.8-1.715-4.5-2.9-4.5-4.863 0-2.235 2.207-2.569 3.523-2.569a4.54 4.54 0 013.081.764 2.662 2.662 0 01.447 1.99v.3a1.25 1.25 0 102.5 0v-.268a4.887 4.887 0 00-1.165-3.777C13.949.741 12.359.248 10.091.248c-3.658 0-6.023 1.989-6.023 5.069 0 2.773 1.892 4.512 4 5.927a.25.25 0 01-.139.458H1.5a1.25 1.25 0 000 2.5h10.977a.251.251 0 01.159.058 4.339 4.339 0 011.932 3.466c0 3.268-3.426 3.522-4.477 3.522-1.814 0-3.139-.405-3.834-1.173a3.394 3.394 0 01-.65-2.7 1.25 1.25 0 00-2.488-.246A5.76 5.76 0 004.4 21.753c1.2 1.324 3.114 2 5.688 2 4.174 0 6.977-2.42 6.977-6.022a6.059 6.059 0 00-.849-3.147.25.25 0 01.216-.377H22.5a1.25 1.25 0 001.25-1.255z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/table.svg":
+/*!***************************************!*\
+  !*** ./resources/svg/icons/table.svg ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M17 17v5h2a3 3 0 003-3v-2h-5zm-2 0H9v5h6v-5zm2-2h5V9h-5v6zm-2 0V9H9v6h6zm2-8h5V5a3 3 0 00-3-3h-2v5zm-2 0V2H9v5h6zm9 9.177V19a5 5 0 01-5 5H5a5 5 0 01-5-5V5a5 5 0 015-5h14a5 5 0 015 5v2.823a.843.843 0 010 .354v7.646a.843.843 0 010 .354zM7 2H5a3 3 0 00-3 3v2h5V2zM2 9v6h5V9H2zm0 8v2a3 3 0 003 3h2v-5H2z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/ul.svg":
+/*!************************************!*\
+  !*** ./resources/svg/icons/ul.svg ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><circle cx=\"2.5\" cy=\"3.998\" r=\"2.5\"/><path d=\"M8.5 5H23a1 1 0 000-2H8.5a1 1 0 000 2z\"/><circle cx=\"2.5\" cy=\"11.998\" r=\"2.5\"/><path d=\"M23 11H8.5a1 1 0 000 2H23a1 1 0 000-2z\"/><circle cx=\"2.5\" cy=\"19.998\" r=\"2.5\"/><path d=\"M23 19H8.5a1 1 0 000 2H23a1 1 0 000-2z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/underline.svg":
+/*!*******************************************!*\
+  !*** ./resources/svg/icons/underline.svg ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M22.5 21.248h-21a1.25 1.25 0 000 2.5h21a1.25 1.25 0 000-2.5zM1.978 2.748h1.363a.25.25 0 01.25.25v8.523a8.409 8.409 0 0016.818 0V3a.25.25 0 01.25-.25h1.363a1.25 1.25 0 000-2.5H16.3a1.25 1.25 0 000 2.5h1.363a.25.25 0 01.25.25v8.523a5.909 5.909 0 01-11.818 0V3a.25.25 0 01.25-.25H7.7a1.25 1.25 0 100-2.5H1.978a1.25 1.25 0 000 2.5z\"/></svg>");
+
+/***/ }),
+
+/***/ "./resources/svg/icons/undo.svg":
+/*!**************************************!*\
+  !*** ./resources/svg/icons/undo.svg ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M17.786 3.77a12.542 12.542 0 00-12.965-.865.249.249 0 01-.292-.045L1.937.269A.507.507 0 001.392.16a.5.5 0 00-.308.462v6.7a.5.5 0 00.5.5h6.7a.5.5 0 00.354-.854L6.783 5.115a.253.253 0 01-.068-.228.249.249 0 01.152-.181 10 10 0 019.466 1.1 9.759 9.759 0 01.094 15.809 1.25 1.25 0 001.473 2.016 12.122 12.122 0 005.013-9.961 12.125 12.125 0 00-5.127-9.9z\"/></svg>");
 
 /***/ }),
 

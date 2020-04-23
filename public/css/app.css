@@ -9374,7 +9374,8 @@ p {
 
 footer {
   padding: 4px;
-  background-color: #EF6292;
+  background-color: #47B7AD;
+  font-size: 14px;
 }
 
 .invalid-feedback {

@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+require('laravel-mix-svg-vue');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,7 +11,11 @@ const mix = require("laravel-mix");
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+mix.options({
+    imgLoaderOptions: {
+      enabled: false
+    },
+  });
 mix.sass(
     "resources/sass/app.scss",
     "public/css",
@@ -31,8 +36,7 @@ mix.styles(
     ],
     "public/css/MaterialIcons.css"
 ).version();
-mix.js("resources/js/withvue.js", "public/js").version();
-;
+mix.js("resources/js/withvue.js", "public/js").version().svgVue();
 
 mix.js("resources/js/withleaflet.js", "public/js").version();
 ;
@@ -50,4 +54,3 @@ mix.browserSync({
     proxy: "minisite.homestead.test"
 });
 
-mix.copy('resources/img', 'public/img');

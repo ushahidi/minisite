@@ -1,10 +1,13 @@
 <template>
   <div class="icon" :class="[`icon--${name}`, `icon--${size}`, { 'has-align-fix': fixAlign }]">
-    <img :src="require(`./assets/icons/${name}.svg`)" :alt="`${name}`" />
+    <!-- <img :src="require(`./assets/icons/bold.svg`)" :alt="`${name}`" /> -->
+      <!-- resources/svg/fontawesome/check.svg -->
+      <svg-vue :icon="`icons/${name}`"></svg-vue>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     name: {},
