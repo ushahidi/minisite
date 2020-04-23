@@ -58536,7 +58536,7 @@ if (document.querySelectorAll(".location-selector").length > 0) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/c/Users/rowasc/Ushahidi/neighborhoods/minisite/resources/js/withleaflet.js */"./resources/js/withleaflet.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/js/withleaflet.js */"./resources/js/withleaflet.js");
 
 
 /***/ })

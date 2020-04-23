@@ -8889,7 +8889,7 @@ a {
 }
 
 .container {
-  width: 360px;
+  width: 300px;
   max-width: 600px;
   padding: 75px 0 0 0;
   margin: auto;
@@ -9912,6 +9912,7 @@ footer {
 .welcome h1 {
   font-size: 32px;
   color: #47B7AD;
+  line-height: 1.1em;
 }
 
 .welcome h4 {

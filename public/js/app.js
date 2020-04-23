@@ -44406,7 +44406,7 @@ navigationDrawer();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/c/Users/rowasc/Ushahidi/neighborhoods/minisite/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

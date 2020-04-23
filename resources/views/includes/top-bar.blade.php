@@ -50,7 +50,11 @@
 
 {{-- App Name --}}
 <button class="js-menu-button material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-<span class="mdc-top-app-bar__title">
-    {{ config('app.name', 'Mahalla') }}
-</span>
+<a  href="/">
+    <div>
+        <img src="{{asset('img/mahalla-logo@2x.png')}}" style="width: 140px;
+margin-top: 6px;" alt="{{ config('app.name', 'Mahalla') }}"/>
+    </div>
+</a>
+
 @endif

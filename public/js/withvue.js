@@ -87379,8 +87379,8 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/Users/rowasc/Ushahidi/neighborhoods/minisite/resources/js/withvue.js */"./resources/js/withvue.js");
-module.exports = __webpack_require__(/*! /mnt/c/Users/rowasc/Ushahidi/neighborhoods/minisite/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/withvue.js */"./resources/js/withvue.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

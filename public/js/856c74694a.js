@@ -312,7 +312,7 @@ window.FontAwesomeKitConfig = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/c/Users/rowasc/Ushahidi/neighborhoods/minisite/resources/js/3rdparty/856c74694a.js */"./resources/js/3rdparty/856c74694a.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/js/3rdparty/856c74694a.js */"./resources/js/3rdparty/856c74694a.js");
 
 
 /***/ })

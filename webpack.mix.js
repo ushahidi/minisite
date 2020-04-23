@@ -49,3 +49,5 @@ mix.browserSync({
     ],
     proxy: "minisite.homestead.test"
 });
+
+mix.copy('resources/img', 'public/img');
