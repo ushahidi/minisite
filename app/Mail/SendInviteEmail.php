@@ -20,11 +20,13 @@ class SendInviteEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($email, $message, $token)
+    public function __construct($email, $message, $token, $communityUrl, $communityName)
     {
         $this->email = $email;
         $this->message = $message;
         $this->token = $token;
+        $this->communityUrl = $communityUrl;
+        $this->communityName = $communityName;
     }
 
     /**
@@ -36,8 +38,16 @@ class SendInviteEmail extends Mailable
     {
         return 
             $this
-                ->view('minisite::invite-email')->with(
-                    ['text' => $this->message, 'email' => $this->email, 'token' => $this->token]
+                ->view('minisite::invite-email')
+                ->subject('Invite from Mahallah.org')
+                ->with(
+                    [
+                        'text' => $this->message,
+                        'email' => $this->email,
+                        'token' => $this->token,
+                        'communityUrl' => $this->communityUrl,
+                        'communityName' => $this->communityName
+                    ]
                 );
     }
 }

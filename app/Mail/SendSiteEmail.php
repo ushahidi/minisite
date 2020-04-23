@@ -20,11 +20,13 @@ class SendSiteEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($block, $email, $message)
+    public function __construct($block, $email, $message, $communityUrl, $communityName)
     {
         $this->block = $block;
         $this->email = $email;
         $this->message = $message;
+        $this->communityUrl = $communityUrl;
+        $this->communityName = $communityName;
     }
 
     /**
@@ -36,6 +38,15 @@ class SendSiteEmail extends Mailable
     {
         return 
             $this
-                ->view('minisite::email')->with(['text' => $this->message, 'email' => $this->email]);
+                ->view('minisite::email')
+                ->subject('Message from your community site on Mahallah.org')
+                ->with(
+                    [
+                        'text' => $this->message,
+                        'email' => $this->email,
+                        'communityUrl' => $this->communityUrl,
+                        'communityName' => $this->communityName
+                    ]
+                );
     }
 }

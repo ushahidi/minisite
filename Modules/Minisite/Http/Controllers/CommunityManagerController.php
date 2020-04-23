@@ -326,7 +326,9 @@ class CommunityManagerController extends Controller
                 $email = $field_value;
             }        
         }
-        Mail::to($email)->send(new SendSiteEmail($block, $request->input('email'), $request->input('message')));
+        Mail::to($email)->send(
+            new SendSiteEmail($block, $request->input('email'), $request->input('message'), route('minisite.admin', ['community' => $community]), $community->name)
+        );
         if(count(Mail::failures()) > 0){
             $errors = 'Failed to send password reset email, please try again.';
         } else {

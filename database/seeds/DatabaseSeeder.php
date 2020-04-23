@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WhatsappGroupBlockSeeder::class);
         $this->call(EmailFormBlockSeeder::class);
         $this->call(FreeFormBlockSeeder::class);
+        $this->call(RSSFeedSeeder::class);
 
     }
 }

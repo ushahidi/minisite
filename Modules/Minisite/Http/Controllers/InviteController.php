@@ -48,7 +48,9 @@ class InviteController extends Controller
                     new SendInviteEmail(
                         $request->input('email'),
                         $request->input('message'),
-                        route('joinFromInvite', ['token' => $token])
+                        route('joinFromInvite', ['token' => $token]),
+                        route('minisite.admin', ['community' => $community]),
+                        $community->name
                     )
                 );
         }

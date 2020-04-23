@@ -47,6 +47,7 @@
             </div>
         </div>
     </div>
+    @include('includes.simpleanalytics')
 </body>
 
 </html>
