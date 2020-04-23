@@ -30,7 +30,7 @@ class MinisiteController extends Controller
 
         $role = $community->getRole($user);
 
-        if ($role === '' || $role ==='guest' && (!$user && $community->visibility !== Community::VISIBILITY_PUBLIC)){
+        if ($role === '' || $role ==='guest' || !$user && ($community->visibility !== Community::VISIBILITY_PUBLIC)){
             abort(401);
         }
         $returnBlocks = [];
