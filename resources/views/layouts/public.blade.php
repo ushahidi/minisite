@@ -54,6 +54,7 @@
     <footer>
         &nbsp;
     </footer>
+    @include('includes.simpleanalytics')
 </body>
 
 </html>
