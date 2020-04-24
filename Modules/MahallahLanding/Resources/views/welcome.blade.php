@@ -22,9 +22,9 @@
                         </a>
                     </div>
                     <div class="grid-cell">
-                        <a href="/community/create" class="mdc-button mdc-button--raised theme-secondary-bg">
+                        <a href="{{route('community.create')}}" class="mdc-button mdc-button--raised theme-secondary-bg">
                             <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Create</span>
+                            <span class="mdc-button__label">@lang('general.create')</span>
                         </a>
                     </div>
                 </div>

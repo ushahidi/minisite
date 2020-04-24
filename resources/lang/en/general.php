@@ -2,5 +2,6 @@
 
 return [
     'dashboard'   => 'Dashboard',
-    'search' => 'Search'
+    'search' => 'Search',
+    'create' => 'Create'
 ];

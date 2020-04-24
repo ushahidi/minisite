@@ -47,7 +47,10 @@ class CreateCommunitiesTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('community_locations');
         Schema::dropIfExists('communities');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 }

@@ -95,7 +95,7 @@
                 <span class="mdc-list-item__text">My communities</span>
             </a>
             @endif
-            <a class="mdc-list-item" href="{{route('communityCreate')}}" aria-current="page">
+            <a class="mdc-list-item" href="{{route('community.create')}}" aria-current="page">
                 <i class="fas fa-heart mdc-list-item__graphic" aria-hidden="true"></i>
                 <span class="mdc-list-item__text">Create a community</span>
             </a>

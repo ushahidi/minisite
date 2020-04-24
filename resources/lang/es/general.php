@@ -2,5 +2,6 @@
 
 return [
     'dashboard'   => 'Tablero',
-    'search' => 'Buscar'
+    'search' => 'Buscar',
+    'create' => 'Crear'
 ];
