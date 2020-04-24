@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="mdc-radio__ripple"></div>
                             </div>
-                            <label for="location">{{$location["displayName"]}}</label>                            
+                            <label for="location">{{$location["displayName"]}}</label>
                         </div>
                         <div class="map" id="{{$location["osmId"]}}"></div>
                     @endforeach

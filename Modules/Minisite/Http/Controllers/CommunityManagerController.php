@@ -137,7 +137,7 @@ class CommunityManagerController extends Controller
         }
         
         return redirect()->route(
-            'getLocationOptions', 
+            'community.getLocationOptions', 
             ['community' => $community, 'location_string' => $request->input('location_string')]
         );
     }
@@ -180,8 +180,8 @@ class CommunityManagerController extends Controller
             ]
         )->save();
         $blockContent = [
-            $title->id => $validatedData['welcome'],
-            $description->id => $validatedData['description']
+            $title->id => $community->welcome,
+            $description->id => $community->description
         ];
         Block::create([
             'content' => $blockContent,
@@ -195,7 +195,7 @@ class CommunityManagerController extends Controller
         ])->save();
 
         return redirect()->route(
-            'getLocationOptions', 
+            'community.getLocationOptions', 
             ['community' => $community, 'location_string' => $request->input('location_string')]
         );
     }

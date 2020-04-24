@@ -37,10 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{community}/block/{block}', 'BlockController@update')->name('blockUpdate');
         Route::post('/{community}/block', 'BlockController@store')->name('blockStore');
         Route::get('/{community}/edit', 'CommunityManagerController@edit')->name('communityEdit');
-        Route::get('/{community}/location', 'CommunityManagerController@getLocationOptions')->name('getLocationOptions');
+        Route::get('/{community}/location', 'CommunityManagerController@getLocationOptions')->name('community.getLocationOptions');
         Route::post('/{community}/location', 'CommunityManagerController@storeLocation')->name('communitySetLocation');
         Route::get('/create', 'CommunityManagerController@create')->name('community.create');
-        Route::put('/{community}', 'CommunityManagerController@update')->name('communityUpdate');
+        Route::put('/{community}', 'CommunityManagerController@update')->name('community.update');
         Route::post('/', 'CommunityManagerController@store')->name('communityStore');
     });
 });

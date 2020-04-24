@@ -14,7 +14,7 @@ class LandingPageTest extends DuskTestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testBasicLanding()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -24,6 +24,23 @@ class LandingPageTest extends DuskTestCase
                     ->assertPresent('.js-menu-button')
                     // if we have not added communities this should not appear
                     ->assertMissing('.mdc-card.community-card');
+        });
+    }
+    public function testCreateNavigation() {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->clickLink('Create')
+                    ->waitForRoute('login')
+                    ->assertSee('Sign In');
+        });
+    }
+
+    public function testSearchNavigation() {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->clickLink('Search')
+                    ->waitForRoute('landing.search')
+                    ->assertSee('Can\'t find what you are looking for?');
         });
     }
 }

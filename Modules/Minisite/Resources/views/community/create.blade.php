@@ -74,7 +74,6 @@
                         </div>
                         <label for="visibility">@lang('minisite.visibleTo.community')</label>
                     </div>
-                    
                     <div class="mdc-form-field">
                         <div class="mdc-radio">
                             <input class="mdc-radio__native-control" type="radio" name="visibility" value="public" class="form-control @error('visibility') is-invalid @enderror">

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="create">
-    <form method="POST" action="{{ route('communityUpdate', ['community' => $community]) }}">
+    <form method="POST" action="{{ route('community.update', ['community' => $community]) }}">
         @method('PUT')
         @csrf
         <div class="mdc-layout-grid__inner">
