@@ -21,11 +21,11 @@ class CreateCommunityTest extends DuskTestCase
      *
      * @return void
      */
-    public function testCreateFirstCommunity()
+    public function testCreateClosedCommunity()
     {
         // Run a single seeder...
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+        $this->browse(function (Browser $loggedIn, $anon) {
+            $loggedIn->loginAs(User::find(1))
             ->visit(route('community.create'))
                     ->click('.js-cookie-consent-agree')
                     ->type('name', 'Piriapolis')
@@ -44,6 +44,36 @@ class CreateCommunityTest extends DuskTestCase
                     ->assertSee('Welcome to piriapolis')
                     ->assertSee('A community for people in our city')
                     ->assertSee('Edit Site Preferences');
+            $anon
+                ->visit(route('minisite.admin', ['community' => 'piriapolis']))
+                ->assertSee('Unauthorized') ;
+        });
+    }
+    public function testCreateOpenCommunity()
+    {
+        // Run a single seeder...
+        $this->browse(function (Browser $loggedIn, $anon) {
+            $loggedIn->loginAs(User::find(1))
+            ->visit(route('community.create'))
+                    ->type('name', 'Open for everyone')
+                    ->type('welcome', 'Welcome to my open piriapolis community')
+                    ->type('description', 'A community for people in our city to share openly')
+                    ->type('location_string', 'Piriapolis')
+                    ->radio('visibility', 'public')
+                    ->press('Next')
+                    // this is..flaky at best. Not sure yet why a waitForRoute fails here
+                    ->assertPresent('.map')
+                    ->radio('input[name="location"]', 'Piriápolis, Maldonado, 20200, Uruguay')
+                    // if we have not added communities this should not appear
+                    ->press('Next')
+                    ->waitForRoute('minisite.admin', ['community' => 'open-for-everyone'])
+                    ->assertPresent('.blocks-js')
+                    ->assertSee('Welcome to my open piriapolis community')
+                    ->assertSee('A community for people in our city to share openly')
+                    ->assertSee('Edit Site Preferences');
+            $anon
+                ->visit(route('minisite.admin', ['community' => 'open-for-everyone']))
+                ->assertSee('Welcome to my open piriapolis community') ;
         });
     }
 }
