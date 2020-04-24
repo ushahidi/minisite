@@ -9,6 +9,9 @@
 # Chat
 [![Gitter](https://badges.gitter.im/ushahidi/mahalla.svg)](https://gitter.im/ushahidi/mahalla?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+# Read
+[About this project](https://www.ushahidi.com/blog/2020/04/23/introducing-mahallah-your-neighborhood-info-site)
+
 # Setup
 - Install virtualbox 6.x (or other virtualizer like parallels/vmware) https://www.virtualbox.org/wiki/Downloads
 - Install vagrant https://www.vagrantup.com/downloads.html 
