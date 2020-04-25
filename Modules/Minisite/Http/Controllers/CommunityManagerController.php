@@ -236,7 +236,7 @@ class CommunityManagerController extends Controller
         }
         $communityLocation = CommunityLocation::create(
             [
-                //we save the raw json, because we may need some of this information later on :) 
+                //we save the raw json, because we may need some of this information later on :)
                 'location_info' => $request->input("location"),
                 // punta del este is listed as boundary, not neighborhood, for instance,
                 // so display name is our best shot here for search
@@ -245,8 +245,8 @@ class CommunityManagerController extends Controller
                 'postal_code' => $locationJSON->postalCode,
                 'country'       => $locationJSON->country,
                 'location_source' => CommunityLocation::SOURCE_USER_OSM,
-                'city'  => null, //left blank until I figure out admin levels correctly            
-                'state' => null, //left blank until I figure out admin levels correctly            
+                'city'  => null, //left blank until I figure out admin levels correctly
+                'state' => null, //left blank until I figure out admin levels correctly
             ]
         );
         $communityLocation->save();
@@ -281,7 +281,6 @@ class CommunityManagerController extends Controller
                 'register'
             );
         }
-        
     }
 
     protected function members(Community $community) {
@@ -289,7 +288,7 @@ class CommunityManagerController extends Controller
 
         return view('minisite::members.view', ['community' => $community, 'members' => $community->members]);
     }
-    
+
     protected function member(Community $community, User $user) {
         $this->authorize('update', $community);
 
@@ -308,7 +307,7 @@ class CommunityManagerController extends Controller
             $userCommunity->role = UserCommunity::ROLE_MEMBER;
             $userCommunity->update();
         }
-            
+
         return redirect()->route(
             'community.members', ['community' => $community]
         );
@@ -324,7 +323,7 @@ class CommunityManagerController extends Controller
             $fieldDefinition = BlockTypeFields::where(['id' => (int) $field_key])->first();
             if ($fieldDefinition->name === 'Recipient') {
                 $email = $field_value;
-            }        
+            }
         }
         Mail::to($email)->send(
             new SendSiteEmail($block, $request->input('email'), $request->input('message'), route('minisite.admin', ['community' => $community]), $community->name)

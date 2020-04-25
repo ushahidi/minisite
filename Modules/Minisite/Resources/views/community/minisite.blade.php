@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="card-header">@lang('community.inviteSomeoneWithLink')</div>
                     <div class="card-body">
-                        <a href="{{URL::to(route('joinFromInvite', ['token' => Session::get('token')]))}}">
+                        <a href="{{URL::to(route('community.members.invite.join', ['token' => Session::get('token')]))}}">
                             {{ Session::get('token') }}
                         </a>
                     </div>

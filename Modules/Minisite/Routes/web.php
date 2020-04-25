@@ -47,6 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::prefix('community')->group(function() {
     Route::get('/{community}', 'MinisiteController@index')->name('minisite.admin');
-    Route::get('/user/invited/{token}', 'CommunityManagerController@joinFromInvite')->name('joinFromInvite');
+    Route::get('/user/invited/{token}', 'CommunityManagerController@joinFromInvite')->name('community.members.invite.join');
     Route::post('/{community}/{block}/email', 'CommunityManagerController@email')->name('sendSiteEmail');
 });

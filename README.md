@@ -96,7 +96,6 @@ hostname: minisite
 - I want to start over with my database
     - composer dump-autoload; php artisan db:wipe; php artisan migrate --database=migrate; php artisan db:seed; 
 
-
 # Route naming
 shortModuleName.action[.submit|.store]
 ie: 
@@ -105,10 +104,14 @@ landing.search.submit for MahallahLanding.search.submit
 
 # Contributing
 
-This is very much a fast changing project, as we're heavily iterating on everything.  In practice that means that structure may still change a lot, and conflicts will arise very often :) 
+This is very much a fast changing project, as we're heavily iterating on everything.  In practice that means that structure may still change a lot, and conflicts will arise very often :)
 
-All suggestions and pull requests welcome. 
+All suggestions and pull requests welcome.
 We ask that you follow and abide by our code of conduct at all times, which you can find at https://docs.ushahidi.com/platform-developer-documentation/code-of-conduct
+
+# Browser tests (dusk)
+## Adding classes for testing
+- if you need to add a class or data attribute for testing purposes, by all means add one. Just make sure you prefix it with fn. Example fn-my-div rather than my-div.
 
 # Security
 Please email security@ushahidi.com for any security issues and reports. 

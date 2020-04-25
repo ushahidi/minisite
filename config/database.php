@@ -72,6 +72,8 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        // sad: using sqlite prevents me from having ya know, non-nullable fields to work fine?
+        // so I have to use mysql for testing. FOR TESTING. I guess I deserve this for writing browser tests
         'testing' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
