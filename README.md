@@ -1,6 +1,6 @@
 
-[logo]: https://github.com/ushahidi/minisite/raw/master/public/img/mahalla-logo@2x.png "Mahallah"
-
+[logo]: https://github.com/ushahidi/minisite/raw/master/resources/img/mahalla-logo@2x.png "Mahallah"
+[overviewimg]: https://github.com/ushahidi/minisite/raw/master/resources/img/overview@2x.png "Creating communities"
 # Mahallah minisites creator
 
 ![Mahallah Logo][logo]
@@ -11,6 +11,8 @@
 
 # Read
 [About this project](https://www.ushahidi.com/blog/2020/04/23/introducing-mahallah-your-neighborhood-info-site)
+
+![Creating community sites in Mahallah.org][overviewimg]
 
 # Setup
 - Install virtualbox 6.x (or other virtualizer like parallels/vmware) https://www.virtualbox.org/wiki/Downloads
