@@ -9,7 +9,7 @@
                 {{ session('status') }}
             </div>
             @endif
-            <form method="POST" action="{{ route('password.update') }}">
+            <form method="POST" action="{{ route('password.email') }}">
                 @csrf
 
                 <div class="mdc-layout-grid__inner">
