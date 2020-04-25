@@ -62,7 +62,6 @@ class MinisiteController extends Controller
                 //     $block->save();
                 // }
             }
-            
         }
         $collection = collect($returnBlocks);
         $blocks = $collection->sortBy('position');

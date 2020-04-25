@@ -33,18 +33,15 @@ class Block extends Model
     {
         return $this->belongsTo('Community', 'community_id');
     }
-    
 
     public function visibleBy(User $user = null, Community $community = null) {
         if ($this->visibility === 'public') {
             return true;
         }
-
         $isCommunityMember = $user && $community->containsUser($user);
         if ($this->visibility === 'community' && $isCommunityMember === true) {
             return true;
         }
         return false;
     }
-    
 }

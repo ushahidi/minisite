@@ -19,7 +19,7 @@
                             <div class="button-group">
                                 <div class="mdc-layout-grid__inner">
                                     <div class="grid-cell">
-                                        <a href="{{ route('blockTypes', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg">
+                                        <a href="{{ route('blockTypes', ['community'=>$community]) }}" class="mdc-button mdc-button--raised theme-neutral-bg fn-body-add">
                                             <div class="mdc-button__ripple"></div>
                                             <span class="mdc-button__label">@lang('minisite.addBlock')</span>
                                         </a>

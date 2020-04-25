@@ -75,7 +75,7 @@ class Community extends Model implements Searchable
     }
 
     public function containsUser($user) {
-        return UserCommunity::where('user_id', $user->id)->where('community_id', $this->id)->get() ?? null;
+        return UserCommunity::where('user_id', $user->id)->where('community_id', $this->id)->first() ?? null;
     }
 
     public function blocks()
