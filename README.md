@@ -1,5 +1,5 @@
 
-[logo]: https://github.com/ushahidi/minisite/raw/master/public/img/mahalla-logo@2x.png "Mahallah"
+[logo]: https://github.com/ushahidi/minisite/raw/master/resources/img/mahalla-logo@2x.png "Mahallah"
 
 # Mahallah minisites creator
 
