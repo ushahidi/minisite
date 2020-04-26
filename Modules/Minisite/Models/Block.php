@@ -8,13 +8,13 @@ use Modules\Minisite\Models\Community;
 use App\User;
 
 class Block extends Model
-{    
+{
     use SoftDeletes;
 
     protected $casts = [
         'content' => 'object'
     ];
-    
+
     /**
      * The attributes that should be mutated to dates.
      * @var array

@@ -40,7 +40,7 @@ class CommunityManagerController extends Controller
         $user = Auth::user();
         return view('minisite::all', ['communities' => $user->communities, 'isLoggedIn' => !!$user]);
     }
-    
+
     /**
      * Show the profile for the given user.
      *
@@ -83,7 +83,7 @@ class CommunityManagerController extends Controller
         }
         return view('minisite::community.show', ['community' => Community::findOrFail($community->id)]);
     }
-    
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -119,7 +119,7 @@ class CommunityManagerController extends Controller
             $title->id => $validatedData['welcome'],
             $description->id => $validatedData['description']
         ];
-        if (!$pageHeaderBlock) {    
+        if (!$pageHeaderBlock) {
             Block::create([
                 'content' => $blockContent,
                 'community_id' => $community->id,
@@ -133,11 +133,11 @@ class CommunityManagerController extends Controller
         } else {
             $pageHeaderBlock->update([
                 'content' => $blockContent,
-            ]);    
+            ]);
         }
-        
+
         return redirect()->route(
-            'community.getLocationOptions', 
+            'community.getLocationOptions',
             ['community' => $community, 'location_string' => $request->input('location_string')]
         );
     }

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
 class UserCommunity extends Model
-{    
-    
+{
+
     use SoftDeletes;
     public $incrementing = false;
     // we will probably do permissions based later on but that's ok since it's easy to migrate

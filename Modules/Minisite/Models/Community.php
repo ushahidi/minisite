@@ -54,24 +54,23 @@ class Community extends Model implements Searchable
        return $this->users();
     }
 
-    
     /**
      * The roles that belong to the user.
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_communities');
+        return $this->belongsToMany('App\User', 'user_communities')->whereNull('user_communities.deleted_at');
     }
 
-    
+
     public function getRole($user) {
         if (!$user) return 'guest';
-        return DB::table('user_communities')->where(
+        return UserCommunity::where(
             [
                 ['user_id', '=', $user->id],
                 ['community_id', '=', $this->id]
             ]
-        )->first()->role ?? 'guest';            
+        )->first()->role ?? 'guest';
     }
 
     public function containsUser($user) {
@@ -87,7 +86,7 @@ class Community extends Model implements Searchable
     {
         return $this->belongsTo('Modules\Minisite\Models\CommunityLocation', 'location_id');
     }
-    
+
     /**
      * Get the route key for the model.
      *

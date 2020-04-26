@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use TestingSeeder;
+use TestingDeleteMembersSeeder;
 use App\User;
 use Modules\Minisite\Models\Community;
 use Modules\Minisite\Models\BlockType;
@@ -19,7 +20,8 @@ class InviteMembersTest extends DuskTestCase
     protected function setUp(): void {
         parent::setUp();
         $this->artisan('db:seed');
-        $this->artisan('db:seed', ['--class' => 'TestingSeeder']);
+        $this->artisan('db:seed', ['--class' => 'TestingDeleteMembersSeeder']);
+
     }
     /**
      * A basic browser test example.
@@ -30,7 +32,7 @@ class InviteMembersTest extends DuskTestCase
     {
         // Run a single seeder...
         $this->browse(function (Browser $owner, Browser $anon, Browser $invited) {
-            $invitedUser = User::find(2);
+            $invitedUser = User::find(3);
             $owner
                 ->loginAs(User::find(1))
                 ->visit(route('community.create'))
@@ -70,6 +72,19 @@ class InviteMembersTest extends DuskTestCase
                 ->loginAs($invitedUser)
                     ->visit(route('community.members.invite.join', ['token' => $invite->token ]))
                         ->assertSee('A community for people in our city');
+        });
+    }
+
+    public function testDelete() {
+        $this->browse(function (Browser $owner) {
+            $owner
+                ->loginAs(User::find(1))
+                ->visit(route('community.members', ['community'=>'community-slug']))
+                ->press('.mdc-list.member-list.mdc-list--two-line a:nth-child(2)')
+                ->assertSee('I was invited')
+                ->press('Delete Member')
+                ->assertSee('Select any existing member to manage them.')
+                ->assertDontSee('I was invited');
         });
     }
 }

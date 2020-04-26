@@ -16,13 +16,20 @@ use Modules\Minisite\Models\UserCommunity;
 
 class MembershipManagerController extends Controller
 {
+    protected function delete(Community $community, User $user, Request $request) {
+        $userCommunity = UserCommunity::where(['user_id' => $user->id, 'community_id' => $community->id])->first();
+        $userCommunity->delete();
 
+        return redirect()->route(
+            'community.members', ['community' => $community]
+        );
+    }
     protected function members(Community $community) {
         $this->authorize('update', $community);
 
         return view('minisite::members.view', ['community' => $community, 'members' => $community->members]);
     }
-    
+
     protected function member(Community $community, User $user) {
         $this->authorize('update', $community);
 
@@ -41,7 +48,6 @@ class MembershipManagerController extends Controller
             $userCommunity->role = UserCommunity::ROLE_MEMBER;
             $userCommunity->update();
         }
-            
         return redirect()->route(
             'community.members', ['community' => $community]
         );

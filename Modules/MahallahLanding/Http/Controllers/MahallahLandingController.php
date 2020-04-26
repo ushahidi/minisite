@@ -21,7 +21,7 @@ class MahallahLandingController extends Controller
     public function privacy() {
         return view('mahallahlanding::privacy');
     }
-    
+
     public function tos() {
         return view('mahallahlanding::tos');
     }
@@ -33,14 +33,14 @@ class MahallahLandingController extends Controller
     {
         $user = Auth::user();
         return view(
-                'mahallahlanding::welcome', 
+                'mahallahlanding::welcome',
                 [
-                    'community' => $user ? $user->community : null,  
+                    'community' => $user ? $user->community : null,
                     'activeCommunities' => $this->activeCommunities(),
                     'isLoggedIn' => !!$user
                 ]);
     }
-    
+
     public function searchPage(Request $request)
     {
         return view('mahallahlanding::search');
@@ -52,7 +52,9 @@ class MahallahLandingController extends Controller
         $communities = DB::table('communities')
             ->join('community_locations', 'communities.location_id', '=', 'community_locations.id', 'left')
             ->where(function ($query) use ($input) {
-                $query->where('name', 'LIKE', "%$input%")
+                $query
+                    ->where('communities.deleted_at', 'IS', 'NULL')
+                    ->where('name', 'LIKE', "%$input%")
                     ->orWhere('description', 'LIKE', "%$input%")
                     ->orWhere('community_locations.postal_code', 'LIKE', "%$input%")
                     ->orWhere('community_locations.display_name', 'LIKE', "%$input%")
@@ -64,9 +66,9 @@ class MahallahLandingController extends Controller
             )->get();
         return view('mahallahlanding::search', compact('communities'));
     }
-    
+
     private function activeCommunities() {
-        $communities = 
+        $communities =
                 \Modules\Minisite\Models\Community::where('visibility', 'public')
                 ->orderBy('created_at', 'desc')
                 ->take(5)

@@ -36,22 +36,31 @@
             </div>
 
             <div class="mdc-layout-grid__cell--span-12">
-                <div class="mdc-layout-grid__cell--span-12">
-                    <div class="button-group">
-                        <div class="mdc-layout-grid__inner">
-                            <div class="grid-cell">
-                                <button type="submit" class="mdc-button mdc-button--raised theme-secondary-bg">
-                                    <div class="mdc-button__ripple"></div>
-                                    <span class="mdc-button__label">Save</span>
-                                </button>
-                            </div>
-
-                            <div class="grid-cell">
-                                <a href="#" class="mdc-button mdc-button--raised theme-primary-bg">
-                                    <div class="mdc-button__ripple"></div>
-                                    <span class="mdc-button__label">Delete Member</span>
-                                </a>
-                            </div>
+                <div class="button-group">
+                    <div class="mdc-layout-grid__inner">
+                        <div class="grid-cell">
+                            <button type="submit" class="mdc-button mdc-button--raised theme-secondary-bg">
+                                <div class="mdc-button__ripple"></div>
+                                <span class="mdc-button__label">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form method="POST" action="{{ route('community.member.delete', ['community' => $community, 'user' => $member]) }}">
+        @method('DELETE')
+        @csrf
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell--span-12">
+                <div class="button-group">
+                    <div class="mdc-layout-grid__inner">
+                        <div class="grid-cell">
+                            <button type="submit" class="mdc-button mdc-button--raised theme-primary-bg">
+                                <div class="mdc-button__ripple"></div>
+                                <span class="mdc-button__label">Delete Member</span>
+                            </button>
                         </div>
                     </div>
                 </div>

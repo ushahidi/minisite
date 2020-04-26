@@ -22,12 +22,12 @@ Route::group(['middleware' => 'auth'], function () {
         //invite mgmt
         Route::get('/{community}/members/invite', 'InviteController@inviteMembers')->name('community.members.invite');
         Route::post('/{community}/members/invite', 'InviteController@sendInvites')->name('community.members.invite.send');
-        
+
         // membership management 
         Route::get('/{community}/members', 'MembershipManagerController@members')->name('community.members');
         Route::get('/{community}/members/{user}', 'MembershipManagerController@member')->name('community.member');
         Route::put('/{community}/members/{user}', 'MembershipManagerController@updateMember')->name('community.member.update');
-        
+        Route::delete('/{community}/members/{user}', 'MembershipManagerController@delete')->name('community.member.delete');
         // manage blocks
 
         Route::get('/{community}/block/{block}/edit', 'BlockController@edit')->name('blockEdit');
